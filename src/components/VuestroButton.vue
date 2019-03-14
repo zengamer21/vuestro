@@ -61,6 +61,7 @@ export default {
 }
 .vuestro-button.white {
   --variant-color: white;
+  --variant-text-color: var(--secondary);
 }
 
 .vuestro-button {
@@ -122,6 +123,10 @@ export default {
 .vuestro-button:hover {
   color: var(--white);
   background-color: var(--variant-color);
+}
+.vuestro-button.white.active,
+.vuestro-button.white:hover {
+  color: var(--variant-text-color);
 }
 .vuestro-button.link {
   color: var(--primary);

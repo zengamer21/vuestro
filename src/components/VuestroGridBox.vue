@@ -1,0 +1,165 @@
+<template>
+  <div class="vuestro-grid-box"
+       :class="classes"
+       :style="style"
+       ref="dragHandle"
+       @mouseover="focused = true"
+       @mouseleave="focused = false">
+    <slot></slot>
+    <div class="resize-handle" ref="resizeHandle"></div>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'VuestroGridBox',
+  props: {
+    boxId: { type: String, required: true },
+    dragSelector: { type: String, default: '*' }
+  },
+  data() {
+    return {
+      dragging: false,
+      resizing: false,
+      focused: false,
+    };
+  },
+  computed: {
+    style() {
+      if (this.$parent.isBoxVisible(this.boxId)) {
+        var pixelPosition = this.$parent.getPixelPositionById(this.boxId);
+        return {
+          display: 'block',
+          width: pixelPosition.w + 'px',
+          height: pixelPosition.h + 'px',
+          transform: `translate(${pixelPosition.x}px, ${pixelPosition.y}px)`,
+          'z-index': this.focused ? 200:100,
+        };
+      }
+
+      return {
+        display: 'none'
+      };
+    },
+    classes() {
+      return {
+        'dragging': this.dragging,
+        'resizing': this.resizing,
+      };
+    }
+  },
+  mounted() {
+    // register component on parent
+    this.$parent.registerBox(this);
+
+    // moving
+    this.$dragHandle = this.$el || this.$refs.dragHandle;
+    this.$dragHandle.addEventListener('mousedown', evt => {
+      if (!$(evt.target).is(this.dragSelector)) {
+        return;
+      }
+
+      evt.preventDefault();
+      this.dragging = true;
+      this.$emit('dragStart');
+      let mouseX = evt.clientX;
+      let mouseY = evt.clientY;
+
+      const handleMouseUp = evt => {
+        window.removeEventListener('mouseup', handleMouseUp, true);
+        window.removeEventListener('mousemove', handleMouseMove, true);
+
+        this.dragging = false;
+
+        var offset = {
+            x: evt.clientX - mouseX,
+            y: evt.clientY - mouseY
+        };
+        this.$emit('dragEnd', { offset });
+      };
+
+      const handleMouseMove = evt => {
+        var offset = {
+          x: evt.clientX - mouseX,
+          y: evt.clientY - mouseY
+        };
+        this.$emit('dragUpdate', { offset });
+      }
+
+      window.addEventListener('mouseup', handleMouseUp, true);
+      window.addEventListener('mousemove', handleMouseMove, true);
+    });
+
+    // resizing
+    this.$resizeHandle = this.$refs.resizeHandle;
+    if (this.$resizeHandle) {
+      this.$resizeHandle.addEventListener('mousedown', evt => {
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.resizing = true;
+        this.$emit('resizeStart');
+        let mouseX = evt.clientX;
+        let mouseY = evt.clientY;
+
+        const handleMouseUp = evt => {
+          window.removeEventListener('mouseup', handleMouseUp, true);
+          window.removeEventListener('mousemove', handleMouseMove, true);
+
+          this.resizing = false;
+
+          var offset = {
+            x: evt.clientX - mouseX,
+            y: evt.clientY - mouseY
+          };
+          this.$emit('resizeEnd', { offset });
+        };
+
+        const handleMouseMove = evt => {
+          var offset = {
+            x: evt.clientX - mouseX,
+            y: evt.clientY - mouseY
+          };
+          this.$emit('resizeUpdate', { offset });
+        }
+
+        window.addEventListener('mouseup', handleMouseUp, true);
+        window.addEventListener('mousemove', handleMouseMove, true);
+      });
+    }
+  },
+  beforeDestroy() {
+    // unregister component on parent
+    this.$parent.unregisterBox(this);
+  }
+};
+</script>
+
+<style scoped>
+
+.vuestro-grid-box {
+  position: absolute;
+  z-index: 0;
+}
+
+.vuestro-grid-box.dragging,
+.vuestro-grid-box.resizing {
+  z-index: 2;
+  opacity: 0.7;
+}
+
+.vuestro-grid-box .resize-handle {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 15px;
+  height: 15px;
+  cursor: se-resize;
+  transform: rotate(315deg);
+  border-top: 7.5px double rgba(0,0,0,0.3);
+  border-right: 7.5px solid transparent;
+  border-left: 7.5px solid transparent;
+}
+
+
+</style>
