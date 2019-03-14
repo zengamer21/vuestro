@@ -5,6 +5,8 @@ import VuestroDraggableSearchableListGroup from './VuestroDraggableSearchableLis
 import VuestroDropDown from './VuestroDropDown.vue';
 import VuestroEditableText from './VuestroEditableText.vue';
 import VuestroEllipsisText from './VuestroEllipsisText.vue';
+import VuestroGrid from './VuestroGrid.vue';
+import VuestroGridBox from './VuestroGridBox.vue';
 import VuestroListButton from './VuestroListButton.vue';
 import VuestroListGroup from './VuestroListGroup.vue';
 import VuestroListGroupToggle from './VuestroListGroupToggle.vue';
@@ -21,13 +23,15 @@ export default {
     Vue.component(VuestroDropDown.name, VuestroDropDown);
     Vue.component(VuestroEditableText.name, VuestroEditableText);
     Vue.component(VuestroEllipsisText.name, VuestroEllipsisText);
+    Vue.component(VuestroGrid.name, VuestroGrid);
+    Vue.component(VuestroGridBox.name, VuestroGridBox);
     Vue.component(VuestroListButton.name, VuestroListButton);
     Vue.component(VuestroListGroup.name, VuestroListGroup);
     Vue.component(VuestroListGroupToggle.name, VuestroListGroupToggle);
     Vue.component(VuestroModal.name, VuestroModal);
     Vue.component(VuestroSearchBox.name, VuestroSearchBox);
     Vue.component(VuestroTextField.name, VuestroTextField);
-    
+
     // Vue.directive(MyDirective.name, MyDirective);
   }
 
