@@ -2,9 +2,9 @@
   <vuestro-panel>
     <!--TOOLBAR-->
     <div class="vuestro-panel-toolbar">
-      <sub-title class="title">
+      <vuestro-title class="title">
         <slot name="title"></slot>
-      </sub-title>
+      </vuestro-title>
       <span class="vuestro-toolbar">
         <slot name="toolbar"></slot>
       </span>
