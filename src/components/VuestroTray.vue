@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-tray px-2 flex-flex">
-    <sub-title class="vuestro-tray-title flex-align-self-center">{{ title }}</sub-title>
+    <vuestro-title class="vuestro-tray-title flex-align-self-center">{{ title }}</vuestro-title>
     <slot></slot>
   </div>
 </template>
