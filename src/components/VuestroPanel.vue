@@ -28,7 +28,7 @@ export default {
   border: 1px solid var(--panel-border);
 }
 
-.vuestro-panel .tray:not(:last-child) {
+.vuestro-panel .vuestro-tray:not(:last-child) {
   border-bottom: 2px solid var(--light);
 }
 

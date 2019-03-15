@@ -1,5 +1,5 @@
 <template>
-  <panel>
+  <vuestro-panel>
     <!--TOOLBAR-->
     <div class="vuestro-panel-toolbar">
       <sub-title class="title">
@@ -11,7 +11,7 @@
     </div>
     <!--MAIN CONTENT-->
     <slot></slot>
-  </panel>
+  </vuestro-panel>
 </template>
 
 <script>

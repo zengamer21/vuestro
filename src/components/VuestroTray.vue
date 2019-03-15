@@ -32,7 +32,7 @@ export default {
   margin-right: 10px;
 }
 
-.vuestro-tray > div:not(.tray-title) {
+.vuestro-tray > div:not(.vuestro-tray-title) {
   flex: 1 1 auto;
 }
 
