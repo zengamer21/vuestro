@@ -20,7 +20,7 @@ import VuestroPanel from './VuestroPanel.vue';
 import VuestroTitle from './VuestroTitle.vue';
 
 export default {
-  name: 'PanelToolbar',
+  name: 'VuestroPanelToolbar',
   components: {
     VuestroPanel,
     VuestroTitle,
