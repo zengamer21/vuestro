@@ -153,7 +153,8 @@ export default {
   left: 14px;
   transform: translate(0, -50%);
   pointer-events: none;
-  font-style: italic;
+  font-size: 12px;
+  filter: brightness(140%);
 }
 
 </style>

@@ -75,7 +75,7 @@ export default {
   --sidebar-sub-bg: #505050;
   --sidebar-item-height: 50px;
   
-  --content-bg: #1b1c21;
+  --content-bg: #c0c0c0;
   --footer-bg: #101110;
   --notifications-bg: #fff3cd;
 
