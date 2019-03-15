@@ -11,6 +11,10 @@ import VuestroListButton from './VuestroListButton.vue';
 import VuestroListGroup from './VuestroListGroup.vue';
 import VuestroListGroupToggle from './VuestroListGroupToggle.vue';
 import VuestroModal from './VuestroModal.vue';
+import VuestroPanel from './VuestroPanel.vue';
+import VuestroPanelCollapsible from './VuestroPanelCollapsible.vue';
+import VuestroPanelToolbar from './VuestroPanelToolbar.vue';
+import VuestroPanelToolbarButton from './VuestroPanelToolbarButton.vue';
 import VuestroSearchBox from './VuestroSearchBox.vue';
 import VuestroTextField from './VuestroTextField.vue';
 
@@ -29,6 +33,10 @@ export default {
     Vue.component(VuestroListGroup.name, VuestroListGroup);
     Vue.component(VuestroListGroupToggle.name, VuestroListGroupToggle);
     Vue.component(VuestroModal.name, VuestroModal);
+    Vue.component(VuestroPanel.name, VuestroPanel);
+    Vue.component(VuestroPanelCollapsible.name, VuestroPanelCollapsible);
+    Vue.component(VuestroPanelToolbar.name, VuestroPanelToolbar);
+    Vue.component(VuestroPanelToolbarButton.name, VuestroPanelToolbarButton);
     Vue.component(VuestroSearchBox.name, VuestroSearchBox);
     Vue.component(VuestroTextField.name, VuestroTextField);
 
