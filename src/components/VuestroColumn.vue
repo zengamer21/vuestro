@@ -23,24 +23,24 @@ export default {
 
 <style scoped>
 
-.column.lg {
+.vuestro-column.lg {
   --gutter-size: 15px;
 }
-.column.md {
+.vuestro-column.md {
   --gutter-size: 8px;
 }
-.column.sm {
+.vuestro-column.sm {
   --gutter-size: 4px;
 }
 
-.column {
+.vuestro-column {
   display: flex;
   flex-direction: column;
   padding-left: var(--gutter-size);
   padding-right: var(--gutter-size);
 }
 
-.column > .heading {
+.vuestro-column > .heading {
   font-size: 22px;
   line-height: 22px;
   font-weight: 300;
@@ -50,59 +50,59 @@ export default {
   margin-bottom: 10px;
 }
 
-.column > div {
+.vuestro-column > div {
   margin-top: var(--gutter-size);
 }
 
-.column > div:last-child {
+.vuestro-column > div:last-child {
   margin-bottom: var(--gutter-size);
 }
 
-.column.width-1 {
+.vuestro-column.width-1 {
   flex: 0 0 8.33%;
   max-width: 16.67%;
 }
-.column.width-2 {
+.vuestro-column.width-2 {
   flex: 0 0 16.67%;
   max-width: 16.67%;
 }
-.column.width-3 {
+.vuestro-column.width-3 {
   flex: 0 0 25%;
   max-width: 25%;
 }
-.column.width-4 {
+.vuestro-column.width-4 {
   flex: 0 0 33.33%;
   max-width: 33.33%;
 }
-.column.width-5 {
+.vuestro-column.width-5 {
   flex: 0 0 41.67%;
   max-width: 41.67%;
 }
-.column.width-6 {
+.vuestro-column.width-6 {
   flex: 0 0 50%;
   max-width: 50%;
 }
-.column.width-7 {
+.vuestro-column.width-7 {
   flex: 0 0 58.33%;
   max-width: 58.33%;
 }
-.column.width-8 {
+.vuestro-column.width-8 {
   flex: 0 0 66.67%;
   max-width: 66.67%;
 }
-.column.width-9 {
+.vuestro-column.width-9 {
   flex: 0 0 75%;
   max-width: 75%;
 }
-.column.width-10 {
+.vuestro-column.width-10 {
   flex: 0 0 83.33%;
   max-width: 83.33%;
 }
-.column.width-11 {
+.vuestro-column.width-11 {
   flex: 0 0 91.67%;
   max-width: 91.67%;
 }
-.column.width-12 {
+.vuestro-column.width-12 {
   flex: 0 0 100%;
   max-width: 100%;
 }

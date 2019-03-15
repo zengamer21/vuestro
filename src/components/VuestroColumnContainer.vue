@@ -14,13 +14,13 @@ export default {
 
 <style scoped>
 
-.column-container {
+.vuestro-column-container {
   display: flex;
   flex-grow: 1;
 }
 
 /* clear right padding for all but last (right-most) column */
-.column-container > .column:not(:last-child) {
+.vuestro-column-container > .vuestro-column:not(:last-child) {
   padding-right: 0;
 }
 
