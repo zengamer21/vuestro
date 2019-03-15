@@ -1,10 +1,10 @@
 <template>
-  <panel class="vuestro-panel-collapsible">
+  <vuestro-panel class="vuestro-panel-collapsible">
     <!--TITLE BAR-->
     <div class="flex-flex">
-      <sub-title class="flex-align-self-center flex-grow-1" :spinner="spinner">
+      <vuestro-title class="flex-align-self-center flex-grow-1" :spinner="spinner">
         <slot name="title"></slot>
-      </sub-title>
+      </vuestro-title>
       <slot name="toolbar"></slot>
       <vuestro-caret @click="collapsed = !collapsed" :collapsed="collapsed"></vuestro-caret>
     </div>
@@ -12,12 +12,12 @@
     <span v-if="!collapsed">
       <slot></slot>
     </span>
-  </panel>
+  </vuestro-panel>
 </template>
 
 <script>
 
-import VuestroPanel from './Panel.vue';
+import VuestroPanel from './VuestroPanel.vue';
 import VuestroTitle from './VuestroTitle.vue';
 import VuestroCaret from './VuestroCaret.vue';
 

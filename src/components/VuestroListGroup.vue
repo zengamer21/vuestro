@@ -1,6 +1,9 @@
 <template>
   <div class="vuestro-list-group">
-    <list-group-toggle :title="title" :expanded="expanded" @toggle="groupToggle"></list-group-toggle>
+    <vuestro-list-group-toggle :title="title" 
+                               :expanded="expanded" 
+                               @toggle="groupToggle">
+    </vuestro-list-group-toggle>
 
     <div class="vuestro-list-container" v-if="expanded">
       <div class="vuestro-list-item" v-for="item in items" :key="JSON.stringify(item)">

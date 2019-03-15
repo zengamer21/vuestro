@@ -17,6 +17,8 @@ import VuestroPanelToolbar from './VuestroPanelToolbar.vue';
 import VuestroPanelToolbarButton from './VuestroPanelToolbarButton.vue';
 import VuestroSearchBox from './VuestroSearchBox.vue';
 import VuestroTextField from './VuestroTextField.vue';
+import VuestroTitle from './VuestroTitle.vue';
+import VuestroTray from './VuestroTray.vue';
 
 export default {
   install(Vue, options) {
@@ -39,6 +41,8 @@ export default {
     Vue.component(VuestroPanelToolbarButton.name, VuestroPanelToolbarButton);
     Vue.component(VuestroSearchBox.name, VuestroSearchBox);
     Vue.component(VuestroTextField.name, VuestroTextField);
+    Vue.component(VuestroTitle.name, VuestroTitle);
+    Vue.component(VuestroTray.name, VuestroTray);
 
     // Vue.directive(MyDirective.name, MyDirective);
   }

@@ -1,9 +1,9 @@
 /* global expect */
 import { mount } from '@vue/test-utils';
-import EditableText from './EditableText.vue';
+import VuestroEditableText from './VuestroEditableText.vue';
 
-describe('EditableText', () => {
-  const wrapper = mount(EditableText, {
+describe('VuestroEditableText', () => {
+  const wrapper = mount(VuestroEditableText, {
     propsData: {
       value: 'testvalue',
       enabled: false,
@@ -25,7 +25,7 @@ describe('EditableText', () => {
   });
 
   it('has proper name', () => {
-    expect(wrapper.name()).toBe('EditableText');
+    expect(wrapper.name()).toBe('VuestroEditableText');
   });
 
   it('renders value', () => {

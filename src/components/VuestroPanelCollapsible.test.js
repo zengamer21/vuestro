@@ -23,17 +23,17 @@ describe('VuestroPanelCollapsible', () => {
   });
 
   it('renders in a Panel', () => {
-    expect(wrapper.classes('panel')).toBe(true);
+    expect(wrapper.classes('vuestro-panel')).toBe(true);
   });
 
   it('toggles collapse when caret clicked', () => {
     let oldVal = wrapper.vm.collapsed;
-    wrapper.find('.caret').trigger('click');
+    wrapper.find('.vuestro-caret').trigger('click');
     expect(wrapper.vm.collapsed).not.toBe(oldVal);
   });
 
   it('renders title slot', () => {
-    expect(wrapper.find('.sub-title').text()).toBe('testTitle');
+    expect(wrapper.find('.vuestro-title').text()).toBe('testTitle');
   });
 
   it('renders toolbar slot', () => {

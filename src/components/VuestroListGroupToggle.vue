@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-list-group-label" @click="toggle">
+  <div class="vuestro-list-group-toggle" @click="toggle">
     <vuestro-caret :collapsed="!expanded" left size="sm"></vuestro-caret>
     <span class="title">{{ title }}</span>
   </div>
@@ -14,7 +14,7 @@ import Icon from 'vue-awesome/components/Icon';
 import VuestroCaret from './VuestroCaret.vue';
 
 export default {
-  name: 'ListGroupToggle',
+  name: 'VuestroListGroupToggle',
   components: {
     VuestroCaret,
     Icon,
@@ -35,7 +35,7 @@ export default {
 
 <style scoped>
 
-.vuestro-list-group-label {
+.vuestro-list-group-toggle {
   cursor: pointer;
   font-size: 12px;
   line-height: 13px;
@@ -45,7 +45,7 @@ export default {
   display: flex;
 }
 
-.vuestro-list-group-label .title {
+.vuestro-list-group-toggle .title {
   align-self: center;
   user-select: none;
 }

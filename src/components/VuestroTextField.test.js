@@ -1,17 +1,17 @@
 /* global expect */
 import { mount } from '@vue/test-utils';
 import Vue from 'vue';
-import TextField from './TextField.vue';
+import VuestroTextField from './VuestroTextField.vue';
 
-describe('TextField', () => {
-  const wrapper = mount(TextField, {
+describe('VuestroTextField', () => {
+  const wrapper = mount(VuestroTextField, {
     propsData: {
       value: '',
     },
   });
 
   it('has proper name', () => {
-    expect(wrapper.name()).toBe('TextField');
+    expect(wrapper.name()).toBe('VuestroTextField');
   });
 
   it('exposes interface usable with v-model', () => {
@@ -39,6 +39,22 @@ describe('TextField', () => {
     return Vue.nextTick().then(function() {
       expect(input.is(':focus')).toBe(true);
     });
+  });
+
+  it('lowers placeholder text when focus lost', () => {
+    expect(wrapper.vm.raisedPlaceholder).toBe(true);
+    wrapper.find('.input-el').trigger('focusout');
+    expect(wrapper.vm.raisedPlaceholder).toBe(false);
+  });
+
+  it('doesnt lower placeholder if focus lost with text in input', () => {
+    wrapper.find('.input-el').trigger('focus');
+    expect(wrapper.vm.raisedPlaceholder).toBe(true);
+    wrapper.setProps({
+      value: 'test value 2'
+    });
+    wrapper.find('.input-el').trigger('focusout');
+    expect(wrapper.vm.raisedPlaceholder).toBe(true);
   });
 
 });

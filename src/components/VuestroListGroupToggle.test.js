@@ -1,9 +1,9 @@
 /* global expect */
 import { mount } from '@vue/test-utils';
-import ListGroupToggle from './ListGroupToggle.vue';
+import VuestroListGroupToggle from './VuestroListGroupToggle.vue';
 
-describe('ListGroupToggle', () => {
-  const wrapper = mount(ListGroupToggle, {
+describe('VuestroListGroupToggle', () => {
+  const wrapper = mount(VuestroListGroupToggle, {
     propsData: {
       title: 'testtitle',
       expanded: false,
@@ -11,7 +11,7 @@ describe('ListGroupToggle', () => {
   });
 
   it('has proper name', () => {
-    expect(wrapper.name()).toBe('ListGroupToggle');
+    expect(wrapper.name()).toBe('VuestroListGroupToggle');
   });
 
   it('emits toggle event with negated expanded value when clicked', () => {

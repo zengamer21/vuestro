@@ -8,9 +8,6 @@ describe('VuestroPanelCollapsible', () => {
   };
 
   const wrapper = mount(VuestroPanelCollapsible, {
-    mocks: {
-      $router,
-    }
   });
 
   it('has proper name', () => {
@@ -18,7 +15,7 @@ describe('VuestroPanelCollapsible', () => {
   });
 
   it('renders in a Panel', () => {
-    expect(wrapper.classes('panel')).toBe(true);
+    expect(wrapper.classes('vuestro-panel')).toBe(true);
   });
 
 });

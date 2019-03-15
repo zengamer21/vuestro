@@ -1,16 +1,16 @@
 /* global expect */
 import { mount } from '@vue/test-utils';
-import Modal from './Modal.vue';
+import VuestroModal from './VuestroModal.vue';
 
-describe('Modal', () => {
-  const wrapper = mount(Modal, {
+describe('VuestroModal', () => {
+  const wrapper = mount(VuestroModal, {
     propsData: {
       active: false, // resting state
     },
   });
 
   it('has proper name', () => {
-    expect(wrapper.name()).toBe('Modal');
+    expect(wrapper.name()).toBe('VuestroModal');
   });
 
 
@@ -22,9 +22,9 @@ describe('Modal', () => {
     wrapper.setProps({
       active: true,
     });
-    expect(wrapper.findAll('.modal-outer')).toHaveLength(1);
-    expect(wrapper.findAll('.modal-inner')).toHaveLength(1);
-    expect(wrapper.findAll('.modal-titlebar')).toHaveLength(1);
+    expect(wrapper.findAll('.vuestro-modal-outer')).toHaveLength(1);
+    expect(wrapper.findAll('.vuestro-modal-inner')).toHaveLength(1);
+    expect(wrapper.findAll('.vuestro-modal-titlebar')).toHaveLength(1);
   });
 
   it('emits close event when button clicked', () => {
