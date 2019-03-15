@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-tray px-2 flex-flex">
+  <div class="vuestro-tray">
     <vuestro-title class="vuestro-tray-title flex-align-self-center">{{ title }}</vuestro-title>
     <slot></slot>
   </div>
@@ -24,6 +24,7 @@ export default {
 <style scoped>
 
 .vuestro-tray {
+  display: flex;
   position: relative;
 }
 

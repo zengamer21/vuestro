@@ -21,6 +21,9 @@
          :class="{ active: raisedPlaceholder }">
       {{ placeholder }}
     </div>
+    <div v-if="hint && raisedPlaceholder && value.length === 0" class="hint">
+      {{ hint }}
+    </div>
   </div>
 </template>
 
@@ -41,6 +44,7 @@ export default {
     variant: { type: String, default: 'regular' },
     type: { type: String, default: 'text' },
     dark: { type: Boolean, default: false },
+    hint: { type: String, default: null },
   },
   data() {
     return {
@@ -141,6 +145,15 @@ export default {
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+
+.hint {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translate(0, -50%);
+  pointer-events: none;
+  font-style: italic;
 }
 
 </style>
