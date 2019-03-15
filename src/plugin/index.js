@@ -1,7 +1,7 @@
 import VuestroButton from '../components/VuestroButton.vue';
 import VuestroCaret from '../components/VuestroCaret.vue';
-import VuestroColummn from '../components/VuestroColummn.vue';
-import VuestroColummnContainer from '../components/VuestroColummnContainer.vue';
+import VuestroColumn from '../components/VuestroColumn.vue';
+import VuestroColumnContainer from '../components/VuestroColumnContainer.vue';
 import VuestroDropDown from '../components/VuestroDropDown.vue';
 import VuestroEditableText from '../components/VuestroEditableText.vue';
 import VuestroEllipsisText from '../components/VuestroEllipsisText.vue';
@@ -24,8 +24,8 @@ export default {
   install(Vue, options) {
     Vue.component(VuestroButton.name, VuestroButton);
     Vue.component(VuestroCaret.name, VuestroCaret);
-    Vue.component(VuestroColummn.name, VuestroColummn);
-    Vue.component(VuestroColummnContainer.name, VuestroColummnContainer);
+    Vue.component(VuestroColumn.name, VuestroColumn);
+    Vue.component(VuestroColumnContainer.name, VuestroColumnContainer);
     Vue.component(VuestroDropDown.name, VuestroDropDown);
     Vue.component(VuestroEditableText.name, VuestroEditableText);
     Vue.component(VuestroEllipsisText.name, VuestroEllipsisText);
