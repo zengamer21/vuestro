@@ -64,75 +64,56 @@ export default {
 /* GLOBAL STYLE VARIABLES */
 :root {
   /* base palette */
-  --blue: #217ada;
-  --primary: #09A1FF;
-  --secondary: #8c949a;
-  --success: #33b86c;
-  --info: #08a1ff;
-  --warning: #ebc142;
-  --danger: #cb2a2a;
-  --inverse: #14082d;
-  --purple: #551A8B;
-  --indigo: #682fa1;
-  --pink: #f13c6e;
-  --red: #ea4958;
-  --orange: #f47633;
-  --yellow: #fff700;
-  --green: #4bbc79;
-  --teal: #87e6ca;
-  --cyan: #42b9cc;
+  --vuestro-blue: #217ada;
+  --vuestro-primary: #09A1FF;
+  --vuestro-secondary: #8c949a;
+  --vuestro-success: #33b86c;
+  --vuestro-info: #08a1ff;
+  --vuestro-warning: #ebc142;
+  --vuestro-danger: #cb2a2a;
+  --vuestro-inverse: #14082d;
+  --vuestro-purple: #551A8B;
+  --vuestro-indigo: #682fa1;
+  --vuestro-pink: #f13c6e;
+  --vuestro-red: #ea4958;
+  --vuestro-orange: #f47633;
+  --vuestro-yellow: #fff700;
+  --vuestro-green: #4bbc79;
+  --vuestro-teal: #87e6ca;
+  --vuestro-cyan: #42b9cc;
 
-  --white: #fff;
-  --black: #000;
-  --gray: #c3cbe0;
-  --gray-med: #b3b3b3;
-  --gray-dark: #505664;
-  --light: #f5f5f5;
-  --light-med: #ececec;
+  --vuestro-white: #fff;
+  --vuestro-black: #000;
+  --vuestro-gray: #c3cbe0;
+  --vuestro-gray-med: #b3b3b3;
+  --vuestro-gray-dark: #505664;
+  --vuestro-light: #f5f5f5;
+  --vuestro-light-med: #ececec;
   
-  --dark: #1b1c21;
-  --darker: #101110;
+  --vuestro-dark: #1b1c21;
+  --vuestro-darker: #101110;
 
-  --selection: #2e3037;
-  --outline: #4b4d57;
+  --vuestro-selection: #2e3037;
+  --vuestro-outline: #4b4d57;
 
-  --content-bg: #fff;
-  --footer-bg: #f9f9f9;
-  --notifications-bg: #fff3cd;
+  --vuestro-content-bg: #fff;
+  --vuestro-footer-bg: #f9f9f9;
+  --vuestro-notifications-bg: #fff3cd;
 
-  --text-color: #666;
-  --text-color-secondary: #696969;
-  --text-color-muted: #aaa;
-  --text-color-inverse: #fff;
+  --vuestro-text-color: #666;
+  --vuestro-text-color-secondary: #696969;
+  --vuestro-text-color-muted: #aaa;
+  --vuestro-text-color-inverse: #fff;
 }
 
 /* DARK UI OVERRIDES */
-.darkui {
-  --content-bg: #1b1c21;
-  --footer-bg: #101110;
-  --outline: #4b4d57;
+.vuestro-darkui {
+  --vuestro-content-bg: #1b1c21;
+  --vuestro-footer-bg: #101110;
+  --vuestro-outline: #4b4d57;
 }
 
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: sans-serif;
-  font-size: 13px;
-  color: var(--text-color);
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-}
-
+/* need this for our components to look right, so may as well force it */
 *, :after, :before {
   box-sizing: border-box;
 }
@@ -142,6 +123,8 @@ body {
 <style scoped>
 
 .vuestro-app {
+  color: var(--vuestro-text-color);
+  font-size: 13px;
   font-family: sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
   text-rendering: optimizeSpeed;
@@ -149,7 +132,6 @@ body {
   display: flex;
   flex-direction: column;
   background-color: var(--content-bg);
-  color: var(--text-color);
 }
 
 .router-view {
