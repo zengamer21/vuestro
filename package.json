@@ -1,6 +1,6 @@
 {
   "name": "vuestro",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Vue.js 2 Components",
   "main": "./src/plugin/index.js",
   "scripts": {
