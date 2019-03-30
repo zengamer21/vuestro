@@ -4,10 +4,8 @@
          :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
          @mousemove="onMouseover">
       <g>
-        <template v-for="(v,i) in valueKeys" v-if="paths[i]">
-          <path class="area" :d="paths[i].area"/>
-          <path class="line" :d="paths[i].line"/>
-        </template>
+        <path class="area" :d="paths.area" />
+        <path class="line" :d="paths.line" />
         <path class="selector" :d="paths.selector" />
       </g>
     </svg>
@@ -29,11 +27,11 @@ export default {
     return {
       width: 0,
       height: 0,
-      paths: [{
+      paths: {
         area: '',
         line: '',
         selector: '',
-      }],
+      },
       lastHoverPoint: {},
       points: [],
       smooth: false,
@@ -90,24 +88,22 @@ export default {
       d3.axisLeft().scale(scaleX);
       d3.axisBottom().scale(scaleY);
 
-
       scaleX.domain(d3.extent(this.data, (d, i) => i));
-      scaleY.domain([0, d3.max(this.data, function(d) { return d.value1; })*1.1]);
+      scaleY.domain([0, d3.max(this.data, function(d) { return d.value; })*1.1]);
 
       // process the data
       this.points = [];
       for (const [i, d] of this.data.entries()) {
         this.points.push({
           x: scaleX(i),
-          y: this.valueKeys.map((v) => { return scaleY(d[v]); }),
+          y: scaleY(d.value),
           max: this.height,
         });
       }
-      console.log(this.points)
 
       // set the svg path strings
-      this.paths[0].area = this.createArea(this.points);
-      this.paths[0].line = this.createLine(this.points);
+      this.paths.area = this.createArea(this.points);
+      this.paths.line = this.createLine(this.points);
     },
     onMouseover({ offsetX }) {
       if (this.points.length > 0) {

@@ -1,12 +1,11 @@
 
-angular.module 'trapjawApp'
 .controller 'NodeBrowserController', ($rootScope, $scope, $http, socket) ->
 
   $rootScope.graph =
     nodes: []
     links: []
 
-  socket.socket.on 'growlan.cluster', (data) ->
+  socket.socket.on 'cluster', (data) ->
     nodes = []
     for d,i in data
       nodes.push
@@ -90,7 +89,7 @@ angular.module 'trapjawApp'
         popup = d3.select(this)
           .insert "g", "text"
           .attr "class", "legend"
-            
+
         popup.insert "rect"
             .attr 'width', (d) ->
               if d.width < 200
@@ -261,7 +260,7 @@ angular.module 'trapjawApp'
           d.fixed = false
           force.start()
         .call drag
-    
+
       nodeEnter.insert 'circle'
         .attr 'r', (d) ->
           d.size
@@ -288,7 +287,7 @@ angular.module 'trapjawApp'
           d.name
         .each (d) ->
           d.width = this.getBBox().width + 8
-      
+
       nodes.exit().remove()
 
       # only restart force when nodes/links changed to avoid visible jitter
