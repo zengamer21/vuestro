@@ -54,14 +54,13 @@ export default {
   border-top-right-radius: 6px;
   border: 1px solid transparent;
   border-bottom: none;
-  display: inline-block;
 }
 
 .vuestro-drop-down.active {
-  background-color: var(--hover-highlight);
-  border: 1px solid var(--hover-highlight-border);
+  background-color: var(--vuestro-popup-bg);
+  border: 1px solid var(--vuestro-outline);
   border-bottom: none;
-  color: var(--hover-text);
+  color: var(--vuestro-popup-fg);
 }
 
 .vuestro-drop-down-title {
@@ -82,8 +81,8 @@ export default {
 }
 
 .vuestro-drop-down-menu {
-  background: var(--hover-highlight);
-  color: var(--hover-text);
+  background: var(--vuestro-popup-bg);
+  color: var(--vuestro-popup-fg);
   box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.5);
   position: absolute;
   top: calc(100% - 1px);
@@ -91,7 +90,7 @@ export default {
   min-width: 160px;
   font-size: 14px;
   font-weight: 300;
-  border: 1px solid var(--hover-highlight-border);
+  border: 1px solid var(--vuestro-outline);
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
   z-index: -1;
@@ -106,7 +105,7 @@ export default {
 }
 
 .vuestro-drop-down-menu-buttons {
-  border-top: 1px solid var(--hover-highlight-border);
+  border-top: 1px solid var(--vuestro-outline);
   overflow: hidden;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
@@ -122,11 +121,11 @@ export default {
 }
 
 .vuestro-drop-down-menu-buttons > span:not(:first-child) {
-  border-left: 1px solid var(--hover-highlight-border);
+  border-left: 1px solid var(--vuestro-outline);
 }
 
 .vuestro-drop-down-menu-buttons > span:hover {
-  background-color: var(--primary);
+  background-color: var(--vuestro-primary);
 }
 
 </style>

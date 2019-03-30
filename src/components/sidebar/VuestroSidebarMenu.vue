@@ -1,10 +1,9 @@
 <template>
-  <div class="vuestro-sidebar-menu">
+  <div class="vuestro-sidebar-menu" @click.self="$emit('click')">
     <vuestro-sidebar-item v-for="(route, ridx) in routes"
                           :key="route.path"
-                          v-if="route.meta && route.meta.sidebar"
-                          :route="route"
-                          :userColor="userColor">
+                          v-if="route.meta && (route.meta.sidebar || route.meta.sidebarBottom)"
+                          :route="route">
     </vuestro-sidebar-item>
   </div>
 </template>
@@ -20,12 +19,19 @@ export default {
   },
   props: {
     routes: { type: Array, required: true },
-    userColor: { type: String, required: true },
   },
 };
 
 </script>
 
 <style scoped>
+
+.vuestro-sidebar-menu {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+  padding-right: 15px;
+}
 
 </style>

@@ -1,6 +1,10 @@
 <template>
   <div ref="grid" class="vuestro-grid" :style="style">
-    <slot></slot>
+    <vuestro-grid-box v-for="item in layout"
+                      :key="item.id"
+                      :boxId="item.id">
+      <slot :item="item"></slot>
+    </vuestro-grid-box>
     <vuestro-grid-box class="placeholder" boxId="::placeholder::"></vuestro-grid-box>
   </div>
 </template>
@@ -15,37 +19,11 @@ export default {
     VuestroGridBox
   },
   props: {
-    layout: {
-      type: Array,
-      required: true
-    },
-    cellSize: {
-      type: Object,
-      default() {
-        return {
-          w: 100,
-          h: 100
-        };
-      }
-    },
-    columns: {
-      type: Number,
-      default: 12
-    },
-    margin: {
-      type: Number,
-      default: 5
-    },
-    defaultSize: {
-      type: Object,
-      required: false,
-      default() {
-        return {
-          w: 1,
-          h: 1
-        };
-      }
-    }
+    layout: { type: Array, required: true }, // use with :layout.sync=
+    columns: { type: Number, default: 12 },  // number of grid 'columns'
+    margin: { type: Number, default: 14 },   // margin/gutter
+    cellSize: { type: Object, default() { return { w: 100, h: 100 }; }}, // default cell size
+    defaultSize: { type: Object, default() { return { w: 2, h: 2 }; }},  // default grid box size
   },
   beforeUpdate() {
     this.cellSize.w = ((this.$refs.grid.clientWidth - this.margin) / this.columns) - this.margin;
@@ -93,9 +71,7 @@ export default {
     style() {
       var layoutSize = this.getLayoutSize(this.layout);
       return {
-        minHeight: (
-          (layoutSize.h * this.cellSize.h) +
-          ((layoutSize.h - 1) * this.margin) + 2*this.margin) + 'px'
+        minHeight: ((layoutSize.h * this.cellSize.h) + ((layoutSize.h - 1) * this.margin) + 2*this.margin) + 'px'
       };
     }
   },
@@ -275,7 +251,7 @@ export default {
       };
     },
     updateLayout(layout) {
-      this.$emit('update', layout);
+      this.$emit('update:layout', layout);
     },
     doneMove() {
       this.$emit('move');
@@ -429,7 +405,7 @@ export default {
         this.doneMove();
       });
     },
-    enableResizing (box) {
+    enableResizing(box) {
       var initialLayout;
       var isResizing = false;
 
@@ -613,22 +589,14 @@ export default {
 .vuestro-grid {
   position: relative;
   overflow-x: hidden;
-  width: 100%;
+  flex-grow: 1;
 }
 
 .vuestro-grid .placeholder {
-  border: 2px dashed var(--gray);
+  border: 2px dashed var(--vuestro-outline);
   border-radius: 8px;
-  background: var(--light);
+  background: var(--vuestro-active);
   z-index: 0;
-}
-
-.vuestro-grid .placeholder::after {
-  content: "DROP HERE";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 /* deep-css of special case of resize-handle for placeholder */

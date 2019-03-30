@@ -98,8 +98,8 @@ export default {
 <style scoped>
 
 .vuestro-search-box {
-  background-color: var(--light);
-  color: var(--text-color);
+  background-color: var(--vuestro-field-bg);
+  color: var(--vuestro-text-color);
   border-radius: 20px;
   margin: 5px;
   padding: 4px 8px 4px 8px;
@@ -128,11 +128,11 @@ export default {
   font-size: 13px;
   border: none;
   outline: none;
-  color: var(--text-color);
+  color: var(--vuestro-text-color);
 }
 
 .input-el::placeholder {
-  color: var(--text-color);
+  color: var(--vuestro-text-color);
   opacity: 0.5;
 }
 

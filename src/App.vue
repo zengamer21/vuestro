@@ -1,10 +1,17 @@
 <template>
   <vuestro-app title="vuestro"
-               :logo="logo"
                :user="user"
                :user-img="userImg"
                :role="role"
-  >
+               >
+    <template slot="logo">
+      <img :src="logo"/>
+    </template>
+    
+    <template slot="navbar"></template>
+    <template slot="sidebar"></template>
+    <template slot="sidebar-footer"></template>
+    
   </vuestro-app>
 </template>
 
@@ -18,7 +25,7 @@ export default {
     return {
       version: __VERSION__,
       logo: require('@/assets/logo.svg'),
-      user: 'User',
+      user: 'Vue User',
       userImg: require('@/assets/default-user.jpg'),
       role: 'Admin',
     };
@@ -29,8 +36,6 @@ export default {
 <style>
 
 html, body { 
-  height: 100%;
-  width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -41,8 +46,6 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  display: flex;
-  flex-direction: column;
 }
 
 </style>

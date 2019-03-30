@@ -1,38 +1,50 @@
 <template>
   <div class="vuestro-sidebar">
-    <div class="vuestro-sidebar-inner">
-      
-      <!--LOGO-->
-      <div v-if="logo" class="logo">
-        <img :src="logo"/>
+    
+    <!--HEADER BLOCK-->
+    <div class="vuestro-sidebar-header">
+      <div v-if="$slots.toolbar" class="vuestro-sidebar-toolbar">
+        <slot name="toolbar">
+        </slot>
       </div>
       
-      <!--TITLE-->
-      <transition name="logo-text" mode="out-in">
-        <div v-if="!mini" class="logo-text">{{ title }}</div>
-      </transition>
+      <!--LOGO-->
+      <div v-if="$slots.logo" class="vuestro-sidebar-logo">
+        <slot name="logo"></slot>
+      </div>
       
-      <!--USER BLOCK-->
-      <transition name="user-block" mode="out-in">
-        <vuestro-geo-pattern v-if="!mini" class="user-block" :seed="user" @color="(c) => {this.geoColor = c}">
-          <img v-if="userImg" :src="userImg" class="img-circle"/>
-          <div class="user-block-text">
-            <span class="username">{{ user }}</span>
-            <span>{{ role }}</span>
-          </div>
-        </vuestro-geo-pattern>
-      </transition>
-      
-      <!--MENU-->
-      <transition name="vuestro-sidebar" mode="out-in">
-        <vuestro-sidebar-menu v-if="!mini" 
-                              :routes="$router.options.routes"
-                              :userColor="geoColor"></vuestro-sidebar-menu>
-        <vuestro-mini-sidebar-menu v-else 
-                                   :routes="$router.options.routes"
-                                   :userColor="geoColor">
-        </vuestro-mini-sidebar-menu>
-      </transition>
+    </div>
+    
+    <!--TITLE BLOCK-->
+    <transition v-if="title" name="vuestro-title-text" mode="out-in">
+      <div v-if="!mini" class="vuestro-title-text">{{ title }}</div>
+    </transition>
+    
+    <!--USER BLOCK-->
+    <transition name="vuestro-user-block" mode="out-in">
+      <vuestro-geo-pattern class="vuestro-user-block" :seed="user" @color="(c) => {this.geoColor = c}">
+        <img v-if="userImg" :src="userImg" class="img-circle"/>
+        <div v-if="!mini" class="vuestro-user-block-text">
+          <span class="username">{{ user }}</span>
+          <span>{{ role }}</span>
+        </div>
+      </vuestro-geo-pattern>
+    </transition>
+    
+    <!--MENU-->
+    <transition name="vuestro-sidebar" mode="out-in">
+      <vuestro-sidebar-menu v-if="!mini" 
+                            :routes="$router.options.routes"
+                            @click="mini = !mini"></vuestro-sidebar-menu>
+      <vuestro-mini-sidebar-menu v-else 
+                                 :routes="$router.options.routes"
+                                 @click="mini = !mini">
+      </vuestro-mini-sidebar-menu>
+    </transition>
+    
+    <!--FOOTER BLOCK-->
+    <div class="vuestro-sidebar-footer">
+      <slot name="footer"></slot>
     </div>
   </div>
 </template>
@@ -44,32 +56,25 @@ import VuestroGeoPattern from '../VuestroGeoPattern.vue';
 import VuestroSidebarMenu from './VuestroSidebarMenu.vue';
 import VuestroMiniSidebarMenu from './VuestroMiniSidebarMenu.vue';
 
-import 'vue-awesome/icons/plus.js';
-import 'vue-awesome/icons/minus.js';
-import 'vue-awesome/icons/sign-out-alt.js';
-import Icon from 'vue-awesome/components/Icon';
-
 export default {
   name: 'VuestroSidebar',
   components: {
     VuestroGeoPattern,
     VuestroSidebarMenu,
     VuestroMiniSidebarMenu,
-    Icon,
   },
   props: {
     title: { type: String, default: '' }, // app title
-    logo: { type: String, default: '' }, // app logo
     user: { type: String, default: '' }, // username
     userImg: { type: String, default: null }, // user image 
     role: { type: String, default: '' }, // user role
     link: { type: String, default: '' }, // user link
-    mini: { type: Boolean, default: false }, // mini sidebar
   },
   data() {
     return {
       routes: _.cloneDeep(this.$router.options.routes),
       geoColor: '',
+      mini: false,
     };
   },
   watch: {
@@ -91,28 +96,33 @@ export default {
 
 <style>
 /* override these global css vars to set widths */
-:root {
+.vuestro-app {
   --vuestro-sidebar-normal-width: 180px;
   --vuestro-sidebar-mini-width: 70px;
-  --vuestro-sidebar-bg: #1b1c21;
-  --vuestro-sidebar-border: #aaa;
+  --vuestro-sidebar-header-bg: var(--vuestro-content-bg);
+  --vuestro-sidebar-header-fg: var(--vuestro-black);
+  --vuestro-sidebar-bg: var(--vuestro-content-bg);
+  --vuestro-sidebar-fg: var(--vuestro-text-color);
+  --vuestro-sidebar-border: transparent;
+  --vuestro-sidebar-item-height: 50px;
+  --vuestro-sidebar-item-hover: var(--vuestro-hover);
+  --vuestro-sidebar-item-active-bg: var(--vuestro-active);
+  --vuestro-sidebar-item-active-fg: var(--vuestro-primary);
 }
 </style>
 
 <style scoped>
 
 .vuestro-sidebar {
+  color: var(--vuestro-sidebar-fg);
   background-color: var(--vuestro-sidebar-bg);
   border-right: 1px solid var(--vuestro-sidebar-border);
-  position: fixed;
-  height: 100%;
-  z-index: 101;
   width: var(--vuestro-sidebar-normal-width);
   transition: all 0.4s;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  background-repeat: repeat;
+  padding-right: 5px;
+  font-weight: 500;
 }
 
 /* .vuestro-mini-sidebar is added to body */
@@ -120,64 +130,62 @@ export default {
   width: var(--vuestro-sidebar-mini-width);
 }
 
-.vuestro-sidebar-inner {
-  width: 100%;
-  overflow-x: visible;
+.vuestro-sidebar-header {
+  background-color: var(--vuestro-sidebar-header-bg);
+  color: var(--vuestro-sidebar-header-fg);
 }
 
-.logo {
-  color: white;
-  background-color: white;
-  padding-top: 25px;
-  padding-bottom: 15px;
-  text-align: center;
-}
-
-.logo img {
-  fill: white;
+.vuestro-sidebar-logo {
+  padding-top: 15px;
+  padding-bottom: 25px;
   transition: all 0.4s;
-  width: 120px;
+  display: flex;
+  justify-content: center;
 }
 
-.vuestro-mini-sidebar .logo-icon {
-  padding-bottom: 10px;
+/* constrain anything inside (this is mainly to make <img/> behave) */
+.vuestro-sidebar-logo >>> * {
+  width: 75%;
+  height: 75%;
 }
 
-.vuestro-mini-sidebar .logo-icon img {
-  width: calc(var(--vuestro-sidebar-mini-width) - 10px);
+.vuestro-mini-sidebar .vuestro-sidebar-logo {
+  padding-bottom: 15px;
 }
 
-.user-block {
+.vuestro-user-block {
   display: flex;
   color: white;
   height: 50px;
   padding: 30px 10px;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
 }
-.user-block img {
+.vuestro-user-block img {
   align-self: center;
   width: 40px;
   border-radius: 50%;
 }
 
-.user-block-text {
+.vuestro-user-block-text {
   align-self: center;
   display: flex;
   flex-direction: column;
   margin-left: 10px;
   overflow: hidden;
 }
-.user-block-text > span {
+.vuestro-user-block-text > span {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
-.user-block-text .username {
+.vuestro-user-block-text .username {
   font-weight: 700;
 }
-.user-block-enter-active, .user-blockleave-active {
+.vuestro-user-block-enter-active, .vuestro-user-blockleave-active {
   transition: all 0.4s;
 }
-.user-block-enter, .user-block-leave-to {
+.vuestro-user-block-enter, .vuestro-user-block-leave-to {
   opacity: 0;
   font-size: 0;
 }
@@ -190,20 +198,30 @@ export default {
   opacity: 0;
 }
 
-.logo-text {
-  color: white;
+.vuestro-title-text {
+  color: var(--vuestro-sidebar-header-fg);
   text-align: center;
   font-size: 34px;
   padding: 5px 0;
   font-weight: 300;
 }
-.logo-text-enter-active, .logo-text-leave-active {
+.vuestro-title-text-enter-active, .vuestro-title-text-leave-active {
   transition: all 0.4s;
 }
-.logo-text-enter, .logo-text-leave-to {
+.vuestro-title-text-enter, .vuestro-title-text-leave-to {
   opacity: 0;
   font-size: 0;
 }
 
+.vuestro-sidebar-toolbar {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+/* put footer all the way down */
+.vuestro-sidebar-footer {
+  margin-top: auto;
+}
 
 </style>

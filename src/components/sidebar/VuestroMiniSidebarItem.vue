@@ -1,16 +1,19 @@
 <template>
-  <div class="vuestro-mini-sidebar-item" @mouseleave="onLeave">
+  <div class="vuestro-mini-sidebar-item"
+       :class="{ bottom: route.meta.sidebarBottom }"
+       @mouseleave="onLeave">
     
     <div class="vuestro-mini-sidebar-icon"
          :class="{ 'router-link-active': isParentRoute }"
          @mouseover="onHover"
          @click="tryPush">
-      <icon :name="route.icon"></icon>
+      <icon :name="route.meta.icon"></icon>
     </div>
     
     <div class="vuestro-mini-sidebar-popup"
          :style="{ visibility: active ? 'visible':'hidden',
-                   opacity: active ? '1':'0' }">
+                   opacity: active ? '1':'0',
+                   height: active ? 'auto':'0' }">
       <div class="popup-title">
         <span class="no-select">{{ route.meta.title }}</span>
       </div>
@@ -22,10 +25,12 @@
 <script>
 
 import VuestroSubRoutes from './VuestroSubRoutes.vue';
+import Icon from 'vue-awesome/components/Icon';
 
 export default {
   name: 'VuestroMiniSidebarItem',
   components: {
+    Icon,
     VuestroSubRoutes,
   },
   props: {
@@ -69,45 +74,53 @@ export default {
 
 .vuestro-mini-sidebar-item {
   position: relative;
-  height: var(--sidebar-item-height);
+  height: var(--vuestro-sidebar-item-height);
+}
+
+.vuestro-mini-sidebar-item.bottom {
+  margin-top: auto;
 }
 
 .vuestro-mini-sidebar-icon {
   height: 100%;
   width: 100%;
-  color: var(--gray);
-  font-size: 15px;
-  text-decoration: none;
-  transition: all 0.4s;
-  font-weight: 400;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  border-top-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
+  border-bottom-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
 }
 
-.vuestro-mini-sidebar-icon:hover,
-.vuestro-mini-sidebar-icon.router-link-active:hover,
+.vuestro-mini-sidebar-icon.router-link-exact-active {
+  background-color: var(--vuestro-sidebar-item-active-bg);
+  color: var(--vuestro-sidebar-item-active-fg);
+}
 .vuestro-mini-sidebar-icon.router-link-active {
-  background-color: var(--dark);
-  border-left: 3px solid var(--primary);
+  background-color: var(--vuestro-sidebar-item-hover);
+}
+.vuestro-mini-sidebar-item:hover,
+.vuestro-mini-sidebar-icon.router-link-active:hover {
+  background-color: var(--vuestro-sidebar-item-hover);
+  border-radius: 0;
 }
 
 /* popup sub-menu */
 .vuestro-mini-sidebar-popup {
-  width: var(--sidebar-normal);
-  background-color: var(--dark);
-  color: var(--gray);
+  width: var(--vuestro-sidebar-normal-width);
+  background-color: var(--vuestro-sidebar-item-hover);
+  color: var(--vuestro-sidebar-fg);
   position: absolute;
   top: 0;
   left: 100%;
-  border-top-right-radius: 9px;
-  border-bottom-right-radius: 9px;
+  border-top-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
+  border-bottom-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
   z-index: 1000;
 }
 
 .vuestro-mini-sidebar-popup > .popup-title {
-  line-height: var(--sidebar-item-height);
+  background-color: rgba(255,255,255,0.1);
+  line-height: var(--vuestro-sidebar-item-height);;
   padding-left: 5px;
   padding-right: 15px;
   font-size: 15px;

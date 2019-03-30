@@ -1,19 +1,16 @@
 <template>
-  <div class="vuestro-sidebar-item">
+  <div class="vuestro-sidebar-item" :class="{ bottom: route.meta.sidebarBottom }">
     <!--CHILDREN-->
     <template v-if="route.children">
       <a :class="{ 'router-link-active': isParentRoute }"
-         :style="style"
          @click="toggle">
         <icon :name="route.meta.icon"></icon>
         <span>{{ route.meta.title }}</span>
       </a>
-      <div v-if="active">
-        <vuestro-sub-routes :route="route"></vuestro-sub-routes>
-      </div>
+      <vuestro-sub-routes :show="active" :route="route"></vuestro-sub-routes>
     </template>
     <!--NO CHILDREN-->
-    <router-link v-else :to="route" :style="style">
+    <router-link v-else :to="route">
       <icon :name="route.meta.icon"></icon>
       <span>{{ route.meta.title }}</span>
     </router-link>
@@ -33,7 +30,6 @@ export default {
   },
   props: {
     route: { type: Object, required: true },
-    userColor: { type: String, required: true },
   },
   data() {
     return {
@@ -44,14 +40,6 @@ export default {
     this.active = this.isParentRoute;
   },
   computed: {
-    style() {
-      return {
-        'border-color': this.userColor,
-      };
-    },
-    isDashboard() {
-      return this.route.name === 'dashboard';
-    },
     isParentRoute() {
       let p = this.route.path.split('/:'); // remove any params
       return this.$route.fullPath.startsWith(p[0]);
@@ -68,35 +56,41 @@ export default {
 
 <style scoped>
 
+.vuestro-sidebar-item {
+  position: relative;
+}
+
+.vuestro-sidebar-item.bottom {
+  margin-top: auto;
+}
+
 .vuestro-sidebar-item > a {
-  display: block;
-  padding: 14px 8px;
-  color: var(--gray);
+  min-height: var(--vuestro-sidebar-item-height);
+  display: flex;
+  padding-left: 5px;
+  align-items: center;
+  color: var(--vuestro-sidebar-fg);
   font-size: 15px;
   text-decoration: none;
   transition: all 0.4s;
-  font-weight: 400;
   cursor: pointer;
   white-space: nowrap;
-}
-
-.vuestro-sidebar-item > a > span {
-  animation-duration: 1s;
-  animation-fill-mode: both;
-  animation-name: fadeIn;
+  border-top-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
+  border-bottom-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
 }
 
 .vuestro-sidebar-item > a:hover,
-.vuestro-sidebar-item > a.router-link-active:hover,
-.vuestro-sidebar-item > a.router-link-active {
-  border-left: 3px solid;
-  background-color: rgba(255,255,255,0.1);
+.vuestro-sidebar-item > a.router-link-active,
+.vuestro-sidebar-item > a.router-link-active:hover {
+  background-color: var(--vuestro-sidebar-item-hover);
+}
+.vuestro-sidebar-item > a.router-link-exact-active {
+  background-color: var(--vuestro-sidebar-item-active-bg);
+  color: var(--vuestro-sidebar-item-active-fg);
 }
 
-.vuestro-sidebar-item a svg {
-  margin-top: 2px;
+.vuestro-sidebar-item .fa-icon {
   width: 35px;
-  float: left;
 }
 
 </style>

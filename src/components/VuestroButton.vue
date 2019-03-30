@@ -42,30 +42,37 @@ export default {
 
 /* VARIANTS */
 .vuestro-button.primary {
-  --variant-color: var(--primary);
+  --variant-color: var(--vuestro-primary);
 }
 .vuestro-button.secondary {
-  --variant-color: var(--secondary);
+  --variant-color: var(--vuestro-secondary);
 }
 .vuestro-button.success {
-  --variant-color: var(--success);
+  --variant-color: var(--vuestro-success);
 }
 .vuestro-button.warning {
-  --variant-color: var(--warning);
+  --variant-color: var(--vuestro-warning);
 }
 .vuestro-button.danger {
-  --variant-color: var(--danger);
+  --variant-color: var(--vuestro-danger);
 }
 .vuestro-button.info {
-  --variant-color: var(--info);
+  --variant-color: var(--vuestro-info);
 }
 .vuestro-button.white {
-  --variant-color: white;
-  --variant-text-color: var(--secondary);
+  --variant-color: var(--vuestro-white);
+  --variant-text-color: var(--vuestro-secondary);
+}
+.vuestro-button.black {
+  --variant-color: var(--vuestro-black);
+  --variant-text-color: var(--vuestro-black);
+}
+.vuestro-button.text {
+  --variant-color: var(--vuestro-text-color);
+  --variant-text-color: var(--vuestro-text-color);
 }
 
 .vuestro-button {
-  font-size: 13px;
   font-weight: 600;
   text-transform: none;
   border: 1px solid var(--variant-color);
@@ -121,15 +128,24 @@ export default {
 }
 .vuestro-button.active,
 .vuestro-button:hover {
-  color: var(--white);
+  color: var(--vuestro-white);
   background-color: var(--variant-color);
 }
 .vuestro-button.white.active,
 .vuestro-button.white:hover {
   color: var(--variant-text-color);
 }
+.vuestro-button.black.active,
+.vuestro-button.black:hover {
+  color: var(--vuestro-white);
+}
+.vuestro-button.text:hover {
+  color: var(--variant-text-color);
+  filter: brightness(150%);
+  background-color: transparent;
+}
 .vuestro-button.link {
-  color: var(--primary);
+  color: var(--vuestro-primary);
   border-color: transparent;
 }
 .vuestro-button.link.active,
@@ -153,8 +169,8 @@ export default {
   height: 17px;
   line-height: 17px;
   padding: 0;
-  border: 1px solid var(--light);
-  background-color: var(--light);
+  border: 1px solid var(--vuestro-light);
+  background-color: var(--vuestro-light);
   border-radius: 3px;
 }
 .vuestro-button.checkbox .fa-icon {
@@ -169,7 +185,7 @@ export default {
 .vuestro-button.checkbox.active {
   border-color: var(--variant-color);
   background-color: var(--variant-color);
-  color: var(--white);
+  color: var(--vuestro-white);
 }
 
 </style>

@@ -36,7 +36,7 @@ export default {
 }
 
 .vuestro-list-button:hover {
-  background-color: var(--primary);
+  background-color: var(--vuestro-primary);
   color: white;
 }
 

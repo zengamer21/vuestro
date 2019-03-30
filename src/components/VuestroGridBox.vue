@@ -1,12 +1,13 @@
 <template>
   <div class="vuestro-grid-box"
-       :class="classes"
+       :class="{ dragging, resizing }"
        :style="style"
-       ref="dragHandle"
        @mouseover="focused = true"
        @mouseleave="focused = false">
-    <slot></slot>
-    <div class="resize-handle" ref="resizeHandle"></div>
+    <template v-if="!resizing && !dragging">
+      <slot></slot>
+    </template>
+    <div v-show="!resizing && !dragging" class="resize-handle" ref="resizeHandle"></div>
   </div>
 </template>
 
@@ -16,12 +17,12 @@ export default {
   name: 'VuestroGridBox',
   props: {
     boxId: { type: String, required: true },
-    dragSelector: { type: String, default: '*' }
+    dragSelector: { type: String, default: '.drag' }
   },
   data() {
     return {
       dragging: false,
-      resizing: false,
+      resizing: true,  // start out true since grid has to size this box
       focused: false,
     };
   },
@@ -30,33 +31,30 @@ export default {
       if (this.$parent.isBoxVisible(this.boxId)) {
         var pixelPosition = this.$parent.getPixelPositionById(this.boxId);
         return {
-          display: 'block',
           width: pixelPosition.w + 'px',
           height: pixelPosition.h + 'px',
           transform: `translate(${pixelPosition.x}px, ${pixelPosition.y}px)`,
           'z-index': this.focused ? 200:100,
         };
       }
-
       return {
         display: 'none'
       };
     },
-    classes() {
-      return {
-        'dragging': this.dragging,
-        'resizing': this.resizing,
-      };
-    }
   },
   mounted() {
-    // register component on parent
+    // let parent grid place and size this box
     this.$parent.registerBox(this);
 
-    // moving
-    this.$dragHandle = this.$el || this.$refs.dragHandle;
-    this.$dragHandle.addEventListener('mousedown', evt => {
-      if (!$(evt.target).is(this.dragSelector)) {
+    // the $parent.registerBox has sized this box, so clear resizing flag
+    this.resizing = false;
+
+    let matches = function(el, selector) {
+      return (el.matches || el.matchesSelector || el.msMatchesSelector || el.mozMatchesSelector || el.webkitMatchesSelector || el.oMatchesSelector).call(el, selector);
+    };
+
+    this.$el.addEventListener('mousedown', evt => {
+      if (!matches(evt.target, this.dragSelector)) {
         return;
       }
 
@@ -85,7 +83,7 @@ export default {
           y: evt.clientY - mouseY
         };
         this.$emit('dragUpdate', { offset });
-      }
+      };
 
       window.addEventListener('mouseup', handleMouseUp, true);
       window.addEventListener('mousemove', handleMouseMove, true);
@@ -112,6 +110,7 @@ export default {
             x: evt.clientX - mouseX,
             y: evt.clientY - mouseY
           };
+          this.$slots.default.resize && this.$slots.default.resize();
           this.$emit('resizeEnd', { offset });
         };
 
@@ -121,7 +120,7 @@ export default {
             y: evt.clientY - mouseY
           };
           this.$emit('resizeUpdate', { offset });
-        }
+        };
 
         window.addEventListener('mouseup', handleMouseUp, true);
         window.addEventListener('mousemove', handleMouseMove, true);
@@ -131,7 +130,7 @@ export default {
   beforeDestroy() {
     // unregister component on parent
     this.$parent.unregisterBox(this);
-  }
+  },
 };
 </script>
 
@@ -139,7 +138,7 @@ export default {
 
 .vuestro-grid-box {
   position: absolute;
-  z-index: 0;
+  display: flex;
 }
 
 .vuestro-grid-box.dragging,
@@ -148,18 +147,23 @@ export default {
   opacity: 0.7;
 }
 
+/* overlay a resize handle at the lower right */
 .vuestro-grid-box .resize-handle {
   position: absolute;
   right: -3px;
   bottom: -3px;
   width: 15px;
   height: 15px;
-  cursor: se-resize;
+  cursor: nwse-resize;
   transform: rotate(315deg);
-  border-top: 7.5px double rgba(0,0,0,0.3);
+  border-top: 7.5px double var(--vuestro-outline);
   border-right: 7.5px solid transparent;
   border-left: 7.5px solid transparent;
 }
 
+/* hint the child div that it should grow */
+.vuestro-grid-box > div {
+  flex-grow: 1;
+}
 
 </style>

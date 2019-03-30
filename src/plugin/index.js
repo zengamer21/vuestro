@@ -1,9 +1,12 @@
 import VuestroApp from '../components/VuestroApp.vue';
+import VuestroAreaChart from '../components/VuestroAreaChart.vue';
+import VuestroBarChart from '../components/VuestroBarChart.vue';
 import VuestroButton from '../components/VuestroButton.vue';
 import VuestroCaret from '../components/VuestroCaret.vue';
-import VuestroColumn from '../components/VuestroColumn.vue';
-import VuestroColumnContainer from '../components/VuestroColumnContainer.vue';
+import VuestroCard from '../components/VuestroCard.vue';
+import VuestroCardContainer from '../components/VuestroCardContainer.vue';
 import VuestroDropDown from '../components/VuestroDropDown.vue';
+import VuestroDonutGauge from '../components/VuestroDonutGauge.vue';
 import VuestroEditableText from '../components/VuestroEditableText.vue';
 import VuestroEllipsisText from '../components/VuestroEllipsisText.vue';
 import VuestroGeoPattern from '../components/VuestroGeoPattern.vue';
@@ -23,19 +26,22 @@ import VuestroTextField from '../components/VuestroTextField.vue';
 import VuestroTitle from '../components/VuestroTitle.vue';
 import VuestroTray from '../components/VuestroTray.vue';
 
-import 'vue-awesome/icons'
-import Icon from 'vue-awesome/components/Icon'
+import 'vue-awesome/icons';
+import Icon from 'vue-awesome/components/Icon';
 
 export default {
   install(Vue, options) {
     Vue.component(Icon.name, Icon);
 
     Vue.component(VuestroApp.name, VuestroApp);
+    Vue.component(VuestroAreaChart.name, VuestroAreaChart);
+    Vue.component(VuestroBarChart.name, VuestroBarChart);
     Vue.component(VuestroButton.name, VuestroButton);
     Vue.component(VuestroCaret.name, VuestroCaret);
-    Vue.component(VuestroColumn.name, VuestroColumn);
-    Vue.component(VuestroColumnContainer.name, VuestroColumnContainer);
+    Vue.component(VuestroCard.name, VuestroCard);
+    Vue.component(VuestroCardContainer.name, VuestroCardContainer);
     Vue.component(VuestroDropDown.name, VuestroDropDown);
+    Vue.component(VuestroDonutGauge.name, VuestroDonutGauge);
     Vue.component(VuestroEditableText.name, VuestroEditableText);
     Vue.component(VuestroEllipsisText.name, VuestroEllipsisText);
     Vue.component(VuestroGeoPattern.name, VuestroGeoPattern);

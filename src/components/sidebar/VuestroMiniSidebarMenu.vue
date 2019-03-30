@@ -1,8 +1,8 @@
 <template>
-  <div class="vuestro-mini-sidebar-menu">
+  <div class="vuestro-mini-sidebar-menu" @click.self="$emit('click')">
     <vuestro-mini-sidebar-item v-for="(route, ridx) in routes" 
                         :key="route.path" 
-                        v-if="route.meta.sidebar" 
+                        v-if="route.meta && (route.meta.sidebar || route.meta.sidebarBottom)" 
                         :route="route">
     </vuestro-mini-sidebar-item>
   </div>
@@ -25,6 +25,13 @@ export default {
 </script>
 
 <style scoped>
+
+.vuestro-mini-sidebar-menu {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
 
 </style>
 
