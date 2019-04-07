@@ -5,6 +5,7 @@ import VuestroButton from '../components/VuestroButton.vue';
 import VuestroCaret from '../components/VuestroCaret.vue';
 import VuestroCard from '../components/VuestroCard.vue';
 import VuestroCardContainer from '../components/VuestroCardContainer.vue';
+import VuestroColorPicker from '../components/VuestroColorPicker.vue';
 import VuestroDropDown from '../components/VuestroDropDown.vue';
 import VuestroDonutGauge from '../components/VuestroDonutGauge.vue';
 import VuestroEditableText from '../components/VuestroEditableText.vue';
@@ -40,6 +41,7 @@ export default {
     Vue.component(VuestroCaret.name, VuestroCaret);
     Vue.component(VuestroCard.name, VuestroCard);
     Vue.component(VuestroCardContainer.name, VuestroCardContainer);
+    Vue.component(VuestroColorPicker.name, VuestroColorPicker);
     Vue.component(VuestroDropDown.name, VuestroDropDown);
     Vue.component(VuestroDonutGauge.name, VuestroDonutGauge);
     Vue.component(VuestroEditableText.name, VuestroEditableText);

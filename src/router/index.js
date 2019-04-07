@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import Dashboard from '../pages/Dashboard.vue';
 import Charts from '../pages/Charts.vue';
 import Buttons from '../pages/Buttons.vue';
+import Pickers from '../pages/Pickers.vue';
 import Inputs from '../pages/Inputs.vue';
 import TextInputs from '../pages/TextInputs.vue';
 import Containers from '../pages/Containers.vue';
@@ -42,6 +43,16 @@ export default new Router({
       name: 'buttons',
       path: '/buttons',
       component: Buttons,
+    },
+    {
+      meta: {
+        title: 'Pickers',
+        sidebar: true,
+        icon: 'hand-point-left',
+      },
+      name: 'pickers',
+      path: '/pickers',
+      component: Pickers,
     },
     {
       meta: {
