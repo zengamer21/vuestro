@@ -3,6 +3,8 @@
   <div class="flex-flex">
     <vuestro-color-picker v-model="color" :colors="colorOptions"></vuestro-color-picker>
     <p>The Vuestro Color Picker allows</p>
+    <vuestro-color-picker v-model="color" :colors="colorOptions"></vuestro-color-picker>
+    <p>The Vuestro Color Picker allows</p>
   </div>
 
 </template>

@@ -94,6 +94,7 @@ export default {
   background-color: var(--vuestro-widget-light-bg);
 	border-bottom-left-radius: 4px;
 	border-bottom-right-radius: 4px;
+  transform-origin: top;
 }
 
 .vuestro-color-picker-option {
@@ -104,11 +105,10 @@ export default {
 }
 
 .vuestro-color-options-enter-active, .vuestro-color-options-leave-active {
-  transition: all 0.6s;
+  transition: transform 0.4s;
 }
 .vuestro-color-options-enter, .vuestro-color-options-leave-to {
-  opacity: 0;
-  transform: translateY(-100%);
+  transform: scaleY(0);
 }
 
 </style>
