@@ -95,6 +95,7 @@ export default {
 	border-bottom-left-radius: 4px;
 	border-bottom-right-radius: 4px;
   transform-origin: top;
+  z-index: 99;
 }
 
 .vuestro-color-picker-option {
