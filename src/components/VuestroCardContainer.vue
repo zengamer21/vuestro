@@ -21,8 +21,7 @@ export default {
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
-  padding-left: var(--gutter-size);
-  padding-right: var(--gutter-size);
+  padding: var(--gutter-size);
 }
 
 .vuestro-card-container.lg {
@@ -33,6 +32,9 @@ export default {
 }
 .vuestro-card-container.sm {
   --gutter-size: 4px;
+}
+.vuestro-card-container.none {
+  --gutter-size: 0px;
 }
 
 .vuestro-card-container > .vuestro-card {
