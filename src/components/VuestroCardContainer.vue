@@ -21,7 +21,8 @@ export default {
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
-  padding: var(--gutter-size);
+  padding-left: var(--gutter-size);
+  padding-right: var(--gutter-size);
 }
 
 .vuestro-card-container.lg {
