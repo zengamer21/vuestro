@@ -1,5 +1,7 @@
 <template>
-  <div class="vuestro-panel" :class="[ gutter, { dark }]">
+  <div class="vuestro-panel"
+       :class="[ gutter, { dark }]"
+       :style="color ? { 'background-color': color }:{}">
     <slot></slot>
   </div>
 </template>
@@ -11,6 +13,7 @@ export default {
   props: {
     dark: { type: Boolean, default: false },
     gutter: { type: String, default: 'md' },
+    color: { type: String, default: null },
   },
 };
 
@@ -22,29 +25,32 @@ export default {
   --gutter-size: 15px;
 }
 .vuestro-panel.md {
-  --gutter-size: 8px;
+  --gutter-size: 4px;
 }
 .vuestro-panel.sm {
-  --gutter-size: 4px;
+  --gutter-size: 2px;
 }
 .vuestro-panel.none {
   --gutter-size: 0px;
 }
 
 .vuestro-panel {
-  background-color: var(--panel-background);
+  background-color: var(--vuestro-panel-bg);
   border-radius: 2px;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
   margin-top: var(--gutter-size);
+  flex-grow: 1;
+  display: flex;
 }
 
 /* border only for dark ui */
 .vuestro-panel.dark {
-  border: 1px solid var(--panel-border);
+  background-color: var(--vuestro-panel-dark-bg);
+  border: 1px solid var(--vuestro-outline);
 }
 
 .vuestro-panel .vuestro-tray:not(:last-child) {
-  border-bottom: 2px solid var(--light);
+  border-bottom: 2px solid var(--vuestro-outline);
 }
 
 </style>

@@ -166,4 +166,8 @@ export default {
   flex-grow: 1;
 }
 
+.vuestro-grid-box >>> .drag {
+  cursor: move;
+}
+
 </style>

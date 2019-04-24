@@ -2,7 +2,7 @@
   <div class="vuestro-app" :class="{ 'vuestro-dark': dark }">
     <!--MAIN TEMPLATE-->
     <template v-if="authenticated && !loading">
-      
+
       <!--SLOT WITH DEFAULT NAVBAR-->
       <slot name="navbar">
         <vuestro-navbar :title="title">
@@ -11,7 +11,7 @@
           <template slot="right"><slot name="navbar-right"></slot></template>
         </vuestro-navbar>
       </slot>
-      
+
       <div class="vuestro-content">
         <!--SLOT WITH DEFAULT SIDEBAR-->
         <slot name="sidebar">
@@ -25,23 +25,22 @@
             </template>
           </vuestro-sidebar>
         </slot>
-        
-        
+
         <!--MAIN PAGE VIEW-->
         <div ref="routerView" class="vuestro-router-view" @scroll="onScroll">
           <keep-alive> <!-- vue router option for persistent state -->
             <router-view/>
           </keep-alive>
           <slot name="footer">
-            
+
           </slot>
         </div>
       </div>
     </template>
-    
+
     <!--SLOT FOR CUSTOM LOADING PAGE-->
     <slot v-if="loading" name="loading"></slot>
-    
+
     <!--SLOT FOR CUSTOM LOGIN PAGE-->
     <slot v-if="!authenticated" name="login"></slot>
   </div>
@@ -64,7 +63,7 @@ export default {
     logo: { type: String, default: null },
     title: { type: String, default: '' },     // app title
     user: { type: String, default: '' },      // username
-    userImg: { type: String, default: null }, // user image 
+    userImg: { type: String, default: null }, // user image
     role: { type: String, default: '' },      // user role
     dark: { type: Boolean, default: false },  // dark mode
   },
@@ -86,7 +85,7 @@ export default {
 
   }
 };
-  
+
 </script>
 
 <style>
@@ -119,17 +118,19 @@ export default {
   --vuestro-gray-dark: #505664;
   --vuestro-light: #f5f5f5;
   --vuestro-light-med: #ececec;
-  
+
   --vuestro-dark: #1b1c21;
   --vuestro-darker: #101110;
 
   /* the following are theme-able colors */
-  --vuestro-content-bg: #f6f8f9;
+  --vuestro-content-bg: #f7f9fa;
+  --vuestro-panel-bg: #fff;
+  --vuestro-panel-dark-bg: #959a9e;
   --vuestro-widget-light-bg: #e8e9ec;
   --vuestro-widget-dark-bg: #78797a;
-  
+
   --vuestro-field-bg: #e8e9ec;
-  
+
   --vuestro-popup-bg: #464748;
   --vuestro-popup-fg: #eee;
 
@@ -150,6 +151,7 @@ export default {
 /* DARK UI OVERRIDES */
 .vuestro-dark {
   --vuestro-content-bg: #1b1c21;
+  --vuestro-panel-bg: #232425;
   --vuestro-widget-light-bg: #d6d7d8;
   --vuestro-widget-dark-bg: #78797a;
 
@@ -168,6 +170,31 @@ export default {
 
 <style scoped>
 
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../assets/Quicksand-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../assets/Quicksand-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../assets/Quicksand-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../assets/Quicksand-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 .vuestro-app >>> *, :after, :before {
   box-sizing: border-box;
 }
@@ -175,6 +202,7 @@ export default {
 .vuestro-app {
   color: var(--vuestro-text-color);
   font-size: 13px;
+  font-family: 'Quicksand', sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
   text-rendering: optimizeSpeed;
   min-height: 100%;

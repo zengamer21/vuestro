@@ -1,27 +1,27 @@
 <template>
   <div class="vuestro-sidebar">
-    
+
     <!--HEADER BLOCK-->
     <div class="vuestro-sidebar-header">
       <div v-if="$slots.toolbar" class="vuestro-sidebar-toolbar">
         <slot name="toolbar">
         </slot>
       </div>
-      
+
       <!--LOGO-->
       <div v-if="$slots.logo" class="vuestro-sidebar-logo">
         <slot name="logo"></slot>
       </div>
-      
+
     </div>
-    
+
     <!--TITLE BLOCK-->
     <transition v-if="title" name="vuestro-title-text" mode="out-in">
       <div v-if="!mini" class="vuestro-title-text">{{ title }}</div>
     </transition>
-    
+
     <!--USER BLOCK-->
-    <transition name="vuestro-user-block" mode="out-in">
+    <transition v-if="user" name="vuestro-user-block" mode="out-in">
       <vuestro-geo-pattern class="vuestro-user-block" :seed="user" @color="(c) => {this.geoColor = c}">
         <img v-if="userImg" :src="userImg" class="img-circle"/>
         <div v-if="!mini" class="vuestro-user-block-text">
@@ -30,18 +30,18 @@
         </div>
       </vuestro-geo-pattern>
     </transition>
-    
+
     <!--MENU-->
     <transition name="vuestro-sidebar" mode="out-in">
-      <vuestro-sidebar-menu v-if="!mini" 
+      <vuestro-sidebar-menu v-if="!mini"
                             :routes="$router.options.routes"
                             @click="mini = !mini"></vuestro-sidebar-menu>
-      <vuestro-mini-sidebar-menu v-else 
+      <vuestro-mini-sidebar-menu v-else
                                  :routes="$router.options.routes"
                                  @click="mini = !mini">
       </vuestro-mini-sidebar-menu>
     </transition>
-    
+
     <!--FOOTER BLOCK-->
     <div class="vuestro-sidebar-footer">
       <slot name="footer"></slot>
@@ -66,7 +66,7 @@ export default {
   props: {
     title: { type: String, default: '' }, // app title
     user: { type: String, default: '' }, // username
-    userImg: { type: String, default: null }, // user image 
+    userImg: { type: String, default: null }, // user image
     role: { type: String, default: '' }, // user role
     link: { type: String, default: '' }, // user link
   },

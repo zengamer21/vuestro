@@ -1,7 +1,9 @@
 <template>
   <div class="vuestro-card" :class="[`width-${cols}`]">
     <!--SLOT FOR HEADER TEXT (only show if "heading" slot was provided)-->
-    <div v-if="$slots.heading" class="vuestro-card-heading" :style="{ 'border-color': color }">
+    <div v-if="$slots.heading"
+         class="vuestro-card-heading"
+        :style="color ? { 'border-left': `4px solid ${color}` }:{}">
       <slot name="heading"></slot>
     </div>
     <!--DEFAULT SLOT-->
@@ -15,7 +17,7 @@ export default {
   name: 'VuestroCard',
   props: {
     cols: { default: 12 },
-    color: { type: String },
+    color: { type: String, default: null },
   },
   methods: {
     resize() {
@@ -38,7 +40,6 @@ export default {
   line-height: 22px;
   font-weight: 300;
   padding: 2px 8px;
-  border-left: 4px solid var(--vuestro-text-color);
 }
 
 .vuestro-card.width-1 {
