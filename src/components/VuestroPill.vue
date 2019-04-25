@@ -6,7 +6,7 @@
 </template>
 
 <script>
-	
+
 export default {
 	name: 'VuestroPill',
 	props: {
@@ -23,14 +23,14 @@ export default {
 		},
 	},
 };
-	
+
 </script>
-	
+
 <style scoped>
 
 .vuestro-pill {
 	background-color: var(--vuestro-widget-light-bg);
-	line-height: 32px;
+	line-height: 24px;
 	border-radius: 32px;
 	flex: 0 1 auto;
 	display: flex;
@@ -38,12 +38,11 @@ export default {
 }
 
 .vuestro-pill-title {
-	min-width: 32px;
+	min-width: 24px;
 	text-align: center;
 	background-color: var(--vuestro-primary);
 	color: var(--vuestro-light);
 	border-radius: 20px;
-	font-size: 18px;
 	padding-left: 8px;
 	padding-right: 8px;
 }
