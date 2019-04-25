@@ -1,7 +1,7 @@
 <template>
 	<div class="vuestro-pill">
-		<div class="title">{{ titleComputed }}</div>
-		<div class="value">{{ value }}</div>
+		<div class="vuestro-pill-title">{{ titleComputed }}</div>
+		<div class="vuestro-pill-value">{{ value }}</div>
 	</div>
 </template>
 
@@ -37,7 +37,7 @@ export default {
 	margin: 2px;
 }
 
-.title {
+.vuestro-pill-title {
 	min-width: 32px;
 	text-align: center;
 	background-color: var(--vuestro-primary);
@@ -48,7 +48,7 @@ export default {
 	padding-right: 8px;
 }
 
-.value {
+.vuestro-pill-value {
 	padding-left: 6px;
 	padding-right: 10px;
 }
