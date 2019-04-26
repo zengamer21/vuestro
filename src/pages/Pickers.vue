@@ -1,12 +1,18 @@
 <template>
+  <vuestro-card-container>
+    <vuestro-card color="var(--vuestro-purple)">
+      <template slot="heading">Pickers</template>
+      <template slot="description">
+        Pickers are a necessary part of input to any Web application. Vuestro attempts to provide a comprehensive set of pickers for any need, from datetime pickers to color pickers.
+      </template>
+    </vuestro-card>
 
-  <div class="flex-flex">
+
     <vuestro-color-picker v-model="color" :colors="colorOptions"></vuestro-color-picker>
     <p>The Vuestro Color Picker allows</p>
     <vuestro-color-picker v-model="color" :colors="colorOptions"></vuestro-color-picker>
     <p>The Vuestro Color Picker allows</p>
-  </div>
-
+  </vuestro-card-container>
 </template>
 
 <script>

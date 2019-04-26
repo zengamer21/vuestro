@@ -119,6 +119,7 @@ export default {
   border-right: 1px solid var(--vuestro-sidebar-border);
   width: var(--vuestro-sidebar-normal-width);
   transition: all 0.4s;
+  flex: none;
   display: flex;
   flex-direction: column;
   padding-right: 5px;

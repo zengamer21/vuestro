@@ -26,11 +26,14 @@ export default {
 .vuestro-tray {
   display: flex;
   position: relative;
+  padding: 2px 10px;
+  border: 1px solid var(--vuestro-outline);
+  border-radius: 4px;
 }
 
 .vuestro-tray-title {
-  flex-basis: 40px;
   margin-right: 10px;
+  align-self: center;
 }
 
 </style>

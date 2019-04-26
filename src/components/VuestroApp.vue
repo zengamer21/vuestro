@@ -32,7 +32,7 @@
             <router-view/>
           </keep-alive>
           <slot name="footer">
-
+            <p class="default-footer">Vuestro ❤ Vue</p>
           </slot>
         </div>
       </div>
@@ -205,26 +205,29 @@ export default {
   font-family: 'Quicksand', sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
   text-rendering: optimizeSpeed;
-  min-height: 100%;
+  min-height: 100%; /* stretches app down to bottom edge of body */
   display: flex;
   flex-direction: column;
   background-color: var(--vuestro-content-bg);
 }
 
 .vuestro-content {
+  flex: 1; /* make the content stretch to bottom of .vuestro-app */
   display: flex;
-  flex-grow: 1;
+  overflow: hidden; /* lets .vuestro-router-view do the scrolling */
 }
 
 .vuestro-router-view {
-  flex-direction: column;
   flex: 1;
   display: flex;
-  overflow: auto;
+  flex-direction: column;
   transition: all 0.4s;
   position: relative;
+  overflow: auto;
 }
 
-
+.default-footer {
+  text-align: center;
+}
 
 </style>

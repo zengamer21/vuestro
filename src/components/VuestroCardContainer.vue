@@ -21,6 +21,7 @@ export default {
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
+  align-content: flex-start;
   padding-left: var(--gutter-size);
   padding-right: var(--gutter-size);
 }

@@ -1,7 +1,14 @@
 <template>
-	<div class="vuestro-pill">
-		<div class="vuestro-pill-title">{{ titleComputed }}</div>
+	<div class="vuestro-pill"
+	     :class="{ clickable }"
+	     :style="style"
+	     @click="onClick">
+		<div class="vuestro-pill-title"
+		     :style="color ? { 'background-color': color }:{}">
+			{{ titleComputed }}
+		</div>
 		<div class="vuestro-pill-value">{{ value }}</div>
+		<div v-if="closable" class="vuestro-pill-closer" @click="onClose">&times;</div>
 	</div>
 </template>
 
@@ -12,8 +19,19 @@ export default {
 	props: {
 		title: { type: String },
 		value: { type: String, required: true },
+		color: { type: String, default: null },
+		size: { type: String, default: '24px' },
+		radius: { type: String, default: '999px' },
+		closable: { type: Boolean, default: false },
+		clickable: { type: Boolean, default: false },
 	},
 	computed: {
+		style() {
+			return {
+				'--size': this.size,
+				'--radius': this.radius,
+			};
+		},
 		titleComputed() {
 			if (this.title) {
 				return this.title;
@@ -22,6 +40,16 @@ export default {
 			}
 		},
 	},
+	methods: {
+		onClose(e) {
+			this.$emit('close', e);
+		},
+		onClick(e) {
+			if (this.clickable) { // only if set
+				this.$emit('click', e);
+			}
+		}
+	}
 };
 
 </script>
@@ -30,26 +58,37 @@ export default {
 
 .vuestro-pill {
 	background-color: var(--vuestro-widget-light-bg);
-	line-height: 24px;
-	border-radius: 32px;
+	line-height: var(--size);
+	border-radius: var(--radius);
 	flex: 0 1 auto;
 	display: flex;
 	margin: 2px;
+	font-size: calc(var(--size)/2);
+}
+
+.vuestro-pill.clickable {
+	cursor: pointer;
 }
 
 .vuestro-pill-title {
-	min-width: 24px;
+	min-width: var(--size);
 	text-align: center;
 	background-color: var(--vuestro-primary);
 	color: var(--vuestro-light);
-	border-radius: 20px;
-	padding-left: 8px;
-	padding-right: 8px;
+	border-radius: var(--radius);
+	padding-left: calc(var(--size)/3);
+	padding-right: calc(var(--size)/3);
 }
 
 .vuestro-pill-value {
-	padding-left: 6px;
-	padding-right: 10px;
+	padding-left: calc(var(--size)/6);
+	padding-right: calc(var(--size)/3);
+}
+
+.vuestro-pill-closer {
+	margin-left: calc(var(--size)/-6);
+	padding-right: calc(var(--size)/3);
+	cursor: pointer;
 }
 
 </style>

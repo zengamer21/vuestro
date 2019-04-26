@@ -50,12 +50,12 @@ export default {
 
 <style scoped>
 
-
 .vuestro-navbar {
   width: 100%;
   height: var(--vuestro-navbar-height);
   background-color: var(--vuestro-navbar-bg);
   border-bottom: 1px solid var(--vuestro-navbar-border);
+  flex: none; /* don't let flexbox reduce our size */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -68,6 +68,7 @@ export default {
   padding: 0px 15px;
   font-weight: 300;
 }
+
 .v-separator {
   border-right: 1px solid var(--vuestro-outline);
   height: 20px;

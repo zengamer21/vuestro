@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
@@ -62,6 +63,7 @@ module.exports = {
       template: 'src/index.html',
       inject: true,
     }),
+    new FriendlyErrorsPlugin(),
     new webpack.DefinePlugin({
       __VERSION__: JSON.stringify(JSON.parse(fs.readFileSync('package.json')).version),
     }),

@@ -59,7 +59,7 @@ export default new Router({
       meta: {
         title: 'Pills',
         sidebar: true,
-        icon: 'hand-point-left',
+        icon: 'capsules',
       },
       name: 'pills',
       path: '/pills',

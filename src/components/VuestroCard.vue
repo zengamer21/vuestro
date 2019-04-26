@@ -3,8 +3,13 @@
     <!--SLOT FOR HEADER TEXT (only show if "heading" slot was provided)-->
     <div v-if="$slots.heading"
          class="vuestro-card-heading"
-        :style="color ? { 'border-left': `4px solid ${color}` }:{}">
+         :style="color ? { 'border-left': `4px solid ${color}` }:{}">
       <slot name="heading"></slot>
+    </div>
+    <!--SLOT FOR DESCRIPTION (only show if "description" slot was provided)-->
+    <div v-if="$slots.description"
+         class="vuestro-card-description">
+      <slot name="description"></slot>
     </div>
     <!--DEFAULT SLOT-->
     <slot></slot>
@@ -22,8 +27,8 @@ export default {
   methods: {
     resize() {
       this.$slots.default.resize && this.$slots.default.resize();
-    }
-  }
+    },
+  },
 };
 
 </script>
@@ -40,6 +45,12 @@ export default {
   line-height: 22px;
   font-weight: 300;
   padding: 2px 8px;
+}
+
+.vuestro-card > .vuestro-card-description {
+  font-size: 18px;
+  padding: 4px 10px 20px 0px;
+  max-width: 75%;
 }
 
 .vuestro-card.width-1 {
