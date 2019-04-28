@@ -77,7 +77,8 @@
         Set the clickable property to make the pill a button which emits a 'click' event.
       </template>
       <div class="example-align-items-start">
-        <vuestro-pill value="Closable" clickable size="30px"></vuestro-pill>
+        <vuestro-pill value="Clickable" clickable size="30px" @click="exampleClicked = !exampleClicked"></vuestro-pill>
+        <span class="example-action-text" v-if="exampleClicked">Pill clicked!</span>
       </div>
     </vuestro-card>
 
@@ -86,7 +87,19 @@
         A pill will show a close button and emit a 'close' event when the closable property is set.
       </template>
       <div class="example-align-items-start">
-        <vuestro-pill value="Closable" closable size="40px"></vuestro-pill>
+        <vuestro-pill v-if="!exampleClosed" value="Closable" closable size="40px" @close="exampleClosed = true"></vuestro-pill>
+        <span class="example-action-text" v-if="exampleClosed">
+          Pill closed! <vuestro-button variant="link" @click="exampleClosed = false">Click</vuestro-button> to reopen.
+        </span>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        A pill will refuse to wrap and will show an ellipsis when the value is too long to fit in the provided space.
+      </template>
+      <div class="example-constrained-width">
+        <vuestro-pill title="Long Title" value="Long Value"></vuestro-pill>
       </div>
     </vuestro-card>
 
@@ -97,6 +110,12 @@
 
 export default {
   name: 'Pills',
+  data() {
+    return {
+      exampleClicked: false,
+      exampleClosed: false,
+    };
+  }
 };
 
 </script>
@@ -106,6 +125,18 @@ export default {
 .example-align-items-start {
   display: flex;
   align-items: flex-start;
+}
+
+.example-action-text {
+  margin-left: 10px;
+  margin-right: 10px;
+  align-self: center;
+  display: flex;
+  align-items: center;
+}
+
+.example-constrained-width {
+  width: 100px;
 }
 
 </style>

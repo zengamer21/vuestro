@@ -150,7 +150,7 @@ export default {
 }
 .vuestro-button.link.active,
 .vuestro-button.link:hover {
-  filter: brightness(110%);
+  filter: brightness(120%);
   background-color: transparent;
 }
 
