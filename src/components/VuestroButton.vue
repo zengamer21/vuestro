@@ -73,7 +73,6 @@ export default {
 }
 
 .vuestro-button {
-  font-weight: 600;
   text-transform: none;
   border: 1px solid var(--variant-color);
   padding: 2px 6px;
