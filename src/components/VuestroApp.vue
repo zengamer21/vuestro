@@ -127,7 +127,7 @@ export default {
   --vuestro-panel-bg: #fff;
   --vuestro-panel-dark-bg: #959a9e;
   --vuestro-widget-light-bg: #e8e9ec;
-  --vuestro-widget-dark-bg: #78797a;
+  --vuestro-widget-dark-bg: #2f353f;
 
   --vuestro-field-bg: #e8e9ec;
 

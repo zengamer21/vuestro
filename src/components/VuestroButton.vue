@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-button"
-       :class="[variant, size, { value, noBorder, noSpacing, pill, checkbox, disabled, stretch, rounded }]"
+       :class="[variant, size, { dark, value, noBorder, noSpacing, pill, checkbox, disabled, stretch, rounded }]"
        @click="onClick">
     <div class="vuestro-button-content">
       <slot>
@@ -31,6 +31,7 @@ export default {
     stretch: { type: Boolean, default: false },
     rounded: { type: Boolean, default: false },
     size: { type: String, default: 'md' },
+    dark: { type: Boolean, default: false },
   },
   methods: {
     onClick(e) {
@@ -131,6 +132,9 @@ export default {
 .vuestro-button.lg {
   padding: 6px 10px;
 }
+.vuestro-button.dark {
+  background-color: var(--vuestro-widget-dark-bg);
+}
 .vuestro-button-content {
   flex: 1 1 auto;
   display: flex;
@@ -184,8 +188,8 @@ export default {
   height: 17px;
   line-height: 17px;
   padding: 0;
-  border: 1px solid var(--vuestro-widget-light-bg);
-  background-color: var(--vuestro-widget-light-bg);
+  border: 1px solid var(--vuestro-field-bg);
+  background-color: var(--vuestro-field-bg);
   border-radius: 3px;
 }
 .vuestro-button.checkbox .fa-icon {

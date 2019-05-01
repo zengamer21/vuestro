@@ -6,7 +6,7 @@
         Buttons come in all shapes and sizes. Vuestro attempts to provide a flexible implementation suitable for the most common applications in an attractive, easy-to-use component.
       </template>
     </vuestro-card>
-    
+
     <vuestro-card>
       <template slot="description">
         Basic button
@@ -71,7 +71,7 @@
       <vuestro-button stretch>Button</vuestro-button>
       <vuestro-button pill stretch>Button</vuestro-button>
     </vuestro-card>
-    
+
     <vuestro-card>
       <template slot="description">
         Button variant can be changed by setting the variant property.
@@ -89,7 +89,7 @@
         <vuestro-button variant="link">link</vuestro-button>
       </div>
     </vuestro-card>
-    
+
     <vuestro-card>
       <template slot="description">
         Go buttons without borders by setting the no-border property.
@@ -107,7 +107,7 @@
         <vuestro-button no-border variant="link">link</vuestro-button>
       </div>
     </vuestro-card>
-    
+
     <vuestro-card>
       <template slot="description">
         Disable the button by setting the disabled propery
@@ -120,10 +120,10 @@
       </div>
     </vuestro-card>
 
-    
+
     <vuestro-card>
       <template slot="description">
-        Enable dense arrangements by setting the no-spacing property.
+        Enable dense arrangements by setting the no-spacing property
       </template>
       <div class="example-calculator">
         <vuestro-button no-spacing variant="primary">7</vuestro-button>
@@ -138,7 +138,16 @@
         <vuestro-button no-spacing variant="primary">0</vuestro-button>
       </div>
     </vuestro-card>
-    
+
+    <vuestro-card>
+      <template slot="description">
+        Get dark mode by setting the dark property
+      </template>
+      <div class="example-flexbox dark">
+        <vuestro-button dark no-border pill variant="secondary" size="lg">Dark Button</vuestro-button>
+      </div>
+    </vuestro-card>
+
   </vuestro-card-container>
 </template>
 
@@ -173,6 +182,18 @@ export default {
 }
 .bigger-font {
   font-size: 18px;
+}
+.example-flexbox.dark {
+  padding: 40px;
+  background-color: var(--vuestro-popup-bg);
+  position: relative;
+}
+.example-flexbox.dark:before {
+  content: "Example Dark Background";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
 }
 
 </style>
