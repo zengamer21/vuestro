@@ -3,8 +3,11 @@
     <!--SLOT FOR HEADER TEXT (only show if "heading" slot was provided)-->
     <div v-if="$slots.heading"
          class="vuestro-card-heading"
-         :style="color ? { 'border-left': `4px solid ${color}` }:{}">
+         :style="colorBarStyle">
       <slot name="heading"></slot>
+    </div>
+    <div class="vuestro-card-subheading">
+      <slot name="subheading"></slot>
     </div>
     <!--SLOT FOR DESCRIPTION (only show if "description" slot was provided)-->
     <div v-if="$slots.description"
@@ -24,6 +27,16 @@ export default {
     cols: { default: 12 },
     color: { type: String, default: null },
   },
+  computed: {
+    colorBarStyle() {
+      if (this.color) {
+        return {
+          'border-left': `4px solid ${this.color}`,
+          'padding-left': '8px',
+        };
+      }
+    },
+  },
   methods: {
     resize() {
       this.$slots.default.resize && this.$slots.default.resize();
@@ -40,17 +53,20 @@ export default {
   flex-direction: column;
 }
 
-.vuestro-card > .vuestro-card-heading {
-  font-size: 22px;
+.vuestro-card-heading {
+  font-size: 24px;
   line-height: 22px;
   font-weight: 300;
-  padding: 2px 8px;
+  padding: 2px 8px 2px 0;
 }
 
-.vuestro-card > .vuestro-card-description {
+.vuestro-card-description {
   font-size: 18px;
   padding: 4px 10px 20px 0px;
-  max-width: 75%;
+}
+
+.vuestro-card-subheading {
+  font-size: 20px;
 }
 
 .vuestro-card.width-1 {

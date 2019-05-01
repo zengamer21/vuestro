@@ -24,6 +24,15 @@
       </div>
     </vuestro-card>
 
+    <vuestro-card>
+      <template slot="description">
+        Get a color pill by only setting the title property
+      </template>
+      <div class="example-align-items-start">
+        <vuestro-pill title="Pill Title"></vuestro-pill>
+      </div>
+    </vuestro-card>
+
     </vuestro-card>
     <vuestro-card>
       <template slot="description">

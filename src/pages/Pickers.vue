@@ -7,11 +7,32 @@
       </template>
     </vuestro-card>
 
+    <vuestro-card>
+      <template slot="subheading">Vuestro Color Picker</template>
+      <template slot="description">
+        Simple drop-down color picker to choose within a pre-defined palette.
+      </template>
+      <vuestro-color-picker v-model="color" :colors="colorOptions"></vuestro-color-picker>
+    </vuestro-card>
 
-    <vuestro-color-picker v-model="color" :colors="colorOptions"></vuestro-color-picker>
-    <p>The Vuestro Color Picker allows</p>
-    <vuestro-color-picker v-model="color" :colors="colorOptions"></vuestro-color-picker>
-    <p>The Vuestro Color Picker allows</p>
+    <vuestro-card>
+      <template slot="subheading">Vuestro Time Picker</template>
+    </vuestro-card>
+    
+    <vuestro-card cols="6">
+      <template slot="description">
+        Select time by using spinner controls or typing in each field.
+      </template>
+      <vuestro-time-picker v-model="exampleTime"></vuestro-time-picker>
+    </vuestro-card>
+
+    <vuestro-card cols="6">
+      <template slot="description">
+        ...include seconds by setting the seconds property
+      </template>
+      <vuestro-time-picker v-model="exampleTime" seconds></vuestro-time-picker>
+    </vuestro-card>
+
   </vuestro-card-container>
 </template>
 
@@ -21,7 +42,7 @@ export default {
   name: 'Pickers',
   data() {
     return {
-      color: '#82832d',
+      color: '#ff80ab',
       colorOptions: [
         '#ff8a80',
         '#ff80ab',
@@ -40,6 +61,7 @@ export default {
         '#ffd180',
         '#ff9e80',
   		],
+  		exampleTime: new Date(),
     };
   },
 };

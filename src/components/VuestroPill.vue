@@ -7,7 +7,7 @@
          :style="color ? { 'background-color': color }:{}">
       {{ titleComputed }}
     </div>
-    <div ref="theText" class="vuestro-pill-value">{{ value }}</div>
+    <div v-if="value" ref="theText" class="vuestro-pill-value">{{ value }}</div>
     <div v-if="closable" class="vuestro-pill-closer" @click="onClose">&times;</div>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
   name: 'VuestroPill',
   props: {
     title: { type: String },
-    value: { type: String, required: true },
+    value: { type: String },
     color: { type: String, default: null },
     size: { type: String, default: '24px' },
     radius: { type: String, default: '999px' },

@@ -1,7 +1,9 @@
 <template>
   <span class="vuestro-editable-text"
-        @focusout="change"
-        @keypress.enter="onKeypress"
+        :class="{ invalid }"
+        @focusout="onFocusOut"
+        @keyup="onKeyUp"
+        @keypress.enter="onEnterKey"
         @focus="onFocus">
     {{ value }}
   </span>
@@ -14,25 +16,45 @@ export default {
   props: {
     value: { type: String, default: '' },
     enabled: { type: Boolean, default: true },
+    validator: { type: Function, default: () => true },
+  },
+  data() {
+    return {
+      invalid: false,  
+    };
   },
   watch: {
     enabled(newVal) {
-      if (newVal) {
+      this.updateEnable();
+      this.$el.focus();
+    },
+  },
+  mounted() {
+    this.updateEnable();
+  },
+  methods: {
+    updateEnable() {
+      if (this.enabled) {
         this.$el.setAttribute('tabindex', 1);
         this.$el.setAttribute('contenteditable', true);
-        this.$el.focus();
       } else {
         this.$el.removeAttribute('tabindex');
         this.$el.removeAttribute('contenteditable');
       }
     },
-  },
-  methods: {
     change(e) {
-      this.$emit('change', e.target.textContent);
+      if (!this.invalid) {
+        this.$emit('input', e.target.textContent);
+      }
     },
-    onKeypress(e) {
+    onFocusOut(e) {
       this.change(e);
+      this.$nextTick(() => {
+        this.$el.innerHTML = this.value;
+      });
+    },
+    onEnterKey(e) {
+      this.$el.blur();
       // prevent enter key from adding /n
       e.preventDefault();
       e.stopPropagation();
@@ -43,7 +65,11 @@ export default {
       range.selectNodeContents(this.$el);
       selection.removeAllRanges();
       selection.addRange(range);
-    }
+    },
+    onKeyUp(e) {
+      this.invalid = !this.validator(e.target.textContent);
+      return !this.invalid;
+    },
   },
 };
 
@@ -56,5 +82,14 @@ export default {
   overflow: hidden;
   white-space: nowrap;
 }
+
+.vuestro-editable-text:focus {
+  outline: 1px solid var(--vuestro-outline);
+}
+
+.vuestro-editable-text.invalid:focus {
+  outline: 1px solid var(--vuestro-danger);
+}
+
 
 </style>

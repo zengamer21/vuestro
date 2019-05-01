@@ -1,10 +1,10 @@
 <template>
   <div class="vuestro-button"
-       :class="[variant, { active, noBorder, noSpacing, pill, checkbox, disabled }]"
+       :class="[variant, size, { value, noBorder, noSpacing, pill, checkbox, disabled, stretch, rounded }]"
        @click="onClick">
     <div class="vuestro-button-content">
       <slot>
-        <icon v-if="checkbox && active" name="check"></icon>
+        <icon v-if="checkbox && value" name="check"></icon>
       </slot>
     </div>
   </div>
@@ -24,14 +24,18 @@ export default {
     variant: { type: String, default: 'secondary' },
     noBorder: { type: Boolean, default: false },
     noSpacing: { type: Boolean, default: false },
-    active: { type: Boolean, default: false },
     checkbox: { type: Boolean, required: false },
+    value: { type: Boolean, default: false }, // for v-model support
     disabled: { type: Boolean, default: false },
     pill: { type: Boolean, default: false },
+    stretch: { type: Boolean, default: false },
+    rounded: { type: Boolean, default: false },
+    size: { type: String, default: 'md' },
   },
   methods: {
     onClick(e) {
       this.$emit('click', e);
+      this.$emit('input', !this.value);
     }
   }
 };
@@ -73,9 +77,9 @@ export default {
 }
 
 .vuestro-button {
+  align-self: center;
   text-transform: none;
   border: 1px solid var(--variant-color);
-  padding: 2px 6px;
   margin: 2px;
   color: var(--variant-color);
   cursor: pointer;
@@ -112,6 +116,21 @@ export default {
 .vuestro-button.noSpacing {
   margin: 0;
 }
+.vuestro-button.stretch {
+  align-self: stretch;
+}
+.vuestro-button.rounded {
+  border-radius: 3px;
+}
+.vuestro-button.sm {
+  padding: 0px 2px;
+}
+.vuestro-button.md {
+  padding: 2px 6px;
+}
+.vuestro-button.lg {
+  padding: 6px 10px;
+}
 .vuestro-button-content {
   flex: 1 1 auto;
   display: flex;
@@ -122,19 +141,22 @@ export default {
   margin-right: 3px;
 }
 .vuestro-button.disabled {
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAAXNSR0IArs4c6QAAABBJREFUCB1jYECA/zAmJgMANfEC/rnVBF8AAAAASUVORK5CYII="); background-repeat: repeat;
   pointer-events: none;
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 6px, var(--variant-color) 6px, var(--variant-color) 7px);
 }
-.vuestro-button.active,
+.vuestro-button.value,
 .vuestro-button:hover {
   color: var(--vuestro-white);
   background-color: var(--variant-color);
 }
-.vuestro-button.white.active,
+.vuestro-button.value:hover {
+  filter: brightness(110%);
+}
+.vuestro-button.white.value,
 .vuestro-button.white:hover {
   color: var(--variant-text-color);
 }
-.vuestro-button.black.active,
+.vuestro-button.black.value,
 .vuestro-button.black:hover {
   color: var(--vuestro-white);
 }
@@ -147,20 +169,14 @@ export default {
   color: var(--vuestro-primary);
   border-color: transparent;
 }
-.vuestro-button.link.active,
+.vuestro-button.link.value,
 .vuestro-button.link:hover {
   filter: brightness(120%);
   background-color: transparent;
 }
-
 /* pill mode */
 .vuestro-button.pill {
-  min-width: 30px;
-  margin: 0 2px;
-  height: 17px;
-  line-height: 17px;
-  font-size: 11px;
-  border-radius: 10px;
+  border-radius: 999px;
 }
 /* checkbox mode */
 .vuestro-button.checkbox {
@@ -168,20 +184,20 @@ export default {
   height: 17px;
   line-height: 17px;
   padding: 0;
-  border: 1px solid var(--vuestro-light);
-  background-color: var(--vuestro-light);
+  border: 1px solid var(--vuestro-widget-light-bg);
+  background-color: var(--vuestro-widget-light-bg);
   border-radius: 3px;
 }
 .vuestro-button.checkbox .fa-icon {
-  width: 12px;
-  height: 12px;
-  margin-top: 1px;
+  width: 11px;
+  height: 11px;
+  margin-top: 0px;
 }
 .vuestro-button.checkbox:hover {
   border-color: var(--variant-color);
   background-color: var(--variant-color);
 }
-.vuestro-button.checkbox.active {
+.vuestro-button.checkbox.value {
   border-color: var(--variant-color);
   background-color: var(--variant-color);
   color: var(--vuestro-white);

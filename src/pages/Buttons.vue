@@ -11,16 +11,65 @@
       <template slot="description">
         Basic button
       </template>
-      <vuestro-button>Button</vuestro-button>
+      <div class="example-flexbox">
+        <vuestro-button>Button</vuestro-button>
+      </div>
     </vuestro-card>
 
     <vuestro-card>
       <template slot="description">
-        Buttons will always stretch to available space unless they are put in a flex box with <code>align-items</code> set.
+        Make it less pointy by setting the rounded property
       </template>
       <div class="example-flexbox">
-        <vuestro-button>Button</vuestro-button>
+        <vuestro-button rounded>Rounded Button</vuestro-button>
       </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        ...or go all the way by setting the pill property
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button pill>Pill-shaped Button</vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        Font size is inherited, but the size {'sm', 'md', 'lg'} property modifies inner padding
+      </template>
+      <div class="example-flexbox bigger-font">
+        <vuestro-button>Large Text Button</vuestro-button>
+        <vuestro-button size="sm">sm Button</vuestro-button>
+        <vuestro-button size="md">md(default) Button</vuestro-button>
+        <vuestro-button size="lg">lg Button</vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        Checkbox mode
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button variant="info" checkbox v-model="exampleCheckbox"></vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        Provide v-model without the checkbox property to enable toggle mode
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button variant="primary" v-model="exampleCheckbox">I can toggle!</vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        Buttons will stretch to available space by setting the stretch property.
+      </template>
+      <vuestro-button stretch>Button</vuestro-button>
+      <vuestro-button pill stretch>Button</vuestro-button>
     </vuestro-card>
     
     <vuestro-card>
@@ -61,6 +110,19 @@
     
     <vuestro-card>
       <template slot="description">
+        Disable the button by setting the disabled propery
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button disabled>Disabled Button</vuestro-button>
+        <vuestro-button disabled rounded>Disabled Button</vuestro-button>
+        <vuestro-button disabled pill>Disabled Button</vuestro-button>
+        <vuestro-button disabled variant="primary">Disabled Button</vuestro-button>
+      </div>
+    </vuestro-card>
+
+    
+    <vuestro-card>
+      <template slot="description">
         Enable dense arrangements by setting the no-spacing property.
       </template>
       <div class="example-calculator">
@@ -84,6 +146,11 @@
 
 export default {
   name: 'Buttons',
+  data() {
+    return {
+      exampleCheckbox: true,
+    };
+  },
 };
 
 </script>
@@ -103,6 +170,9 @@ export default {
 .example-calculator .vuestro-button {
   flex-grow: 1;
   min-width: 80px;
+}
+.bigger-font {
+  font-size: 18px;
 }
 
 </style>

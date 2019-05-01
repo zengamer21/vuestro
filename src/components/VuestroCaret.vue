@@ -41,7 +41,7 @@ export default {
   height: 0;
   border-left: var(--size) solid transparent;
   border-right: var(--size) solid transparent;
-  border-top: var(--size) solid var(--text-color);
+  border-top: var(--size) solid var(--vuestro-text-color);
   transition: transform 0.2s;
   margin: 2px;
 }
