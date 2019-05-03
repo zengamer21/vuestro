@@ -1,7 +1,7 @@
 <!-- Be sure to define CSS variable: --vuestro-text-field-bg -->
 <!-- to define bg color for proper overlap of outline mode -->
 <template>
-  <div class="vuestro-text-field" :class="[ variant, { focused }]">
+  <div class="vuestro-text-field" :class="[ variant, { dark, focused }]">
     <div class="input-el-wrapper">
       <input ref="inputEl"
              class="input-el"
@@ -55,7 +55,7 @@ export default {
   },
   watch: {
     value(newVal) {
-      if (newVal.length > 0) {
+      if (newVal.length > 0 || this.focused) {
         this.raisedPlaceholder = true;
       } else {
         this.raisedPlaceholder = false;
@@ -122,7 +122,9 @@ export default {
   margin-bottom: 12px;
   display: flex;
 }
-
+.vuestro-text-field.dark .input-el {
+  color: var(--vuestro-text-color-inverse);
+}
 .vuestro-text-field.focused {
   border-color: var(--vuestro-primary);
 }

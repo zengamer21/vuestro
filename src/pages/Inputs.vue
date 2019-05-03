@@ -8,11 +8,21 @@
 
     <vuestro-card>
       <template slot="subheading">
-        Regular Text Input
+        Regular Text Fields
       </template>
       <vuestro-text-field placeholder="Regular Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field variant="outline" placeholder="Outline Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field placeholder="Existing Value" v-model="exampleEditableText"></vuestro-text-field>
+      <vuestro-text-field placeholder="With Hint" hint="go on, type something..." v-model="exampleText"></vuestro-text-field>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        Set the dark property for a dark-theme compatible text field.
+      </template>
+      <div class="example-container dark">
+        <vuestro-text-field dark placeholder="Regular Text Field" v-model="exampleText"></vuestro-text-field>
+      </div>
     </vuestro-card>
 
     <vuestro-card>
@@ -23,6 +33,8 @@
         <vuestro-editable-text v-model="exampleEditableText"></vuestro-editable-text>
       </div>
     </vuestro-card>
+
+
 
   </vuestro-card-container>
 </template>
@@ -40,3 +52,17 @@ export default {
 };
 
 </script>
+
+<style scoped>
+
+.example-container {
+  display: flex;
+  align-items: flex-start;
+}
+.example-container.dark {
+  padding: 40px;
+  background-color: var(--vuestro-popup-bg);
+  position: relative;
+}
+
+</style>
