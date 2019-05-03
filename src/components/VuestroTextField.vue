@@ -63,9 +63,17 @@ export default {
     }
   },
   mounted() {
+    // move placeholder for initial value
     if (this.value.length > 0) {
       this.raisedPlaceholder = true;
     }
+    // special sauce to see if browser autofilled in this text field, if so,
+    // move the placeholder out of the way
+    setTimeout(() => {
+      if (window.getComputedStyle(this.$refs.inputEl).content === `"${String.fromCharCode(0xFEFF)}"`) {
+        this.raisedPlaceholder = true;
+      }
+    }, 100); // 100ms seems to be enough, but may need to be increased
   },
   methods: {
     focus() { // proxy the focus() call
@@ -177,6 +185,15 @@ export default {
   pointer-events: none;
   font-size: 12px;
   filter: brightness(140%);
+}
+
+.input-el-wrapper > input:-webkit-autofill,
+.input-el-wrapper > input:-webkit-autofill:hover,
+.input-el-wrapper > input:-webkit-autofill:focus {
+  content: "\feff"; /* magic value to detect browser autofill */
+  border: 1px solid var(--vuestro-gray);
+  -webkit-text-fill-color: var(--vuestro-black);
+  -webkit-box-shadow: 0 0 0px 1000px var(--vuestro-gray) inset;
 }
 
 </style>
