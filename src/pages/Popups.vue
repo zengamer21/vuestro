@@ -6,7 +6,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">Vuestro Time Picker</template>
+      <template slot="subheading">Vuestro Drop Down</template>
     </vuestro-card>
 
     <vuestro-card cols="6">
@@ -48,7 +48,14 @@
       </div>
     </vuestro-card>
 
-
+    <vuestro-card>
+      <template slot="description">
+        Set the click-open property to open on click
+      </template>
+      <vuestro-drop-down left>
+        <template slot="title">DropDown Menu</template>
+      </vuestro-drop-down>
+    </vuestro-card>
 
   </vuestro-card-container>
 </template>

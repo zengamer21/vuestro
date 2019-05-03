@@ -171,6 +171,7 @@ export default {
 }
 
 .show-password {
+  margin-left: 4px;
   color: var(--vuestro-outline);
   cursor: pointer;
   display: flex;

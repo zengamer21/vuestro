@@ -78,14 +78,16 @@ export default {
 
 .vuestro-drop-down {
   z-index: 100;
+  height: 100%;
+  position: relative;
 }
 .vuestro-drop-down-inner {
+  height: 100%;
   /* ensure dropdown is always visible, also make sure z-index of parent is set high enough for overlap */
   overflow: visible !important;
-  position: relative;
-  height: 100%;
   border: 1px solid transparent;
   border-bottom: none;
+  position: relative;
 }
 .vuestro-drop-down-inner.dark {
   --vuestro-drop-down-outline: var(--vuestro-outline)
@@ -133,7 +135,6 @@ export default {
   top: calc(100% - 1px);
   right: -1px;
   min-width: 160px;
-  width: calc(100% + 2px);
   font-size: 14px;
   font-weight: 300;
   border: 1px solid var(--vuestro-drop-down-outline);
