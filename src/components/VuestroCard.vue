@@ -6,7 +6,8 @@
          :style="colorBarStyle">
       <slot name="heading"></slot>
     </div>
-    <div class="vuestro-card-subheading">
+    <div v-if="$slots.subheading"
+         class="vuestro-card-subheading">
       <slot name="subheading"></slot>
     </div>
     <!--SLOT FOR DESCRIPTION (only show if "description" slot was provided)-->
@@ -58,6 +59,7 @@ export default {
   line-height: 22px;
   font-weight: 300;
   padding: 2px 8px 2px 0;
+  margin-bottom: 10px;
 }
 
 .vuestro-card-description {
@@ -67,6 +69,7 @@ export default {
 
 .vuestro-card-subheading {
   font-size: 20px;
+  margin-bottom: 5px;
 }
 
 .vuestro-card.width-1 {

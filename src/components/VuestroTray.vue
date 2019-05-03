@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-tray">
+  <div class="vuestro-tray" :class="{ noBorder }">
     <vuestro-title class="vuestro-tray-title flex-align-self-center">{{ title }}</vuestro-title>
     <slot></slot>
   </div>
@@ -16,6 +16,7 @@ export default {
   },
   props: {
     title: { type: String, required: true },
+    noBorder: { type: Boolean, default: false },
   },
 };
 
@@ -29,6 +30,9 @@ export default {
   padding: 2px 10px;
   border: 1px solid var(--vuestro-outline);
   border-radius: 4px;
+}
+.vuestro-button.noBorder {
+  border: none;
 }
 
 .vuestro-tray-title {

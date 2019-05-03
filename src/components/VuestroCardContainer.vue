@@ -43,9 +43,4 @@ export default {
   padding: var(--gutter-size);
 }
 
-.vuestro-card-container >>> .vuestro-card-heading {
-  margin-bottom: var(--gutter-size);
-}
-
-
 </style>

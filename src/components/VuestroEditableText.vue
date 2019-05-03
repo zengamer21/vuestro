@@ -28,6 +28,9 @@ export default {
       this.updateEnable();
       this.$el.focus();
     },
+    value(newVal) {
+      this.$el.innerHTML = newVal;
+    },
   },
   mounted() {
     this.updateEnable();

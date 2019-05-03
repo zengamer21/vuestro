@@ -1,4 +1,4 @@
-<!-- Be sure to define CSS variable: --text-field-bg -->
+<!-- Be sure to define CSS variable: --vuestro-text-field-bg -->
 <!-- to define bg color for proper overlap of outline mode -->
 <template>
   <div class="vuestro-text-field" :class="[ variant, { focused }]">
@@ -53,6 +53,20 @@ export default {
       showPassword: false,
     };
   },
+  watch: {
+    value(newVal) {
+      if (newVal.length > 0) {
+        this.raisedPlaceholder = true;
+      } else {
+        this.raisedPlaceholder = false;
+      }
+    }
+  },
+  mounted() {
+    if (this.value.length > 0) {
+      this.raisedPlaceholder = true;
+    }
+  },
   methods: {
     focus() { // proxy the focus() call
       this.$nextTick(() => {
@@ -84,6 +98,14 @@ export default {
 
 </script>
 
+<style>
+
+.vuestro-app {
+  --vuestro-text-field-bg: var(--vuestro-content-bg);
+}
+
+</style>
+
 <style scoped>
 
 .vuestro-text-field {
@@ -94,15 +116,15 @@ export default {
 }
 
 .vuestro-text-field.focused {
-  border-color: var(--primary);
+  border-color: var(--vuestro-primary);
 }
 
 .vuestro-text-field.outline {
-  border: 1px solid var(--outline);
+  border: 1px solid var(--vuestro-outline);
   border-radius: 4px;
 }
 .vuestro-text-field.regular {
-  border-bottom: 1px solid var(--outline);
+  border-bottom: 1px solid var(--vuestro-outline);
 }
 
 .placeholder {
@@ -112,8 +134,8 @@ export default {
   transition: all 0.15s;
   font-size: 15px;
   position: absolute;
-  background: var(--text-field-bg);
-  color: var(--outline);
+  background: var(--vuestro-text-field-bg);
+  color: var(--vuestro-outline);
   pointer-events: none;
 }
 
@@ -136,12 +158,12 @@ export default {
   background-color: transparent;
   border: none;
   outline: none;
-  color: var(--outline);
+  color: var(--vuestro-outline);
   font-size: 15px;
 }
 
 .show-password {
-  color: var(--outline);
+  color: var(--vuestro-outline);
   cursor: pointer;
   display: flex;
   align-items: center;
