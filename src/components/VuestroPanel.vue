@@ -50,7 +50,9 @@ export default {
 }
 
 .vuestro-panel .vuestro-tray:not(:last-child) {
-  border-bottom: 2px solid var(--vuestro-outline);
+  border-bottom: 1px solid var(--vuestro-outline);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 </style>
