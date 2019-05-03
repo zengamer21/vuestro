@@ -142,9 +142,12 @@ export default {
   transition: all 0.15s;
   font-size: 15px;
   position: absolute;
-  background: var(--vuestro-text-field-bg);
-  color: var(--vuestro-outline);
+  color: var(--vuestro-text-color-muted);
   pointer-events: none;
+}
+.vuestro-text-field.outline .placeholder {
+  /* only for outline mode */
+  background: var(--vuestro-text-field-bg);
 }
 
 .placeholder.active {
@@ -166,7 +169,7 @@ export default {
   background-color: transparent;
   border: none;
   outline: none;
-  color: var(--vuestro-outline);
+  color: var(--vuestro-text-color);
   font-size: 15px;
 }
 

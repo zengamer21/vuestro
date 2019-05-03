@@ -144,7 +144,7 @@ export default {
 
   --vuestro-text-color: #323334;
   --vuestro-text-color-secondary: #696969;
-  --vuestro-text-color-muted: #aaa;
+  --vuestro-text-color-muted: #888;
   --vuestro-text-color-inverse: #eee;
 }
 
