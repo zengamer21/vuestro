@@ -80,6 +80,7 @@ export default {
   z-index: 100;
   height: 100%;
   position: relative;
+  cursor: default;
 }
 .vuestro-drop-down-inner {
   height: 100%;
