@@ -31,7 +31,7 @@ export default {
   border: 1px solid var(--vuestro-outline);
   border-radius: 4px;
 }
-.vuestro-button.noBorder {
+.vuestro-tray.noBorder {
   border: none;
 }
 
