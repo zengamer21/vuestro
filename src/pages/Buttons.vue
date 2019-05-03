@@ -3,7 +3,7 @@
     <vuestro-card cols="12" color="#f47633">
       <template slot="heading">Buttons</template>
       <template slot="description">
-        Buttons come in all shapes and sizes. Vuestro attempts to provide a flexible implementation suitable for the most common applications in an attractive, easy-to-use component.
+        Buttons come in all shapes and sizes. Vuestro attempts to provide a flexible implementation suitable for the most common applications in an attractive, easily-configurable component.
       </template>
     </vuestro-card>
 
@@ -144,7 +144,9 @@
         Get dark mode by setting the dark property
       </template>
       <div class="example-flexbox dark">
-        <vuestro-button dark no-border pill variant="secondary" size="lg">Dark Button</vuestro-button>
+        <vuestro-button dark size="lg">Dark with Border</vuestro-button>
+        <vuestro-button dark no-border pill variant="secondary" size="lg">Dark Pill w/o Border</vuestro-button>
+        <vuestro-button dark checkbox v-model="exampleCheckbox"></vuestro-button>
       </div>
     </vuestro-card>
 

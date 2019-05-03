@@ -18,7 +18,7 @@
     <vuestro-card>
       <template slot="subheading">Vuestro Time Picker</template>
     </vuestro-card>
-    
+
     <vuestro-card cols="6">
       <template slot="description">
         Select time by using spinner controls or typing in each field.
@@ -32,6 +32,12 @@
       </template>
       <vuestro-time-picker v-model="exampleTime" seconds></vuestro-time-picker>
     </vuestro-card>
+
+    <vuestro-card>
+      <template slot="subheading">Vuestro Date Picker</template>
+      <vuestro-date-picker @change="onChange"></vuestro-date-picker>
+    </vuestro-card>
+
 
   </vuestro-card-container>
 </template>
@@ -63,6 +69,11 @@ export default {
   		],
   		exampleTime: new Date(),
     };
+  },
+  methods: {
+    onChange() {
+      
+    },
   },
 };
 

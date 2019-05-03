@@ -78,6 +78,7 @@ export default {
 }
 
 .vuestro-button {
+  min-height: 15px;
   align-self: center;
   text-transform: none;
   border: 1px solid var(--variant-color);

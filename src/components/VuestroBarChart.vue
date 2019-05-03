@@ -47,8 +47,8 @@ export default {
   },
   methods: {
     resize() {
-      this.width = this.$el.clientWidth;
-      this.height = this.$el.clientHeight;
+      this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
+      this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
     },
     redraw() {
       let stack = d3.stack().keys(d3.range(this.data.length));

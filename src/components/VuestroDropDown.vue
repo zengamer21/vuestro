@@ -1,16 +1,18 @@
 <template>
-  <div class="vuestro-drop-down" @mouseleave="onLeave" :class="{ active }">
-    <div ref="title" class="vuestro-drop-down-title" @mouseover="onHover">
-      <slot name="title"></slot>
-    </div>
-    <div class="vuestro-drop-down-menu"
-         :style="{ visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }"
-         :class="{ left }">
-      <div class="vuestro-drop-down-menu-content">
-        <slot></slot>
+  <div class="vuestro-drop-down">
+    <div class="vuestro-drop-down-inner" @mouseleave="onLeave" :class="{ dark, active, rounded, clickOpen }">
+      <div ref="title" class="vuestro-drop-down-title" @mouseover="onHover" @click="onClick">
+        <slot name="title"></slot>
       </div>
-      <div class="vuestro-drop-down-menu-buttons" v-if="$slots.buttons">
-        <slot name="buttons"></slot>
+      <div class="vuestro-drop-down-menu"
+           :style="{ visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }"
+           :class="{ left }">
+        <div class="vuestro-drop-down-menu-content">
+          <slot></slot>
+        </div>
+        <div class="vuestro-drop-down-menu-buttons" v-if="$slots.buttons">
+          <slot name="buttons"></slot>
+        </div>
       </div>
     </div>
   </div>
@@ -23,6 +25,9 @@ export default {
   props: {
     left: { type: Boolean, default: false },
     alwaysOpen: { type: Boolean, default: false },
+    clickOpen: { type: Boolean, default: false },
+    rounded: { type: Boolean, default: false },
+    dark: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -31,40 +36,72 @@ export default {
   },
   methods: {
     onHover() {
-      this.active = true;
-      this.$emit('hover');
+      if (!this.clickOpen) {
+        this.active = true;
+        this.$emit('hover');
+      }
     },
     onLeave() {
-      this.active = this.alwaysOpen;
-      this.$emit('leave');
+      if (!this.clickOpen) {
+        this.active = this.alwaysOpen;
+        this.$emit('leave');
+      }
     },
+    onClick() {
+      if (this.clickOpen) {
+        if (this.active) {
+          this.active = this.alwaysOpen;
+          this.$emit('leave');
+        } else {
+          this.active = true;
+          this.$emit('hover');
+        }
+      }
+    }
   },
 };
 
 </script>
 
+<style>
+
+.vuestro-app {
+  --vuestro-drop-down-outline: transparent;
+}
+.vuestro-dark {
+  --vuestro-drop-down-outline: var(--vuestro-outline)
+}
+
+</style>
+
 <style scoped>
 
 .vuestro-drop-down {
-  /* ensure dropdown is always visible, also make sure z-index of parent is set high enough */
+  z-index: 100;
+}
+.vuestro-drop-down-inner {
+  /* ensure dropdown is always visible, also make sure z-index of parent is set high enough for overlap */
   overflow: visible !important;
   position: relative;
   height: 100%;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
   border: 1px solid transparent;
   border-bottom: none;
 }
+.vuestro-drop-down-inner.dark {
+  --vuestro-drop-down-outline: var(--vuestro-outline)
+}
+.vuestro-drop-down-inner.rounded {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
 
-.vuestro-drop-down.active {
+.vuestro-drop-down-inner.active {
   background-color: var(--vuestro-popup-bg);
-  border: 1px solid var(--vuestro-outline);
-  border-bottom: none;
+  border-color: var(--vuestro-drop-down-outline);
   color: var(--vuestro-popup-fg);
 }
 
 .vuestro-drop-down-title {
-  z-index: 1001;
   position: relative;
   padding-left: 6px;
   padding-right: 6px;
@@ -75,25 +112,36 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   cursor: default;
+  user-select: none;
+  z-index: 101;
 }
 .vuestro-drop-down-title .fa-icon {
   margin-right: 2px;
+}
+.vuestro-drop-down-inner.clickOpen .vuestro-drop-down-title {
+  cursor: pointer;
+}
+.vuestro-drop-down-inner.dark .vuestro-drop-down-title {
+  color: var(--vuestro-popup-fg);
 }
 
 .vuestro-drop-down-menu {
   background: var(--vuestro-popup-bg);
   color: var(--vuestro-popup-fg);
-  box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
   position: absolute;
   top: calc(100% - 1px);
   right: -1px;
   min-width: 160px;
+  width: calc(100% + 2px);
   font-size: 14px;
   font-weight: 300;
-  border: 1px solid var(--vuestro-outline);
+  border: 1px solid var(--vuestro-drop-down-outline);
+  z-index: -1;
+}
+.vuestro-drop-down-inner.rounded .vuestro-drop-down-menu {
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
-  z-index: -1;
 }
 
 .vuestro-drop-down-menu.left {
@@ -105,12 +153,14 @@ export default {
 }
 
 .vuestro-drop-down-menu-buttons {
-  border-top: 1px solid var(--vuestro-outline);
+  border-top: 1px solid var(--vuestro-drop-down-outline);
   overflow: hidden;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
   display: flex;
   cursor: pointer;
+}
+.vuestro-drop-down-inner.rounded .vuestro-drop-down-menu-buttons {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .vuestro-drop-down-menu-buttons > span {
@@ -121,7 +171,7 @@ export default {
 }
 
 .vuestro-drop-down-menu-buttons > span:not(:first-child) {
-  border-left: 1px solid var(--vuestro-outline);
+  border-left: 1px solid var(--vuestro-drop-down-outline);
 }
 
 .vuestro-drop-down-menu-buttons > span:hover {

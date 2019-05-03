@@ -22,6 +22,7 @@ import VuestroPanelCollapsible from '../components/VuestroPanelCollapsible.vue';
 import VuestroPanelToolbar from '../components/VuestroPanelToolbar.vue';
 import VuestroPanelToolbarButton from '../components/VuestroPanelToolbarButton.vue';
 import VuestroPill from '../components/VuestroPill.vue';
+import VuestroSankeyChart from '../components/VuestroSankeyChart.vue';
 import VuestroSearchBox from '../components/VuestroSearchBox.vue';
 import VuestroSidebar from '../components/sidebar/VuestroSidebar.vue';
 import VuestroTextField from '../components/VuestroTextField.vue';
@@ -60,6 +61,7 @@ export default {
     Vue.component(VuestroPanelToolbar.name, VuestroPanelToolbar);
     Vue.component(VuestroPanelToolbarButton.name, VuestroPanelToolbarButton);
     Vue.component(VuestroPill.name, VuestroPill);
+    Vue.component(VuestroSankeyChart.name, VuestroSankeyChart);
     Vue.component(VuestroSearchBox.name, VuestroSearchBox);
     Vue.component(VuestroSidebar.name, VuestroSidebar);
     Vue.component(VuestroTextField.name, VuestroTextField);

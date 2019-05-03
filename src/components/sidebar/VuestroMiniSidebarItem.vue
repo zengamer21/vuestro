@@ -2,14 +2,14 @@
   <div class="vuestro-mini-sidebar-item"
        :class="{ bottom: route.meta.sidebarBottom }"
        @mouseleave="onLeave">
-    
+
     <div class="vuestro-mini-sidebar-icon"
          :class="{ 'router-link-active': isParentRoute }"
          @mouseover="onHover"
          @click="tryPush">
       <icon :name="route.meta.icon"></icon>
     </div>
-    
+
     <div class="vuestro-mini-sidebar-popup"
          :style="{ visibility: active ? 'visible':'hidden',
                    opacity: active ? '1':'0',
@@ -88,8 +88,8 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border-top-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
-  border-bottom-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
 }
 
 .vuestro-mini-sidebar-icon.router-link-exact-active {
@@ -116,6 +116,7 @@ export default {
   border-top-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
   border-bottom-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
   z-index: 1000;
+  padding-right: 10px;
 }
 
 .vuestro-mini-sidebar-popup > .popup-title {

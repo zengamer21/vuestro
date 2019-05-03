@@ -2,7 +2,7 @@
   <div class="vuestro-search-box">
     <!--HISTORY-->
     <div v-if="history" class="history-dropdown">
-      <vuestro-drop-down left>
+      <vuestro-drop-down left rounded>
         <template slot="title">
           <icon name="search"></icon>
           <icon class="down-caret" name="caret-down"></icon>

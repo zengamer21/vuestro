@@ -1,16 +1,16 @@
 /* global expect */
 import { mount } from '@vue/test-utils';
 import Vue from 'vue';
-import EditBox from './EditBox.vue';
+import VuestroSearchBox from './VuestroSearchBox.vue';
 
-describe('EditBox', () => {
-  const wrapper = mount(EditBox, {
+describe('VuestroSearchBox', () => {
+  const wrapper = mount(VuestroSearchBox, {
     propsData: {
     },
   });
 
   it('has proper name', () => {
-    expect(wrapper.name()).toBe('EditBox');
+    expect(wrapper.name()).toBe('VuestroSearchBox');
   });
 
   it('only renders history-dropdown when history == true', () => {

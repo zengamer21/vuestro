@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "d3": "^5.9.2",
+    "d3-sankey": "^0.12.1",
     "geopattern": "^1.2.3",
     "moment": "^2.24.0"
   },

@@ -9,6 +9,7 @@ import Pills from '../pages/Pills.vue';
 import Inputs from '../pages/Inputs.vue';
 import TextInputs from '../pages/TextInputs.vue';
 import Containers from '../pages/Containers.vue';
+import Popups from '../pages/Popups.vue';
 
 Vue.use(Router);
 
@@ -54,6 +55,16 @@ export default new Router({
       name: 'pickers',
       path: '/pickers',
       component: Pickers,
+    },
+    {
+      meta: {
+        title: 'Popups',
+        sidebar: true,
+        icon: 'layer-group',
+      },
+      name: 'popups',
+      path: '/popups',
+      component: Popups,
     },
     {
       meta: {
