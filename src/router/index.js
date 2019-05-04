@@ -10,6 +10,8 @@ import Inputs from '../pages/Inputs.vue';
 import TextInputs from '../pages/TextInputs.vue';
 import Containers from '../pages/Containers.vue';
 import Popups from '../pages/Popups.vue';
+import SankeyCharts from '../pages/SankeyCharts.vue';
+import AreaCharts from '../pages/AreaCharts.vue';
 
 Vue.use(Router);
 
@@ -35,6 +37,26 @@ export default new Router({
       name: 'charts',
       path: '/charts',
       component: Charts,
+      children: [
+        {
+          meta: {
+            title: 'Area Chart',
+            sidebar: true,
+          },
+          name: 'area-charts',
+          path: 'area-charts',
+          component: AreaCharts,
+        },
+        {
+          meta: {
+            title: 'Sankey',
+            sidebar: true,
+          },
+          name: 'sankey-charts',
+          path: 'sankey-charts',
+          component: SankeyCharts,
+        }
+      ]
     },
     {
       meta: {

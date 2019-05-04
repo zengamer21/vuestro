@@ -41,6 +41,7 @@ export default {
   margin-top: var(--gutter-size);
   flex-grow: 1;
   display: flex;
+  flex-direction: column;
 }
 
 /* border only for dark ui */
