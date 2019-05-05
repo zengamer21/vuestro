@@ -25,6 +25,7 @@ export default {
           options: {
             title: 'Users',
             color: 'var(--vuestro-primary)',
+            icon: 'users',
           },
           position: {
             x: 0,
@@ -40,6 +41,7 @@ export default {
           options: {
             title: 'Sales',
             color: 'var(--vuestro-purple)',
+            icon: 'cash-register',
           },
           position: {
             x: 3,
@@ -51,10 +53,11 @@ export default {
         {
           id: 'w2',
           type: 'counter',
-          data: 73,
+          data: 2373,
           options: {
-            title: 'Errors',
-            color: 'var(--vuestro-danger)',
+            title: 'Logs',
+            color: 'var(--vuestro-cyan)',
+            icon: 'warehouse',
           },
           position: {
             x: 6,
@@ -66,10 +69,10 @@ export default {
         {
           id: 'w3',
           type: 'counter',
-          data: 1324,
+          data: 24,
           options: {
-            title: 'Logs',
-            color: 'var(--vuestro-cyan)',
+            title: 'Errors',
+            color: 'var(--vuestro-danger)',
           },
           position: {
             x: 9,
