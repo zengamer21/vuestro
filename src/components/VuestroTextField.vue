@@ -1,7 +1,7 @@
 <!-- Be sure to define CSS variable: --vuestro-text-field-bg -->
 <!-- to define bg color for proper overlap of outline mode -->
 <template>
-  <div class="vuestro-text-field" :class="[ variant, { dark, focused }]">
+  <div class="vuestro-text-field" :class="[ `vuestro-text-field-${variant}`, { dark, focused }]">
     <div class="input-el-wrapper">
       <input ref="inputEl"
              class="input-el"
@@ -129,11 +129,11 @@ export default {
   border-color: var(--vuestro-primary);
 }
 
-.vuestro-text-field.outline {
+.vuestro-text-field-outline {
   border: 1px solid var(--vuestro-outline);
   border-radius: 4px;
 }
-.vuestro-text-field.regular {
+.vuestro-text-field-regular {
   border-bottom: 1px solid var(--vuestro-outline);
 }
 

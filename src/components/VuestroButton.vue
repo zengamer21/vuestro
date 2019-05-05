@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-button"
-       :class="[variant, size, { dark, value, noBorder, noSpacing, pill, checkbox, disabled, stretch, rounded }]"
+       :class="[`vuestro-button-${variant}`, size, { dark, value, noBorder, noSpacing, pill, checkbox, disabled, stretch, rounded }]"
        @click="onClick">
     <div class="vuestro-button-content">
       <slot>
@@ -46,33 +46,33 @@ export default {
 <style scoped>
 
 /* VARIANTS */
-.vuestro-button.primary {
+.vuestro-button-primary {
   --variant-color: var(--vuestro-primary);
 }
-.vuestro-button.secondary {
+.vuestro-button-secondary {
   --variant-color: var(--vuestro-secondary);
 }
-.vuestro-button.success {
+.vuestro-button-success {
   --variant-color: var(--vuestro-success);
 }
-.vuestro-button.warning {
+.vuestro-button-warning {
   --variant-color: var(--vuestro-warning);
 }
-.vuestro-button.danger {
+.vuestro-button-danger {
   --variant-color: var(--vuestro-danger);
 }
-.vuestro-button.info {
+.vuestro-button-info {
   --variant-color: var(--vuestro-info);
 }
-.vuestro-button.white {
+.vuestro-button-white {
   --variant-color: var(--vuestro-white);
   --variant-text-color: var(--vuestro-secondary);
 }
-.vuestro-button.black {
+.vuestro-button-black {
   --variant-color: var(--vuestro-black);
   --variant-text-color: var(--vuestro-black);
 }
-.vuestro-button.text {
+.vuestro-button-text {
   --variant-color: var(--vuestro-text-color);
   --variant-text-color: var(--vuestro-text-color);
 }
