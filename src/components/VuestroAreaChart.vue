@@ -21,7 +21,7 @@ export default {
   name: 'VuestroAreaChart',
   props: {
     data: { type: Array, default: () => [] },
-    options: { type: Object, default: () => {} },
+    options: { type: Object, default: () => ({}) },
   },
   data() {
     return {

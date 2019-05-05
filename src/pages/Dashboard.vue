@@ -1,9 +1,10 @@
 <template>
   <vuestro-grid :layout.sync="layout">
     <vuestro-card slot-scope="{ item }" :color="item.color">
-      <template slot="heading"><span class="drag">{{ item.title }}</span></template>
+      <template v-if="item.title" slot="heading"><span class="drag">{{ item.title }}</span></template>
       <div class="frame">
-        <vuestro-donut :title="item.value+'%'" :percentage="item.value" :width="14"></vuestro-donut>
+        <vuestro-big-count v-if="item.type == 'counter'" :data="item.data" :options="item.options"></vuestro-big-count>
+        <vuestro-donut v-else-if="item.type == 'donut'" :title="item.value+'%'" :percentage="item.value" :width="14"></vuestro-donut>
       </div>
     </vuestro-card>
   </vuestro-grid>
@@ -18,26 +19,63 @@ export default {
       cnt: 0,
       layout: [
         {
-          id: 'w1',
-          title: 'Donut Gauge',
-          value: 73,
-          color: '#4bbc79',
+          id: 'w0',
+          type: 'counter',
+          data: 344,
+          options: {
+            title: 'Users',
+            color: 'var(--vuestro-primary)',
+          },
           position: {
             x: 0,
             y: 0,
-            w: 4,
-            h: 4,
+            w: 3,
+            h: 1,
+          }
+        },
+        {
+          id: 'w1',
+          type: 'counter',
+          data: 13328,
+          options: {
+            title: 'Sales',
+            color: 'var(--vuestro-purple)',
+          },
+          position: {
+            x: 3,
+            y: 0,
+            w: 3,
+            h: 1,
           }
         },
         {
           id: 'w2',
-          title: 'Total users for period',
-          color: '#f47633',
+          type: 'counter',
+          data: 73,
+          options: {
+            title: 'Errors',
+            color: 'var(--vuestro-danger)',
+          },
           position: {
-            x: 4,
+            x: 6,
             y: 0,
-            w: 4,
-            h: 4,
+            w: 3,
+            h: 1,
+          }
+        },
+        {
+          id: 'w3',
+          type: 'counter',
+          data: 1324,
+          options: {
+            title: 'Logs',
+            color: 'var(--vuestro-cyan)',
+          },
+          position: {
+            x: 9,
+            y: 0,
+            w: 3,
+            h: 1,
           }
         },
       ],

@@ -1,6 +1,7 @@
 import VuestroApp from '../components/VuestroApp.vue';
 import VuestroAreaChart from '../components/VuestroAreaChart.vue';
 import VuestroBarChart from '../components/VuestroBarChart.vue';
+import VuestroBigCount from '../components/VuestroBigCount.vue';
 import VuestroButton from '../components/VuestroButton.vue';
 import VuestroCaret from '../components/VuestroCaret.vue';
 import VuestroCard from '../components/VuestroCard.vue';
@@ -40,6 +41,7 @@ export default {
     Vue.component(VuestroApp.name, VuestroApp);
     Vue.component(VuestroAreaChart.name, VuestroAreaChart);
     Vue.component(VuestroBarChart.name, VuestroBarChart);
+    Vue.component(VuestroBigCount.name, VuestroBigCount);
     Vue.component(VuestroButton.name, VuestroButton);
     Vue.component(VuestroCaret.name, VuestroCaret);
     Vue.component(VuestroCard.name, VuestroCard);
@@ -70,5 +72,8 @@ export default {
     Vue.component(VuestroTray.name, VuestroTray);
 
     // Vue.directive(MyDirective.name, MyDirective);
+    Vue.filter('vuestroCommas', (d) => {
+      return Number(d).toLocaleString('en');
+    });
   }
 };

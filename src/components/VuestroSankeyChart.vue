@@ -57,7 +57,7 @@ export default {
   name: 'VuestroSankeyChart',
   props: {
     data: { type: Object, default: () => ({}) },
-    options: { type: Object, default: () => {} },
+    options: { type: Object, default: () => ({}) },
   },
   data() {
     return {
