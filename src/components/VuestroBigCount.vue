@@ -2,7 +2,7 @@
   <vuestro-panel :color="color">
     <div class="vuestro-big-count-title">{{ title }}</div>
     <icon class="vuestro-big-count-icon" v-if="icon" :name="icon"></icon>
-    <div class="vuestro-big-count-value">{{ data | vuestroCommas }}</div>
+    <div class="vuestro-big-count-value">{{ data[0] | vuestroCommas }}</div>
   </vuestro-panel>
 </template>
 
@@ -17,7 +17,7 @@ export default {
     Icon,
   },
   props: {
-    data: { type: Number, default: 0 },
+    data: { type: Array, default: 0 },
     options: { type: Object, default: () => ({}) },
   },
   data() {

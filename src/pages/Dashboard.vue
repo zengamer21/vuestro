@@ -21,7 +21,7 @@ export default {
         {
           id: 'w0',
           type: 'counter',
-          data: 344,
+          data: [344],
           options: {
             title: 'Users',
             color: 'var(--vuestro-primary)',
@@ -37,7 +37,7 @@ export default {
         {
           id: 'w1',
           type: 'counter',
-          data: 13328,
+          data: [13328],
           options: {
             title: 'Sales',
             color: 'var(--vuestro-purple)',
@@ -53,7 +53,7 @@ export default {
         {
           id: 'w2',
           type: 'counter',
-          data: 2373,
+          data: [2373],
           options: {
             title: 'Logs',
             color: 'var(--vuestro-cyan)',
@@ -69,7 +69,7 @@ export default {
         {
           id: 'w3',
           type: 'counter',
-          data: 24,
+          data: [24],
           options: {
             title: 'Errors',
             color: 'var(--vuestro-danger)',
