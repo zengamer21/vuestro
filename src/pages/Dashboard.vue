@@ -3,7 +3,7 @@
     <vuestro-card slot-scope="{ item }" :color="item.color">
       <template v-if="item.title" slot="heading"><span class="drag">{{ item.title }}</span></template>
       <div class="frame">
-        <vuestro-big-count v-if="item.type == 'counter'" :data="item.data" :options="item.options"></vuestro-big-count>
+        <vuestro-stat-tile v-if="item.type == 'counter'" :data="item.data" :options="item.options"></vuestro-stat-tile>
         <vuestro-donut v-else-if="item.type == 'donut'" :title="item.value+'%'" :percentage="item.value" :width="14"></vuestro-donut>
       </div>
     </vuestro-card>
@@ -69,10 +69,11 @@ export default {
         {
           id: 'w3',
           type: 'counter',
-          data: [24],
+          data: ['running'],
           options: {
-            title: 'Errors',
+            title: 'Status',
             color: 'var(--vuestro-danger)',
+            icon: 'exclamation'
           },
           position: {
             x: 9,

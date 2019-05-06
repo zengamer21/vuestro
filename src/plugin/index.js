@@ -1,7 +1,6 @@
 import VuestroApp from '../components/VuestroApp.vue';
 import VuestroAreaChart from '../components/VuestroAreaChart.vue';
 import VuestroBarChart from '../components/VuestroBarChart.vue';
-import VuestroBigCount from '../components/VuestroBigCount.vue';
 import VuestroButton from '../components/VuestroButton.vue';
 import VuestroCaret from '../components/VuestroCaret.vue';
 import VuestroCard from '../components/VuestroCard.vue';
@@ -26,6 +25,7 @@ import VuestroPill from '../components/VuestroPill.vue';
 import VuestroSankeyChart from '../components/VuestroSankeyChart.vue';
 import VuestroSearchBox from '../components/VuestroSearchBox.vue';
 import VuestroSidebar from '../components/sidebar/VuestroSidebar.vue';
+import VuestroStatTile from '../components/VuestroStatTile.vue';
 import VuestroTextField from '../components/VuestroTextField.vue';
 import VuestroTimePicker from '../components/VuestroTimePicker.vue';
 import VuestroTitle from '../components/VuestroTitle.vue';
@@ -43,7 +43,6 @@ export default {
     Vue.component(VuestroApp.name, VuestroApp);
     Vue.component(VuestroAreaChart.name, VuestroAreaChart);
     Vue.component(VuestroBarChart.name, VuestroBarChart);
-    Vue.component(VuestroBigCount.name, VuestroBigCount);
     Vue.component(VuestroButton.name, VuestroButton);
     Vue.component(VuestroCaret.name, VuestroCaret);
     Vue.component(VuestroCard.name, VuestroCard);
@@ -68,6 +67,7 @@ export default {
     Vue.component(VuestroSankeyChart.name, VuestroSankeyChart);
     Vue.component(VuestroSearchBox.name, VuestroSearchBox);
     Vue.component(VuestroSidebar.name, VuestroSidebar);
+    Vue.component(VuestroStatTile.name, VuestroStatTile);
     Vue.component(VuestroTextField.name, VuestroTextField);
     Vue.component(VuestroTimePicker.name, VuestroTimePicker);
     Vue.component(VuestroTitle.name, VuestroTitle);
@@ -75,7 +75,10 @@ export default {
 
     // Vue.directive(MyDirective.name, MyDirective);
     Vue.filter('vuestroCommas', (d) => {
-      return Number(d).toLocaleString('en');
+      if (typeof(d) === 'number') {
+        return Number(d).toLocaleString('en');
+      }
+      return d;
     });
   }
 };
