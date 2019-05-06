@@ -55,11 +55,11 @@ export default {
 }
 
 .vuestro-card-heading {
-  font-size: 24px;
+  font-size: 22px;
   line-height: 22px;
   font-weight: 300;
-  padding: 2px 8px 2px 0;
-  margin-bottom: 10px;
+  padding: 2px 8px 2px 2px;
+  margin-bottom: 2px;
 }
 
 .vuestro-card-description {
