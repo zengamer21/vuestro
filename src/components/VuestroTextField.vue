@@ -73,7 +73,7 @@ export default {
       if (window.getComputedStyle(this.$refs.inputEl).content === `"${String.fromCharCode(0xFEFF)}"`) {
         this.raisedPlaceholder = true;
       }
-    }, 100); // 100ms seems to be enough, but may need to be increased
+    }, 200); // 200ms seems to be enough, but may need to be increased
   },
   methods: {
     focus() { // proxy the focus() call

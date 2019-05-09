@@ -1,13 +1,31 @@
 <template>
-  <div class="vuestro-area-chart">
-    <svg :width="width" :height="height"
+  <div class="vuestro-area-chart" @mouseleave="onMouseleave">
+    <svg :width="width"
+         :height="height"
          :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
          @mousemove="onMouseover">
-      <g>
-        <path class="area" :d="paths.area" />
-        <path class="line" :d="paths.line" />
-        <path class="selector" :d="paths.selector" />
+      <!--LINES-->
+      <g v-for="v in valueKeys" :key="v">
+        <path class="vuestro-area-chart-area" :d="getArea(v)" :fill="color(v)"/>
+        <path class="vuestro-area-chart-line" :d="getLine(v)" :stroke="color(v)"/>
       </g>
+      <!--AXES-->
+      <template v-if="showAxes">
+        <g v-axis:x="scale" class="vuestro-area-chart-x-axis"
+           :style="{ transform: `translate(0, ${height}px)` }">
+        </g>
+        <g v-axis:y="scale" class="vuestro-area-chart-y-axis"></g>
+      </template>
+      <!--TOOLTIP-->
+      <template v-if="cursorLine.length > 0">
+        <path class="vuestro-area-chart-cursor" :d="cursorLine" />
+        <g v-center="lastHoverPoint">
+          <text>
+            <tspan x="0" dy=".6em">{{ data[lastHoverPoint.index][categoryKey] }}</tspan>
+            <tspan x="0" dy="1.2em" v-for="v in valueKeys">{{ data[lastHoverPoint.index][v] }}</tspan>
+          </text>
+        </g>
+      </template>
     </svg>
   </div>
 </template>
@@ -25,100 +43,128 @@ export default {
   },
   data() {
     return {
+      timeSeries: false,
       width: 0,
       height: 0,
-      paths: {
-        area: '',
-        line: '',
-        selector: '',
-      },
+      localData: [],
       lastHoverPoint: {},
-      points: [],
-      smooth: false,
+      cursorLine: '',
+      scale: {},
+      smooth: true,
       margin: {
         left: 0,
         right: 0,
         top: 0,
         bottom: 0,
       },
-      categoryKey: 'title',
+      categoryKey: 'key',
       valueKeys: ['value'],
+      colors: d3.schemeCategory10,
+      showAxes: false,
     };
+  },
+  computed: {
+    color() {
+      return d3.scaleOrdinal(this.colors);
+    },
+    getCursor() {
+      return d3.area().x(d => d.x).y0(d => d.max).y1(0);
+    },
+  },
+  watch: {
+    data(newVal) {
+      this.prepareData();
+    },
   },
   beforeMount() {
     _.merge(this, this.options);
   },
   mounted() {
     window.addEventListener('resize', this.resize);
+    this.prepareData();
     this.resize();
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resize);
   },
-  watch: {
-    width() {
-      this.redraw();
-    },
-  },
   methods: {
+    prepareData() {
+      this.localData = _.cloneDeep(this.data);
+    },
     resize() {
       this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
       this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
+      this.redraw();
     },
-    createArea(points) {
-      let area = d3.area().x(d => d.x).y0(d => d.max).y1(d => d.y);
+    getArea(v) {
+      let area = d3.area().x(d => d.x).y0(d => d.max).y1(d => d[`${v}_y`]);
       if (this.smooth) {
         area.curve(d3.curveNatural);
       }
-      return area(points);
+      return area(this.localData);
     },
-    createLine(points) {
-      let line = d3.line().x(d => d.x).y(d => d.y);
+    getLine(v) {
+      let line = d3.line().x(d => d.x).y(d => d[`${v}_y`]);
       if (this.smooth) {
         line.curve(d3.curveNatural);
       }
-      return line(points);
+      return line(this.localData);
     },
-    createValueSelector: d3.area().x(d => d.x).y0(d => d.max).y1(0),
     redraw() {
+      let scale;
+      if (this.timeSeries) {
+        // use d3 time scale
+        scale = d3.scaleTime();
+        // make sure category data is a native Date
+        for (const d of this.localData) {
+          if (!_.isDate(d[this.categoryKey])) {
+            d[this.categoryKey] = new Date(d[this.categoryKey]);
+          }
+        }
+      } else {
+        scale = d3.scaleLinear();
+      }
       // get scale based on svg element size
-      let scaleX = d3.scaleLinear().range([0, this.width]);
+      let scaleX = scale.range([0, this.width]);
       let scaleY = d3.scaleLinear().range([this.height, 0]);
 
-      d3.axisLeft().scale(scaleX);
-      d3.axisBottom().scale(scaleY);
+      this.scale = {
+        x: d3.axisTop(scaleX),
+        y: d3.axisRight(scaleY),
+      };
 
-      scaleX.domain(d3.extent(this.data, (d, i) => i));
-      scaleY.domain([0, d3.max(this.data, function(d) { return d.value; })*1.1]);
+      scaleX.domain(d3.extent(this.localData, (d) => d[this.categoryKey]));
+      var extents = this.valueKeys.map((dimensionName) => {
+        return d3.extent(this.localData, function(d) { return d[dimensionName]; });
+      });
 
-      // process the data
-      this.points = [];
-      for (const [i, d] of this.data.entries()) {
-        this.points.push({
-          x: scaleX(i),
-          y: scaleY(d.value),
-          max: this.height,
-        });
+      scaleY.domain([d3.min(extents, function(d) { return d[0]; }),
+                     d3.max(extents, function(d) { return d[1] * 1.1; })]);
+
+      // map the points the data
+      for (const d of this.localData) {
+        d.x = scaleX(d[this.categoryKey]);
+        d.max = this.height;
+        for (const v of this.valueKeys) {
+          d[`${v}_y`] = scaleY(d[v]);
+        }
       }
-
-      // set the svg path strings
-      this.paths.area = this.createArea(this.points);
-      this.paths.line = this.createLine(this.points);
     },
     onMouseover({ offsetX }) {
-      if (this.points.length > 0) {
+      if (this.localData.length > 0) {
         const x = offsetX;
         const closestPoint = this.getClosestPoint(x);
         if (this.lastHoverPoint.index !== closestPoint.index) {
-          const point = this.points[closestPoint.index];
-          this.paths.selector = this.createValueSelector([point]);
+          const point = this.localData[closestPoint.index];
+          this.cursorLine = this.getCursor([point]);
           this.$emit('select', this.data[closestPoint.index]);
           this.lastHoverPoint = closestPoint;
+          // console.log(this.data[closestPoint.index])
         }
       }
     },
     getClosestPoint(x) {
-      return this.points
+      return this.localData
         .map((point, index) => ({
           x: point.x,
           diff: Math.abs(point.x - x),
@@ -126,7 +172,21 @@ export default {
         }))
         .reduce((memo, val) => (memo.diff < val.diff ? memo : val));
     },
+    onMouseleave() {
+      // this.cursorLine = '';
+    },
   },
+  directives: {
+    axis(el, binding) {
+      d3.select(el).call(binding.value[binding.arg]);
+    },
+    center(el, binding) {
+      Vue.nextTick(() => {
+        let w = el.getBBox().width;
+        d3.select(el).attr("transform", `translate(${binding.value.x - w/2}, 10)`);
+      });
+    },
+  }
 };
 </script>
 
@@ -139,24 +199,30 @@ export default {
   overflow: hidden;
 }
 
-.area {
-  fill: #76BF8A;
+.vuestro-area-chart-area {
+  opacity: 0.5;
 }
 
-.line {
-  stroke: #4F7F5C;
+.vuestro-area-chart-line {
   stroke-width: 1px;
   fill: none;
 }
 
-.selector {
-  stroke: #666768;
-  stroke-width: 2px;
+.vuestro-area-chart-cursor {
+  stroke: var(--vuestro-hover);
+  stroke-width: 1px;
   fill: none;
 }
 
-.tooltip {
+.vuestro-area-chart-tooltip {
 
+}
+
+.vuestro-area-chart-x-axis >>> path {
+  display: none;
+}
+.vuestro-area-chart-y-axis >>> path {
+  display: none;
 }
 
 </style>

@@ -11,7 +11,7 @@ import TextInputs from '../pages/TextInputs.vue';
 import Containers from '../pages/Containers.vue';
 import Popups from '../pages/Popups.vue';
 import SankeyCharts from '../pages/SankeyCharts.vue';
-import AreaCharts from '../pages/AreaCharts.vue';
+import AreaChart from '../pages/AreaChart.vue';
 
 Vue.use(Router);
 
@@ -43,9 +43,9 @@ export default new Router({
             title: 'Area Chart',
             sidebar: true,
           },
-          name: 'area-charts',
-          path: 'area-charts',
-          component: AreaCharts,
+          name: 'area-chart',
+          path: 'area-chart',
+          component: AreaChart,
         },
         {
           meta: {

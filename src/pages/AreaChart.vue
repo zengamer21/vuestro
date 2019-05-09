@@ -25,39 +25,64 @@ export default {
           title: 'Area Chart',
           data: [
             {
-              title: 'Pizza',
+              key: '2019-10-01T00:00:00Z',
               value1: 2,
               value2: 12,
               value3: 8,
             },
             {
-              title: 'Tacos',
+              key: '2019-10-01T01:00:00Z',
               value1: 2,
               value2: 6,
               value3: 19,
             },
             {
-              title: 'Burgers',
+              key: '2019-10-01T02:00:00Z',
               value1: 3,
               value2: 33,
               value3: 8,
             },
             {
-              title: 'Ice Cream',
+              key: '2019-10-01T03:00:00Z',
               value1: 6,
+              value2: 13,
+              value3: 2,
+            },
+            {
+              key: '2019-10-01T04:00:00Z',
+              value1: 1,
+              value2: 13,
+              value3: 2,
+            },
+            {
+              key: '2019-10-01T05:00:00Z',
+              value1: 1,
+              value2: 13,
+              value3: -2,
+            },
+            {
+              key: '2019-10-01T06:00:00Z',
+              value1: 32,
               value2: 13,
               value3: 2,
             },
           ],
           options: {
-            smooth: true,
             valueKeys: ['value1', 'value2', 'value3'],
+            timeSeries: true,
+            // margin: {
+            //   top: 20,
+            //   bottom: 20,
+            //   left: 20,
+            //   right: 20,
+            // },
+            // showAxes: true,
           },
           position: {
             x: 0,
             y: 0,
             w: 12,
-            h: 5,
+            h: 3,
           }
         },
       ],
@@ -78,6 +103,7 @@ export default {
   box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .vuestro-dark .frame {
