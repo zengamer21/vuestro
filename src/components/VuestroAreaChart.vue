@@ -19,7 +19,8 @@
       <!--TOOLTIP-->
       <template v-if="cursorLine.length > 0">
         <path class="vuestro-area-chart-cursor" :d="cursorLine" />
-        <g v-center="lastHoverPoint">
+        <g class="vuestro-area-chart-tooltip" v-center="[lastHoverPoint, width]">
+					<rect x="0" y="0" width="100" height="100"></rect>
           <text>
             <tspan x="0" dy=".6em">{{ data[lastHoverPoint.index][categoryKey] }}</tspan>
             <tspan x="0" dy="1.2em" v-for="v in valueKeys">{{ data[lastHoverPoint.index][v] }}</tspan>
@@ -182,8 +183,22 @@ export default {
     },
     center(el, binding) {
       Vue.nextTick(() => {
-        let w = el.getBBox().width;
-        d3.select(el).attr("transform", `translate(${binding.value.x - w/2}, 10)`);
+				let cursor = binding.value[0];
+				let max = binding.value[1];
+        let width = el.getBBox().width;
+				let newX = 0;
+				if (cursor + width > max) {
+					// clamp maximum
+					newX = max - width;
+				} else {
+					newX = cursor - w/2;
+					// clamp minimum
+					if (newX < 0) {
+						newX = 0;
+					} 
+				}
+				// move it
+        d3.select(el).attr("transform", `translate(${newX}, 10)`);
       });
     },
   }
@@ -196,6 +211,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+	flex-grow: 1;
   overflow: hidden;
 }
 
@@ -214,8 +230,8 @@ export default {
   fill: none;
 }
 
-.vuestro-area-chart-tooltip {
-
+.vuestro-area-chart-tooltip rect {
+	fill: var(--vuestro-light);
 }
 
 .vuestro-area-chart-x-axis >>> path {
