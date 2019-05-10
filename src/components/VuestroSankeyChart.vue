@@ -3,6 +3,19 @@
     <svg :width="width"
          :height="height"
          :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }">
+      <defs>
+        <linearGradient v-for="l in graph.links"
+                        :id="`gradient_${l.index}`"
+                        :key="l.index"
+                        gradientUnits="userSpaceOnUse"
+                        :x1="l.source.x"
+                        :y1="l.source.y"
+                        :x2="l.target.x"
+                        :y2="l.target.y">
+          <stop offset="0%" :stop-color="color(l.source.name)"></stop>
+          <stop offset="100%" :stop-color="color(l.target.name)"></stop>
+        </linearGradient>
+      </defs>
       <g>
         <g stroke="#000">
           <rect class="node"
@@ -16,22 +29,17 @@
           </rect>
         </g>
         <g fill="none" stroke-opacity="0.5">
+
           <path v-for="l in graph.links"
                 :d="sankeyLink(l)"
-                :key="l.target.name + l.source.name"
-                :stroke="`url(#${l.index})`"
-                :stroke-width="Math.max(1, l.width)"
+                :key="l.index"
+                :stroke="`url(#gradient_${l.index})`"
+                :stroke-width="l.width"
                 class="sankey-link">
             <title>
               <text>{{ l.value }}</text>
             </title>
           </path>
-          <linearGradient v-for="l in graph.links"
-                          :id="l.index"
-                          :key="l.source.name + l.target.name">
-            <stop offset="0%" :stop-color="color(l.source.name)"></stop>
-            <stop offset="100%" :stop-color="color(l.target.name)"></stop>
-          </linearGradient>
         </g>
         <g>
           <text v-for="n in graph.nodes"

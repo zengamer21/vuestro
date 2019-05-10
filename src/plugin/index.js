@@ -26,6 +26,7 @@ import VuestroSankeyChart from '../components/VuestroSankeyChart.vue';
 import VuestroSearchBox from '../components/VuestroSearchBox.vue';
 import VuestroSidebar from '../components/sidebar/VuestroSidebar.vue';
 import VuestroStatTile from '../components/VuestroStatTile.vue';
+import VuestroSvgTooltip from '../components/VuestroSvgTooltip.vue';
 import VuestroTextField from '../components/VuestroTextField.vue';
 import VuestroTimePicker from '../components/VuestroTimePicker.vue';
 import VuestroTitle from '../components/VuestroTitle.vue';
@@ -68,6 +69,7 @@ export default {
     Vue.component(VuestroSearchBox.name, VuestroSearchBox);
     Vue.component(VuestroSidebar.name, VuestroSidebar);
     Vue.component(VuestroStatTile.name, VuestroStatTile);
+    Vue.component(VuestroSvgTooltip.name, VuestroSvgTooltip);
     Vue.component(VuestroTextField.name, VuestroTextField);
     Vue.component(VuestroTimePicker.name, VuestroTimePicker);
     Vue.component(VuestroTitle.name, VuestroTitle);

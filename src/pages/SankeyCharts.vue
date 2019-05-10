@@ -237,12 +237,14 @@ export default {
             {"source":46,"target":15,"value":19.013},
             {"source":47,"target":15,"value":289.366}
           ]},
-          options: {},
+          options: {
+            nodePadding: 10,
+          },
           position: {
             x: 0,
             y: 0,
             w: 12,
-            h: 4,
+            h: 8,
           }
         }
       ],

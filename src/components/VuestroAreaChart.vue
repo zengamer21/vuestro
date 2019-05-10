@@ -19,13 +19,12 @@
       <!--TOOLTIP-->
       <template v-if="cursorLine.length > 0">
         <path class="vuestro-area-chart-cursor" :d="cursorLine" />
-        <g class="vuestro-area-chart-tooltip" v-center="[lastHoverPoint, width]">
-					<rect x="0" y="0" width="100" height="100"></rect>
-          <text>
-            <tspan x="0" dy=".6em">{{ data[lastHoverPoint.index][categoryKey] }}</tspan>
-            <tspan x="0" dy="1.2em" v-for="v in valueKeys">{{ data[lastHoverPoint.index][v] }}</tspan>
-          </text>
-        </g>
+        <vuestro-svg-tooltip :x="lastHoverPoint.x"
+                             :x-max="width"
+                             :categoryKey="categoryKey"
+                             :valueKeys="valueKeys"
+                             :values="data[lastHoverPoint.index]">
+        </vuestro-svg-tooltip>
       </template>
     </svg>
   </div>
@@ -181,26 +180,7 @@ export default {
     axis(el, binding) {
       d3.select(el).call(binding.value[binding.arg]);
     },
-    center(el, binding) {
-      Vue.nextTick(() => {
-				let cursor = binding.value[0];
-				let max = binding.value[1];
-        let width = el.getBBox().width;
-				let newX = 0;
-				if (cursor + width > max) {
-					// clamp maximum
-					newX = max - width;
-				} else {
-					newX = cursor - w/2;
-					// clamp minimum
-					if (newX < 0) {
-						newX = 0;
-					} 
-				}
-				// move it
-        d3.select(el).attr("transform", `translate(${newX}, 10)`);
-      });
-    },
+
   }
 };
 </script>
