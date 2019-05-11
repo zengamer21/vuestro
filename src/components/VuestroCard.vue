@@ -57,19 +57,18 @@ export default {
 .vuestro-card-heading {
   font-size: 22px;
   line-height: 22px;
-  font-weight: 300;
-  padding: 2px 8px 2px 2px;
+  padding: 2px 8px 2px 0px;
   margin-bottom: 2px;
-}
-
-.vuestro-card-description {
-  font-size: 18px;
-  padding: 4px 10px 20px 0px;
 }
 
 .vuestro-card-subheading {
   font-size: 20px;
   margin-bottom: 5px;
+}
+
+.vuestro-card-description {
+  font-size: 18px;
+  padding: 4px 10px 20px 0px;
 }
 
 .vuestro-card.width-1 {

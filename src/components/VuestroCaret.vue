@@ -1,5 +1,5 @@
 <template>
-  <span class="vuestro-caret" :class="[size, { collapsed, left }]" @click="onClick"></span>
+  <span class="vuestro-caret" :class="[size, { dark, collapsed, left }]" @click="onClick"></span>
 </template>
 
 <script>
@@ -7,6 +7,7 @@
 export default {
   name: 'VuestroCaret',
   props: {
+    dark: { type: Boolean, default: false },
     collapsed: { type: Boolean, required: true },
     size: { type: String, default: 'md' },
     left: { type: Boolean, default: false },
@@ -43,7 +44,14 @@ export default {
   border-right: var(--size) solid transparent;
   border-top: var(--size) solid var(--vuestro-text-color);
   transition: transform 0.2s;
-  margin: 2px;
+  margin-left: 4px;
+}
+.vuestro-caret.left {
+  margin-left: 0;
+  margin-right: 4px;
+}
+.vuestro-caret.dark {
+  border-top: var(--size) solid var(--vuestro-text-color-inverse);
 }
 
 .vuestro-caret.collapsed {

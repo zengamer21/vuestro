@@ -1,11 +1,12 @@
 <template>
   <g class="vuestro-svg-tooltip">
 		<rect :width="tooltipWidth" :height="tooltipHeight" :rx="radius"></rect>
-    <text :x="padding/2" :y="padding/2" ref="text">
+    <text :x="padding/2" :y="padding" ref="text">
       <tspan dy=".6em">{{ values[categoryKey] }}</tspan>
-      <tspan :x="padding/2" dy="1.2em" v-for="v in valueKeys">
-        {{ v }}: {{ values[v] }}
-      </tspan>
+      <template v-for="s in series">
+        <tspan :x="padding/2" dy="1.2em" :fill="s.color" :stroke="s.color" stroke-width="2">|</tspan>
+        <tspan>{{ s.title || s.field }}</tspan><tspan :x="tooltipWidth - padding/2" text-anchor="end">{{ values[s.field] }}</tspan>
+      </template>
     </text>
   </g>
 </template>
@@ -22,10 +23,10 @@ export default {
     y: { type: Number, default: 0 },
     yMax: { type: Number },
     categoryKey: { type: String, required: true },
-    valueKeys: { type: Array, required: true },
+    series: { type: Array, required: true },
     values: { type: null },
     padding: { type: Number, default: 10 },
-    radius: { type: Number, default: 4 },
+    radius: { type: Number, default: 2 },
   },
   data() {
     return {
@@ -46,6 +47,7 @@ export default {
   },
   methods: {
     update() {
+      // x
       let width = this.$el.getBBox().width;
 			let newX = 0;
 			if (this.x + width > this.xMax) {
@@ -58,12 +60,25 @@ export default {
 					newX = 0;
 				}
 			}
+			// y
+			let height = this.$el.getBBox().height;
+			let newY = 0;
+			if (this.y + height > this.yMax) {
+				// clamp maximum x
+				newY = this.yMax - height;
+			} else {
+				newY = this.y - height/2;
+				// clamp minimum
+				if (newY < 0) {
+					newY = 0;
+				}
+			}
 			// size it
 			let size = this.$refs.text.getBBox();
-			this.tooltipHeight = size.height + this.padding/2;
-			this.tooltipWidth = size.width + this.padding/2;
+			this.tooltipHeight = size.height + this.padding;
+			this.tooltipWidth = size.width + this.padding;
 			// move it
-      d3.select(this.$el).attr("transform", `translate(${newX}, 10)`);
+      d3.select(this.$el).attr("transform", `translate(${newX}, ${newY})`);
     },
   }
 };

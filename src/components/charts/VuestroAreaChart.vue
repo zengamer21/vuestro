@@ -5,9 +5,9 @@
          :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
          @mousemove="onMouseover">
       <!--LINES-->
-      <g v-for="v in valueKeys" :key="v">
-        <path class="vuestro-area-chart-area" :d="getArea(v)" :fill="color(v)"/>
-        <path class="vuestro-area-chart-line" :d="getLine(v)" :stroke="color(v)"/>
+      <g v-for="s in processedSeries" :key="s.field">
+        <path v-if="!notFilled" class="vuestro-area-chart-area" :d="getArea(s.field)" :fill="s.color"/>
+        <path class="vuestro-area-chart-line" :d="getLine(s.field)" :stroke="s.color"/>
       </g>
       <!--AXES-->
       <template v-if="showAxes">
@@ -17,12 +17,12 @@
         <g v-axis:y="scale" class="vuestro-area-chart-y-axis"></g>
       </template>
       <!--TOOLTIP-->
-      <template v-if="cursorLine.length > 0">
+      <template v-if="!hideTooltip && cursorLine.length > 0">
         <path class="vuestro-area-chart-cursor" :d="cursorLine" />
         <vuestro-svg-tooltip :x="lastHoverPoint.x"
                              :x-max="width"
                              :categoryKey="categoryKey"
-                             :valueKeys="valueKeys"
+                             :series="processedSeries"
                              :values="data[lastHoverPoint.index]">
         </vuestro-svg-tooltip>
       </template>
@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      timeSeries: false,
+      timeSeries: true,
       width: 0,
       height: 0,
       localData: [],
@@ -58,9 +58,13 @@ export default {
         bottom: 0,
       },
       categoryKey: 'key',
-      valueKeys: ['value'],
+      series: [{
+        field: 'value'
+      }],
       colors: d3.schemeCategory10,
       showAxes: false,
+      hideTooltip: false,
+      notFilled: false,
     };
   },
   computed: {
@@ -69,6 +73,15 @@ export default {
     },
     getCursor() {
       return d3.area().x(d => d.x).y0(d => d.max).y1(0);
+    },
+    // process series prop by adding default colors
+    processedSeries() {
+      return this.series.map((s) => {
+        if (s.field && !s.color) {
+          s.color = this.color(s.field);
+        }
+        return s;
+      });
     },
   },
   watch: {
@@ -122,7 +135,7 @@ export default {
           }
         }
       } else {
-        scale = d3.scaleLinear();
+        scale = d3.scalePoint();
       }
       // get scale based on svg element size
       let scaleX = scale.range([0, this.width]);
@@ -133,9 +146,13 @@ export default {
         y: d3.axisRight(scaleY),
       };
 
-      scaleX.domain(d3.extent(this.localData, (d) => d[this.categoryKey]));
-      var extents = this.valueKeys.map((dimensionName) => {
-        return d3.extent(this.localData, function(d) { return d[dimensionName]; });
+      if (this.timeSeries) {
+        scaleX.domain(d3.extent(this.localData, (d) => d[this.categoryKey]));
+      } else {
+        scaleX.domain(this.localData.map((d) => d[this.categoryKey]));
+      }
+      var extents = this.series.map((series) => {
+        return d3.extent(this.localData, function(d) { return d[series.field]; });
       });
 
       scaleY.domain([d3.min(extents, function(d) { return d[0]; }),
@@ -145,8 +162,8 @@ export default {
       for (const d of this.localData) {
         d.x = scaleX(d[this.categoryKey]);
         d.max = this.height;
-        for (const v of this.valueKeys) {
-          d[`${v}_y`] = scaleY(d[v]);
+        for (const s of this.series) {
+          d[`${s.field}_y`] = scaleY(d[s.field]);
         }
       }
     },
@@ -177,8 +194,10 @@ export default {
     },
   },
   directives: {
-    axis(el, binding) {
-      d3.select(el).call(binding.value[binding.arg]);
+    axis: {
+      update(el, binding) {
+        d3.select(el).call(binding.value[binding.arg]);
+      }
     },
 
   }
@@ -205,7 +224,7 @@ export default {
 }
 
 .vuestro-area-chart-cursor {
-  stroke: var(--vuestro-hover);
+  stroke: var(--vuestro-outline);
   stroke-width: 1px;
   fill: none;
 }

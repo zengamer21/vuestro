@@ -18,6 +18,29 @@
 
     <vuestro-card>
       <template slot="description">
+        Basic button with FontAwesome icon
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button>
+          <icon name="tractor"></icon>
+        </vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        Basic button with FontAwesome icon and label (make sure the labels is wrapped in a span/div for spacing)
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button>
+          <icon name="tractor"></icon>
+          <span>Label in span</span>
+        </vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
         Make it less pointy by setting the rounded property
       </template>
       <div class="example-flexbox">
@@ -155,8 +178,13 @@
 
 <script>
 
+import Icon from 'vue-awesome/components/Icon';
+
 export default {
   name: 'Buttons',
+  components: {
+    Icon,
+  },
   data() {
     return {
       exampleCheckbox: true,

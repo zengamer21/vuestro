@@ -125,7 +125,7 @@ export default {
   /* the following are theme-able colors */
   --vuestro-content-bg: #f7f9fa;
   --vuestro-panel-bg: #fff;
-  --vuestro-panel-dark-bg: #959a9e;
+  --vuestro-panel-dark-bg: #636363;
   --vuestro-widget-light-bg: #e8e9ec;
   --vuestro-widget-dark-bg: #2f353f;
 

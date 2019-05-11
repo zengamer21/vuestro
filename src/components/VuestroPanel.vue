@@ -2,6 +2,16 @@
   <div class="vuestro-panel"
        :class="[ gutter, { dark }]"
        :style="color ? { 'background-color': color }:{}">
+    <!--TOOLBAR-->
+    <div v-if="$slots.title || $slots.toolbar" class="vuestro-panel-title-toolbar">
+      <vuestro-caret size="sm" :dark="dark" left @click="collapsed = !collapsed" :collapsed="collapsed"></vuestro-caret>
+      <vuestro-title class="vuestro-panel-title">
+        <slot name="title"></slot>
+      </vuestro-title>
+      <div v-if="$slots.toolbar" class="vuestro-panel-toolbar">
+        <slot name="toolbar"></slot>
+      </div>
+    </div>
     <slot></slot>
   </div>
 </template>
@@ -14,6 +24,13 @@ export default {
     dark: { type: Boolean, default: false },
     gutter: { type: String, default: 'md' },
     color: { type: String, default: null },
+    spinner: { type: Boolean, default: false },
+    collapsible: { type: Boolean, default: false },
+  },
+  data() {
+    return {
+      collapsed: false,
+    };
   },
 };
 
@@ -47,6 +64,7 @@ export default {
 /* border only for dark ui */
 .vuestro-panel.dark {
   background-color: var(--vuestro-panel-dark-bg);
+  color: var(--vuestro-text-color-inverse);
   border: 1px solid var(--vuestro-outline);
 }
 
@@ -54,6 +72,25 @@ export default {
   border-bottom: 1px solid var(--vuestro-outline);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.vuestro-panel-title-toolbar {
+  padding: 4px 4px 4px 8px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--vuestro-outline);
+}
+.vuestro-panel-title {
+  color: var(--vuestro-text-color);
+}
+.vuestro-panel.dark .vuestro-panel-title {
+  color: var(--vuestro-text-color-inverse);
+}
+.vuestro-panel-toolbar {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  font-size: 12px;
 }
 
 </style>

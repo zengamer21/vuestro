@@ -3,10 +3,7 @@
     <vuestro-card slot-scope="{ item }" :color="item.color">
       <template slot="heading"><span class="drag">{{ item.title }}</span></template>
       <div class="frame">
-        <vuestro-donut v-if="item.type == 'donut'" :title="item.value+'%'" :percentage="item.value" :width="14"></vuestro-donut>
-        <vuestro-bar-chart v-if="item.type == 'bar'" :data="item.data" :options="item.options"></vuestro-bar-chart>
-        <vuestro-area-chart v-if="item.type == 'area'" :data="item.data" :options="item.options"></vuestro-area-chart>
-        <vuestro-sankey-chart v-if="item.type == 'sankey'" :data="item.data" :options="item.options"></vuestro-sankey-chart>
+        <vuestro-sankey-chart :data="item.data" :options="item.options"></vuestro-sankey-chart>
       </div>
     </vuestro-card>
   </vuestro-grid>
@@ -19,103 +16,9 @@ export default {
   data() {
     return {
       layout: [
-        // {
-        //   id: 'w1',
-        //   type: 'donut',
-        //   title: 'Donut Gauge',
-        //   value: 73,
-        //   color: '#4bbc79',
-        //   position: {
-        //     x: 0,
-        //     y: 0,
-        //     w: 3,
-        //     h: 2,
-        //   }
-        // },
-        // {
-        //   id: 'w2',
-        //   type: 'bar',
-        //   title: 'Bar Chart',
-        //   data: [
-        //     {
-        //       title: 'Pizza',
-        //       value1: 2,
-        //       value2: 12,
-        //       value3: 8,
-        //     },
-        //     {
-        //       title: 'Tacos',
-        //       value1: 2,
-        //       value2: 6,
-        //       value3: 19,
-        //     },
-        //     {
-        //       title: 'Burgers',
-        //       value1: 3,
-        //       value2: 33,
-        //       value3: 8,
-        //     },
-        //     {
-        //       title: 'Ice Cream',
-        //       value1: 6,
-        //       value2: 13,
-        //       value3: 2,
-        //     },
-        //   ],
-        //   options: {
-
-        //   },
-        //   position: {
-        //     x: 3,
-        //     y: 0,
-        //     w: 6,
-        //     h: 2,
-        //   }
-        // },
-        // {
-        //   id: 'w3',
-        //   type: 'area',
-        //   title: 'Area Chart',
-        //   data: [
-        //     {
-        //       title: 'Pizza',
-        //       value1: 2,
-        //       value2: 12,
-        //       value3: 8,
-        //     },
-        //     {
-        //       title: 'Tacos',
-        //       value1: 2,
-        //       value2: 6,
-        //       value3: 19,
-        //     },
-        //     {
-        //       title: 'Burgers',
-        //       value1: 3,
-        //       value2: 33,
-        //       value3: 8,
-        //     },
-        //     {
-        //       title: 'Ice Cream',
-        //       value1: 6,
-        //       value2: 13,
-        //       value3: 2,
-        //     },
-        //   ],
-        //   options: {
-        //     smooth: true,
-        //     valueKeys: ['value1', 'value2', 'value3'],
-        //   },
-        //   position: {
-        //     x: 0,
-        //     y: 2,
-        //     w: 9,
-        //     h: 3,
-        //   }
-        // },
         {
           id: 'w4',
-          type: 'sankey',
+          color: 'var(--vuestro-orange)',
           title: 'Sankey Chart',
           data: {"nodes":[
             {"name":"Agricultural 'waste'"},

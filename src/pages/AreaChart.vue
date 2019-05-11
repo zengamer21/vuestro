@@ -1,91 +1,129 @@
 <template>
-  <vuestro-grid :layout.sync="layout">
-    <vuestro-card slot-scope="{ item }" :color="item.color">
-      <template slot="heading"><span class="drag">{{ item.title }}</span></template>
-      <div class="frame">
-        <vuestro-donut v-if="item.type == 'donut'" :title="item.value+'%'" :percentage="item.value" :width="14"></vuestro-donut>
-        <vuestro-bar-chart v-if="item.type == 'bar'" :data="item.data" :options="item.options"></vuestro-bar-chart>
-        <vuestro-area-chart v-if="item.type == 'area'" :data="item.data" :options="item.options"></vuestro-area-chart>
-        <vuestro-sankey-chart v-if="item.type == 'sankey'" :data="item.data" :options="item.options"></vuestro-sankey-chart>
+  <vuestro-card-container>
+    <vuestro-card color="var(--vuestro-purple)">
+      <template slot="heading"><span class="drag">Area Chart</span></template>
+      <template slot="description">The Vuestro Line Chart is flexible enough to be used with a categorical x axis as well as a time scale.</template>
+      <div class="chart-wrapper">
+        <vuestro-area-chart :data="data" :options="options1"></vuestro-area-chart>
       </div>
     </vuestro-card>
-  </vuestro-grid>
+
+    <vuestro-card>
+      <template slot="subheading">Set the notFilled: true for a line chart</template>
+      <div class="chart-wrapper">
+        <vuestro-area-chart :data="data" :options="options2"></vuestro-area-chart>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="subheading">Set the showAxes: true to show axes</template>
+      <div class="chart-wrapper">
+        <vuestro-area-chart :data="data" :options="options3"></vuestro-area-chart>
+      </div>
+    </vuestro-card>
+  </vuestro-card-container>
 </template>
 
 <script>
 
 export default {
-  name: 'Charts',
+  name: 'AreaChart',
   data() {
     return {
-      layout: [
+      data: [
         {
-          id: 'w3',
-          type: 'area',
-          title: 'Area Chart',
-          data: [
-            {
-              key: '2019-10-01T00:00:00Z',
-              value1: 2,
-              value2: 12,
-              value3: 8,
-            },
-            {
-              key: '2019-10-01T01:00:00Z',
-              value1: 2,
-              value2: 6,
-              value3: 19,
-            },
-            {
-              key: '2019-10-01T02:00:00Z',
-              value1: 3,
-              value2: 33,
-              value3: 8,
-            },
-            {
-              key: '2019-10-01T03:00:00Z',
-              value1: 6,
-              value2: 13,
-              value3: 2,
-            },
-            {
-              key: '2019-10-01T04:00:00Z',
-              value1: 1,
-              value2: 13,
-              value3: 2,
-            },
-            {
-              key: '2019-10-01T05:00:00Z',
-              value1: 1,
-              value2: 13,
-              value3: -2,
-            },
-            {
-              key: '2019-10-01T06:00:00Z',
-              value1: 32,
-              value2: 13,
-              value3: 2,
-            },
-          ],
-          options: {
-            valueKeys: ['value1', 'value2', 'value3'],
-            timeSeries: true,
-            // margin: {
-            //   top: 20,
-            //   bottom: 20,
-            //   left: 20,
-            //   right: 20,
-            // },
-            // showAxes: true,
-          },
-          position: {
-            x: 0,
-            y: 0,
-            w: 12,
-            h: 3,
-          }
+          key: '2019-10-01T00:00:00Z',
+          value1: 2,
+          value2: 12,
+          value3: 8,
+        },
+        {
+          key: '2019-10-01T01:00:00Z',
+          value1: 2,
+          value2: 6,
+          value3: 19,
+        },
+        {
+          key: '2019-10-01T02:00:00Z',
+          value1: 3,
+          value2: 33,
+          value3: 8,
+        },
+        {
+          key: '2019-10-01T03:00:00Z',
+          value1: 6,
+          value2: 13,
+          value3: 2,
+        },
+        {
+          key: '2019-10-01T04:00:00Z',
+          value1: 1,
+          value2: 13,
+          value3: 2,
+        },
+        {
+          key: '2019-10-01T05:00:00Z',
+          value1: 1,
+          value2: 13,
+          value3: -2,
+        },
+        {
+          key: '2019-10-01T06:00:00Z',
+          value1: 32,
+          value2: 13,
+          value3: 2,
         },
       ],
+      options1: {
+        series: [
+          {
+            title: 'Series 1',
+            field: 'value1',
+          },
+          {
+            title: 'Series 2',
+            field: 'value2',
+          },
+          {
+            title: 'Series 3',
+            field: 'value3',
+          },
+        ],
+      },
+      options2: {
+        notFilled: true,
+        series: [
+          {
+            title: 'Series 1',
+            field: 'value1',
+          },
+          {
+            title: 'Series 2',
+            field: 'value2',
+          },
+          {
+            title: 'Series 3',
+            field: 'value3',
+          },
+        ],
+      },
+      options3: {
+        showAxes: true,
+        series: [
+          {
+            title: 'Series 1',
+            field: 'value1',
+          },
+          {
+            title: 'Series 2',
+            field: 'value2',
+          },
+          {
+            title: 'Series 3',
+            field: 'value3',
+          },
+        ],
+      },
     };
   },
 };
@@ -95,8 +133,7 @@ export default {
 
 <style scoped>
 
-.frame {
-  margin-top: 5px;
+.chart-wrapper {
   flex-grow: 1;
   border-radius: 4px;
   background-color: white;
@@ -104,6 +141,7 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  height: 300px;
 }
 
 .vuestro-dark .frame {

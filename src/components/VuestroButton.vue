@@ -78,7 +78,7 @@ export default {
 }
 
 .vuestro-button {
-  min-height: 15px;
+  min-height: 16px;
   align-self: center;
   text-transform: none;
   border: 1px solid var(--variant-color);
@@ -139,11 +139,7 @@ export default {
 .vuestro-button-content {
   flex: 1 1 auto;
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
-}
-.vuestro-button-content .fa-icon:not(:only-child) {
-  margin-right: 3px;
 }
 .vuestro-button.disabled {
   pointer-events: none;
@@ -157,31 +153,35 @@ export default {
 .vuestro-button.value:hover {
   filter: brightness(110%);
 }
-.vuestro-button.white.value,
-.vuestro-button.white:hover {
+.vuestro-button.vuestro-button-white.value,
+.vuestro-button.vuestro-button-white:hover {
   color: var(--variant-text-color);
 }
-.vuestro-button.black.value,
-.vuestro-button.black:hover {
+.vuestro-button.vuestro-button-black.value,
+.vuestro-button.vuestro-button-black:hover {
   color: var(--vuestro-white);
 }
-.vuestro-button.text:hover {
+.vuestro-button.vuestro-button-text:hover {
   color: var(--variant-text-color);
   filter: brightness(150%);
   background-color: transparent;
 }
-.vuestro-button.link {
+.vuestro-button.vuestro-button-link {
   color: var(--vuestro-primary);
   border-color: transparent;
 }
-.vuestro-button.link.value,
-.vuestro-button.link:hover {
+.vuestro-button.vuestro-button-link.value,
+.vuestro-button.vuestro-button-link:hover {
   filter: brightness(120%);
   background-color: transparent;
 }
 /* pill mode */
 .vuestro-button.pill {
   border-radius: 999px;
+}
+.vuestro-button.pill svg {
+  width: 12px;
+  height: 12px;
 }
 /* checkbox mode */
 .vuestro-button.checkbox {
@@ -206,6 +206,13 @@ export default {
   border-color: var(--variant-color);
   background-color: var(--variant-color);
   color: var(--vuestro-white);
+}
+
+.vuestro-button-content svg {
+  align-self: center;
+}
+.vuestro-button-content svg:not(:only-child) {
+  margin-right: 4px;
 }
 
 </style>
