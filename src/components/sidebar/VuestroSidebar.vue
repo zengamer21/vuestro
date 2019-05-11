@@ -162,7 +162,7 @@ export default {
   color: white;
   height: 50px;
   padding: 30px 10px;
-  margin-right: 5px;
+  margin-right: calc(var(--vuestro-sidebar-item-padding-right) / 2);
   border-top-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
   border-bottom-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
 }
