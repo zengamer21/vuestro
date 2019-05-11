@@ -4,7 +4,8 @@
     <template v-if="route.children">
       <a :class="{ 'router-link-active': isParentRoute }"
          @click="toggle">
-        <icon :name="route.meta.icon"></icon>
+        <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
+        <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
         <span>{{ route.meta.title }}</span>
       </a>
       <vuestro-sub-routes :show="active" :route="route"></vuestro-sub-routes>

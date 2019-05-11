@@ -2,7 +2,7 @@
   <div class="vuestro-mini-sidebar-menu" @click.self="$emit('click')">
     <vuestro-mini-sidebar-item v-for="(route, ridx) in routes"
                         :key="route.path"
-                        v-if="route.meta && (route.meta.sidebar || route.meta.sidebarBottom) && (route.meta.role ? (route.meta.role === userRole):true)"
+                        v-if="route.meta && (route.meta.sidebar || route.meta.sidebarBottom) && (route.meta.role ? (route.meta.role === role):true)"
                         :route="route">
     </vuestro-mini-sidebar-item>
   </div>
