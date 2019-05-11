@@ -64,6 +64,18 @@
         </vuestro-card-container>
       </vuestro-panel>
     </vuestro-card>
+
+    <vuestro-card cols="6">
+      <vuestro-panel collapsible>
+        <template slot="title">Collapsible Panel</template>
+        <vuestro-card-container>
+          <vuestro-card>
+            <template slot="description">VuestroPanel can collapse it's content into the titlebar when the collapsible property is set</template>
+          </vuestro-card>
+        </vuestro-card-container>
+      </vuestro-panel>
+    </vuestro-card>
+
   </vuestro-card-container>
 </template>
 

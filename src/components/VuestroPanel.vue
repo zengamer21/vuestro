@@ -3,8 +3,14 @@
        :class="[ gutter, { dark }]"
        :style="color ? { 'background-color': color }:{}">
     <!--TOOLBAR-->
-    <div v-if="$slots.title || $slots.toolbar" class="vuestro-panel-title-toolbar">
-      <vuestro-caret size="sm" :dark="dark" left @click="collapsed = !collapsed" :collapsed="collapsed"></vuestro-caret>
+    <div v-if="$slots.title || $slots.toolbar || collapsible" class="vuestro-panel-title-toolbar">
+      <vuestro-caret v-if="collapsible"
+                     size="sm"
+                     :dark="dark"
+                     left
+                     :collapsed="collapsed"
+                     @click="collapsed = !collapsed" >
+      </vuestro-caret>
       <vuestro-title class="vuestro-panel-title">
         <slot name="title"></slot>
       </vuestro-title>
@@ -12,7 +18,7 @@
         <slot name="toolbar"></slot>
       </div>
     </div>
-    <slot></slot>
+    <slot v-if="!collapsed"></slot>
   </div>
 </template>
 
