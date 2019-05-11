@@ -32,7 +32,9 @@
           <keep-alive> <!-- vue router option for persistent state -->
             <router-view/>
           </keep-alive>
-          <slot name="footer"></slot>
+          <div class="vuestro-footer">
+            <slot name="footer"></slot>
+          </div>
         </div>
       </div>
     </template>
@@ -223,10 +225,6 @@ export default {
   transition: all 0.4s;
   position: relative;
   overflow: auto;
-}
-
-.default-footer {
-  text-align: center;
 }
 
 </style>

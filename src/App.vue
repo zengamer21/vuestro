@@ -49,4 +49,8 @@ body {
   flex-direction: column;
 }
 
+.default-footer {
+  text-align: center;
+}
+
 </style>

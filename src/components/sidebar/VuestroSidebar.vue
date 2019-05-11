@@ -125,7 +125,6 @@ export default {
   flex: none;
   display: flex;
   flex-direction: column;
-  padding-right: 5px;
   font-weight: 500;
 }
 
@@ -162,6 +161,7 @@ export default {
   color: white;
   height: 50px;
   padding: 30px 10px;
+  margin-right: 5px;
   border-top-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
   border-bottom-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
 }
