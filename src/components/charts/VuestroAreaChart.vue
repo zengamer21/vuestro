@@ -190,7 +190,7 @@ export default {
         .reduce((memo, val) => (memo.diff < val.diff ? memo : val));
     },
     onMouseleave() {
-      // this.cursorLine = '';
+      this.cursorLine = '';
     },
   },
   directives: {
