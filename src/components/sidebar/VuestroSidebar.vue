@@ -162,8 +162,8 @@ export default {
   color: white;
   height: 50px;
   padding: 30px 10px;
-  border-top-right-radius: var(--vuestro-sidebar-radius);
-  border-bottom-right-radius: var(--vuestro-sidebar-radius);
+  border-top-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
+  border-bottom-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
 }
 .vuestro-user-block img {
   align-self: center;
