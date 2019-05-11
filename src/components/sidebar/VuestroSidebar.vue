@@ -110,6 +110,7 @@ export default {
   --vuestro-sidebar-item-hover: var(--vuestro-hover);
   --vuestro-sidebar-item-active-bg: var(--vuestro-active);
   --vuestro-sidebar-item-active-fg: var(--vuestro-primary);
+  --vuestro-sidebar-radius: calc(var(--vuestro-sidebar-item-height) / 2);
 }
 </style>
 
@@ -161,8 +162,8 @@ export default {
   color: white;
   height: 50px;
   padding: 30px 10px;
-  border-top-right-radius: 50px;
-  border-bottom-right-radius: 50px;
+  border-top-right-radius: var(--vuestro-sidebar-radius);
+  border-bottom-right-radius: var(--vuestro-sidebar-radius);
 }
 .vuestro-user-block img {
   align-self: center;

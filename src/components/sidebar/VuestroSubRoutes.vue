@@ -45,8 +45,8 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-top-right-radius: 999px;
-  border-bottom-right-radius: 999px;
+  border-top-right-radius: var(--vuestro-sidebar-radius);
+  border-bottom-right-radius: var(--vuestro-sidebar-radius);
 }
 
 /* highlight for sub-menu hover */

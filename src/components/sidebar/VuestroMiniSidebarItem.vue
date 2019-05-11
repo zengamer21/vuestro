@@ -89,8 +89,8 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border-top-right-radius: 999px;
-  border-bottom-right-radius: 999px;
+  border-top-right-radius: var(--vuestro-sidebar-radius);
+  border-bottom-right-radius: var(--vuestro-sidebar-radius);
 }
 
 .vuestro-mini-sidebar-icon.router-link-exact-active {
@@ -114,8 +114,8 @@ export default {
   position: absolute;
   top: 0;
   left: 100%;
-  border-top-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
-  border-bottom-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
+  border-top-right-radius: var(--vuestro-sidebar-radius);
+  border-bottom-right-radius: var(--vuestro-sidebar-radius);
   z-index: 1000;
   padding-right: 10px;
 }

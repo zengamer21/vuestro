@@ -76,8 +76,8 @@ export default {
   transition: all 0.4s;
   cursor: pointer;
   white-space: nowrap;
-  border-top-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
-  border-bottom-right-radius: calc(var(--vuestro-sidebar-item-height) / 2);
+  border-top-right-radius: var(--vuestro-sidebar-radius);
+  border-bottom-right-radius: var(--vuestro-sidebar-radius);
 }
 
 .vuestro-sidebar-item > a:hover,
@@ -92,6 +92,12 @@ export default {
 
 .vuestro-sidebar-item .fa-icon {
   width: 35px;
+}
+
+.vuestro-sidebar-item a >>> svg {
+  margin-top: 2px;
+  width: 35px;
+  float: left;
 }
 
 </style>
