@@ -4,12 +4,15 @@
                :user-img="userImg"
                :role="role">
     <template slot="logo">
-      <img :src="logo"/>
     </template>
 
     <template slot="navbar"></template>
     <template slot="sidebar"></template>
     <template slot="sidebar-footer"></template>
+
+    <template slot="footer">
+      <p class="default-footer">Vuestro ❤ Vue</p>
+    </template>
 
   </vuestro-app>
 </template>

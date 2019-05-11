@@ -1,5 +1,5 @@
 <template>
-  <vuestro-panel :color="color">
+  <vuestro-panel class="vuestro-stat-tile" :color="color">
     <div class="vuestro-stat-tile-title">{{ title }}</div>
     <icon class="vuestro-stat-tile-icon" v-if="icon" :name="icon"></icon>
     <div class="vuestro-stat-tile-value">{{ data[0] | vuestroCommas }}</div>

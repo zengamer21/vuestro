@@ -7,7 +7,8 @@
          :class="{ 'router-link-active': isParentRoute }"
          @mouseover="onHover"
          @click="tryPush">
-      <icon :name="route.meta.icon"></icon>
+      <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
+      <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
     </div>
 
     <div class="vuestro-mini-sidebar-popup"

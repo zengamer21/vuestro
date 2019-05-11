@@ -34,9 +34,11 @@
     <!--MENU-->
     <transition name="vuestro-sidebar" mode="out-in">
       <vuestro-sidebar-menu v-if="!mini"
+                            :role="role"
                             :routes="$router.options.routes"
                             @click="mini = !mini"></vuestro-sidebar-menu>
       <vuestro-mini-sidebar-menu v-else
+                                 :role="role"
                                  :routes="$router.options.routes"
                                  @click="mini = !mini">
       </vuestro-mini-sidebar-menu>

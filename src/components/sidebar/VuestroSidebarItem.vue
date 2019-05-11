@@ -11,7 +11,8 @@
     </template>
     <!--NO CHILDREN-->
     <router-link v-else :to="route">
-      <icon :name="route.meta.icon"></icon>
+      <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
+      <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
       <span>{{ route.meta.title }}</span>
     </router-link>
   </div>

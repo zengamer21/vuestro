@@ -19,6 +19,7 @@
                            :user-img="userImg"
                            :role="role">
             <template slot="logo">
+              <slot name="logo"></slot>
             </template>
             <template slot="footer">
               <slot name="sidebar-footer"></slot>
@@ -31,9 +32,7 @@
           <keep-alive> <!-- vue router option for persistent state -->
             <router-view/>
           </keep-alive>
-          <slot name="footer">
-            <p class="default-footer">Vuestro ❤ Vue</p>
-          </slot>
+          <slot name="footer"></slot>
         </div>
       </div>
     </template>

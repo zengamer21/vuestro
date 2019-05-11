@@ -2,7 +2,7 @@
   <div class="vuestro-sidebar-menu" @click.self="$emit('click')">
     <vuestro-sidebar-item v-for="(route, ridx) in routes"
                           :key="route.path"
-                          v-if="route.meta && (route.meta.sidebar || route.meta.sidebarBottom)"
+                          v-if="route.meta && (route.meta.sidebar || route.meta.sidebarBottom) && (route.meta.role ? (route.meta.role === userRole):true)"
                           :route="route">
     </vuestro-sidebar-item>
   </div>
@@ -18,6 +18,7 @@ export default {
     VuestroSidebarItem,
   },
   props: {
+    role: { type: String, default: '' }, // user role
     routes: { type: Array, required: true },
   },
 };
