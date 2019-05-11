@@ -107,6 +107,7 @@ export default {
   --vuestro-sidebar-fg: var(--vuestro-text-color);
   --vuestro-sidebar-border: transparent;
   --vuestro-sidebar-item-height: 50px;
+  --vuestro-sidebar-item-padding-right: 15px;
   --vuestro-sidebar-item-hover: var(--vuestro-hover);
   --vuestro-sidebar-item-active-bg: var(--vuestro-active);
   --vuestro-sidebar-item-active-fg: var(--vuestro-primary);

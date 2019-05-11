@@ -32,7 +32,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding-bottom: 10px;
-  padding-right: 15px;
+  padding-right: var(--vuestro-sidebar-item-padding-right);
 }
 
 </style>
