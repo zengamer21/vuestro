@@ -17,7 +17,7 @@
 
     <!--TITLE BLOCK-->
     <transition v-if="title" name="vuestro-title-text" mode="out-in">
-      <div v-if="!mini" class="vuestro-title-text">{{ title }}</div>
+      <div v-if="!localMini" class="vuestro-title-text">{{ title }}</div>
     </transition>
 
     <!--USER BLOCK-->
@@ -25,7 +25,7 @@
       <vuestro-geo-pattern class="vuestro-user-block" :seed="user" @color="(c) => {this.geoColor = c}">
         <img v-if="userImg" :src="userImg" class="img-circle"/>
         <transition name="vuestro-user-block" mode="out-in">
-          <div v-if="!mini" class="vuestro-user-block-text">
+          <div v-if="!localMini" class="vuestro-user-block-text">
             <span class="username">{{ user }}</span>
             <span>{{ role }}</span>
           </div>
@@ -35,7 +35,7 @@
 
     <!--MENU-->
     <transition name="vuestro-sidebar" mode="out-in">
-      <vuestro-sidebar-menu v-if="!mini"
+      <vuestro-sidebar-menu v-if="!localMini"
                             :role="role"
                             :routes="$router.options.routes"
                             @click="toggleSidebar"></vuestro-sidebar-menu>
@@ -79,20 +79,26 @@ export default {
     return {
       routes: _.cloneDeep(this.$router.options.routes),
       geoColor: '',
+      localMini: false,
     };
+  },
+  mounted() {
+    this.localMini = this.mini;
   },
   watch: {
     mini(newVal) {
+      this.localMini = newVal;
       this.checkSidebar();
     },
   },
   methods: {
     toggleSidebar() {
-      this.mini = !this.mini;
-      this.$emit('update:mini', this.mini);
+      this.localMini = !this.localMini;
+      this.$emit('update:mini', this.localMini);
+      this.checkSidebar();
     },
     checkSidebar() {
-      if (this.mini) {
+      if (this.localMini) {
         document.body.classList.add('vuestro-mini-sidebar');
       } else {
         document.body.classList.remove('vuestro-mini-sidebar');
