@@ -115,6 +115,7 @@ export default {
   --vuestro-sidebar-subroutes-spacing: 2px;
   --vuestro-sidebar-active-border: 3px solid var(--vuestro-primary);
   --vuestro-sidebar-subroute-active-border: 3px solid var(--vuestro-orange);
+  --vuestro-sidebar-user-image-width: 40px;
 }
 </style>
 
@@ -162,16 +163,18 @@ export default {
 
 .vuestro-user-block {
   display: flex;
+  justify-content: center;
   color: white;
   height: 50px;
-  padding: 30px 10px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   margin-right: calc(var(--vuestro-sidebar-item-padding-right) / 2);
   border-top-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
   border-bottom-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
 }
 .vuestro-user-block img {
   align-self: center;
-  width: 40px;
+  width: var(--vuestro-sidebar-user-image-width);
   border-radius: 50%;
 }
 
