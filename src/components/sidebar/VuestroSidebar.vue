@@ -112,6 +112,9 @@ export default {
   --vuestro-sidebar-item-active-bg: var(--vuestro-active);
   --vuestro-sidebar-item-active-fg: var(--vuestro-primary);
   --vuestro-sidebar-radius: calc(var(--vuestro-sidebar-item-height) / 2);
+  --vuestro-sidebar-subroutes-spacing: 2px;
+  --vuestro-sidebar-active-border: 3px solid var(--vuestro-primary);
+  --vuestro-sidebar-subroute-active-border: 3px solid var(--vuestro-orange);
 }
 </style>
 

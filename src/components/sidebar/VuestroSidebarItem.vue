@@ -85,6 +85,7 @@ export default {
 .vuestro-sidebar-item > a.router-link-active,
 .vuestro-sidebar-item > a.router-link-active:hover {
   background-color: var(--vuestro-sidebar-item-hover);
+  border-left: var(--vuestro-sidebar-active-border);
 }
 .vuestro-sidebar-item > a.router-link-exact-active {
   background-color: var(--vuestro-sidebar-item-active-bg);

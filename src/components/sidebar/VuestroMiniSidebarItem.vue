@@ -99,6 +99,7 @@ export default {
 }
 .vuestro-mini-sidebar-icon.router-link-active {
   background-color: var(--vuestro-sidebar-item-hover);
+  border-left: var(--vuestro-sidebar-active-border);
 }
 .vuestro-mini-sidebar-item:hover,
 .vuestro-mini-sidebar-icon.router-link-active:hover {

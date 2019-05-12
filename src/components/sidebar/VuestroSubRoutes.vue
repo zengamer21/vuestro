@@ -29,7 +29,7 @@ export default {
 .vuestro-sub-routes {
   list-style-type: none;
   padding-left: 0;
-  margin: 2px 0;
+  margin: var(--vuestro-sidebar-subroutes-spacing) 0;
 }
 
 /* all sub-menu item styling */
@@ -56,6 +56,7 @@ export default {
 .vuestro-sub-routes-item > a.router-link-active {
   background-color: var(--vuestro-sidebar-item-active-bg);
   color: var(--vuestro-sidebar-item-active-fg);
+  border-left: var(--vuestro-sidebar-subroute-active-border);
 }
 
 .vuestro-sub-routes-enter-active, .vuestro-sub-routes-leave-active {
