@@ -96,6 +96,9 @@ export default {
       this.localMini = !this.localMini;
       this.$emit('update:mini', this.localMini);
       this.checkSidebar();
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 400);
     },
     checkSidebar() {
       if (this.localMini) {

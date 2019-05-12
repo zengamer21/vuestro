@@ -33,9 +33,8 @@
           <keep-alive> <!-- vue router option for persistent state -->
             <router-view/>
           </keep-alive>
-          <div class="vuestro-footer">
-            <slot name="footer"></slot>
-          </div>
+
+          <slot name="footer"></slot>
         </div>
       </div>
     </template>
@@ -140,7 +139,6 @@ export default {
   --vuestro-active: #e9eff7;
   --vuestro-hover: #e4e7ea;
 
-  --vuestro-footer-bg: #f9f9f9;
   --vuestro-notifications-bg: #fff3cd;
 
   --vuestro-text-color: #323334;
@@ -157,7 +155,6 @@ export default {
   --vuestro-widget-dark-bg: #78797a;
 
   --vuestro-field-bg: #535456;
-  --vuestro-footer-bg: #101110;
   --vuestro-outline: #4b4d57;
   --vuestro-active: #37383a;
 
