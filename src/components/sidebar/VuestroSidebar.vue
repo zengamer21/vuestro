@@ -38,11 +38,11 @@
       <vuestro-sidebar-menu v-if="!mini"
                             :role="role"
                             :routes="$router.options.routes"
-                            @click="mini = !mini"></vuestro-sidebar-menu>
+                            @click="toggleSidebar"></vuestro-sidebar-menu>
       <vuestro-mini-sidebar-menu v-else
                                  :role="role"
                                  :routes="$router.options.routes"
-                                 @click="mini = !mini">
+                                 @click="toggleSidebar">
       </vuestro-mini-sidebar-menu>
     </transition>
 
@@ -73,12 +73,12 @@ export default {
     userImg: { type: String, default: null }, // user image
     role: { type: String, default: '' }, // user role
     link: { type: String, default: '' }, // user link
+    mini: { type: Boolean, default: false }, // mini sidebar
   },
   data() {
     return {
       routes: _.cloneDeep(this.$router.options.routes),
       geoColor: '',
-      mini: false,
     };
   },
   watch: {
@@ -87,6 +87,10 @@ export default {
     },
   },
   methods: {
+    toggleSidebar() {
+      this.mini = !this.mini;
+      this.$emit('update:mini', this.mini);
+    },
     checkSidebar() {
       if (this.mini) {
         document.body.classList.add('vuestro-mini-sidebar');
