@@ -123,7 +123,6 @@ export default {
 
 .vuestro-mini-sidebar-popup > .popup-title {
   background-color: var(--vuestro-sidebar-item-hover);
-  background-color: rgba(255,255,255,0.1);
   line-height: var(--vuestro-sidebar-item-height);;
   padding-left: 5px;
   padding-right: 15px;
