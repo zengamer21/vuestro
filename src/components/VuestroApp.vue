@@ -29,6 +29,7 @@
 
         <!--MAIN PAGE VIEW-->
         <div ref="routerView" class="vuestro-router-view" @scroll="onScroll">
+          <slot name="pre-content"></slot>
           <keep-alive> <!-- vue router option for persistent state -->
             <router-view/>
           </keep-alive>
@@ -83,7 +84,6 @@ export default {
       // save content-container scroll position to this route's meta
       this.$route.meta.scrollTop = this.$refs.routerView.scrollTop;
     },
-
   }
 };
 
