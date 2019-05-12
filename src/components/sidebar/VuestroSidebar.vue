@@ -21,15 +21,17 @@
     </transition>
 
     <!--USER BLOCK-->
-    <transition v-if="user" name="vuestro-user-block" mode="out-in">
+    <template v-if="user">
       <vuestro-geo-pattern class="vuestro-user-block" :seed="user" @color="(c) => {this.geoColor = c}">
         <img v-if="userImg" :src="userImg" class="img-circle"/>
-        <div v-if="!mini" class="vuestro-user-block-text">
-          <span class="username">{{ user }}</span>
-          <span>{{ role }}</span>
-        </div>
+        <transition name="vuestro-user-block" mode="out-in">
+          <div v-if="!mini" class="vuestro-user-block-text">
+            <span class="username">{{ user }}</span>
+            <span>{{ role }}</span>
+          </div>
+        </transition>
       </vuestro-geo-pattern>
-    </transition>
+    </template>
 
     <!--MENU-->
     <transition name="vuestro-sidebar" mode="out-in">
@@ -163,11 +165,11 @@ export default {
 
 .vuestro-user-block {
   display: flex;
-  justify-content: center;
   color: white;
   height: 50px;
   padding-top: 30px;
   padding-bottom: 30px;
+  padding-left: 10px;
   margin-right: calc(var(--vuestro-sidebar-item-padding-right) / 2);
   border-top-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
   border-bottom-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
@@ -176,6 +178,10 @@ export default {
   align-self: center;
   width: var(--vuestro-sidebar-user-image-width);
   border-radius: 50%;
+}
+.vuestro-mini-sidebar .vuestro-user-block {
+  padding-left: 0px;
+  justify-content: center;
 }
 
 .vuestro-user-block-text {
@@ -194,11 +200,10 @@ export default {
   font-weight: 700;
 }
 .vuestro-user-block-enter-active, .vuestro-user-blockleave-active {
-  transition: all 0.4s;
+  transition: all 1s;
 }
 .vuestro-user-block-enter, .vuestro-user-block-leave-to {
   opacity: 0;
-  font-size: 0;
 }
 
 /* transitions */
