@@ -118,7 +118,7 @@ export default {
   border-top-right-radius: var(--vuestro-sidebar-radius);
   border-bottom-right-radius: var(--vuestro-sidebar-radius);
   z-index: 1000;
-  padding-right: 10px;
+  padding-right: var(--vuestro-sidebar-radius);
 }
 
 .vuestro-mini-sidebar-popup > .popup-title {

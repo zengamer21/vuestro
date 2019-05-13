@@ -52,6 +52,7 @@ export default {
 /* highlight for sub-menu hover */
 .vuestro-sub-routes-item > a:hover {
   background-color: var(--vuestro-sidebar-item-hover);
+  filter: brightness(102%);
 }
 .vuestro-sub-routes-item > a.router-link-active {
   background-color: var(--vuestro-sidebar-item-active-bg);

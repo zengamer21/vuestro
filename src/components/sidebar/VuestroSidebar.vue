@@ -84,6 +84,7 @@ export default {
   },
   mounted() {
     this.localMini = this.mini;
+    this.checkSidebar();
   },
   watch: {
     mini(newVal) {
