@@ -3,7 +3,7 @@
     <vuestro-card cols="12" color="#f47633">
       <template slot="heading">Buttons</template>
       <template slot="description">
-        Buttons come in all shapes and sizes. Vuestro attempts to provide a flexible implementation suitable for the most common applications in an attractive, easily-configurable component.
+        Buttons come in all shapes and sizes. Vuestro attempts to provide a flexible implementation suitable for the most common applications in an attractive, easily-configurable component. Outline mode is the default look and feel, but Vue props allow many other options.
       </template>
     </vuestro-card>
 
@@ -22,14 +22,14 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button>
-          <icon name="tractor"></icon>
+          <icon name="flag"></icon>
         </vuestro-button>
       </div>
     </vuestro-card>
 
     <vuestro-card>
       <template slot="description">
-        Basic button with FontAwesome icon and label (make sure the labels is wrapped in a span/div for spacing)
+        Basic button with FontAwesome icon and label (make sure the labels is wrapped in a span/div for spacing in between)
       </template>
       <div class="example-flexbox">
         <vuestro-button>
@@ -44,16 +44,47 @@
         Make it less pointy by setting the rounded property
       </template>
       <div class="example-flexbox">
+        <vuestro-button rounded>
+          <icon name="snowflake"></icon>
+        </vuestro-button>
         <vuestro-button rounded>Rounded Button</vuestro-button>
+        <vuestro-button rounded>
+          <icon name="fire"></icon>
+          <span>Rounded Button</span>
+        </vuestro-button>
       </div>
     </vuestro-card>
 
     <vuestro-card>
       <template slot="description">
-        ...or go all the way by setting the pill property
+        ...make pills by setting the pill property
       </template>
       <div class="example-flexbox">
+        <vuestro-button pill>
+          <icon name="capsules"></icon>
+        </vuestro-button>
         <vuestro-button pill>Pill-shaped Button</vuestro-button>
+        <vuestro-button pill>
+          <icon name="capsules"></icon>
+          <span>Pill-shaped Button</span>
+        </vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        ...or go all the way by setting the round property
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button round size="sm">
+          <icon name="tractor"></icon>
+        </vuestro-button>
+        <vuestro-button round>
+          <icon name="tractor"></icon>
+        </vuestro-button>
+        <vuestro-button round size="lg">
+          <icon name="tractor"></icon>
+        </vuestro-button>
       </div>
     </vuestro-card>
 
@@ -62,10 +93,62 @@
         Font size is inherited, but the size {'sm', 'md', 'lg'} property modifies inner padding
       </template>
       <div class="example-flexbox bigger-font">
+        <vuestro-button><icon name="tractor"></icon></vuestro-button>
         <vuestro-button>Large Text Button</vuestro-button>
+        <vuestro-button size="sm"><icon name="tractor"></icon></vuestro-button>
         <vuestro-button size="sm">sm Button</vuestro-button>
+        <vuestro-button size="md"><icon name="tractor"></icon></vuestro-button>
         <vuestro-button size="md">md(default) Button</vuestro-button>
+        <vuestro-button size="lg"><icon name="tractor"></icon></vuestro-button>
         <vuestro-button size="lg">lg Button</vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        Button variant can be changed by setting the variant property
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button variant="primary">primary</vuestro-button>
+        <vuestro-button variant="secondary">secondary</vuestro-button>
+        <vuestro-button variant="success">success</vuestro-button>
+        <vuestro-button variant="warning">warning</vuestro-button>
+        <vuestro-button variant="danger">danger</vuestro-button>
+        <vuestro-button variant="info">info</vuestro-button>
+        <vuestro-button variant="white">white</vuestro-button>
+        <vuestro-button variant="black">black</vuestro-button>
+        <vuestro-button variant="text">text</vuestro-button>
+        <vuestro-button variant="link">link</vuestro-button>
+      </div>
+      <div class="example-flexbox">
+        <vuestro-button value variant="primary">primary</vuestro-button>
+        <vuestro-button value variant="secondary">secondary</vuestro-button>
+        <vuestro-button value variant="success">success</vuestro-button>
+        <vuestro-button value variant="warning">warning</vuestro-button>
+        <vuestro-button value variant="danger">danger</vuestro-button>
+        <vuestro-button value variant="info">info</vuestro-button>
+        <vuestro-button value variant="white">white</vuestro-button>
+        <vuestro-button value variant="black">black</vuestro-button>
+        <vuestro-button value variant="text">text</vuestro-button>
+        <vuestro-button value variant="link">link</vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        Go buttons without borders by setting the no-border property
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button no-border variant="primary">primary</vuestro-button>
+        <vuestro-button no-border variant="secondary">secondary</vuestro-button>
+        <vuestro-button no-border variant="success">success</vuestro-button>
+        <vuestro-button no-border variant="warning">warning</vuestro-button>
+        <vuestro-button no-border variant="danger">danger</vuestro-button>
+        <vuestro-button no-border variant="info">info</vuestro-button>
+        <vuestro-button no-border variant="white">white</vuestro-button>
+        <vuestro-button no-border variant="black">black</vuestro-button>
+        <vuestro-button no-border variant="text">text</vuestro-button>
+        <vuestro-button no-border variant="link">link</vuestro-button>
       </div>
     </vuestro-card>
 
@@ -89,47 +172,25 @@
 
     <vuestro-card>
       <template slot="description">
-        Buttons will stretch to available space by setting the stretch property.
+        ...or simply define the value prop for a simple colorized button
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button variant="primary" value>Button</vuestro-button>
+        <vuestro-button variant="success" value pill>Button</vuestro-button>
+        <vuestro-button variant="warning" value round>
+          <icon name="bug"></icon>
+        </vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        Buttons will stretch to available space by setting the stretch property
       </template>
       <vuestro-button stretch>Button</vuestro-button>
       <vuestro-button pill stretch>Button</vuestro-button>
     </vuestro-card>
 
-    <vuestro-card>
-      <template slot="description">
-        Button variant can be changed by setting the variant property.
-      </template>
-      <div class="example-flexbox">
-        <vuestro-button variant="primary">primary</vuestro-button>
-        <vuestro-button variant="secondary">secondary</vuestro-button>
-        <vuestro-button variant="success">success</vuestro-button>
-        <vuestro-button variant="warning">warning</vuestro-button>
-        <vuestro-button variant="danger">danger</vuestro-button>
-        <vuestro-button variant="info">info</vuestro-button>
-        <vuestro-button variant="white">white</vuestro-button>
-        <vuestro-button variant="black">black</vuestro-button>
-        <vuestro-button variant="text">text</vuestro-button>
-        <vuestro-button variant="link">link</vuestro-button>
-      </div>
-    </vuestro-card>
-
-    <vuestro-card>
-      <template slot="description">
-        Go buttons without borders by setting the no-border property.
-      </template>
-      <div class="example-flexbox">
-        <vuestro-button no-border variant="primary">primary</vuestro-button>
-        <vuestro-button no-border variant="secondary">secondary</vuestro-button>
-        <vuestro-button no-border variant="success">success</vuestro-button>
-        <vuestro-button no-border variant="warning">warning</vuestro-button>
-        <vuestro-button no-border variant="danger">danger</vuestro-button>
-        <vuestro-button no-border variant="info">info</vuestro-button>
-        <vuestro-button no-border variant="white">white</vuestro-button>
-        <vuestro-button no-border variant="black">black</vuestro-button>
-        <vuestro-button no-border variant="text">text</vuestro-button>
-        <vuestro-button no-border variant="link">link</vuestro-button>
-      </div>
-    </vuestro-card>
 
     <vuestro-card>
       <template slot="description">
@@ -167,8 +228,23 @@
         Get dark mode by setting the dark property
       </template>
       <div class="example-flexbox dark">
+        <vuestro-button dark size="lg">
+          <icon name="tractor"></icon>
+        </vuestro-button>
         <vuestro-button dark size="lg">Dark with Border</vuestro-button>
+        <vuestro-button dark size="lg">
+          <icon name="tractor"></icon>
+          <span>Dark with Border</span>
+        </vuestro-button>
+        <vuestro-button dark no-border pill variant="secondary" size="lg">
+          <icon name="tractor"></icon>
+        </vuestro-button>
         <vuestro-button dark no-border pill variant="secondary" size="lg">Dark Pill w/o Border</vuestro-button>
+        <vuestro-button dark no-border pill variant="secondary" size="lg">
+          <icon name="tractor"></icon>
+          <span>Dark Pill w/o Border</span>
+        </vuestro-button>
+
         <vuestro-button dark checkbox v-model="exampleCheckbox"></vuestro-button>
       </div>
     </vuestro-card>
@@ -199,6 +275,7 @@ export default {
 .example-flexbox {
   display: flex;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .example-calculator {

@@ -1,11 +1,14 @@
 <template>
   <div class="vuestro-button"
-       :class="[`vuestro-button-${variant}`, size, { dark, value, noBorder, noSpacing, pill, checkbox, disabled, stretch, rounded }]"
+       :class="[`vuestro-button-${variant}`, size, { dark, value, noBorder, noSpacing, round, pill, checkbox, disabled, stretch, rounded }]"
        @click="onClick">
     <div class="vuestro-button-content">
-      <slot>
+      <template v-if="checkbox && value">
         <icon v-if="checkbox && value" name="check"></icon>
-      </slot>
+      </template>
+      <template v-else>
+        <slot></slot>&#8203; <!-- magic zero-width char to make icon-only buttons size like icon+text (has to be immediately after slot -->
+      </template>
     </div>
   </div>
 </template>
@@ -28,8 +31,9 @@ export default {
     value: { type: Boolean, default: false }, // for v-model support
     disabled: { type: Boolean, default: false },
     pill: { type: Boolean, default: false },
-    stretch: { type: Boolean, default: false },
+    round: { type: Boolean, default: false },
     rounded: { type: Boolean, default: false },
+    stretch: { type: Boolean, default: false },
     size: { type: String, default: 'md' },
     dark: { type: Boolean, default: false },
   },
@@ -175,13 +179,22 @@ export default {
   filter: brightness(120%);
   background-color: transparent;
 }
+/* round mode (need padding to be same) */
+.vuestro-button.round {
+  border-radius: 50%;
+}
+.vuestro-button.round.sm {
+  padding: 2px;
+}
+.vuestro-button.round.md {
+  padding: 5px;
+}
+.vuestro-button.round.lg {
+  padding: 8px;
+}
 /* pill mode */
 .vuestro-button.pill {
   border-radius: 999px;
-}
-.vuestro-button.pill svg {
-  width: 12px;
-  height: 12px;
 }
 /* checkbox mode */
 .vuestro-button.checkbox {

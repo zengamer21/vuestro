@@ -26,7 +26,6 @@ export default {
   data() {
     return {
       version: __VERSION__,
-      logo: require('@/assets/logo.svg'),
       user: 'A Vue User',
       userImg: require('@/assets/default-user.jpg'),
       role: 'Admin',

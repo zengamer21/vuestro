@@ -30,6 +30,16 @@ export default new Router({
     },
     {
       meta: {
+        title: 'Containers',
+        sidebar: true,
+        icon: 'boxes',
+      },
+      name: 'containers',
+      path: '/containers',
+      component: Containers,
+    },
+    {
+      meta: {
         title: 'Charts',
         sidebar: true,
         icon: 'chart-area',
@@ -118,16 +128,6 @@ export default new Router({
           component: TextInputs,
         }
       ]
-    },
-    {
-      meta: {
-        title: 'Containers',
-        sidebar: true,
-        icon: 'boxes',
-      },
-      name: 'containers',
-      path: '/containers',
-      component: Containers,
     },
     {
       meta: {

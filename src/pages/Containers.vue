@@ -54,8 +54,8 @@
       <vuestro-panel dark>
         <template slot="title">Dark Vuestro Panel</template>
         <template slot="toolbar">
-          <vuestro-button no-border pill variant="white" no-spacing><icon name="sync-alt"></icon><span>Refresh</span></vuestro-button>
-          <vuestro-button no-border pill variant="danger" no-spacing><icon name="times"></icon></vuestro-button>
+          <vuestro-button pill variant="white" no-border dark><icon name="sync-alt"></icon><span>Refresh</span></vuestro-button>
+          <vuestro-button pill variant="danger" no-border dark><icon name="times"></icon></vuestro-button>
         </template>
         <vuestro-card-container>
           <vuestro-card>

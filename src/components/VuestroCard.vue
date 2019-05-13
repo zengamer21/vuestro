@@ -68,7 +68,7 @@ export default {
 
 .vuestro-card-description {
   font-size: 18px;
-  padding: 4px 10px 20px 0px;
+  padding: 4px 10px 10px 0px;
 }
 
 .vuestro-card.width-1 {
