@@ -11,14 +11,16 @@
                      :collapsed="collapsed"
                      @click="collapsed = !collapsed" >
       </vuestro-caret>
-      <vuestro-title class="vuestro-panel-title">
+      <vuestro-title class="vuestro-panel-title" :spinner="spinner">
         <slot name="title"></slot>
       </vuestro-title>
       <div v-if="$slots.toolbar" class="vuestro-panel-toolbar">
         <slot name="toolbar"></slot>
       </div>
     </div>
-    <slot v-if="!collapsed"></slot>
+    <div class="vuestro-panel-contents" :class="[contentPadding]">
+      <slot v-if="!collapsed"></slot>
+    </div>
   </div>
 </template>
 
@@ -32,6 +34,7 @@ export default {
     color: { type: String, default: null },
     spinner: { type: Boolean, default: false },
     collapsible: { type: Boolean, default: false },
+    contentPadding: { type: String, default: '' },
   },
   data() {
     return {
@@ -105,6 +108,16 @@ export default {
   align-items: center;
   margin-left: auto;
   font-size: 12px;
+}
+
+.vuestro-panel-contents.sm {
+  padding: 2px;
+}
+.vuestro-panel-contents.md {
+  padding: 5px;
+}
+.vuestro-panel-contents.lg {
+  padding: 10px;
 }
 
 </style>

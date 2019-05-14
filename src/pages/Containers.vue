@@ -22,6 +22,16 @@
     </vuestro-card>
 
     <vuestro-card cols="6">
+      <vuestro-panel content-padding="sm">Set the content-padding to "sm"...</vuestro-panel>
+    </vuestro-card>
+    <vuestro-card cols="6">
+      <vuestro-panel content-padding="md">..."md"...</vuestro-panel>
+    </vuestro-card>
+    <vuestro-card cols="6">
+      <vuestro-panel content-padding="lg">..."lg" to add padding to VuestroPanel contents.</vuestro-panel>
+    </vuestro-card>
+
+    <vuestro-card cols="6">
       <vuestro-panel>
         <vuestro-card-container>
           <vuestro-card cols="8">
@@ -76,6 +86,18 @@
         </vuestro-card-container>
       </vuestro-panel>
     </vuestro-card>
+
+    <vuestro-card cols="6">
+      <vuestro-panel spinner>
+        <template slot="title">Vuestro Panel</template>
+        <vuestro-card-container>
+          <vuestro-card>
+            <template slot="description">Set the spinner property to show a loading indicator if panel contents is async.</template>
+          </vuestro-card>
+        </vuestro-card-container>
+      </vuestro-panel>
+    </vuestro-card>
+
 
   </vuestro-card-container>
 </template>

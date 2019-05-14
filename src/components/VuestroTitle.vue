@@ -1,5 +1,5 @@
 <template>
-  <span class="vuestro-title flex-flex flex-justify-content-between">
+  <span class="vuestro-title">
     <slot></slot>
     <icon name="spinner" pulse v-if="spinner"></icon>
   </span>
@@ -7,8 +7,13 @@
 
 <script>
 
+import Icon from 'vue-awesome/components/Icon';
+
 export default {
   name: 'VuestroTitle',
+  components: {
+    Icon,
+  },
   props: {
     spinner: { type: Boolean, default: false },
   },
@@ -23,9 +28,14 @@ export default {
   text-transform: uppercase;
   font-weight: 600;
   pointer-events: none;
+  display: flex;
+  align-items: center;
 }
 
-.vuestro-title .fa-icon {
+.vuestro-title svg {
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
   margin-right: 5px;
 }
 
