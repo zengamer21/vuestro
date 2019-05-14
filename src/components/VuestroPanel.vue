@@ -9,7 +9,7 @@
                      :dark="dark"
                      left
                      :collapsed="collapsed"
-                     @click="collapsed = !collapsed" >
+                     @click="toggleCollapse" >
       </vuestro-caret>
       <vuestro-title class="vuestro-panel-title" :spinner="spinner">
         <slot name="title"></slot>
@@ -33,6 +33,7 @@ export default {
     gutter: { type: String, default: 'md' },
     color: { type: String, default: null },
     spinner: { type: Boolean, default: false },
+    stretch: { type: Boolean, default: false },
     collapsible: { type: Boolean, default: false },
     contentPadding: { type: String, default: '' },
   },
@@ -41,6 +42,12 @@ export default {
       collapsed: false,
     };
   },
+  methods: {
+    toggleCollapse() {
+      this.collapsed = !this.collapsed;
+      this.$emit('toggle');
+    }
+  }
 };
 
 </script>
@@ -73,9 +80,11 @@ export default {
   border-radius: 2px;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
   margin-top: var(--gutter-size);
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
+}
+.vuestro-panel.stretch {
+  flex-grow: 1;
 }
 
 /* border only for dark ui */
