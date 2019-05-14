@@ -18,8 +18,8 @@
         <slot name="toolbar"></slot>
       </div>
     </div>
-    <div class="vuestro-panel-contents" :class="[contentPadding]">
-      <slot v-if="!collapsed"></slot>
+    <div v-if="!collapsed" class="vuestro-panel-contents" :class="[contentPadding]">
+      <slot></slot>
     </div>
   </div>
 </template>
