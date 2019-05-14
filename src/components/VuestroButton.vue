@@ -7,7 +7,7 @@
         <icon v-if="checkbox && value" name="check"></icon>
       </template>
       <template v-else>
-        <slot></slot>&#8203; <!-- magic zero-width char to make icon-only buttons size like icon+text (has to be immediately after slot -->
+        &#8203;<slot></slot>&#8203; <!-- magic zero-width chars to make icon-only buttons size like icon+text -->
       </template>
     </div>
   </div>

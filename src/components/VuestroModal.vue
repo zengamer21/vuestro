@@ -41,6 +41,7 @@ export default {
   methods: {
     onClose() {
       this.$emit('update:active', false);
+      this.$emit('close');
     },
     onBlur() {
       if (this.closeOnBlur) {
