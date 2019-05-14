@@ -1,10 +1,11 @@
 <template>
-  <div class="vuestro-drop-down">
+  <div class="vuestro-drop-down" v-vuestro-blur="onBlur">
     <div class="vuestro-drop-down-inner" @mouseleave="onLeave" :class="{ dark, active, rounded, clickOpen }">
       <div ref="title" class="vuestro-drop-down-title" @mouseover="onHover" @click="onClick">
         <slot name="title"></slot>
       </div>
-      <div class="vuestro-drop-down-menu"
+      <div ref="content"
+           class="vuestro-drop-down-menu"
            :style="{ visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }"
            :class="{ left }">
         <div class="vuestro-drop-down-menu-content">
@@ -57,7 +58,13 @@ export default {
           this.$emit('hover');
         }
       }
-    }
+    },
+    onBlur() {
+      if (this.clickOpen) {
+        this.active = this.alwaysOpen;
+        this.$emit('leave');
+      }
+    },
   },
 };
 

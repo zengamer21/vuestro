@@ -69,12 +69,25 @@ export default {
     Vue.component(VuestroTitle.name, VuestroTitle);
     Vue.component(VuestroTray.name, VuestroTray);
 
-    // Vue.directive(MyDirective.name, MyDirective);
     Vue.filter('vuestroCommas', (d) => {
       if (typeof(d) === 'number') {
         return Number(d).toLocaleString('en');
       }
       return d;
+    });
+
+    Vue.directive('vuestro-blur', {
+      bind: function (el, binding, vnode) {
+        el.clickOutsideEvent = function(event) {
+          if (!(el == event.target || el.contains(event.target))) {
+            vnode.context[binding.expression](event);
+          }
+        };
+        document.body.addEventListener('click', el.clickOutsideEvent);
+      },
+      unbind: function (el) {
+        document.body.removeEventListener('click', el.clickOutsideEvent);
+      },
     });
   }
 };

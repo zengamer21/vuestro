@@ -1,6 +1,6 @@
 <template>
   <transition name="vuestro-modal" mode="out-in">
-    <div class="vuestro-modal-outer" v-if="active">
+    <div class="vuestro-modal-outer" v-if="active" @click="onBlur">
       <div class="vuestro-modal-inner">
         <div class="vuestro-modal-titlebar">
           <slot name="title"></slot>
@@ -26,20 +26,42 @@
 
 <script>
 
+import Icon from 'vue-awesome/components/Icon';
+
 export default {
   name: 'VuestroModal',
+  components: {
+    Icon,
+  },
   props: {
-    active: { type: Boolean, required: true },
+    active: { type: Boolean, required: false },
     closeText: { type: String, default: '' },
+    closeOnBlur: { type: Boolean, default: false },
   },
   methods: {
     onClose() {
-      this.$emit('close');
+      this.$emit('update:active', false);
     },
+    onBlur() {
+      if (this.closeOnBlur) {
+        this.onClose();
+      }
+    }
   },
 };
 
 </script>
+
+<style>
+/* override these css vars to set style */
+.vuestro-app {
+  --vuestro-modal-title-bg: var(--vuestro-dark);
+  --vuestro-modal-title-fg: var(--vuestro-text-color-inverse);
+  --vuestro-modal-content-bg: var(--vuestro-content-bg);
+  --vuestro-modal-active-bg: rgba(0,0,0,0.5);
+}
+
+</style>
 
 <style scoped>
 
@@ -53,18 +75,15 @@ export default {
   align-items: start;
   justify-content: center;
   z-index: 2000;
-  background-color: rgba(0,0,0,0.6);
-}
-.darkui .modal-outer {
-  background-color: rgba(255,255,255,0.2);
+  background-color: var(--vuestro-modal-active-bg);
 }
 
 .vuestro-modal-inner {
-  background-color: var(--white);
+  background-color: var(--vuestro-modal-content-bg);
   width: 600px;
   min-height: 200px;
   max-height: 50%;
-  margin-top: 10%;
+  margin-top: 10vh;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -79,13 +98,14 @@ export default {
 
 .vuestro-modal-titlebar {
   padding: 0 2px 0 10px;
-  background-color: var(--dark-input-background);
-  color: var(--dark-widget-text);
+  background-color: var(--vuestro-modal-title-bg);
+  color: var(--vuestro-modal-title-fg);
   height: 32px;
   flex: none;
   font-size: 16px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .vuestro-modal-default-slot {

@@ -15,7 +15,7 @@
       </template>
       <div class="example-container">
         <vuestro-drop-down left>
-          <template slot="title">DropDown Menu</template>
+          <template slot="title">VuestroDropDown</template>
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-drop-down>
@@ -28,7 +28,7 @@
       </template>
       <div class="example-container">
         <vuestro-drop-down click-open left>
-          <template slot="title">DropDown Click-to-Open</template>
+          <template slot="title">Click-to-Open</template>
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-drop-down>
@@ -50,12 +50,43 @@
 
     <vuestro-card>
       <template slot="description">
-        Set the click-open property to open on click
+        VuestroDropDown automatically stretches to fill its container
       </template>
       <vuestro-drop-down left>
-        <template slot="title">DropDown Menu</template>
+        <template slot="title">Stretchy</template>
+        <vuestro-list-button>Menu Item 1</vuestro-list-button>
+        <vuestro-list-button>Menu Item 2</vuestro-list-button>
       </vuestro-drop-down>
     </vuestro-card>
+
+    <vuestro-card>
+      <template slot="subheading">Vuestro Modal</template>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        VuestroModal default configuration with a VuestroButton as trigger
+      </template>
+      <vuestro-button @click="modalOpen1 = true">Open Modal</vuestro-button>
+      <vuestro-modal :active.sync="modalOpen1">
+        <template slot="title">VuestroModal</template>
+        <template slot="buttons"></template>
+        <p>Modal content</p>
+      </vuestro-modal>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
+        Close modal when clicking outside by setting the close-on-blur property
+      </template>
+      <vuestro-button @click="modalOpen2 = true">Open Modal</vuestro-button>
+      <vuestro-modal :active.sync="modalOpen2" close-on-blur>
+        <template slot="title">VuestroModal</template>
+        <template slot="buttons"></template>
+        <p>Modal content</p>
+      </vuestro-modal>
+    </vuestro-card>
+
 
   </vuestro-card-container>
 </template>
@@ -64,7 +95,12 @@
 
 export default {
   name: 'Popups',
-
+  data() {
+    return {
+      modalOpen1: false,
+      modalOpen2: false,
+    };
+  },
 };
 
 </script>
