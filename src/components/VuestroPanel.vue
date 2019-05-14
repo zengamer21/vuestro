@@ -18,7 +18,7 @@
         <slot name="toolbar"></slot>
       </div>
     </div>
-    <div v-if="!collapsed" class="vuestro-panel-contents" :class="[contentPadding]">
+    <div v-if="!collapsed && !spinner" class="vuestro-panel-contents" :class="[contentPadding]">
       <slot></slot>
     </div>
   </div>
@@ -101,7 +101,7 @@ export default {
 }
 
 .vuestro-panel-title-toolbar {
-  padding: 4px 4px 4px 8px;
+  padding: 4px 4px 2px 8px;
   display: flex;
   align-items: center;
   border-bottom: var(--vuestro-panel-toolbar-border);
