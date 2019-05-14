@@ -42,6 +42,14 @@ export default {
 
 </script>
 
+<style>
+
+.vuestro-app {
+  --vuestro-panel-toolbar-border: none;
+}
+
+</style>
+
 <style scoped>
 
 .vuestro-panel.lg {
@@ -84,7 +92,7 @@ export default {
   padding: 4px 4px 4px 8px;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--vuestro-outline);
+  border-bottom: var(--vuestro-panel-toolbar-border);
 }
 .vuestro-panel-title {
   color: var(--vuestro-text-color);

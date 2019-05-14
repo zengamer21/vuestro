@@ -1,5 +1,6 @@
 <template>
-  <vuestro-card-container>
+  <vuestro-card-container :class="{ outlines }">
+    <vuestro-button size="lg" v-model="outlines">Toggle Outlines</vuestro-button>
     <vuestro-card>
       <template slot="heading">VuestroCard - heading slot</template>
       <template slot="subheading">VuestroCard - subheading slot</template>
@@ -87,18 +88,23 @@ export default {
   name: 'Containers',
   components: {
     Icon,
-  }
+  },
+  data() {
+    return {
+      outlines: true,
+    };
+  },
 };
 
 </script>
 
 <style scoped>
 
-.vuestro-card-container {
+.vuestro-card-container.outlines {
   border: 1px dashed black;
   position: relative;
 }
-.vuestro-card-container:before {
+.vuestro-card-container.outlines:before {
   content: 'VuestroCardContainer';
   position: absolute;
   top: 0;
@@ -106,7 +112,7 @@ export default {
   background-color: var(--vuestro-gray);
 }
 
-.vuestro-card {
+.vuestro-card-container.outlines .vuestro-card {
   border: 1px dashed black;
   position: relative;
 }
