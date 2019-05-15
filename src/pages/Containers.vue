@@ -139,4 +139,8 @@ export default {
   position: relative;
 }
 
+.vuestro-panel-title {
+  /*font-size: 14px;*/
+}
+
 </style>

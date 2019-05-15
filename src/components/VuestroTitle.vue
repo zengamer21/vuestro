@@ -25,8 +25,7 @@ export default {
 
 .vuestro-title {
   font-size: 13px;
-  text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 500;
   pointer-events: none;
   display: flex;
   align-items: center;

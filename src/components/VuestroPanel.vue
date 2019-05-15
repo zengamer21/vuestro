@@ -103,6 +103,7 @@ export default {
 }
 
 .vuestro-panel-title-toolbar {
+  min-height: 30px;
   padding: 4px 4px 4px 8px;
   display: flex;
   align-items: center;
