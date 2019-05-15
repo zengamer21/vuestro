@@ -40,10 +40,10 @@
     </template>
 
     <!--SLOT FOR CUSTOM LOADING PAGE-->
-    <slot v-if="loading" name="loading"></slot>
+    <slot v-else-if="authenticated && loading" name="loading"></slot>
 
     <!--SLOT FOR CUSTOM LOGIN PAGE-->
-    <slot v-if="!authenticated" name="login"></slot>
+    <slot v-else name="login"></slot>
   </div>
 </template>
 
