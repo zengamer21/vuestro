@@ -191,6 +191,10 @@ export default {
   height: 20px;
   padding: 0;
 }
+.vuestro-button.round.sm svg { /* shrink svgs a little */
+  width: 12px;
+  height: 12px;
+}
 .vuestro-button.round.md {
   width: 28px;
   height: 28px;
@@ -204,6 +208,10 @@ export default {
 /* pill mode */
 .vuestro-button.pill {
   border-radius: 999px;
+}
+.vuestro-button.pill svg {
+  width: 12px;
+  height: 12px;
 }
 /* checkbox mode */
 .vuestro-button.checkbox {

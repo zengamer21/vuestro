@@ -50,7 +50,7 @@
       <vuestro-panel content-padding="lg">
         <template slot="title">Vuestro Panel</template>
         <template slot="toolbar">
-          <vuestro-button no-border pill><icon name="sync-alt" scale="0.8"></icon><span>Refresh</span></vuestro-button>
+          <vuestro-button no-border pill><icon name="sync-alt"></icon><span>Refresh</span></vuestro-button>
           <vuestro-dropdown click-open>
             <template slot="button">
               <vuestro-button no-border pill>Options</vuestro-button>
@@ -68,7 +68,8 @@
       <vuestro-panel dark content-padding="lg">
         <template slot="title">Dark Vuestro Panel</template>
         <template slot="toolbar">
-          <vuestro-button pill variant="white" no-border dark><icon name="sync-alt" scale="0.8"></icon><span>Refresh</span></vuestro-button>
+          <vuestro-button pill variant="white" no-border dark><icon name="sync-alt"></icon><span>Refresh</span></vuestro-button>
+          <vuestro-button round size="sm" no-border dark><icon name="shopping-cart"></icon></vuestro-button>
           <vuestro-button round size="sm" variant="danger" no-border dark><icon name="times"></icon></vuestro-button>
         </template>
         <div>VuestroPanel has a title slot for a nice title, and a toolbar slot for adding controls such as VuestroButton</div>

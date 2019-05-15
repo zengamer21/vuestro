@@ -77,7 +77,7 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button round size="sm">
-          <icon name="times"></icon>
+          <icon name="sync-alt"></icon>
         </vuestro-button>
         <vuestro-button round>
           <icon name="play-circle"></icon>
