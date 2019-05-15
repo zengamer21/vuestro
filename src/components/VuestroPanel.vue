@@ -122,7 +122,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.vuestro-panel-contents.stretch {
+.vuestro-panel.stretch > .vuestro-panel-contents {
   flex-grow: 1;
 }
 .vuestro-panel-contents.sm {
