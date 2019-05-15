@@ -18,7 +18,7 @@
         <slot name="toolbar"></slot>
       </div>
     </div>
-    <div v-if="!collapsed && !spinner" class="vuestro-panel-contents" :class="[contentPadding]">
+    <div v-if="!collapsed" class="vuestro-panel-contents" :class="[contentPadding]">
       <slot></slot>
     </div>
   </div>
@@ -118,6 +118,13 @@ export default {
   margin-left: auto;
 }
 
+.vuestro-panel-contents {
+  display: flex;
+  flex-direction: column;
+}
+.vuestro-panel-contents.stretch {
+  flex-grow: 1;
+}
 .vuestro-panel-contents.sm {
   padding: 2px;
 }
