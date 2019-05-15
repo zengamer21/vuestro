@@ -1,7 +1,8 @@
 <template>
   <div class="vuestro-button"
        :class="[`vuestro-button-${variant}`, size, { dark, value, noBorder, noSpacing, round, pill, checkbox, disabled, stretch, rounded }]"
-       @click="onClick">
+       @click="onClick"
+       @mouseover="onHover">
     <div class="vuestro-button-content">
       <template v-if="checkbox && value">
         <icon v-if="checkbox && value" name="check"></icon>
@@ -41,7 +42,10 @@ export default {
     onClick(e) {
       this.$emit('click', e);
       this.$emit('input', !this.value);
-    }
+    },
+    onHover(e) {
+      this.$emit('hover', e);
+    },
   }
 };
 
@@ -221,10 +225,10 @@ export default {
   color: var(--vuestro-white);
 }
 
-.vuestro-button-content svg {
+.vuestro-button-content >>> svg {
   align-self: center;
 }
-.vuestro-button-content svg:not(:only-child) {
+.vuestro-button-content >>> svg:not(:only-child) {
   margin-right: 4px;
 }
 

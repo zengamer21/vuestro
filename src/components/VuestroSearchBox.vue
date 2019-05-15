@@ -2,7 +2,7 @@
   <div class="vuestro-search-box">
     <!--HISTORY-->
     <div v-if="history" class="history-dropdown">
-      <vuestro-drop-down left rounded>
+      <vuestro-dropdown left rounded>
         <template slot="title">
           <icon name="search"></icon>
           <icon class="down-caret" name="caret-down"></icon>
@@ -14,7 +14,7 @@
         <template slot="buttons" v-if="historyArray.length > 0">
           <span class="clear-history" @click="historyArray = []">Clear History</span>
         </template>
-      </vuestro-drop-down>
+      </vuestro-dropdown>
     </div>
     <!--INPUT-->
     <div class="input-el-wrapper">
@@ -30,7 +30,7 @@
 <script>
 
 /* global _ */
-import VuestroDropDown from './VuestroDropDown.vue';
+import VuestroDropdown from './VuestroDropdown.vue';
 import VuestroListButton from './VuestroListButton.vue';
 
 import 'vue-awesome/icons/search.js';
@@ -41,7 +41,7 @@ import Icon from 'vue-awesome/components/Icon';
 export default {
   name: 'VuestroSearchBox',
   components: {
-    VuestroDropDown,
+    VuestroDropdown,
     VuestroListButton,
     Icon,
   },

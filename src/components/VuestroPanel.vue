@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-panel"
-       :class="[ gutter, { dark }]"
+       :class="[ gutter, { dark, stretch }]"
        :style="color ? { 'background-color': color }:{}">
     <!--TOOLBAR-->
     <div v-if="$slots.title || $slots.toolbar || collapsible" class="vuestro-panel-title-toolbar">
@@ -30,7 +30,7 @@ export default {
   name: 'VuestroPanel',
   props: {
     dark: { type: Boolean, default: false },
-    gutter: { type: String, default: 'md' },
+    gutter: { type: String, default: 'none' },
     color: { type: String, default: null },
     spinner: { type: Boolean, default: false },
     stretch: { type: Boolean, default: false },
@@ -63,13 +63,13 @@ export default {
 <style scoped>
 
 .vuestro-panel.lg {
-  --gutter-size: 15px;
+  --gutter-size: 12px;
 }
 .vuestro-panel.md {
-  --gutter-size: 4px;
+  --gutter-size: 8px;
 }
 .vuestro-panel.sm {
-  --gutter-size: 2px;
+  --gutter-size: 4px;
 }
 .vuestro-panel.none {
   --gutter-size: 0px;
@@ -101,7 +101,7 @@ export default {
 }
 
 .vuestro-panel-title-toolbar {
-  padding: 4px 4px 2px 8px;
+  padding: 4px 4px 4px 8px;
   display: flex;
   align-items: center;
   border-bottom: var(--vuestro-panel-toolbar-border);
@@ -116,7 +116,6 @@ export default {
   display: flex;
   align-items: center;
   margin-left: auto;
-  font-size: 12px;
 }
 
 .vuestro-panel-contents.sm {

@@ -1,17 +1,20 @@
 <template>
-  <div class="vuestro-drop-down" v-vuestro-blur="onBlur">
-    <div class="vuestro-drop-down-inner" @mouseleave="onLeave" :class="{ dark, active, rounded, clickOpen }">
-      <div ref="title" class="vuestro-drop-down-title" @mouseover="onHover" @click="onClick">
-        <slot name="title"></slot>
+  <div class="vuestro-dropdown" v-vuestro-blur="onBlur">
+    <div class="vuestro-dropdown-inner" @mouseleave="onLeave" :class="{ dark, active, rounded, clickToOpen }">
+      <div v-if="$slots.title" class="vuestro-dropdown-title" @mouseover="onHover" @click="onClick">
+        &#8203;<slot name="title"></slot>&#8203;
+      </div>
+      <div class="vuestro-dropdown-button" v-else-if="$slots.button">
+        <slot name="button"></slot>
       </div>
       <div ref="content"
-           class="vuestro-drop-down-menu"
+           class="vuestro-dropdown-menu"
            :style="{ visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }"
            :class="{ left }">
-        <div class="vuestro-drop-down-menu-content">
+        <div class="vuestro-dropdown-menu-content">
           <slot></slot>
         </div>
-        <div class="vuestro-drop-down-menu-buttons" v-if="$slots.buttons">
+        <div class="vuestro-dropdown-menu-buttons" v-if="$slots.buttons">
           <slot name="buttons"></slot>
         </div>
       </div>
@@ -22,34 +25,49 @@
 <script>
 
 export default {
-  name: 'VuestroDropDown',
+  name: 'VuestroDropdown',
   props: {
-    left: { type: Boolean, default: false },
     alwaysOpen: { type: Boolean, default: false },
-    clickOpen: { type: Boolean, default: false },
+    clickToOpen: { type: Boolean, default: false },
     rounded: { type: Boolean, default: false },
     dark: { type: Boolean, default: false },
   },
   data() {
     return {
+      left: true, // left justified
       active: this.alwaysOpen,
     };
   },
+  mounted() {
+    // if VuestroButton was used as activator, wire up it's events
+    if (this.$slots.button) {
+      this.$slots.button[0].componentInstance.$on('click', () => {
+        this.onClick();
+      });
+      this.$slots.button[0].componentInstance.$on('hover', () => {
+        this.onHover();
+      });
+    }
+    // see if menu would go offscreen so we can flip it to right justified
+    if (this.$refs.content.getBoundingClientRect().right > window.innerWidth) {
+      this.left = false;
+    }
+  },
   methods: {
     onHover() {
-      if (!this.clickOpen) {
+      if (!this.clickToOpen) {
         this.active = true;
         this.$emit('hover');
       }
     },
     onLeave() {
-      if (!this.clickOpen) {
+      if (!this.clickToOpen) {
         this.active = this.alwaysOpen;
         this.$emit('leave');
       }
     },
     onClick() {
-      if (this.clickOpen) {
+      if (this.clickToOpen) {
         if (this.active) {
           this.active = this.alwaysOpen;
           this.$emit('leave');
@@ -60,7 +78,7 @@ export default {
       }
     },
     onBlur() {
-      if (this.clickOpen) {
+      if (this.clickToOpen) {
         this.active = this.alwaysOpen;
         this.$emit('leave');
       }
@@ -73,48 +91,38 @@ export default {
 <style>
 
 .vuestro-app {
-  --vuestro-drop-down-outline: transparent;
+  --vuestro-dropdown-outline: transparent;
 }
 .vuestro-dark {
-  --vuestro-drop-down-outline: var(--vuestro-outline)
+  --vuestro-dropdown-outline: var(--vuestro-outline)
 }
 
 </style>
 
 <style scoped>
 
-.vuestro-drop-down {
+.vuestro-dropdown {
   z-index: 100;
   height: 100%;
   position: relative;
   cursor: default;
 }
-.vuestro-drop-down-inner {
+.vuestro-dropdown-inner {
   height: 100%;
   /* ensure dropdown is always visible, also make sure z-index of parent is set high enough for overlap */
   overflow: visible !important;
+  position: relative;
+}
+
+.vuestro-dropdown-inner.dark {
+  --vuestro-dropdown-outline: var(--vuestro-outline)
+}
+
+.vuestro-dropdown-title {
   border: 1px solid transparent;
   border-bottom: none;
   position: relative;
-}
-.vuestro-drop-down-inner.dark {
-  --vuestro-drop-down-outline: var(--vuestro-outline)
-}
-.vuestro-drop-down-inner.rounded {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-}
-
-.vuestro-drop-down-inner.active {
-  background-color: var(--vuestro-popup-bg);
-  border-color: var(--vuestro-drop-down-outline);
-  color: var(--vuestro-popup-fg);
-}
-
-.vuestro-drop-down-title {
-  position: relative;
-  padding-left: 6px;
-  padding-right: 6px;
+  padding: 2px 6px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -123,67 +131,78 @@ export default {
   text-overflow: ellipsis;
   cursor: default;
   user-select: none;
-  z-index: 101;
 }
-.vuestro-drop-down-title .fa-icon {
-  margin-right: 2px;
+.vuestro-dropdown-inner.rounded .vuestro-dropdown-title {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
-.vuestro-drop-down-inner.clickOpen .vuestro-drop-down-title {
-  cursor: pointer;
-}
-.vuestro-drop-down-inner.dark .vuestro-drop-down-title {
+.vuestro-dropdown-inner.active .vuestro-dropdown-title {
+  background-color: var(--vuestro-popup-bg);
+  border-color: var(--vuestro-dropdown-outline);
   color: var(--vuestro-popup-fg);
 }
 
-.vuestro-drop-down-menu {
+.vuestro-dropdown-title >>> svg:not(:only-child) {
+  margin-right: 4px;
+}
+.vuestro-dropdown-inner.clickToOpen .vuestro-dropdown-title {
+  cursor: pointer;
+}
+.vuestro-dropdown-inner.dark .vuestro-dropdown-title {
+  color: var(--vuestro-popup-fg);
+}
+
+.vuestro-dropdown-button {
+  position: relative;
+}
+
+.vuestro-dropdown-menu {
   background: var(--vuestro-popup-bg);
   color: var(--vuestro-popup-fg);
   box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
   position: absolute;
   top: calc(100% - 1px);
-  right: -1px;
+  right: 0px;
   min-width: 160px;
-  font-size: 14px;
-  font-weight: 300;
-  border: 1px solid var(--vuestro-drop-down-outline);
+  border: 1px solid var(--vuestro-dropdown-outline);
   z-index: -1;
 }
-.vuestro-drop-down-inner.rounded .vuestro-drop-down-menu {
+.vuestro-dropdown-inner.rounded .vuestro-dropdown-menu {
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 }
 
-.vuestro-drop-down-menu.left {
-  left: -1px;
+.vuestro-dropdown-menu.left {
+  left: 0px;
 }
 
-.vuestro-drop-down-menu-content {
+.vuestro-dropdown-menu-content {
   padding: 8px;
 }
 
-.vuestro-drop-down-menu-buttons {
-  border-top: 1px solid var(--vuestro-drop-down-outline);
+.vuestro-dropdown-menu-buttons {
+  border-top: 1px solid var(--vuestro-dropdown-outline);
   overflow: hidden;
   display: flex;
   cursor: pointer;
 }
-.vuestro-drop-down-inner.rounded .vuestro-drop-down-menu-buttons {
+.vuestro-dropdown-inner.rounded .vuestro-dropdown-menu-buttons {
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 }
 
-.vuestro-drop-down-menu-buttons > span {
+.vuestro-dropdown-menu-buttons > span {
   background-color: var(--primary);
   padding: 6px;
   flex-grow: 1;
   text-align: center;
 }
 
-.vuestro-drop-down-menu-buttons > span:not(:first-child) {
-  border-left: 1px solid var(--vuestro-drop-down-outline);
+.vuestro-dropdown-menu-buttons > span:not(:first-child) {
+  border-left: 1px solid var(--vuestro-dropdown-outline);
 }
 
-.vuestro-drop-down-menu-buttons > span:hover {
+.vuestro-dropdown-menu-buttons > span:hover {
   background-color: var(--vuestro-primary);
 }
 
