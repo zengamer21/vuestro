@@ -15,12 +15,12 @@
         Default is to open on hover
       </template>
       <div class="example-container">
-        <vuestro-dropdown left>
+        <vuestro-dropdown>
           <template slot="title">VuestroDropdown</template>
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
-        <vuestro-dropdown left>
+        <vuestro-dropdown>
           <template slot="title"><icon name="tractor"></icon></template>
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
@@ -69,9 +69,22 @@
 
     <vuestro-card>
       <template slot="description">
+        Set the "right" property to force right-justification
+      </template>
+      <div class="example-container-center">
+        <vuestro-dropdown right>
+          <template slot="title">Right-justified</template>
+          <vuestro-list-button>Menu Item 1</vuestro-list-button>
+          <vuestro-list-button>Menu Item 2</vuestro-list-button>
+        </vuestro-dropdown>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="description">
         VuestroDropdown automatically stretches to fill its container
       </template>
-      <vuestro-dropdown left>
+      <vuestro-dropdown>
         <template slot="title">Stretchy</template>
         <vuestro-list-button>Menu Item 1</vuestro-list-button>
         <vuestro-list-button>Menu Item 2</vuestro-list-button>
@@ -83,7 +96,7 @@
         Or make it look like a button by using a VuestroButton in the "button" slot. VuestroDropdown will automatically wire it up!
       </template>
       <div class="example-container">
-        <vuestro-dropdown left>
+        <vuestro-dropdown>
           <template slot="button">
             <vuestro-button pill variant="info" size="lg">
               <icon name="bullhorn"></icon>
@@ -93,7 +106,7 @@
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
-        <vuestro-dropdown left click-to-open>
+        <vuestro-dropdown click-to-open>
           <template slot="button">
             <vuestro-button variant="info" size="lg">
               <icon name="bullhorn"></icon>
@@ -162,6 +175,10 @@ export default {
 .example-container {
   display: flex;
   align-items: flex-start;
+}
+.example-container-center {
+  display: flex;
+  justify-content: center;
 }
 .example-container.dark:before {
   content: "Example Dark Background";

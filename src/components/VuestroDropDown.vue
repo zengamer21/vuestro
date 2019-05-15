@@ -31,6 +31,7 @@ export default {
     clickToOpen: { type: Boolean, default: false },
     rounded: { type: Boolean, default: false },
     dark: { type: Boolean, default: false },
+    right: { type: Boolean, default: false }, // force right justification
   },
   data() {
     return {
@@ -50,6 +51,10 @@ export default {
     }
     // see if menu would go offscreen so we can flip it to right justified
     if (this.$refs.content.getBoundingClientRect().right > window.innerWidth) {
+      this.left = false;
+    }
+    // see if right-justify was specified
+    if (this.right) {
       this.left = false;
     }
   },
