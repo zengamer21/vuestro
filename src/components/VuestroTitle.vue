@@ -21,14 +21,23 @@ export default {
 
 </script>
 
+<style>
+.vuestro-app {
+  --vuestro-title-font-size: 13px;
+  --vuestro-title-font-weight: 600;
+  --vuestro-title-text-transform: uppercase;
+}
+</style>
+
 <style scoped>
 
 .vuestro-title {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: var(--vuestro-title-font-size);
+  font-weight: var(--vuestro-title-font-weight);
   pointer-events: none;
   display: flex;
   align-items: center;
+  text-transform: var(--vuestro-title-text-transform);
 }
 
 .vuestro-title svg {
