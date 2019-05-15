@@ -47,7 +47,7 @@
     </vuestro-card>
 
     <vuestro-card cols="6">
-      <vuestro-panel>
+      <vuestro-panel content-padding="lg">
         <template slot="title">Vuestro Panel</template>
         <template slot="toolbar">
           <vuestro-button no-border pill><icon name="sync-alt" scale="0.8"></icon><span>Refresh</span></vuestro-button>
@@ -60,26 +60,18 @@
           </vuestro-dropdown>
           <vuestro-button no-border pill><icon name="times"></icon></vuestro-button>
         </template>
-        <vuestro-card-container>
-          <vuestro-card>
-            <template slot="description">VuestroPanel has a title slot for a nice title, and a toolbar slot for adding controls such as VuestroButton</template>
-          </vuestro-card>
-        </vuestro-card-container>
+        <div>VuestroPanel has a title slot for a nice title, and a toolbar slot for adding controls such as VuestroButton</div>
       </vuestro-panel>
     </vuestro-card>
 
     <vuestro-card cols="6">
-      <vuestro-panel dark>
+      <vuestro-panel dark content-padding="lg">
         <template slot="title">Dark Vuestro Panel</template>
         <template slot="toolbar">
           <vuestro-button pill variant="white" no-border dark><icon name="sync-alt" scale="0.8"></icon><span>Refresh</span></vuestro-button>
           <vuestro-button pill variant="danger" no-border dark><icon name="times"></icon></vuestro-button>
         </template>
-        <vuestro-card-container>
-          <vuestro-card>
-            <template slot="description">VuestroPanel has a title slot for a nice title, and a toolbar slot for adding controls such as VuestroButton</template>
-          </vuestro-card>
-        </vuestro-card-container>
+        <div>VuestroPanel has a title slot for a nice title, and a toolbar slot for adding controls such as VuestroButton</div>
       </vuestro-panel>
     </vuestro-card>
 

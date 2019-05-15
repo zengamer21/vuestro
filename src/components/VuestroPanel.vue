@@ -55,6 +55,8 @@ export default {
 <style>
 
 .vuestro-app {
+  --vuestro-panel-toolbar-bg: inherit;
+  --vuestro-panel-toolbar-fg: inherit;
   --vuestro-panel-toolbar-border: none;
 }
 
@@ -116,6 +118,8 @@ export default {
   display: flex;
   align-items: center;
   margin-left: auto;
+  background-color: var(--vuestro-panel-toolbar-bg);
+  color: var(--vuestro-panel-toolbar-fg);
 }
 
 .vuestro-panel-contents {
@@ -133,6 +137,10 @@ export default {
 }
 .vuestro-panel-contents.lg {
   padding: 10px;
+}
+/* reset top padding when toolbar is present */
+.vuestro-panel-contents:not(:only-child) {
+  padding-top: 0;
 }
 
 </style>
