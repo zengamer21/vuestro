@@ -77,13 +77,13 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button round size="sm">
-          <icon name="tractor"></icon>
+          <icon name="times"></icon>
         </vuestro-button>
         <vuestro-button round>
-          <icon name="tractor"></icon>
+          <icon name="play-circle"></icon>
         </vuestro-button>
         <vuestro-button round size="lg">
-          <icon name="tractor"></icon>
+          <icon name="stop"></icon>
         </vuestro-button>
       </div>
     </vuestro-card>

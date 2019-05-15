@@ -86,7 +86,6 @@ export default {
 }
 
 .vuestro-button {
-  min-height: 16px;
   align-self: center;
   text-transform: none;
   border: 1px solid var(--variant-color);
@@ -188,13 +187,19 @@ export default {
   border-radius: 50%;
 }
 .vuestro-button.round.sm {
-  padding: 2px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
 }
 .vuestro-button.round.md {
-  padding: 5px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
 }
 .vuestro-button.round.lg {
-  padding: 8px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
 }
 /* pill mode */
 .vuestro-button.pill {
