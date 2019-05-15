@@ -167,12 +167,6 @@ export default {
   justify-content: center;
 }
 
-/* constrain anything inside (this is mainly to make <img/> behave) */
-.vuestro-sidebar-logo >>> * {
-  width: 75%;
-  height: 75%;
-}
-
 .vuestro-mini-sidebar .vuestro-sidebar-logo {
   padding-bottom: 15px;
 }
