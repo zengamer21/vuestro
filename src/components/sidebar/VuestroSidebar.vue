@@ -223,6 +223,7 @@ export default {
 }
 
 .vuestro-title-text {
+  background-color: var(--vuestro-sidebar-header-bg);
   color: var(--vuestro-sidebar-header-fg);
   text-align: center;
   font-size: 34px;

@@ -37,7 +37,12 @@ export default {
   watch: {
     layout(newLayout) {
       this.refresh();
-    }
+    },
+    '$route'() {
+      this.$nextTick(() => {
+        this.resize();
+      });
+    },
   },
   data() {
     return {
