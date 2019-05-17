@@ -161,7 +161,7 @@ export default {
 
 .vuestro-sidebar-logo {
   padding-top: 15px;
-  padding-bottom: 25px;
+  padding-bottom: 15px;
   transition: all 0.4s;
   display: flex;
   justify-content: center;
