@@ -150,7 +150,7 @@ export default {
 /* DARK UI OVERRIDES */
 .vuestro-dark {
   --vuestro-content-bg: #1b1c21;
-  --vuestro-panel-bg: #232425;
+  --vuestro-panel-bg: #383a3c;
   --vuestro-widget-light-bg: #d6d7d8;
   --vuestro-widget-dark-bg: #78797a;
 

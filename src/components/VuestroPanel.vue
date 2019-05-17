@@ -86,8 +86,9 @@ export default {
   flex-grow: 1;
 }
 
-/* border only for dark ui */
-.vuestro-panel.dark {
+/* border only for dark ui, whether it's forced through a prop, or global */
+.vuestro-panel.dark,
+.vuestro-dark .vuestro-panel {
   background-color: var(--vuestro-panel-dark-bg);
   color: var(--vuestro-text-color-inverse);
   border: 1px solid var(--vuestro-outline);
