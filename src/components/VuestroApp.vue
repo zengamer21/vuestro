@@ -125,7 +125,7 @@ export default {
   /* the following are theme-able colors */
   --vuestro-content-bg: #f7f9fa;
   --vuestro-panel-bg: #fff;
-  --vuestro-panel-dark-bg: #636363;
+  --vuestro-panel-dark-bg: #636363; /* panel forced dark mode */
   --vuestro-widget-light-bg: #e8e9ec;
   --vuestro-widget-dark-bg: #2f353f;
 
@@ -150,13 +150,15 @@ export default {
 /* DARK UI OVERRIDES */
 .vuestro-dark {
   --vuestro-content-bg: #1b1c21;
-  --vuestro-panel-bg: #383a3c;
-  --vuestro-widget-light-bg: #d6d7d8;
-  --vuestro-widget-dark-bg: #78797a;
+  --vuestro-panel-dark-bg: #383a3c; /* panel will use this in global dark mode */
 
+  --vuestro-widget-dark-bg: #383b3f;
+  --vuestro-widget-light-bg: var(--vuestro-widget-dark-bg);
   --vuestro-field-bg: #535456;
-  --vuestro-outline: #4b4d57;
+  --vuestro-outline: #7d7d7d;
   --vuestro-active: #37383a;
+  --vuestro-hover: #535456;
+  --vuestro-popup-bg: #323334;
 
   --vuestro-text-color: #ccc;
   --vuestro-text-color-secondary: #696969;
