@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-list-group-toggle" @click="toggle">
-    <vuestro-caret :collapsed="!expanded" left size="sm"></vuestro-caret>
+    <vuestro-caret :collapsed="!expanded"></vuestro-caret>
     <span class="title">{{ title }}</span>
   </div>
 </template>
