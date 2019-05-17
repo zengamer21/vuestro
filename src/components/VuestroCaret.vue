@@ -1,5 +1,5 @@
 <template>
-  <span class="vuestro-caret" :class="[size, { dark, collapsed, left }]" @click="onClick">
+  <span class="vuestro-caret" :class="[size, { collapsed, left }]" @click="onClick">
     <icon name="angle-down"></icon>
   </span>
 </template>
