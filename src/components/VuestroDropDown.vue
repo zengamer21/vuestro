@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-dropdown" v-vuestro-blur="onBlur">
-    <div class="vuestro-dropdown-inner" @mouseleave="onLeave" :class="{ dark, active, rounded, clickToOpen }">
+    <div class="vuestro-dropdown-inner" @mouseleave="onLeave" :class="{ dark, active, noSpacing, rounded, clickToOpen }">
       <div v-if="$slots.title" class="vuestro-dropdown-title" @mouseover="onHover" @click="onClick">
         &#8203;<slot name="title"></slot>&#8203;
       </div>
@@ -32,6 +32,7 @@ export default {
     rounded: { type: Boolean, default: false },
     dark: { type: Boolean, default: false },
     right: { type: Boolean, default: false }, // force right justification
+    noSpacing: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -136,6 +137,9 @@ export default {
   text-overflow: ellipsis;
   cursor: default;
   user-select: none;
+}
+.vuestro-dropdown-inner.noSpacing .vuestro-dropdown-title {
+  padding: 0;
 }
 .vuestro-dropdown-inner.rounded .vuestro-dropdown-title {
   border-top-left-radius: 3px;

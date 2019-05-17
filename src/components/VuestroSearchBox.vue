@@ -2,7 +2,7 @@
   <div class="vuestro-search-box">
     <!--HISTORY-->
     <div v-if="history" class="history-dropdown">
-      <vuestro-dropdown left rounded>
+      <vuestro-dropdown left rounded no-spacing>
         <template slot="title">
           <icon name="search"></icon>
           <icon class="down-caret" name="caret-down"></icon>
@@ -120,6 +120,8 @@ export default {
   flex: 1 1 auto;
   overflow: hidden;
   margin-left: 2px;
+  display: flex;
+  align-items: center;
 }
 
 .input-el {
