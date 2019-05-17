@@ -161,7 +161,6 @@ export default {
   --vuestro-text-color: #ccc;
   --vuestro-text-color-secondary: #696969;
   --vuestro-text-color-muted: #aaa;
-  --vuestro-text-color-inverse: #323334;
 }
 
 </style>
