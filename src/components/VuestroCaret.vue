@@ -1,13 +1,20 @@
 <template>
-  <span class="vuestro-caret" :class="[size, { dark, collapsed, left }]" @click="onClick"></span>
+  <span class="vuestro-caret" :class="[size, { dark, collapsed, left }]" @click="onClick">
+    <icon name="angle-down"></icon>
+  </span>
 </template>
 
 <script>
 
+import 'vue-awesome/icons/angle-down.js';
+import Icon from 'vue-awesome/components/Icon';
+
 export default {
   name: 'VuestroCaret',
+  components: {
+    Icon,
+  },
   props: {
-    dark: { type: Boolean, default: false },
     collapsed: { type: Boolean, required: true },
     size: { type: String, default: 'md' },
     left: { type: Boolean, default: false },
@@ -24,42 +31,39 @@ export default {
 <style scoped>
 
 .vuestro-caret.lg {
-  --size: 8px;
+  --size: 22px;
 }
 
 .vuestro-caret.md {
-  --size: 7px;
+  --size: 18px;
 }
 
 .vuestro-caret.sm {
-  --size: 6px;
+  --size: 12px;
 }
 
 .vuestro-caret {
+  width: var(--size);
+  height: var(--size);
   align-self: center;
   cursor: pointer;
-  width: 0;
-  height: 0;
-  border-left: var(--size) solid transparent;
-  border-right: var(--size) solid transparent;
-  border-top: var(--size) solid var(--vuestro-text-color);
   transition: transform 0.2s;
-  margin-left: 4px;
+  position: relative;
 }
-.vuestro-caret.left {
-  margin-left: 0;
-  margin-right: 4px;
-}
-.vuestro-caret.dark {
-  border-top: var(--size) solid var(--vuestro-text-color-inverse);
-}
-
 .vuestro-caret.collapsed {
+  transform: rotate(-90deg);
+}
+.vuestro-caret.collapsed.left {
   transform: rotate(90deg);
 }
-
-.vuestro-caret.collapsed.left {
-  transform: rotate(-90deg);
+.vuestro-caret svg {
+  width: var(--size);
+  height: var(--size);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 </style>

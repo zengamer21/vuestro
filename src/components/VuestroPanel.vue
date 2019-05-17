@@ -5,9 +5,6 @@
     <!--TOOLBAR-->
     <div v-if="$slots.title || $slots.toolbar || collapsible" class="vuestro-panel-title-toolbar">
       <vuestro-caret v-if="collapsible"
-                     size="sm"
-                     :dark="dark"
-                     left
                      :collapsed="collapsed"
                      @click="toggleCollapse" >
       </vuestro-caret>

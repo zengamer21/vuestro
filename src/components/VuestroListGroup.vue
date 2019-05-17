@@ -1,7 +1,7 @@
 <template>
   <div class="vuestro-list-group">
-    <vuestro-list-group-toggle :title="title" 
-                               :expanded="expanded" 
+    <vuestro-list-group-toggle :title="title"
+                               :expanded="expanded"
                                @toggle="groupToggle">
     </vuestro-list-group-toggle>
 

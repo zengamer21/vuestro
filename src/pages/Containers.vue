@@ -101,7 +101,7 @@
           </vuestro-card>
         </vuestro-card-container>
       </vuestro-panel>
-      <vuestro-panel collapsible gutter="md">
+      <vuestro-panel collapsible dark gutter="md">
         <template slot="title">Collapsible Panel</template>
         <vuestro-card-container>
           <vuestro-card>

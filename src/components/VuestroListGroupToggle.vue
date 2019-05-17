@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-list-group-toggle" @click="toggle">
-    <vuestro-caret :dark="dark" :collapsed="!expanded" left size="sm"></vuestro-caret>
+    <vuestro-caret :collapsed="!expanded" left size="sm"></vuestro-caret>
     <span class="title">{{ title }}</span>
   </div>
 </template>
@@ -17,7 +17,6 @@ export default {
   props: {
     title: { type: String, required: true },
     expanded: { type: Boolean, required: true },
-    dark: { type: Boolean, default: false },
   },
   methods: {
     toggle() {
