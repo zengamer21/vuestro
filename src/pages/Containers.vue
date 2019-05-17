@@ -81,7 +81,23 @@
         <template slot="title">Collapsible Panel</template>
         <vuestro-card-container>
           <vuestro-card>
-            <template slot="description">VuestroPanel can collapse it's content into the titlebar when the collapsible property is set</template>
+            <template slot="description">VuestroPanel can collapse it's content into the titlebar when the collapsible property is set.
+              <br><br>
+              Even if the content is tall, the Vuestro containers will all adjust so that the content is shown and the footer is pushed down.
+              <br><br>
+            </template>
+          </vuestro-card>
+        </vuestro-card-container>
+      </vuestro-panel>
+      <vuestro-panel collapsible gutter="md">
+        <template slot="title">Collapsible Panel</template>
+        <vuestro-card-container>
+          <vuestro-card>
+            <template slot="description">VuestroPanel can collapse it's content into the titlebar when the collapsible property is set.
+              <br><br>
+              Even if the content is tall, the Vuestro containers will all adjust so that the content is shown and the footer is pushed down.
+              <br><br>
+            </template>
           </vuestro-card>
         </vuestro-card-container>
       </vuestro-panel>

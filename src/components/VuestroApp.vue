@@ -210,13 +210,13 @@ export default {
 }
 
 .vuestro-content {
-  flex: 1; /* make the content stretch to bottom of .vuestro-app */
+  flex: 1 1 auto; /* make the content stretch to bottom of .vuestro-app */
   display: flex;
   overflow: hidden; /* lets .vuestro-router-view do the scrolling */
 }
 
 .vuestro-router-view {
-  flex: 1;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   transition: all 0.4s;
