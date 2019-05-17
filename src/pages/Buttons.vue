@@ -1,5 +1,5 @@
 <template>
-  <vuestro-card-container>
+  <vuestro-card-container style="background-color:blue">
     <vuestro-card cols="12" color="#f47633">
       <template slot="heading">Buttons</template>
       <template slot="description">

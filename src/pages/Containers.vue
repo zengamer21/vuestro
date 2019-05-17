@@ -72,7 +72,19 @@
           <vuestro-button round size="sm" no-border dark><icon name="shopping-cart"></icon></vuestro-button>
           <vuestro-button round size="sm" variant="danger" no-border dark><icon name="times"></icon></vuestro-button>
         </template>
-        <div>VuestroPanel has a title slot for a nice title, and a toolbar slot for adding controls such as VuestroButton</div>
+        <p>Set the dark property on VuestroPanel to turn the lights out.<br><br>Remember to set dark on VuestroButtons on the toolbar for a matching effect.</p>
+      </vuestro-panel>
+    </vuestro-card>
+
+    <vuestro-card cols="6">
+      <vuestro-panel dark color="var(--vuestro-purple)" content-padding="lg">
+        <template slot="title">Colorized Vuestro Panel Titlebar</template>
+        <template slot="toolbar">
+          <vuestro-button pill variant="white" no-border><icon name="sync-alt"></icon><span>Refresh</span></vuestro-button>
+          <vuestro-button round size="sm" no-border><icon name="shopping-cart"></icon></vuestro-button>
+          <vuestro-button round size="sm" variant="danger" no-border><icon name="times"></icon></vuestro-button>
+        </template>
+        <p>Colorize the panel background by setting the color property. If you choose a dark color, add the dark property as well for contrasting text.</p>
       </vuestro-panel>
     </vuestro-card>
 

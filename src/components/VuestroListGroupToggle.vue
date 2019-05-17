@@ -1,15 +1,11 @@
 <template>
   <div class="vuestro-list-group-toggle" @click="toggle">
-    <vuestro-caret :collapsed="!expanded" left size="sm"></vuestro-caret>
+    <vuestro-caret :dark="dark" :collapsed="!expanded" left size="sm"></vuestro-caret>
     <span class="title">{{ title }}</span>
   </div>
 </template>
 
 <script>
-
-import 'vue-awesome/icons/caret-right.js';
-import 'vue-awesome/icons/caret-down.js';
-import Icon from 'vue-awesome/components/Icon';
 
 import VuestroCaret from './VuestroCaret.vue';
 
@@ -17,11 +13,11 @@ export default {
   name: 'VuestroListGroupToggle',
   components: {
     VuestroCaret,
-    Icon,
   },
   props: {
     title: { type: String, required: true },
     expanded: { type: Boolean, required: true },
+    dark: { type: Boolean, default: false },
   },
   methods: {
     toggle() {
