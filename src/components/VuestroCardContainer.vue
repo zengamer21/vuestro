@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-card-container" :class="[gutter]">
+  <div class="vuestro-card-container" :class="[gutter, { noWrap }]">
     <slot></slot>
   </div>
 </template>
@@ -10,6 +10,7 @@ export default {
   name: 'VuestroCardContainer',
   props: {
     gutter: { type: String, default: 'md' },
+    noWrap: { type: Boolean, default: false },
   },
 };
 
@@ -38,7 +39,9 @@ export default {
 .vuestro-card-container.none {
   --gutter-size: 0px;
 }
-
+.vuestro-card-container.noWrap {
+  flex-wrap: nowrap;
+}
 .vuestro-card-container > .vuestro-card {
   padding: var(--gutter-size);
 }

@@ -2,6 +2,9 @@
   "name": "vuestro",
   "version": "1.11.23",
   "description": "Vue.js 2 Components",
+  "author": "Mike Smiley <msmiley@alumni.rice.edu>",
+  "url": "https://github.com/msmiley/vuestro",
+  "repository": "msmiley/vuestro.git",
   "main": "./src/plugin/index.js",
   "scripts": {
     "dev": "webpack-dev-server -d --mode development --hot --open --config ./webpack.config.js",
@@ -57,5 +60,13 @@
     "transformIgnorePatterns": [
       "node_modules/(?!(vue-awesome)/)"
     ]
-  }
+  },
+  "keywords": [
+    "Vue",
+    "gui",
+    "ux",
+    "framework",
+    "widgets",
+    "ui"
+  ]
 }

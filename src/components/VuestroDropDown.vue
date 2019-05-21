@@ -98,9 +98,13 @@ export default {
 
 .vuestro-app {
   --vuestro-dropdown-outline: transparent;
+  --vuestro-dropdown-title-bg: var(--vuestro-popup-bg);
+  --vuestro-dropdown-title-fg: var(--vuestro-popup-fg);
+  --vuestro-dropdown-content-bg: var(--vuestro-popup-bg);
+  --vuestro-dropdown-content-fg: var(--vuestro-popup-fg);
 }
 .vuestro-dark {
-  --vuestro-dropdown-outline: var(--vuestro-outline)
+  --vuestro-dropdown-outline: var(--vuestro-outline);
 }
 
 </style>
@@ -146,9 +150,9 @@ export default {
   border-top-right-radius: 3px;
 }
 .vuestro-dropdown-inner.active .vuestro-dropdown-title {
-  background-color: var(--vuestro-popup-bg);
+  background-color: var(--vuestro-dropdown-title-bg);
   border-color: var(--vuestro-dropdown-outline);
-  color: var(--vuestro-popup-fg);
+  color: var(--vuestro-dropdown-title-fg);
 }
 
 .vuestro-dropdown-title >>> svg:not(:only-child) {
@@ -158,7 +162,7 @@ export default {
   cursor: pointer;
 }
 .vuestro-dropdown-inner.dark .vuestro-dropdown-title {
-  color: var(--vuestro-popup-fg);
+  color: var(--vuestro-dropdown-title-fg);
 }
 
 .vuestro-dropdown-button {
@@ -166,8 +170,8 @@ export default {
 }
 
 .vuestro-dropdown-menu {
-  background: var(--vuestro-popup-bg);
-  color: var(--vuestro-popup-fg);
+  background: var(--vuestro-dropdown-content-bg);
+  color: var(--vuestro-dropdown-content-fg);
   box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
   position: absolute;
   top: calc(100% - 1px);
@@ -201,7 +205,7 @@ export default {
 }
 
 .vuestro-dropdown-menu-buttons > span {
-  background-color: var(--primary);
+  background-color: var(--vuestro-primary);
   padding: 6px;
   flex-grow: 1;
   text-align: center;
