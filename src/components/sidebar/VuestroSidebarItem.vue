@@ -125,6 +125,7 @@ export default {
 }
 
 .title {
+  flex-grow: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
