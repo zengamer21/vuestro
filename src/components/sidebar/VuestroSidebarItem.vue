@@ -7,6 +7,9 @@
         <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
         <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
         <span>{{ route.meta.title }}</span>
+        <template v-if="route.meta.badgeComponent">
+          <component :is="route.meta.badgeComponent"></component>
+        </template>
       </a>
       <vuestro-sub-routes :show="active" :route="route"></vuestro-sub-routes>
     </template>
@@ -15,7 +18,14 @@
       <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
       <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
       <span>{{ route.meta.title }}</span>
+      <template v-if="route.meta.badgeComponent">
+        <component :is="route.meta.badgeComponent"></component>
+      </template>
     </router-link>
+    <!--VUEX CHILDREN-->
+    <template v-if="route.meta.vuex">
+      <vuestro-sub-routes :route="vuexRoute"></vuestro-sub-routes>
+    </template>
   </div>
 </template>
 
@@ -42,9 +52,17 @@ export default {
     this.active = this.isParentRoute;
   },
   computed: {
+    basePath() {
+      return this.route.path.split('/:')[0]; // remove any params
+    },
     isParentRoute() {
-      let p = this.route.path.split('/:'); // remove any params
-      return this.$route.fullPath.startsWith(p[0]);
+      return this.$route.fullPath.startsWith(this.basePath);
+    },
+    vuexRoute() {
+      return {
+        path: this.basePath,
+        children: this.$store.getters[this.route.meta.vuex],
+      };
     },
   },
   methods: {

@@ -133,7 +133,7 @@ export default {
   border-radius: 3px;
 }
 .vuestro-button.sm {
-  padding: 0px 2px;
+  padding: 0px 6px;
 }
 .vuestro-button.md {
   padding: 2px 6px;
