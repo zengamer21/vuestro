@@ -5,6 +5,7 @@
   "author": "Mike Smiley <msmiley@alumni.rice.edu>",
   "url": "https://github.com/msmiley/vuestro",
   "repository": "msmiley/vuestro.git",
+  "license": "ISC",
   "main": "./src/plugin/index.js",
   "scripts": {
     "dev": "webpack-dev-server -d --mode development --hot --open --config ./webpack.config.js",
