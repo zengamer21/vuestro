@@ -6,10 +6,12 @@
          @click="toggle">
         <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
         <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
-        <span>{{ route.meta.title }}</span>
-        <template v-if="route.meta.badgeComponent">
-          <component :is="route.meta.badgeComponent"></component>
-        </template>
+        <div class="title">
+          <span>{{ route.meta.title }}</span>
+          <template v-if="route.meta.badgeComponent">
+            <component :is="route.meta.badgeComponent"></component>
+          </template>
+        </div>
       </a>
       <vuestro-sub-routes :show="active" :route="route"></vuestro-sub-routes>
     </template>
@@ -17,10 +19,12 @@
     <router-link v-else :to="route">
       <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
       <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
-      <span>{{ route.meta.title }}</span>
-      <template v-if="route.meta.badgeComponent">
-        <component :is="route.meta.badgeComponent"></component>
-      </template>
+      <div class="title">
+        <span>{{ route.meta.title }}</span>
+        <template v-if="route.meta.badgeComponent">
+          <component :is="route.meta.badgeComponent"></component>
+        </template>
+      </div>
     </router-link>
     <!--VUEX CHILDREN-->
     <template v-if="route.meta.vuex">
@@ -118,6 +122,12 @@ export default {
   margin-top: 2px;
   width: 35px;
   float: left;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 </style>
