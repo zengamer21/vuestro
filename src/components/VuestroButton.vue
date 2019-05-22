@@ -186,7 +186,9 @@ export default {
 /* round mode (need padding to be same) */
 .vuestro-button.round {
   border-radius: 50%;
-  overflow: hidden;
+}
+.vuestro-button.round .vuestro-button-content {
+  overflow: hidden; /* make sure it centers properly */
 }
 .vuestro-button.round.sm {
   width: 20px;
