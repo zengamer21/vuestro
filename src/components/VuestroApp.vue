@@ -203,7 +203,7 @@ export default {
   font-size: 13px;
   font-family: 'Quicksand', sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
-  text-rendering: optimizeSpeed;
+  text-rendering: optimizeLegibility;
   min-height: 100%; /* stretches app down to bottom edge of body */
   display: flex;
   flex-direction: column;

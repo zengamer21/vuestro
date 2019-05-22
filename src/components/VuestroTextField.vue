@@ -147,9 +147,9 @@ export default {
   color: var(--vuestro-text-color-muted);
   pointer-events: none;
 }
-.vuestro-text-field.outline .placeholder {
+.vuestro-text-field-outline .placeholder.active {
   /* only for outline mode */
-  background: var(--vuestro-text-field-bg);
+  background-color: var(--vuestro-text-field-bg);
 }
 
 .placeholder.active {
