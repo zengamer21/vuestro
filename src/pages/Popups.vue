@@ -147,6 +147,24 @@
       </vuestro-modal>
     </vuestro-card>
 
+    <vuestro-card>
+      <template slot="description">
+        VuestroModal has a "buttons" slot for adding VuestroButtons
+      </template>
+      <vuestro-button @click="modalOpen3 = true">Open Modal</vuestro-button>
+      <vuestro-modal :active.sync="modalOpen3" close-on-blur>
+        <template slot="title">VuestroModal</template>
+        <template slot="buttons">
+          <vuestro-button variant="info">
+            <icon name="sync-alt"></icon>
+            <span>Refresh</span>
+          </vuestro-button>
+        </template>
+        <p>Modal content</p>
+      </vuestro-modal>
+    </vuestro-card>
+
+
 
   </vuestro-card-container>
 </template>
@@ -164,6 +182,7 @@ export default {
     return {
       modalOpen1: false,
       modalOpen2: false,
+      modalOpen3: false,
     };
   },
 };

@@ -4,7 +4,7 @@
       <div class="vuestro-modal-inner">
         <div class="vuestro-modal-titlebar">
           <slot name="title"></slot>
-          <div class="flex-flex ml-auto">
+          <div class="vuestro-modal-buttons">
             <slot name="buttons"></slot>
             <vuestro-button class="close-button" @click="onClose">
               <template v-if="closeText.length > 0">
@@ -107,6 +107,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.vuestro-modal-buttons {
+  display: flex;
+  margin-left: auto;
+  font-size: 14px;
 }
 
 .vuestro-modal-default-slot {

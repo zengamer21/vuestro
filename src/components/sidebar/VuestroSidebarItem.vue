@@ -119,7 +119,6 @@ export default {
 }
 
 .vuestro-sidebar-item a >>> svg {
-  margin-top: 2px;
   width: 35px;
   float: left;
 }
