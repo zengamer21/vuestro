@@ -186,6 +186,7 @@ export default {
 /* round mode (need padding to be same) */
 .vuestro-button.round {
   border-radius: 50%;
+  overflow: hidden;
 }
 .vuestro-button.round.sm {
   width: 20px;
@@ -241,6 +242,7 @@ export default {
 
 .vuestro-button-content >>> svg {
   align-self: center;
+  margin: 0;
 }
 .vuestro-button-content >>> svg:not(:only-child) {
   margin-right: 4px;
