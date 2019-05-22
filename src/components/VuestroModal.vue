@@ -1,9 +1,11 @@
 <template>
   <transition name="vuestro-modal" mode="out-in">
     <div class="vuestro-modal-outer" v-if="active" @click="onBlur">
-      <div class="vuestro-modal-inner">
+      <div class="vuestro-modal-inner" @click.stop>
         <div class="vuestro-modal-titlebar">
-          <slot name="title"></slot>
+          <div class="vuestro-modal-title">
+            <slot name="title"></slot>
+          </div>
           <div class="vuestro-modal-buttons">
             <slot name="buttons"></slot>
             <vuestro-button class="close-button" @click="onClose">
@@ -47,6 +49,7 @@ export default {
       if (this.closeOnBlur) {
         this.onClose();
       }
+      return false;
     }
   },
 };
@@ -107,6 +110,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.vuestro-modal-title {
+  pointer-events: none;
 }
 
 .vuestro-modal-buttons {
