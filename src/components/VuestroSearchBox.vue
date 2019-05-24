@@ -31,7 +31,7 @@
 
 /* global _ */
 import VuestroDropdown from './VuestroDropdown.vue';
-import VuestroListButton from './VuestroListButton.vue';
+import VuestroListButton from './list/VuestroListButton.vue';
 
 import 'vue-awesome/icons/search.js';
 import 'vue-awesome/icons/caret-down.js';

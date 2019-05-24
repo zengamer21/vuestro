@@ -2,7 +2,8 @@
   <div ref="grid" class="vuestro-grid" :style="style">
     <vuestro-grid-box v-for="item in layout"
                       :key="item.id"
-                      :boxId="item.id">
+                      :boxId="item.id"
+                      :locked="lock">
       <slot :item="item"></slot>
     </vuestro-grid-box>
     <vuestro-grid-box class="placeholder" boxId="::placeholder::"></vuestro-grid-box>
@@ -24,6 +25,7 @@ export default {
     margin: { type: Number, default: 14 },   // margin/gutter
     cellSize: { type: Object, default() { return { w: 100, h: 100 }; }}, // default cell size
     defaultSize: { type: Object, default() { return { w: 2, h: 2 }; }},  // default grid box size
+    lock: { type: Boolean, default: false }, // lock everything in place
   },
   beforeUpdate() {
     this.cellSize.w = ((this.$refs.grid.clientWidth - this.margin) / this.columns) - this.margin;

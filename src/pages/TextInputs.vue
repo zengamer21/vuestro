@@ -1,7 +1,7 @@
 <template>
   <vuestro-card-container>
     <vuestro-card cols="12" color="#f47633">
-      <template slot="heading">Inputs</template>
+      <template slot="heading">Text Inputs</template>
       <template slot="description">
       </template>
     </vuestro-card>

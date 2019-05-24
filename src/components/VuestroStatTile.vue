@@ -1,6 +1,6 @@
 <template>
   <vuestro-panel stretch class="vuestro-stat-tile" :color="color">
-    <div class="vuestro-stat-tile-title">{{ title }}</div>
+    <div class="vuestro-stat-tile-title drag">{{ title }}</div>
     <icon class="vuestro-stat-tile-icon" v-if="icon" :name="icon"></icon>
     <div class="vuestro-stat-tile-value">{{ data[0] | vuestroCommas }}</div>
   </vuestro-panel>
@@ -46,7 +46,7 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   text-shadow: 1px 1px 0px rgba(0,0,0,.1);
-  pointer-events: none;
+  cursor: default;
 }
 
 .vuestro-stat-tile-value {
@@ -57,7 +57,7 @@ export default {
   padding-right: 15px;
   font-size: 36px;
   text-shadow: 1px 1px 0px rgba(0,0,0,.1);
-  pointer-events: none;
+  cursor: default;
 }
 
 .vuestro-stat-tile-icon {
@@ -67,7 +67,6 @@ export default {
   bottom: 12px;
   width: 36px;
   height: 36px;
-  pointer-events: none;
 }
 
 </style>

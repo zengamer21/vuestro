@@ -1,13 +1,13 @@
 <template>
   <div class="vuestro-grid-box"
-       :class="{ dragging, resizing }"
+       :class="{ dragging, resizing, locked }"
        :style="style"
        @mouseover="focused = true"
        @mouseleave="focused = false">
     <template v-if="!resizing && !dragging">
       <slot></slot>
     </template>
-    <div v-show="!resizing && !dragging" class="resize-handle" ref="resizeHandle"></div>
+    <div v-show="!resizing && !dragging && !locked" class="resize-handle" ref="resizeHandle"></div>
   </div>
 </template>
 
@@ -17,7 +17,8 @@ export default {
   name: 'VuestroGridBox',
   props: {
     boxId: { type: String, required: true },
-    dragSelector: { type: String, default: '.drag' }
+    dragSelector: { type: String, default: '.drag' },
+    locked: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -54,7 +55,7 @@ export default {
     };
 
     this.$el.addEventListener('mousedown', evt => {
-      if (!matches(evt.target, this.dragSelector)) {
+      if (!matches(evt.target, this.dragSelector) || this.locked) {
         return;
       }
 
@@ -93,6 +94,9 @@ export default {
     this.$resizeHandle = this.$refs.resizeHandle;
     if (this.$resizeHandle) {
       this.$resizeHandle.addEventListener('mousedown', evt => {
+        if (this.locked) {
+          return;
+        }
         evt.preventDefault();
         evt.stopPropagation();
         this.resizing = true;
@@ -166,7 +170,7 @@ export default {
   flex-grow: 1;
 }
 
-.vuestro-grid-box >>> .drag {
+.vuestro-grid-box:not(.locked) >>> .drag {
   cursor: move;
 }
 

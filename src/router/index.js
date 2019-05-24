@@ -8,10 +8,12 @@ import Pickers from '../pages/Pickers.vue';
 import Pills from '../pages/Pills.vue';
 import Inputs from '../pages/Inputs.vue';
 import TextInputs from '../pages/TextInputs.vue';
+import SearchInput from '../pages/SearchInput.vue';
 import Containers from '../pages/Containers.vue';
 import Popups from '../pages/Popups.vue';
 import SankeyCharts from '../pages/SankeyCharts.vue';
 import AreaChart from '../pages/AreaChart.vue';
+import Table from '../pages/Table.vue';
 
 Vue.use(Router);
 
@@ -110,6 +112,16 @@ export default new Router({
     },
     {
       meta: {
+        title: 'Table',
+        sidebar: true,
+        icon: 'table',
+      },
+      name: 'table',
+      path: '/table',
+      component: Table,
+    },
+    {
+      meta: {
         title: 'Inputs',
         sidebar: true,
         icon: 'i-cursor',
@@ -126,7 +138,16 @@ export default new Router({
           name: 'inputs-text',
           path: 'inputs-text',
           component: TextInputs,
-        }
+        },
+        {
+          meta: {
+            title: 'Search',
+            sidebar: true,
+          },
+          name: 'search',
+          path: 'search',
+          component: SearchInput,
+        },
       ]
     },
     {
