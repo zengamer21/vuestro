@@ -61,6 +61,7 @@ export default {
   margin-bottom: 2px;
   display: flex;
   justify-content: space-between;
+  cursor: default;
 }
 
 .vuestro-card-subheading {
@@ -68,6 +69,7 @@ export default {
   margin-bottom: 5px;
   display: flex;
   justify-content: space-between;
+  cursor: default;
 }
 
 .vuestro-card-description {
@@ -75,6 +77,7 @@ export default {
   padding: 4px 10px 10px 0px;
   display: flex;
   justify-content: space-between;
+  cursor: default;
 }
 
 .vuestro-card.width-1 {

@@ -75,7 +75,14 @@ export default {
       if (typeof(d) === 'number') {
         return Number(d).toLocaleString('en');
       }
+      if (typeof(d) === 'string') {
+        return Number(parseFloat(d)).toLocaleString('en');
+      }
       return d;
+    });
+
+    Vue.filter('vuestroPhoneUS', (d) => {
+      return d.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
     });
 
     Vue.directive('vuestro-blur', {
