@@ -13,6 +13,7 @@ import VuestroEllipsisText from '../components/VuestroEllipsisText.vue';
 import VuestroGeoPattern from '../components/VuestroGeoPattern.vue';
 import VuestroGrid from '../components/VuestroGrid.vue';
 import VuestroGridBox from '../components/VuestroGridBox.vue';
+import VuestroIcon from '../components/VuestroIcon.vue';
 import VuestroListButton from '../components/list/VuestroListButton.vue';
 import VuestroListGroup from '../components/list/VuestroListGroup.vue';
 import VuestroListGroupToggle from '../components/list/VuestroListGroupToggle.vue';
@@ -54,6 +55,7 @@ export default {
     Vue.component(VuestroGeoPattern.name, VuestroGeoPattern);
     Vue.component(VuestroGrid.name, VuestroGrid);
     Vue.component(VuestroGridBox.name, VuestroGridBox);
+    Vue.component(VuestroIcon.name, VuestroIcon);
     Vue.component(VuestroListButton.name, VuestroListButton);
     Vue.component(VuestroListGroup.name, VuestroListGroup);
     Vue.component(VuestroListGroupToggle.name, VuestroListGroupToggle);
