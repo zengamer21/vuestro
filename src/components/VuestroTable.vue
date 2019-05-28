@@ -22,8 +22,9 @@
               :class="[ column.align ]"
               :style="`padding: ${column.padding}px`">
             <slot v-if="$scopedSlots.cell" name="cell" :item="{ column, row }"></slot>
+            <component v-else-if="column.component" :is="column.component" v-model="row[column.field]"></component>
             <template v-else>
-              {{ row[column.field] | cellFilterProxy(column.filter) }}
+              {{ row[column.field] | cellFilterProxy(column.render, row) }}
             </template>
           </td>
         </tr>
@@ -109,9 +110,9 @@ export default {
     }
   },
   filters: {
-    cellFilterProxy(value, filter) {
-      if (filter) {
-        return filter(value);
+    cellFilterProxy(value, renderer, row) {
+      if (renderer) {
+        return renderer(value, row);
       } else {
         return value;
       }
@@ -151,7 +152,7 @@ export default {
 
 .vuestro-table-header {
   text-align: left;
-  padding: 16px 12px;
+  padding: 12px;
   color: var(--vuestro-table-header-fg);
   font-weight: 500;
   border-bottom: 1px solid rgba(0,0,0,0.12);

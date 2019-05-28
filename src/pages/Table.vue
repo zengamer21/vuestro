@@ -18,7 +18,7 @@
 
     <vuestro-card>
       <template slot="subheading">
-        Specify columns array property to format column headers and provide options such as padding and sortable, and filter.
+        Specify columns array property to format column headers and provide options such as padding and sortable, and a render function.
       </template>
       <vuestro-panel>
         <vuestro-table :columns="exampleColumns" :data="exampleData"></vuestro-table>
@@ -40,6 +40,16 @@
         </vuestro-table>
       </vuestro-panel>
     </vuestro-card>
+
+    <vuestro-card>
+      <template slot="subheading">
+        Specify "component" header property to use a Vue component to render a particular column
+      </template>
+      <vuestro-panel>
+        <vuestro-table :columns="exampleColumns2" :data="exampleData"></vuestro-table>
+      </vuestro-panel>
+    </vuestro-card>
+
 
   </vuestro-card-container>
 </template>
@@ -72,6 +82,30 @@ export default {
           title: 'Email (right-justified, zero padding)',
           align: 'right',
           padding: 0,
+        },
+      ],
+      exampleColumns2: [
+        {
+          field: 'firstName',
+          title: 'First Name',
+          sortable: true,
+        },
+        {
+          field: 'lastName',
+          title: 'Last Name',
+          sortable: true,
+        },
+        {
+          field: 'phone',
+          title: 'Phone No. (centered, filtered)',
+          align: 'center',
+          filter: Vue.filter('vuestroPhoneUS'),
+        },
+        {
+          field: 'email',
+          title: 'Email (VuestroEditableText component)',
+          align: 'right',
+          component: 'VuestroEditableText',
         },
       ],
       exampleData: [
