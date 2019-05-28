@@ -188,7 +188,7 @@ export default {
   border-bottom: 1px solid rgba(0,0,0,0.12);
   background-color: var(--vuestro-table-alternate-bg);
 }
-.vuestro-table-row:nth-child(2) {
+.vuestro-table-row:nth-child(even) {
   background-color: transparent;
 }
 .vuestro-table-row:last-child {
