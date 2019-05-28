@@ -2,7 +2,9 @@
   <div class="vuestro-table">
     <table class="vuestro-table-table">
       <thead class="vuestro-table-header-row">
-        <th v-for="column in headers" class="vuestro-table-header" :class="[ column.align ]">
+        <th v-for="column in headers"
+            class="vuestro-table-header"
+            :class="[ `vuestro-table-align-${column.align}` ]">
           <slot v-if="$scopedSlots.header" name="header" :item="column"></slot>
           <template v-else>
             {{ column.title }}
@@ -19,7 +21,7 @@
         <tr v-for="row in sortedFilteredData" class="vuestro-table-row">
           <td v-for="column in headers"
               class="vuestro-table-cell"
-              :class="[ column.align ]"
+              :class="[ `vuestro-table-align-${column.align}` ]"
               :style="`padding: ${column.padding}px`">
             <slot v-if="$scopedSlots.cell" name="cell" :item="{ column, row }"></slot>
             <component v-else-if="column.component" :is="column.component" v-model="row[column.field]"></component>
@@ -201,10 +203,10 @@ export default {
 .vuestro-table-cell {
   padding: 16px;
 }
-.vuestro-table-cell.right {
+.vuestro-table-cell.vuestro-table-align-right {
   text-align: right;
 }
-.vuestro-table-cell.center {
+.vuestro-table-cell.vuestro-table-align-center {
   text-align: center;
 }
 

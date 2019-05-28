@@ -58,7 +58,7 @@ export default {
   font-size: 22px;
   line-height: 22px;
   padding: 2px 8px 2px 0px;
-  margin-bottom: 2px;
+  margin-bottom: 5px;
   display: flex;
   justify-content: space-between;
   cursor: default;
