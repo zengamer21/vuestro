@@ -18,7 +18,7 @@
 
     <vuestro-card>
       <template slot="subheading">
-        Specify columns array property to format column headers and provide options such as padding and sortable, and a render function.
+        Specify columns array property to format column headers and provide options such as padding, sortable, sort (default direction), and a render function.
       </template>
       <vuestro-panel>
         <vuestro-table :columns="exampleColumns" :data="exampleData"></vuestro-table>
@@ -70,6 +70,7 @@ export default {
           field: 'lastName',
           title: 'Last Name',
           sortable: true,
+          sort: 'asc',
         },
         {
           field: 'phone',

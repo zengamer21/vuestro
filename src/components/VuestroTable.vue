@@ -8,13 +8,13 @@
           <slot v-if="$scopedSlots.header" name="header" :item="column"></slot>
           <template v-else>
             {{ column.title }}
+            <span v-if="column.sortable"
+                  class="vuestro-table-header-sort"
+                  :class="{ active: isSortActive(column), desc: isSortDescending(column) }"
+                  @click="onSort(column)">
+              <icon name="arrow-up"></icon>
+            </span>
           </template>
-          <span v-if="column.sortable"
-                class="vuestro-table-header-sort"
-                :class="{ active: isSortActive(column), desc: isSortDescending(column) }"
-                @click="onSort(column)">
-            <icon name="arrow-up"></icon>
-          </span>
         </th>
       </thead>
       <tbody>
@@ -58,6 +58,15 @@ export default {
   computed: {
     headers() {
       if (this.columns) {
+        // add any columns with default sort to sort array
+        this.columns.forEach((k) => {
+          if (k.sort) {
+            this.sort.push({
+              field: k.field,
+              direction: k.sort,
+            });
+          }
+        });
         return this.columns;
       } else {
         // auto-create headers from keys of first data items (assumes data is homogenous)
