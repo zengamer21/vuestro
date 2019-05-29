@@ -27,7 +27,7 @@ export default {
   name: 'VuestroPanel',
   props: {
     dark: { type: Boolean, default: false },
-    gutter: { type: String, default: 'none' },
+    gutter: { type: String, default: 'md' },
     color: { type: String, default: null },
     spinner: { type: Boolean, default: false },
     stretch: { type: Boolean, default: false },
@@ -62,13 +62,13 @@ export default {
 <style scoped>
 
 .vuestro-panel.lg {
-  --gutter-size: 12px;
+  --gutter-size: 30px;
 }
 .vuestro-panel.md {
-  --gutter-size: 8px;
+  --gutter-size: 16px;
 }
 .vuestro-panel.sm {
-  --gutter-size: 4px;
+  --gutter-size: 8px;
 }
 .vuestro-panel.none {
   --gutter-size: 0px;
@@ -78,12 +78,14 @@ export default {
   background-color: var(--vuestro-panel-bg);
   border-radius: 2px;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
-  margin-top: var(--gutter-size);
   display: flex;
   flex-direction: column;
 }
 .vuestro-panel.stretch {
   flex-grow: 1;
+}
+.vuestro-panel:not(:first-child) {
+  margin-top: var(--gutter-size);
 }
 
 /* border only for dark ui, whether it's forced through a prop, or global */

@@ -47,7 +47,7 @@
       </vuestro-card>
 
       <vuestro-card cols="6">
-        <vuestro-panel dark color="var(--vuestro-purple)" content-padding="lg">
+        <vuestro-panel dark color="var(--vuestro-purple)" stretch content-padding="lg">
           <template slot="title">Colorized Vuestro Panel Titlebar</template>
           <template slot="toolbar">
             <vuestro-button pill variant="white" no-border><icon name="sync-alt"></icon><span>Refresh</span></vuestro-button>
@@ -55,6 +55,7 @@
             <vuestro-button round size="sm" variant="danger" no-border><icon name="times"></icon></vuestro-button>
           </template>
           <p>Colorize the panel background by setting the color property. If you choose a dark color, add the dark property as well for contrasting text.</p>
+          <p>Set the stretch property to have the panel stretch to available vertical space.</p>
         </vuestro-panel>
       </vuestro-card>
 
@@ -71,7 +72,19 @@
             </vuestro-card>
           </vuestro-card-container>
         </vuestro-panel>
-        <vuestro-panel collapsible dark gutter="md">
+        <vuestro-panel collapsible>
+          <template slot="title">Collapsible Panel</template>
+          <vuestro-card-container>
+            <vuestro-card>
+              <template slot="description">VuestroPanel can collapse it's content into the titlebar when the collapsible property is set.
+                <br><br>
+                Even if the content is tall, the Vuestro containers will all adjust so that the content is shown and the footer is pushed down.
+                <br><br>
+              </template>
+            </vuestro-card>
+          </vuestro-card-container>
+        </vuestro-panel>
+        <vuestro-panel collapsible>
           <template slot="title">Collapsible Panel</template>
           <vuestro-card-container>
             <vuestro-card>
