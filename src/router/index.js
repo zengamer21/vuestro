@@ -10,6 +10,8 @@ import Inputs from '../pages/Inputs.vue';
 import TextInputs from '../pages/TextInputs.vue';
 import SearchInput from '../pages/SearchInput.vue';
 import Containers from '../pages/Containers.vue';
+import CardContainer from '../pages/CardContainer.vue';
+import PanelContainer from '../pages/PanelContainer.vue';
 import Popups from '../pages/Popups.vue';
 import SankeyCharts from '../pages/SankeyCharts.vue';
 import AreaChart from '../pages/AreaChart.vue';
@@ -39,6 +41,26 @@ export default new Router({
       name: 'containers',
       path: '/containers',
       component: Containers,
+      children: [
+        {
+          meta: {
+            title: 'Cards',
+            sidebar: true,
+          },
+          name: 'card-container',
+          path: 'card-container',
+          component: CardContainer,
+        },
+        {
+          meta: {
+            title: 'Panels',
+            sidebar: true,
+          },
+          name: 'panel-container',
+          path: 'panel-container',
+          component: PanelContainer,
+        },
+      ],
     },
     {
       meta: {

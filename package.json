@@ -13,9 +13,11 @@
     "test": "jest --verbose --coverage"
   },
   "dependencies": {
+    "brace": "^0.11.1",
     "d3": "^5.9.2",
     "d3-sankey": "^0.12.1",
     "geopattern": "^1.2.3",
+    "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "vue-awesome": "^3.3.1"
   },
@@ -25,7 +27,6 @@
     "@vue/test-utils": "^1.0.0-beta.28",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
-    "brace": "^0.11.1",
     "css-loader": "^2.1.0",
     "file-loader": "^3.0.1",
     "friendly-errors-webpack-plugin": "^1.7.0",

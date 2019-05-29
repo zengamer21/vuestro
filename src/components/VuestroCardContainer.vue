@@ -23,8 +23,7 @@ export default {
   flex: 1 0 auto; /* clear shrink since it triggers bugs in non-latest browsers */
   flex-wrap: wrap;
   align-content: flex-start;
-  padding-left: var(--gutter-size);
-  padding-right: var(--gutter-size);
+  padding: var(--gutter-size);
 }
 
 .vuestro-card-container.lg {
