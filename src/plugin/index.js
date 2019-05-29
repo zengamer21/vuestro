@@ -78,7 +78,10 @@ export default {
         return Number(d).toLocaleString('en');
       }
       if (typeof(d) === 'string') {
-        return Number(parseFloat(d)).toLocaleString('en');
+        let n = Number(parseFloat(d)).toLocaleString('en');
+        if (!isNaN(n)) {
+          return n;
+        }
       }
       return d;
     });

@@ -74,9 +74,9 @@ export default {
         },
         {
           field: 'phone',
-          title: 'Phone No. (centered, filtered)',
+          title: 'Phone No. (centered, render fn)',
           align: 'center',
-          filter: Vue.filter('vuestroPhoneUS'),
+          render: Vue.filter('vuestroPhoneUS'),
         },
         {
           field: 'email',
@@ -98,9 +98,9 @@ export default {
         },
         {
           field: 'phone',
-          title: 'Phone No. (centered, filtered)',
+          title: 'Phone No. (centered, render fn)',
           align: 'center',
-          filter: Vue.filter('vuestroPhoneUS'),
+          render: Vue.filter('vuestroPhoneUS'),
         },
         {
           field: 'email',

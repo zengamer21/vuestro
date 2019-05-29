@@ -17,7 +17,6 @@ module.exports = {
     port: 8081,
     historyApiFallback: true,
     publicPath: '/',
-    noInfo: true,
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

@@ -1,6 +1,6 @@
 {
   "name": "vuestro",
-  "version": "1.12.7",
+  "version": "1.12.6",
   "description": "Vue.js 2 Components",
   "author": "Mike Smiley <msmiley@alumni.rice.edu>",
   "url": "https://github.com/msmiley/vuestro",
@@ -8,7 +8,7 @@
   "license": "ISC",
   "main": "./src/plugin/index.js",
   "scripts": {
-    "dev": "webpack-dev-server -d --mode development --hot --open --config ./webpack.config.js",
+    "dev": "webpack-dev-server -d --mode development --hot --config ./webpack.config.js",
     "build": "webpack --mode production --config ./webpack.config.js",
     "test": "jest --verbose --coverage"
   },
@@ -16,6 +16,7 @@
     "brace": "^0.11.1",
     "d3": "^5.9.2",
     "d3-sankey": "^0.12.1",
+    "geopattern": "^1.2.3",
     "geopattern": "^1.2.3",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
