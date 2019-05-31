@@ -19,7 +19,8 @@
       </thead>
       <tbody>
         <tr v-for="row in sortedFilteredData" class="vuestro-table-row">
-          <td v-for="column in headers"
+          <slot v-if="$scopedSlots.row" name="row" :item="row"></slot>
+          <td v-else v-for="column in headers"
               class="vuestro-table-cell"
               :class="[ `vuestro-table-align-${column.align}` ]"
               :style="`padding: ${column.padding}px`">

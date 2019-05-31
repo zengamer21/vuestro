@@ -43,6 +43,22 @@
 
     <vuestro-card>
       <template slot="subheading">
+        Provide a template for the entire row through the row slot. The slot must contain enough 'td' elements to fill the row.
+      </template>
+      <vuestro-panel>
+        <vuestro-table :columns="exampleColumns" :data="exampleData">
+          <template #row="{ item }">
+            <td>{{ item }}</td>
+            <td>{{ item }}</td>
+            <td>{{ item }}</td>
+            <td>{{ item }}</td>
+          </template>
+        </vuestro-table>
+      </vuestro-panel>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="subheading">
         Specify "component" header property to use a Vue component to render a particular column
       </template>
       <vuestro-panel>
