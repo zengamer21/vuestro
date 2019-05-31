@@ -43,7 +43,7 @@
 
     <vuestro-card>
       <template slot="subheading">
-        Provide a template for the entire row through the row slot. The slot must contain enough 'td' elements to fill the row.
+        Provide a template for the entire row through the row slot. The slot must contain enough 'td' elements to fill the row. Also, some of the column options such as align will need to be implemented by the parent.
       </template>
       <vuestro-panel>
         <vuestro-table :columns="exampleColumns" :data="exampleData">

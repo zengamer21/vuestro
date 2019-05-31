@@ -11,6 +11,7 @@ import TextInputs from '../pages/TextInputs.vue';
 import SearchInput from '../pages/SearchInput.vue';
 import Containers from '../pages/Containers.vue';
 import CardContainer from '../pages/CardContainer.vue';
+import ColumnContainer from '../pages/ColumnContainer.vue';
 import PanelContainer from '../pages/PanelContainer.vue';
 import Popups from '../pages/Popups.vue';
 import SankeyCharts from '../pages/SankeyCharts.vue';
@@ -50,6 +51,15 @@ export default new Router({
           name: 'card-container',
           path: 'card-container',
           component: CardContainer,
+        },
+        {
+          meta: {
+            title: 'Columns',
+            sidebar: true,
+          },
+          name: 'column-container',
+          path: 'column-container',
+          component: ColumnContainer,
         },
         {
           meta: {

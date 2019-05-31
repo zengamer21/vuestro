@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-pill"
+  <span class="vuestro-pill"
        :class="{ clickable }"
        :style="style"
        @click="onClick">
@@ -9,7 +9,7 @@
     </div>
     <div v-if="value" ref="theText" class="vuestro-pill-value">{{ value }}</div>
     <div v-if="closable" class="vuestro-pill-closer" @click="onClose">&times;</div>
-  </div>
+  </span>
 </template>
 
 <script>

@@ -90,6 +90,10 @@ export default {
       return d.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
     });
 
+    Vue.filter('vuestroHMS', (d) => {
+      return `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+    });
+
     Vue.directive('vuestro-blur', {
       bind: function (el, binding, vnode) {
         el.clickOutsideEvent = function(event) {

@@ -18,7 +18,7 @@
         <template slot="description">Set the color property on the VuestroCard to add a nice touch of color.</template>
       </vuestro-card>
 
-      <vuestro-card>
+      <vuestro-card stretch>
         <vuestro-panel>
           <vuestro-card-container>
             <vuestro-card cols="8">
@@ -73,10 +73,6 @@ export default {
 .vuestro-card-container.outlines .vuestro-card {
   border: 1px dashed black;
   position: relative;
-}
-
-.vuestro-panel-title {
-  /*font-size: 14px;*/
 }
 
 </style>

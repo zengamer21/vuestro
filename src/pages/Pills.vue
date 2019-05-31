@@ -17,7 +17,7 @@
 
     <vuestro-card>
       <template slot="description">
-        Pills will always stretch to available space unless they are put in a flex box with <code>align-items</code> set.
+        Pills will always stretch to available space unless they are put in a flex box with 'align-items' set.
       </template>
       <div class="example-align-items-start">
         <vuestro-pill title="Pill Title" value="Pill Value"></vuestro-pill>
