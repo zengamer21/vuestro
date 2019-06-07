@@ -3,7 +3,7 @@
     <ul v-if="show" class="vuestro-sub-routes">
       <template v-for="subroute in route.children">
         <li class="vuestro-sub-routes-item" v-if="subroute.meta.sidebar">
-          <router-link :to="{ path: route.path + '/' + subroute.path }">
+          <router-link :to="subroute">
             <span>{{ subroute.meta.title }}</span>
           </router-link>
         </li>
