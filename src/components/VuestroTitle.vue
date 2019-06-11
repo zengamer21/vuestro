@@ -1,5 +1,7 @@
 <template>
-  <span class="vuestro-title">
+  <span class="vuestro-title"
+        :class="{ 'vuestro-title-clickable': clickable }"
+        @click="onClick">
     <slot></slot>
     <icon name="spinner" pulse v-if="spinner"></icon>
   </span>
@@ -16,7 +18,15 @@ export default {
   },
   props: {
     spinner: { type: Boolean, default: false },
+    clickable: { type: Boolean, default: false },
   },
+  methods: {
+    onClick(e) {
+      if (this.clickable) {
+        this.$emit('click', e);
+      }
+    }
+  }
 };
 
 </script>
@@ -38,6 +48,10 @@ export default {
   display: flex;
   align-items: center;
   text-transform: var(--vuestro-title-text-transform);
+}
+.vuestro-title-clickable {
+  pointer-events: initial;
+  cursor: pointer;
 }
 
 .vuestro-title svg {

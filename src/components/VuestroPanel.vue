@@ -6,9 +6,12 @@
     <div v-if="$slots.title || $slots.toolbar || collapsible" class="vuestro-panel-title-toolbar">
       <vuestro-caret v-if="collapsible"
                      :collapsed="collapsed"
-                     @click="toggleCollapse" >
+                     @click="toggleCollapse">
       </vuestro-caret>
-      <vuestro-title class="vuestro-panel-title" :spinner="spinner">
+      <vuestro-title class="vuestro-panel-title"
+                     :spinner="spinner"
+                     :clickable="collapsible"
+                     @click="toggleCollapse">
         <slot name="title"></slot>
       </vuestro-title>
       <div v-if="$slots.toolbar" class="vuestro-panel-toolbar">
@@ -41,8 +44,10 @@ export default {
   },
   methods: {
     toggleCollapse() {
-      this.collapsed = !this.collapsed;
-      this.$emit('toggle');
+      if (this.collapsible) {
+        this.collapsed = !this.collapsed;
+        this.$emit('toggle');
+      }
     }
   }
 };

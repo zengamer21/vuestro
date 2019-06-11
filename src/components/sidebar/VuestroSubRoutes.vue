@@ -3,7 +3,10 @@
     <ul v-if="show" class="vuestro-sub-routes">
       <template v-for="subroute in route.children">
         <li class="vuestro-sub-routes-item" v-if="subroute.meta.sidebar">
-          <router-link :to="subroute">
+          <router-link v-if="toPath" :to="{ path: route.path + '/' + subroute.path }">
+            <span>{{ subroute.meta.title }}</span>
+          </router-link>
+          <router-link v-else :to="subroute">
             <span>{{ subroute.meta.title }}</span>
           </router-link>
         </li>
@@ -19,6 +22,7 @@ export default {
   props: {
     route: { type: Object, required: true },
     show: { type: Boolean, default: true },
+    toPath: { type: Boolean, default: false }, // build a path manually
   },
 };
 

@@ -24,7 +24,7 @@
       <vuestro-sub-routes v-if="route.children" :route="route"></vuestro-sub-routes>
       <!--VUEX CHILDREN-->
       <template v-if="route.meta.vuex">
-        <vuestro-sub-routes :route="vuexRoute"></vuestro-sub-routes>
+        <vuestro-sub-routes :route="vuexRoute" to-path></vuestro-sub-routes>
       </template>
     </div>
   </div>
