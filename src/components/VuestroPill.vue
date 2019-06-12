@@ -17,8 +17,8 @@
 export default {
   name: 'VuestroPill',
   props: {
-    title: { type: String },
-    value: { type: String },
+    title: { type: null },
+    value: { type: null },
     color: { type: String, default: null },
     size: { type: String, default: '24px' },
     radius: { type: String, default: '999px' },
