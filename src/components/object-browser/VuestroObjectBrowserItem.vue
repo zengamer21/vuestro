@@ -14,9 +14,9 @@
           </div>
         </template>
         <template v-else>
-          <span v-if="isString(v)" class="vuestro-object-browser-item-string">{{ JSON.stringify(v) }}</span>
-          <span v-if="isBoolean(v)" class="vuestro-object-browser-item-bool">{{ v }}</span>
-          <span v-if="isDate(v)" class="vuestro-object-browser-item-date">{{ v.toISOString() }}</span>
+          <span v-if="isString(v)" class="vuestro-object-browser-item-string" title="String">{{ JSON.stringify(v) }}</span>
+          <span v-if="isBoolean(v)" class="vuestro-object-browser-item-bool" title="Boolean">{{ v }}</span>
+          <span v-if="isDate(v)" class="vuestro-object-browser-item-date" title="Date">{{ v.toISOString() }}</span>
         </template>
       </div>
     </div>

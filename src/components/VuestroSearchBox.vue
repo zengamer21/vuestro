@@ -68,6 +68,9 @@ export default {
       this.$emit('input', this.$refs.editBox.value);
     },
     clearValue() {
+      if (this.value.length > 0) {
+        this.addOrMoveToFront(this.value);
+      }
       this.$emit('input', '');
       this.$emit('change', '');
       this.$emit('clear', '');
