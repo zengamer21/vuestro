@@ -38,7 +38,7 @@ export default {
 
 /* all sub-menu item styling */
 .vuestro-sub-routes-item > a {
-  padding: 6px 25px 6px 55px;
+  padding: 6px 25px 6px 40px;
   text-decoration: none;
   white-space: nowrap;
   font-size: 14px;

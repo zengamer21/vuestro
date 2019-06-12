@@ -16,7 +16,9 @@ import PanelContainer from '../pages/PanelContainer.vue';
 import Popups from '../pages/Popups.vue';
 import SankeyCharts from '../pages/SankeyCharts.vue';
 import AreaChart from '../pages/AreaChart.vue';
+import DataContainers from '../pages/DataContainers.vue';
 import Table from '../pages/Table.vue';
+import ObjectBrowser from '../pages/ObjectBrowser.vue';
 
 Vue.use(Router);
 
@@ -144,13 +146,33 @@ export default new Router({
     },
     {
       meta: {
-        title: 'Table',
+        title: 'Data Containers',
         sidebar: true,
         icon: 'table',
       },
-      name: 'table',
-      path: '/table',
-      component: Table,
+      name: 'datacontainers',
+      path: '/datacontainers',
+      component: DataContainers,
+      children: [
+        {
+          meta: {
+            title: 'Table',
+            sidebar: true,
+          },
+          name: 'table',
+          path: 'table',
+          component: Table,
+        },
+        {
+          meta: {
+            title: 'Object Browser',
+            sidebar: true,
+          },
+          name: 'object-browser',
+          path: 'object-browser',
+          component: ObjectBrowser,
+        },
+      ]
     },
     {
       meta: {

@@ -35,12 +35,8 @@ export default {
     spinner: { type: Boolean, default: false },
     stretch: { type: Boolean, default: false },
     collapsible: { type: Boolean, default: false },
+    collapsed: { type: Boolean, default: false },
     contentPadding: { type: String, default: '' },
-  },
-  data() {
-    return {
-      collapsed: false,
-    };
   },
   methods: {
     toggleCollapse() {

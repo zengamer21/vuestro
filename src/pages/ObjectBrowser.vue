@@ -1,0 +1,55 @@
+<template>
+  <vuestro-card-container>
+    <vuestro-card color="#f47633">
+      <template slot="heading">VuestroObjectBrowser</template>
+      <template slot="description">
+        VuestroObjectBrowser allows browsing of a generic JavaScript object. No restructuring is necessary, it can take any JavaScript Object as input.
+      </template>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="subheading">
+        Basic VuestroObjectBrowser just set the 'data' property with the object.
+      </template>
+      <vuestro-panel>
+        <vuestro-object-browser :data="testObject"></vuestro-object-browser>
+      </vuestro-panel>
+    </vuestro-card>
+
+  </vuestro-card-container>
+</template>
+
+<script>
+
+export default {
+  name: 'ObjectBrowser',
+  data() {
+    return {
+      testObject: {
+        subObject1: {
+          subObjectKey1: 'subObjectValue1',
+          subObjectKey2: 'subObjectValue2',
+          subObjectKey3: {
+            'subSubObjectKey1': 'subSubObjectVal1',
+          },
+        },
+        subObject2: [
+          'subObject2ArrayVal1',
+          'subObject2ArrayVal2',
+          'subObject2ArrayVal3',
+          'subObject2ArrayVal4',
+        ],
+        booleanVal1: true,
+        stringVal2: "hello world",
+        dateVal1: new Date(),
+      },
+    };
+  },
+};
+
+</script>
+
+<style scoped>
+
+
+</style>
