@@ -57,7 +57,7 @@ export default {
 .vuestro-card-heading {
   font-size: 22px;
   line-height: 22px;
-  padding: 2px 8px 2px 0px;
+  padding: 2px 0px;
   margin-bottom: 5px;
   display: flex;
   justify-content: space-between;
@@ -66,6 +66,7 @@ export default {
 
 .vuestro-card-subheading {
   font-size: 20px;
+  padding: 2px 0px;
   margin-bottom: 5px;
   display: flex;
   justify-content: space-between;
@@ -74,7 +75,8 @@ export default {
 
 .vuestro-card-description {
   font-size: 18px;
-  padding: 4px 10px 10px 0px;
+  padding: 2px 0px;
+  margin-bottom: 5px;
   display: flex;
   justify-content: space-between;
   cursor: default;
