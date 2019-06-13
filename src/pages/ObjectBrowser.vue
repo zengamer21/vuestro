@@ -42,6 +42,8 @@ export default {
         booleanVal1: true,
         stringVal2: "hello world",
         dateVal1: new Date(),
+        numberVal1: 324,
+        numberVal2: 8.32,
       },
     };
   },

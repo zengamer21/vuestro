@@ -18,7 +18,7 @@ import VuestroListButton from '../components/list/VuestroListButton.vue';
 import VuestroListGroup from '../components/list/VuestroListGroup.vue';
 import VuestroListGroupToggle from '../components/list/VuestroListGroupToggle.vue';
 import VuestroModal from '../components/VuestroModal.vue';
-import VuestroObjectBrowser from '../components/object-browser/VuestroObjectBrowser.vue';
+import VuestroObjectBrowser from '../components/VuestroObjectBrowser.vue';
 import VuestroPanel from '../components/VuestroPanel.vue';
 import VuestroPill from '../components/VuestroPill.vue';
 import VuestroSankeyChart from '../components/charts/VuestroSankeyChart.vue';
