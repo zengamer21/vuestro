@@ -18,6 +18,11 @@
         </th>
       </thead>
       <tbody>
+        <tr v-if="sortedFilteredData.length === 0" class="vuestro-table-row">
+          <td :colspan="headers.length" align="center">
+            <slot name="no-data"></slot>
+          </td>
+        </tr>
         <tr v-for="row in sortedFilteredData" class="vuestro-table-row">
           <slot v-if="$scopedSlots.row" name="row" :item="row"></slot>
           <td v-else v-for="column in headers"

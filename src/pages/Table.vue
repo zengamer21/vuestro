@@ -66,6 +66,18 @@
       </vuestro-panel>
     </vuestro-card>
 
+    <vuestro-card>
+      <template slot="subheading">
+        Set the no-data slot to provide a message when data length is zero.
+      </template>
+      <vuestro-panel>
+        <vuestro-table :columns="exampleColumns2" :data="[]">
+          <template #no-data>
+            No data to show
+          </template>
+        </vuestro-table>
+      </vuestro-panel>
+    </vuestro-card>
 
   </vuestro-card-container>
 </template>
