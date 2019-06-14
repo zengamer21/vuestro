@@ -39,14 +39,22 @@ export default {
       expanded: [],
     };
   },
+  watch: {
+    data() {
+      this.checkExpandAll();
+    },
+  },
   mounted() {
-    if (this.expandAll) {
-      _.forEach(this.data, (d, i) => {
-        this.expanded.push(i);
-      });
-    }
+    this.checkExpandAll();
   },
   methods: {
+    checkExpandAll() {
+      if (this.expandAll) {
+        _.forEach(this.data, (d, i) => {
+          this.expanded.push(i);
+        });
+      }
+    },
     isCollapsed(d) {
       return this.expanded.indexOf(d) < 0;
     },
