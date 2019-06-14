@@ -10,7 +10,7 @@
           <span v-if="isArray(v)">Array[{{ v.length }}]</span>
           <span v-else>Object[{{ Object.keys(v).length }}]</span>
           <div v-if="expanded.indexOf(k) >= 0" class="vuestro-object-browser-item-sub">
-            <vuestro-object-browser :data="v"></vuestro-object-browser>
+            <vuestro-object-browser :expand-all="expandAll" :data="v"></vuestro-object-browser>
           </div>
         </template>
         <template v-else>
@@ -32,11 +32,19 @@ export default {
   name: 'VuestroObjectBrowser',
   props: {
     data: { required: true },
+    expandAll: { type: Boolean, default: false },
   },
   data() {
     return {
       expanded: [],
     };
+  },
+  mounted() {
+    if (this.expandAll) {
+      _.forEach(this.data, (d, i) => {
+        this.expanded.push(i);
+      });
+    }
   },
   methods: {
     isCollapsed(d) {

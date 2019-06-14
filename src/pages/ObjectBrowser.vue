@@ -16,6 +16,24 @@
       </vuestro-panel>
     </vuestro-card>
 
+    <vuestro-card>
+      <template slot="subheading">
+        <span>Set the <em>expand-all</em> property to expand all objects and arrays by default</span>
+      </template>
+      <vuestro-panel>
+        <vuestro-object-browser expand-all :data="testObject"></vuestro-object-browser>
+      </vuestro-panel>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template slot="subheading">
+        VuestroObjectBrowser also works for a top-level array
+      </template>
+      <vuestro-panel>
+        <vuestro-object-browser expand-all :data="testArray"></vuestro-object-browser>
+      </vuestro-panel>
+    </vuestro-card>
+
   </vuestro-container>
 </template>
 
@@ -45,6 +63,12 @@ export default {
         numberVal1: 324,
         numberVal2: 8.32,
       },
+      testArray: [
+        'stringVal',
+        133.24,
+        true,
+        { x: 1 },
+      ],
     };
   },
 };

@@ -111,7 +111,7 @@ export default {
       this.$nextTick(() => {
         this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
         this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
-        if (this.data.nodes) {
+        if (this.data.nodes && this.data.links) {
             this.graph = this.sankey(this.data);
         }
       });
