@@ -1,7 +1,7 @@
 <template>
   <div style="flex-grow:1;display:flex;flex-direction:column">
     <vuestro-button size="lg" v-model="outlines">Toggle Outlines</vuestro-button>
-    <vuestro-card-container :class="{ outlines }" no-wrap>
+    <vuestro-container :class="{ outlines }" no-wrap>
 
       <vuestro-card cols="3">
         <template slot="heading">VuestroCard - cols="3"</template>
@@ -15,7 +15,7 @@
         <template slot="description">The layout will stretch to contain the content without breaking the column layout.</template>
       </vuestro-card>
 
-    </vuestro-card-container>
+    </vuestro-container>
   </div>
 </template>
 
@@ -39,19 +39,19 @@ export default {
 
 <style scoped>
 
-.vuestro-card-container.outlines {
+.vuestro-container.outlines {
   border: 1px dashed black;
   position: relative;
 }
-.vuestro-card-container.outlines:before {
-  content: 'VuestroCardContainer';
+.vuestro-container.outlines:before {
+  content: 'VuestroContainer';
   position: absolute;
   top: -18px;
   left: 0;
   background-color: var(--vuestro-gray);
 }
 
-.vuestro-card-container.outlines .vuestro-card {
+.vuestro-container.outlines .vuestro-card {
   border: 1px dashed black;
   position: relative;
 }

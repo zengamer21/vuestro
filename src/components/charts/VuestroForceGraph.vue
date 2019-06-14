@@ -1,314 +1,359 @@
+<template>
+  <div class="vuestro-force-graph">
+    <svg :width="width"
+         :height="height"
+         :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }">
+    </svg>
+  </div>
+</template>
 
-.controller 'NodeBrowserController', ($rootScope, $scope, $http, socket) ->
+<script>
 
-  $rootScope.graph =
-    nodes: []
-    links: []
+/* global _ */
 
-  socket.socket.on 'cluster', (data) ->
-    nodes = []
-    for d,i in data
-      nodes.push
-        name: d.id
-        size: 20
-        group: i
-        props: d
+export default {
+  name: 'VuestroForceGraph',
+  props: {
+    data: { type: Object, default: () => ({}) },
+    options: { type: Object, default: () => ({}) },
+  },
+  data() {
+    return {
+      width: 0,
+      height: 0,
+      nodes: [],
+      links: [],
+      margin: {
+        top: 20,
+        right: 20,
+        bottom: 20,
+        left: 20,
+      },
+    };
+  },
+  computed: {
+    forceGraph() {
+    },
+  },
+  beforeMount() {
+    _.merge(this, this.options);
+  },
+  mounted() {
+    window.addEventListener('resize', this.resize);
+    this.resize();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resize);
+  },
+  methods: {
+    resize() {
+      this.$nextTick(() => {
+        this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
+        this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
+        if (this.data.nodes) {
+          this.graph = this.forceGraph(this.data);
+        }
+      });
+    },
+  },
+};
 
-    links = []
-    for i in [0...nodes.length]
-      for j in [0...nodes.length]
-        unless i is j
-          links.push
-            source: i
-            target: j
-            value: 1
+</script>
 
-    $rootScope.graph =
-      nodes: nodes
-      links: links
+<style scoped>
 
-.directive 'networkGraph', ($window) ->
+.vuestro-force-graph {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
-  link = (scope, el, attrs) ->
-    sel = el[0]
-    width = $window.innerWidth
-    height = $window.innerHeight - 105
 
-    fill = d3.scale.linear().range [
-      '#00aff3'
-      '#d8a7ae'
-    ]
+</style>
 
-    force = d3.layout.force()
-      .nodes(scope.data.nodes)
-      .links(scope.data.links)
-      .charge -200
-      .gravity 0.3
-      .friction 0.6
-      .linkDistance 200
-      .size [width, height]
-      .start()
+<!--.directive 'networkGraph', ($window) ->-->
 
-    svg = d3.select sel
-      .append 'svg'
-      .attr 'width', width
-      .attr 'height', height
+<!--  link = (scope, el, attrs) ->-->
+<!--    sel = el[0]-->
+<!--    width = $window.innerWidth-->
+<!--    height = $window.innerHeight - 105-->
 
-    links = svg.selectAll '.link'
-    nodes = svg.selectAll 'g.node'
+<!--    fill = d3.scale.linear().range [-->
+<!--      '#00aff3'-->
+<!--      '#d8a7ae'-->
+<!--    ]-->
 
-    tick = (e) ->
-      # Push different nodes in different directions for clustering.
-      links
-        .attr "x1", (d) ->
-          d.source.x
-        .attr "y1", (d) ->
-          d.source.y
-        .attr "x2", (d) ->
-          d.target.x
-        .attr "y2", (d) ->
-          d.target.y
+<!--    force = d3.layout.force()-->
+<!--      .nodes(scope.data.nodes)-->
+<!--      .links(scope.data.links)-->
+<!--      .charge -200-->
+<!--      .gravity 0.3-->
+<!--      .friction 0.6-->
+<!--      .linkDistance 200-->
+<!--      .size [width, height]-->
+<!--      .start()-->
 
-      # use transform b/c nodes are made up of g elements
-      nodes.attr 'transform', (d) ->
-        "translate(#{d.x}, #{d.y})"
+<!--    svg = d3.select sel-->
+<!--      .append 'svg'-->
+<!--      .attr 'width', width-->
+<!--      .attr 'height', height-->
 
-    force.on 'tick', tick
-    drag = force.drag().on 'dragstart', (d) ->
-      if d3.select(this).selectAll("circle.halo").empty()
-        d3.select(this)
-          .insert("circle", "circle")
-          .attr "r", (d) ->
-            d.size + 3
-          .attr "class", "halo"
-          .style
-            "fill-opacity": 0
-            stroke: "#222"
-            "stroke-dasharray": "2"
+<!--    links = svg.selectAll '.link'-->
+<!--    nodes = svg.selectAll 'g.node'-->
 
-        popup = d3.select(this)
-          .insert "g", "text"
-          .attr "class", "legend"
+<!--    tick = (e) ->-->
+<!--      # Push different nodes in different directions for clustering.-->
+<!--      links-->
+<!--        .attr "x1", (d) ->-->
+<!--          d.source.x-->
+<!--        .attr "y1", (d) ->-->
+<!--          d.source.y-->
+<!--        .attr "x2", (d) ->-->
+<!--          d.target.x-->
+<!--        .attr "y2", (d) ->-->
+<!--          d.target.y-->
 
-        popup.insert "rect"
-            .attr 'width', (d) ->
-              if d.width < 200
-                200
-              else
-                d.width
-            .attr 'height', 0
-            .attr "x", (d) ->
-              if d.width < 200
-                -100
-              else
-                -d.width / 2
-            .attr "y", (d) ->
-              "#{d.size*2 - 14}px"
-            .attr "rx", 4
-            .attr "ry", 4
-            .style "fill", (d) ->
-              fill d.group
-            .transition()
-              .duration 750
-              .attr 'height', 120
+<!--      # use transform b/c nodes are made up of g elements-->
+<!--      nodes.attr 'transform', (d) ->-->
+<!--        "translate(#{d.x}, #{d.y})"-->
 
-        popup.insert "rect"
-            .attr 'width', (d) ->
-              if d.width < 200
-                200
-              else
-                d.width
-            .attr 'height', 90
-            .attr "x", (d) ->
-              if d.width < 200
-                -100
-              else
-                -d.width / 2
-            .attr "y", (d) ->
-              "#{d.size*2 + 7}px"
-            .style "fill", "#fff"
-            .style 'opacity', 0
-            .transition()
-              .duration 750
-              .style 'opacity', 1
+<!--    force.on 'tick', tick-->
+<!--    drag = force.drag().on 'dragstart', (d) ->-->
+<!--      if d3.select(this).selectAll("circle.halo").empty()-->
+<!--        d3.select(this)-->
+<!--          .insert("circle", "circle")-->
+<!--          .attr "r", (d) ->-->
+<!--            d.size + 3-->
+<!--          .attr "class", "halo"-->
+<!--          .style-->
+<!--            "fill-opacity": 0-->
+<!--            stroke: "#222"-->
+<!--            "stroke-dasharray": "2"-->
 
-        popup.insert "text"
-          .attr 'x', (d) ->
-            if d.width < 200
-              -90
-            else
-              -d.width / 2 + 10
-          .attr 'y', (d) ->
-            "#{d.size*2 + 24}px"
-          .text (d, i) ->
-            "Hostname: #{d.props.ifaces[0].hostname}"
-          .style 'opacity', 0
-          .transition()
-            .duration 750
-            .style 'opacity', 1
+<!--        popup = d3.select(this)-->
+<!--          .insert "g", "text"-->
+<!--          .attr "class", "legend"-->
 
-        popup.insert "text"
-          .attr 'x', (d) ->
-            if d.width < 200
-              -90
-            else
-              -d.width / 2 + 10
-          .attr 'y', (d) ->
-            "#{d.size*2 + 44}px"
-          .text (d, i) ->
-            "IP Address: #{d.props.ifaces[0].addr}"
-          .style 'opacity', 0
-          .transition()
-            .duration 750
-            .style 'opacity', 1
+<!--        popup.insert "rect"-->
+<!--            .attr 'width', (d) ->-->
+<!--              if d.width < 200-->
+<!--                200-->
+<!--              else-->
+<!--                d.width-->
+<!--            .attr 'height', 0-->
+<!--            .attr "x", (d) ->-->
+<!--              if d.width < 200-->
+<!--                -100-->
+<!--              else-->
+<!--                -d.width / 2-->
+<!--            .attr "y", (d) ->-->
+<!--              "#{d.size*2 - 14}px"-->
+<!--            .attr "rx", 4-->
+<!--            .attr "ry", 4-->
+<!--            .style "fill", (d) ->-->
+<!--              fill d.group-->
+<!--            .transition()-->
+<!--              .duration 750-->
+<!--              .attr 'height', 120-->
 
-        popup.insert "text"
-          .attr 'x', (d) ->
-            if d.width < 200
-              -90
-            else
-              -d.width / 2 + 10
-          .attr 'y', (d) ->
-            "#{d.size*2 + 64}px"
-          .attr 'id', (d) ->
-            "uptime-#{d.name}"
-          .text (d, i) ->
-            "Uptime: #{formatInterval(Math.floor(Date.now() / 1000) - d.props.uptime)}"
-          .style 'opacity', 0
-          .transition()
-            .duration 750
-            .style 'opacity', 1
+<!--        popup.insert "rect"-->
+<!--            .attr 'width', (d) ->-->
+<!--              if d.width < 200-->
+<!--                200-->
+<!--              else-->
+<!--                d.width-->
+<!--            .attr 'height', 90-->
+<!--            .attr "x", (d) ->-->
+<!--              if d.width < 200-->
+<!--                -100-->
+<!--              else-->
+<!--                -d.width / 2-->
+<!--            .attr "y", (d) ->-->
+<!--              "#{d.size*2 + 7}px"-->
+<!--            .style "fill", "#fff"-->
+<!--            .style 'opacity', 0-->
+<!--            .transition()-->
+<!--              .duration 750-->
+<!--              .style 'opacity', 1-->
 
-        popup.insert "text"
-          .attr 'x', (d) ->
-            if d.width < 200
-              -90
-            else
-              -d.width / 2 + 10
-          .attr 'y', (d) ->
-            "#{d.size*2 + 84}px"
-          .text (d, i) ->
-            "Version: #{d.props.version}"
-          .style 'opacity', 0
-          .transition()
-            .duration 750
-            .style 'opacity', 1
+<!--        popup.insert "text"-->
+<!--          .attr 'x', (d) ->-->
+<!--            if d.width < 200-->
+<!--              -90-->
+<!--            else-->
+<!--              -d.width / 2 + 10-->
+<!--          .attr 'y', (d) ->-->
+<!--            "#{d.size*2 + 24}px"-->
+<!--          .text (d, i) ->-->
+<!--            "Hostname: #{d.props.ifaces[0].hostname}"-->
+<!--          .style 'opacity', 0-->
+<!--          .transition()-->
+<!--            .duration 750-->
+<!--            .style 'opacity', 1-->
 
-      d.fixed = true
+<!--        popup.insert "text"-->
+<!--          .attr 'x', (d) ->-->
+<!--            if d.width < 200-->
+<!--              -90-->
+<!--            else-->
+<!--              -d.width / 2 + 10-->
+<!--          .attr 'y', (d) ->-->
+<!--            "#{d.size*2 + 44}px"-->
+<!--          .text (d, i) ->-->
+<!--            "IP Address: #{d.props.ifaces[0].addr}"-->
+<!--          .style 'opacity', 0-->
+<!--          .transition()-->
+<!--            .duration 750-->
+<!--            .style 'opacity', 1-->
 
-    redraw = (data) ->
-      restart = false
-      # prune old nodes and links
-      for en,i in force.nodes()
-        isOld = true
-        for n in data.nodes
-          if en and en.name is n.name
-            isOld = false
-            if en.fixed
-              $("#uptime-#{n.name}").text "Uptime: #{formatInterval(Math.floor(Date.now() / 1000) - n.props.uptime)}"
-        if isOld
-          restart = true
-          force.nodes().splice i,1
+<!--        popup.insert "text"-->
+<!--          .attr 'x', (d) ->-->
+<!--            if d.width < 200-->
+<!--              -90-->
+<!--            else-->
+<!--              -d.width / 2 + 10-->
+<!--          .attr 'y', (d) ->-->
+<!--            "#{d.size*2 + 64}px"-->
+<!--          .attr 'id', (d) ->-->
+<!--            "uptime-#{d.name}"-->
+<!--          .text (d, i) ->-->
+<!--            "Uptime: #{formatInterval(Math.floor(Date.now() / 1000) - d.props.uptime)}"-->
+<!--          .style 'opacity', 0-->
+<!--          .transition()-->
+<!--            .duration 750-->
+<!--            .style 'opacity', 1-->
 
-      for el,i in force.links()
-        isOld = true
-        for l in data.links
-          if el and el.source?.index is l.source and el.target?.index is l.target
-            isOld = false
-        if isOld
-          restart = true
-          force.links().splice i,1
+<!--        popup.insert "text"-->
+<!--          .attr 'x', (d) ->-->
+<!--            if d.width < 200-->
+<!--              -90-->
+<!--            else-->
+<!--              -d.width / 2 + 10-->
+<!--          .attr 'y', (d) ->-->
+<!--            "#{d.size*2 + 84}px"-->
+<!--          .text (d, i) ->-->
+<!--            "Version: #{d.props.version}"-->
+<!--          .style 'opacity', 0-->
+<!--          .transition()-->
+<!--            .duration 750-->
+<!--            .style 'opacity', 1-->
 
-      # add new nodes and links
-      for n in data.nodes
-        isNew = true
-        for en in force.nodes()
-          if en.name is n.name
-            isNew = false
-        if isNew
-          restart = true
-          force.nodes().push n
-      if force.links().length > 0
-        for l in data.links
-          isNew = true
-          for el in force.links()
-            if el.source?.index is l.source and el.target?.index is l.target
-              isNew = false
-          if isNew
-            restart = true
-            force.links().push l
-      else
-        restart = true
-        force.links(data.links)
+<!--      d.fixed = true-->
 
-      links = svg.selectAll '.link'
-        .data force.links()
-      links.enter()
-        .insert 'line', '.node' # insert before g.node elements so links won't cover nodes
-          .attr 'class', 'link'
-      links.exit().remove()
+<!--    redraw = (data) ->-->
+<!--      restart = false-->
+<!--      # prune old nodes and links-->
+<!--      for en,i in force.nodes()-->
+<!--        isOld = true-->
+<!--        for n in data.nodes-->
+<!--          if en and en.name is n.name-->
+<!--            isOld = false-->
+<!--            if en.fixed-->
+<!--              $("#uptime-#{n.name}").text "Uptime: #{formatInterval(Math.floor(Date.now() / 1000) - n.props.uptime)}"-->
+<!--        if isOld-->
+<!--          restart = true-->
+<!--          force.nodes().splice i,1-->
 
-      nodes = svg.selectAll 'g.node'
-        .data force.nodes()
-        .call force.drag
+<!--      for el,i in force.links()-->
+<!--        isOld = true-->
+<!--        for l in data.links-->
+<!--          if el and el.source?.index is l.source and el.target?.index is l.target-->
+<!--            isOld = false-->
+<!--        if isOld-->
+<!--          restart = true-->
+<!--          force.links().splice i,1-->
 
-      nodeEnter = nodes.enter().insert 'g'
-        .attr 'class', 'node'
-        .on "dblclick", (d) ->
-          d3.select(this).selectAll("circle.halo").remove()
-          d3.select(this).selectAll("g.legend").remove()
-          d.fixed = false
-          force.start()
-        .call drag
+<!--      # add new nodes and links-->
+<!--      for n in data.nodes-->
+<!--        isNew = true-->
+<!--        for en in force.nodes()-->
+<!--          if en.name is n.name-->
+<!--            isNew = false-->
+<!--        if isNew-->
+<!--          restart = true-->
+<!--          force.nodes().push n-->
+<!--      if force.links().length > 0-->
+<!--        for l in data.links-->
+<!--          isNew = true-->
+<!--          for el in force.links()-->
+<!--            if el.source?.index is l.source and el.target?.index is l.target-->
+<!--              isNew = false-->
+<!--          if isNew-->
+<!--            restart = true-->
+<!--            force.links().push l-->
+<!--      else-->
+<!--        restart = true-->
+<!--        force.links(data.links)-->
 
-      nodeEnter.insert 'circle'
-        .attr 'r', (d) ->
-          d.size
-        .style 'fill', (d, i) ->
-          fill d.group
-        .on "mouseover", (d, i) ->
-          d3.select(this).style "fill", "gold"
-        .on "mouseout", (d) ->
-          d3.select(this).style "fill", (d) ->
-            fill d.group
-        .style 'stroke', (d, i) ->
-          d3.rgb(fill(d.group)).darker 2
-        .transition()
-          .duration 750
-          .ease "elastic"
-          .attr "r", (d) ->
-            d.size
+<!--      links = svg.selectAll '.link'-->
+<!--        .data force.links()-->
+<!--      links.enter()-->
+<!--        .insert 'line', '.node' # insert before g.node elements so links won't cover nodes-->
+<!--          .attr 'class', 'link'-->
+<!--      links.exit().remove()-->
 
-      nodeEnter.append 'text'
-        .attr 'dy', (d) ->
-          "#{d.size*2}px"
-        .style 'text-anchor', 'middle'
-        .text (d) ->
-          d.name
-        .each (d) ->
-          d.width = this.getBBox().width + 8
+<!--      nodes = svg.selectAll 'g.node'-->
+<!--        .data force.nodes()-->
+<!--        .call force.drag-->
 
-      nodes.exit().remove()
+<!--      nodeEnter = nodes.enter().insert 'g'-->
+<!--        .attr 'class', 'node'-->
+<!--        .on "dblclick", (d) ->-->
+<!--          d3.select(this).selectAll("circle.halo").remove()-->
+<!--          d3.select(this).selectAll("g.legend").remove()-->
+<!--          d.fixed = false-->
+<!--          force.start()-->
+<!--        .call drag-->
 
-      # only restart force when nodes/links changed to avoid visible jitter
-      if restart
-        force.start()
+<!--      nodeEnter.insert 'circle'-->
+<!--        .attr 'r', (d) ->-->
+<!--          d.size-->
+<!--        .style 'fill', (d, i) ->-->
+<!--          fill d.group-->
+<!--        .on "mouseover", (d, i) ->-->
+<!--          d3.select(this).style "fill", "gold"-->
+<!--        .on "mouseout", (d) ->-->
+<!--          d3.select(this).style "fill", (d) ->-->
+<!--            fill d.group-->
+<!--        .style 'stroke', (d, i) ->-->
+<!--          d3.rgb(fill(d.group)).darker 2-->
+<!--        .transition()-->
+<!--          .duration 750-->
+<!--          .ease "elastic"-->
+<!--          .attr "r", (d) ->-->
+<!--            d.size-->
 
-    svg.style('opacity', 1e-6).transition().duration(1000).style 'opacity', 1
+<!--      nodeEnter.append 'text'-->
+<!--        .attr 'dy', (d) ->-->
+<!--          "#{d.size*2}px"-->
+<!--        .style 'text-anchor', 'middle'-->
+<!--        .text (d) ->-->
+<!--          d.name-->
+<!--        .each (d) ->-->
+<!--          d.width = this.getBBox().width + 8-->
 
-    scope.$watch 'data', (newVal) ->
-      redraw newVal
+<!--      nodes.exit().remove()-->
 
-    angular.element($window).bind 'resize', ->
-      width = $window.innerWidth
-      height = $window.innerHeight - 114
-      svg
-        .attr 'width', width
-        .attr 'height', height
-      force.size([width, height]).resume()
+<!--      # only restart force when nodes/links changed to avoid visible jitter-->
+<!--      if restart-->
+<!--        force.start()-->
 
-  return {
-    link: link
-    restrict: 'E'
-    scope: data: '='
-  }
+<!--    svg.style('opacity', 1e-6).transition().duration(1000).style 'opacity', 1-->
+
+<!--    scope.$watch 'data', (newVal) ->-->
+<!--      redraw newVal-->
+
+<!--    angular.element($window).bind 'resize', ->-->
+<!--      width = $window.innerWidth-->
+<!--      height = $window.innerHeight - 114-->
+<!--      svg-->
+<!--        .attr 'width', width-->
+<!--        .attr 'height', height-->
+<!--      force.size([width, height]).resume()-->
+
+<!--  return {-->
+<!--    link: link-->
+<!--    restrict: 'E'-->
+<!--    scope: data: '='-->
+<!--  }-->

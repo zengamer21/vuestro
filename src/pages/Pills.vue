@@ -1,5 +1,5 @@
 <template>
-  <vuestro-card-container>
+  <vuestro-container>
     <vuestro-card color="var(--vuestro-purple)">
       <template slot="heading">Pills</template>
       <template slot="description">
@@ -112,7 +112,7 @@
       </div>
     </vuestro-card>
 
-  </vuestro-card-container>
+  </vuestro-container>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <vuestro-card-container>
+  <vuestro-container>
     <vuestro-card color="#f47633">
       <template slot="heading">VuestroTable</template>
       <template slot="description">
@@ -79,7 +79,7 @@
       </vuestro-panel>
     </vuestro-card>
 
-  </vuestro-card-container>
+  </vuestro-container>
 </template>
 
 <script>

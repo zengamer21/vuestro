@@ -10,6 +10,7 @@ import Inputs from '../pages/Inputs.vue';
 import TextInputs from '../pages/TextInputs.vue';
 import SearchInput from '../pages/SearchInput.vue';
 import Containers from '../pages/Containers.vue';
+import ContainerContainer from '../pages/ContainerContainer.vue';
 import CardContainer from '../pages/CardContainer.vue';
 import ColumnContainer from '../pages/ColumnContainer.vue';
 import PanelContainer from '../pages/PanelContainer.vue';
@@ -19,6 +20,8 @@ import AreaChart from '../pages/AreaChart.vue';
 import DataContainers from '../pages/DataContainers.vue';
 import Table from '../pages/Table.vue';
 import ObjectBrowser from '../pages/ObjectBrowser.vue';
+import ForceGraph from '../pages/ForceGraph.vue';
+import Typography from '../pages/Typography.vue';
 
 Vue.use(Router);
 
@@ -45,6 +48,15 @@ export default new Router({
       path: '/containers',
       component: Containers,
       children: [
+        {
+          meta: {
+            title: 'Container',
+            sidebar: true,
+          },
+          name: 'container',
+          path: 'container',
+          component: ContainerContainer,
+        },
         {
           meta: {
             title: 'Cards',
@@ -101,7 +113,16 @@ export default new Router({
           name: 'sankey-charts',
           path: 'sankey-charts',
           component: SankeyCharts,
-        }
+        },
+        {
+          meta: {
+            title: 'Force Graph',
+            sidebar: true,
+          },
+          name: 'force-graph',
+          path: 'force-graph',
+          component: ForceGraph,
+        },
       ]
     },
     {
@@ -143,6 +164,16 @@ export default new Router({
       name: 'pills',
       path: '/pills',
       component: Pills,
+    },
+    {
+      meta: {
+        title: 'Typography',
+        sidebar: true,
+        icon: 'font',
+      },
+      name: 'typography',
+      path: '/typography',
+      component: Typography,
     },
     {
       meta: {

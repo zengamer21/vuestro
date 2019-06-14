@@ -1,5 +1,5 @@
 <template>
-  <vuestro-card-container>
+  <vuestro-container>
     <vuestro-card color="var(--vuestro-purple)">
       <template slot="heading"><span class="drag">Area Chart</span></template>
       <template slot="description">The Vuestro Line Chart is flexible enough to be used with a categorical x axis as well as a time scale.</template>
@@ -21,7 +21,7 @@
         <vuestro-area-chart :data="data" :options="options3"></vuestro-area-chart>
       </div>
     </vuestro-card>
-  </vuestro-card-container>
+  </vuestro-container>
 </template>
 
 <script>

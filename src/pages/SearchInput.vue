@@ -1,5 +1,5 @@
 <template>
-  <vuestro-card-container>
+  <vuestro-container>
     <vuestro-card cols="12" color="#f47633">
       <template slot="heading">Search Input</template>
       <template slot="description">
@@ -27,7 +27,7 @@
     </vuestro-card>
 
 
-  </vuestro-card-container>
+  </vuestro-container>
 </template>
 
 <script>

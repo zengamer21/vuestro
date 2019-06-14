@@ -1,7 +1,7 @@
 <template>
   <div style="flex-grow:1;display:flex;flex-direction:column">
     <vuestro-button size="lg" v-model="outlines">Toggle Outlines</vuestro-button>
-    <vuestro-card-container :class="{ outlines }">
+    <vuestro-container :class="{ outlines }">
       <vuestro-card cols="6">
         <vuestro-panel>VuestroPanel - adds themeable background color and a pleasant drop shadow for dimension</vuestro-panel>
       </vuestro-card>
@@ -62,7 +62,7 @@
       <vuestro-card cols="6">
         <vuestro-panel collapsible>
           <template slot="title">Collapsible Panel</template>
-          <vuestro-card-container>
+          <vuestro-container>
             <vuestro-card>
               <template slot="description">VuestroPanel can collapse it's content into the titlebar when the collapsible property is set.
                 <br><br>
@@ -70,21 +70,21 @@
                 <br><br>
               </template>
             </vuestro-card>
-          </vuestro-card-container>
+          </vuestro-container>
         </vuestro-panel>
         <vuestro-panel collapsible collapsed>
           <template slot="title">Collapsed by default</template>
-          <vuestro-card-container>
+          <vuestro-container>
             <vuestro-card>
               <template slot="description">Set the collapsed property to have the panel be collapsed by default.
                 <br><br>
               </template>
             </vuestro-card>
-          </vuestro-card-container>
+          </vuestro-container>
         </vuestro-panel>
         <vuestro-panel collapsible>
           <template slot="title">Collapsible Panel</template>
-          <vuestro-card-container>
+          <vuestro-container>
             <vuestro-card>
               <template slot="description">VuestroPanel can collapse it's content into the titlebar when the collapsible property is set.
                 <br><br>
@@ -92,23 +92,23 @@
                 <br><br>
               </template>
             </vuestro-card>
-          </vuestro-card-container>
+          </vuestro-container>
         </vuestro-panel>
       </vuestro-card>
 
       <vuestro-card cols="6">
         <vuestro-panel spinner>
           <template slot="title">Vuestro Panel</template>
-          <vuestro-card-container>
+          <vuestro-container>
             <vuestro-card>
               <template slot="description">Set the spinner property to show a loading indicator if panel contents is async.</template>
             </vuestro-card>
-          </vuestro-card-container>
+          </vuestro-container>
         </vuestro-panel>
       </vuestro-card>
 
 
-    </vuestro-card-container>
+    </vuestro-container>
   </div>
 </template>
 
@@ -132,19 +132,19 @@ export default {
 
 <style scoped>
 
-.vuestro-card-container.outlines {
+.vuestro-container.outlines {
   border: 1px dashed black;
   position: relative;
 }
-.vuestro-card-container.outlines:before {
-  content: 'VuestroCardContainer';
+.vuestro-container.outlines:before {
+  content: 'VuestroContainer';
   position: absolute;
   top: -18px;
   left: 0;
   background-color: var(--vuestro-gray);
 }
 
-.vuestro-card-container.outlines .vuestro-card {
+.vuestro-container.outlines .vuestro-card {
   border: 1px dashed black;
   position: relative;
 }

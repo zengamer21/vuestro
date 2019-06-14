@@ -1,5 +1,5 @@
 <template>
-  <vuestro-card-container>
+  <vuestro-container>
     <vuestro-card>
       <template slot="heading">Popups</template>
       <template slot="description">Vuestro popups include drop-downs, tag selectors, and modals.</template>
@@ -166,7 +166,7 @@
 
 
 
-  </vuestro-card-container>
+  </vuestro-container>
 </template>
 
 <script>

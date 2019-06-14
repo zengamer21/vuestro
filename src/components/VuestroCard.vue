@@ -52,6 +52,7 @@ export default {
 .vuestro-card {
   display: flex;
   flex-direction: column;
+  padding: var(--vuestro-gutter); /* inherit from vuestro-container */
 }
 
 .vuestro-card-heading {

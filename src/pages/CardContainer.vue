@@ -1,7 +1,7 @@
 <template>
   <div style="flex-grow:1;display:flex;flex-direction:column">
     <vuestro-button size="lg" v-model="outlines">Toggle Outlines</vuestro-button>
-    <vuestro-card-container :class="{ outlines }">
+    <vuestro-container :class="{ outlines }">
 
       <vuestro-card>
         <template slot="heading">VuestroCard - heading slot</template>
@@ -20,7 +20,7 @@
 
       <vuestro-card stretch>
         <vuestro-panel>
-          <vuestro-card-container>
+          <vuestro-container>
             <vuestro-card cols="8">
               <template slot="heading">VuestroCard in VuestroPanel</template>
               <template slot="subheading">Nest them together</template>
@@ -29,12 +29,12 @@
             <vuestro-card cols="4">
               <template slot="description">...into columns</template>
             </vuestro-card>
-          </vuestro-card-container>
+          </vuestro-container>
         </vuestro-panel>
       </vuestro-card>
 
 
-    </vuestro-card-container>
+    </vuestro-container>
   </div>
 </template>
 
@@ -58,19 +58,19 @@ export default {
 
 <style scoped>
 
-.vuestro-card-container.outlines {
+.vuestro-container.outlines {
   border: 1px dashed black;
   position: relative;
 }
-.vuestro-card-container.outlines:before {
-  content: 'VuestroCardContainer';
+.vuestro-container.outlines:before {
+  content: 'VuestroContainer';
   position: absolute;
   top: -18px;
   left: 0;
   background-color: var(--vuestro-gray);
 }
 
-.vuestro-card-container.outlines .vuestro-card {
+.vuestro-container.outlines .vuestro-card {
   border: 1px dashed black;
   position: relative;
 }
