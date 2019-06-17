@@ -1,7 +1,7 @@
 <template>
   <div class="vuestro-table">
     <table class="vuestro-table-table">
-      <thead class="vuestro-table-header-row">
+      <thead v-if="!noHeader" class="vuestro-table-header-row">
         <th v-for="column in headers"
             class="vuestro-table-header"
             :class="[ `vuestro-table-align-${column.align}` ]">
@@ -54,6 +54,7 @@ export default {
   props: {
     data: { type: Array, default: () => [] },
     columns: { type: Array, default: null },
+		noHeader: { type: Boolean, default: false },
   },
   data() {
     return {
