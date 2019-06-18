@@ -33,6 +33,13 @@
       <vuestro-time-picker v-model="exampleTime" seconds></vuestro-time-picker>
     </vuestro-card>
 
+    <vuestro-card cols="6">
+      <template slot="description">
+        <span>Use UTC by setting the <em>utc</em> property</span>
+      </template>
+      <vuestro-time-picker v-model="exampleTime" utc seconds></vuestro-time-picker>
+    </vuestro-card>
+
     <vuestro-card>
       <template slot="subheading">Vuestro Date Picker</template>
       <vuestro-date-picker @change="onChange"></vuestro-date-picker>
@@ -72,7 +79,7 @@ export default {
   },
   methods: {
     onChange() {
-      
+
     },
   },
 };

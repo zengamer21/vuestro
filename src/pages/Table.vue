@@ -79,6 +79,19 @@
       </vuestro-panel>
     </vuestro-card>
 
+    <vuestro-card>
+      <template slot="subheading">
+        Set the no-header property to skip the header row
+      </template>
+      <vuestro-panel>
+        <vuestro-table no-header :columns="exampleColumns2" :data="exampleData">
+          <template #no-data>
+            No data to show
+          </template>
+        </vuestro-table>
+      </vuestro-panel>
+    </vuestro-card>
+
   </vuestro-container>
 </template>
 

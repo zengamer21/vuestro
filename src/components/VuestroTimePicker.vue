@@ -5,36 +5,36 @@
       <div class="arrow" @click="increaseHours">
         <icon name="chevron-up"></icon>
       </div>
-      <vuestro-editable-text :value="momentObj.format('HH')" 
-                             :validator="validateHours" 
+      <vuestro-editable-text :value="momentObj.format('HH')"
+                             :validator="validateHours"
                              @input="setHours">
       </vuestro-editable-text>
       <div class="arrow" @click="decreaseHours">
         <icon name="chevron-down"></icon>
       </div>
     </div>
-    
+
     <!--:-->
     <div class="vuestro-time-picker-colon">:</div>
-    
+
     <!--MINUTES-->
     <div class="vuestro-time-picker-column">
       <div class="arrow" @click="increaseMinutes">
         <icon name="chevron-up"></icon>
       </div>
-      <vuestro-editable-text :value="momentObj.format('mm')" 
-                             :validator="validateMinutesSeconds" 
+      <vuestro-editable-text :value="momentObj.format('mm')"
+                             :validator="validateMinutesSeconds"
                              @input="setMinutes">
       </vuestro-editable-text>
       <div class="arrow" @click="decreaseMinutes">
         <icon name="chevron-down"></icon>
       </div>
     </div>
-    
+
     <template v-if="seconds">
       <!--:-->
       <div class="vuestro-time-picker-colon">:</div>
-      
+
       <!--SECONDS-->
       <div class="vuestro-time-picker-column">
         <div class="arrow" @click="increaseSeconds">
@@ -67,10 +67,11 @@ export default {
   props: {
     value: { type: Date, required: true },
     seconds: { type: Boolean, default: false },
+    utc: { type: Boolean, default: false },
   },
   computed: {
     momentObj() {
-      return moment(this.value);
+      return this.utc ? moment.utc(this.value) : moment(this.value);
     }
   },
   methods: {
@@ -78,22 +79,22 @@ export default {
       this.$emit('input', newVal);
     },
     increaseHours() {
-      this.onChange(moment(this.value).add(1, 'hour').toDate());
+      this.onChange(this.momentObj.add(1, 'hour').toDate());
     },
     decreaseHours() {
-      this.onChange(moment(this.value).subtract(1, 'hour').toDate());
+      this.onChange(this.momentObj.subtract(1, 'hour').toDate());
     },
     increaseMinutes() {
-      this.onChange(moment(this.value).add(1, 'minute').toDate());
+      this.onChange(this.momentObj.add(1, 'minute').toDate());
     },
     decreaseMinutes() {
-      this.onChange(moment(this.value).subtract(1, 'minute').toDate());
+      this.onChange(this.momentObj.subtract(1, 'minute').toDate());
     },
     increaseSeconds() {
-      this.onChange(moment(this.value).add(1, 'seconds').toDate());
+      this.onChange(this.momentObj.add(1, 'seconds').toDate());
     },
     decreaseSeconds() {
-      this.onChange(moment(this.value).subtract(1, 'seconds').toDate());
+      this.onChange(this.momentObj.subtract(1, 'seconds').toDate());
     },
     validateHours(d) {
       return !isNaN(parseInt(d, 10)) && (d >= 0 && d < 24);
@@ -102,13 +103,13 @@ export default {
       return !isNaN(parseInt(d, 10)) && (d >= 0 && d < 59);
     },
     setHours(d) {
-      this.onChange(moment(this.value).hour(d).toDate());
+      this.onChange(this.momentObj.hour(d).toDate());
     },
     setMinutes(d) {
-      this.onChange(moment(this.value).minute(d).toDate());
+      this.onChange(this.momentObj.minute(d).toDate());
     },
     setSeconds(d) {
-      this.onChange(moment(this.value).second(d).toDate());
+      this.onChange(this.momentObj.second(d).toDate());
     },
   },
 };
