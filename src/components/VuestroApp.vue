@@ -6,9 +6,7 @@
       <!--SLOT WITH DEFAULT NAVBAR-->
       <slot name="navbar">
         <vuestro-navbar :title="title">
-          <template slot="left"><slot name="navbar-left"></slot></template>
-          <template slot="center"><slot name="navbar-center"></slot></template>
-          <template slot="right"><slot name="navbar-right"></slot></template>
+          <slot name="navbar-slot"></slot>
         </vuestro-navbar>
       </slot>
 
@@ -18,10 +16,10 @@
           <vuestro-sidebar :user="user"
                            :user-img="userImg"
                            :role="role">
-            <template slot="logo">
-              <slot name="logo"></slot>
+            <template #logo>
+              <slot name="sidebar-logo"></slot>
             </template>
-            <template slot="footer">
+            <template #footer>
               <slot name="sidebar-footer"></slot>
             </template>
           </vuestro-sidebar>

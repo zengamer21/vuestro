@@ -2,14 +2,14 @@
   <div class="vuestro-navbar">
     <div v-if="title" class="vuestro-title-text">{{ title }}</div>
     <div class="v-separator"></div>
-    <slot name="left">
-      <vuestro-search-box placeholder="Search"
-                          v-model="search"
-                          history>
-      </vuestro-search-box>
-    </slot>
-    <slot name="center"></slot>
-    <slot name="right"></slot>
+    <div class="vuestro-navbar-slot">
+      <slot>
+        <vuestro-search-box placeholder="Search"
+                            v-model="search"
+                            history>
+        </vuestro-search-box>
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -58,7 +58,6 @@ export default {
   flex: none; /* don't let flexbox reduce our size */
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding-right: 5px;
   z-index: 1000;
 }
@@ -73,6 +72,11 @@ export default {
   border-right: 1px solid var(--vuestro-outline);
   height: 20px;
   margin-right: 10px;
+}
+
+.vuestro-navbar-slot {
+  display: flex;
+  flex-grow: 1;
 }
 
 </style>
