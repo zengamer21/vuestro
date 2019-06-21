@@ -4,30 +4,30 @@
     <vuestro-container :class="{ outlines }">
 
       <vuestro-card>
-        <template slot="heading">VuestroCard - heading slot</template>
-        <template slot="subheading">VuestroCard - subheading slot</template>
-        <template slot="description">VuestroCard - description slot</template>
+        <template #heading>VuestroCard - heading slot</template>
+        <template #subheading>VuestroCard - subheading slot</template>
+        <template #description>VuestroCard - description slot</template>
         <div>Default slot used for content. If any of the heading slots are not used, they will not appear and will not take up space.</div>
       </vuestro-card>
       <vuestro-card cols="6">
-        <template slot="heading">VuestroCard - cols="6"</template>
-        <template slot="description">Use the cols property with values from 1 to 12 to create Bootstrap-like columns</template>
+        <template #heading>VuestroCard - cols="6"</template>
+        <template #description>Use the cols property with values from 1 to 12 to create Bootstrap-like columns</template>
       </vuestro-card>
       <vuestro-card cols="6" color="var(--vuestro-green)">
-        <template slot="heading">VuestroCard with color cue</template>
-        <template slot="description">Set the color property on the VuestroCard to add a nice touch of color.</template>
+        <template #heading>VuestroCard with color cue</template>
+        <template #description>Set the color property on the VuestroCard to add a nice touch of color.</template>
       </vuestro-card>
 
       <vuestro-card stretch>
         <vuestro-panel>
           <vuestro-container>
             <vuestro-card cols="8">
-              <template slot="heading">VuestroCard in VuestroPanel</template>
-              <template slot="subheading">Nest them together</template>
-              <template slot="description">...to subdivide a panel</template>
+              <template #heading>VuestroCard in VuestroPanel</template>
+              <template #subheading>Nest them together</template>
+              <template #description>...to subdivide a panel</template>
             </vuestro-card>
             <vuestro-card cols="4">
-              <template slot="description">...into columns</template>
+              <template #description>...into columns</template>
             </vuestro-card>
           </vuestro-container>
         </vuestro-panel>

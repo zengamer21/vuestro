@@ -1,13 +1,13 @@
 <template>
   <vuestro-container>
     <vuestro-card cols="12" color="#f47633">
-      <template slot="heading">Text Inputs</template>
-      <template slot="description">
+      <template #heading>Text Inputs</template>
+      <template #description>
       </template>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         Regular Text Fields
       </template>
       <vuestro-text-field placeholder="Regular Text Field" v-model="exampleText"></vuestro-text-field>
@@ -17,7 +17,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Set the dark property for a dark-theme compatible text field.
       </template>
       <div class="example-container dark">
@@ -26,7 +26,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         Editable Text
       </template>
       <div class="example-flexbox">

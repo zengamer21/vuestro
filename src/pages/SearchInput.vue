@@ -1,26 +1,26 @@
 <template>
   <vuestro-container>
     <vuestro-card cols="12" color="#f47633">
-      <template slot="heading">Search Input</template>
-      <template slot="description">
+      <template #heading>Search Input</template>
+      <template #description>
       </template>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         Basic Search Box
       </template>
-      <template slot="description">
+      <template #description>
         Provide v-model to bind to a local var
       </template>
       <vuestro-search-box v-model="exampleText" placeholder="Basic Search Box"></vuestro-search-box>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         Search Box with History
       </template>
-      <template slot="description">
+      <template #description>
         Add the history property to enable a dropdown which automatically tracks history
       </template>
       <vuestro-search-box v-model="exampleText" history placeholder="Search Box with History"></vuestro-search-box>

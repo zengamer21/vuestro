@@ -1,14 +1,14 @@
 <template>
   <vuestro-container>
     <vuestro-card color="#f47633">
-      <template slot="heading">VuestroTable</template>
-      <template slot="description">
+      <template #heading>VuestroTable</template>
+      <template #description>
         VuestroTable is a fully-reactive component which provides basic datatable functionality such as sort, while leveraging Vue slots to allow itself to be composed into a parent providing more complex functionality.
       </template>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         Basic table with auto-generated column names
       </template>
       <vuestro-panel>
@@ -17,7 +17,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         Specify columns array property to format column headers and provide options such as padding, sortable, sort (default direction), and a render function.
       </template>
       <vuestro-panel>
@@ -26,7 +26,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         Provide a template for cells and headers through the cell/header slot. The slot scope object "item" contains a column specifier for headers and both the column specifier and row data item for cells.
       </template>
       <vuestro-panel>
@@ -42,7 +42,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         Provide a template for the entire row through the row slot. The slot must contain enough 'td' elements to fill the row. Also, some of the column options such as align will need to be implemented by the parent.
       </template>
       <vuestro-panel>
@@ -58,7 +58,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         Specify "component" header property to use a Vue component to render a particular column
       </template>
       <vuestro-panel>
@@ -67,7 +67,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         Set the no-data slot to provide a message when data length is zero.
       </template>
       <vuestro-panel>
@@ -80,7 +80,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         Set the no-header property to skip the header row
       </template>
       <vuestro-panel>

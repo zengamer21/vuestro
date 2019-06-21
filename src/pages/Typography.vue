@@ -1,7 +1,7 @@
 <template>
   <vuestro-container>
     <vuestro-card color="var(--vuestro-cyan)">
-      <template slot="heading">Typography</template>
+      <template #heading>Typography</template>
     </vuestro-card>
 
     <vuestro-card>

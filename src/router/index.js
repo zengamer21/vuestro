@@ -22,6 +22,9 @@ import Table from '../pages/Table.vue';
 import ObjectBrowser from '../pages/ObjectBrowser.vue';
 import ForceGraph from '../pages/ForceGraph.vue';
 import Typography from '../pages/Typography.vue';
+import Plugin from '../pages/Plugin.vue';
+import Mixins from '../pages/Mixins.vue';
+import Filters from '../pages/Filters.vue';
 
 Vue.use(Router);
 
@@ -237,13 +240,33 @@ export default new Router({
     },
     {
       meta: {
-        title: 'Admin',
-        sidebarBottom: true,
-        icon: 'sliders-h',
+        title: 'Plugin',
+        sidebar: true,
+        icon: 'puzzle-piece',
       },
-      name: 'admin',
-      path: '/admin',
-
+      name: 'plugin',
+      path: '/plugin',
+      component: Plugin,
+      children: [
+        {
+          meta: {
+            title: 'Mixins',
+            sidebar: true,
+          },
+          name: 'mixins',
+          path: 'mixins',
+          component: Mixins,
+        },
+        {
+          meta: {
+            title: 'Filters',
+            sidebar: true,
+          },
+          name: 'filters',
+          path: 'filters',
+          component: Filters,
+        },
+      ]
     },
     { path: '/*', redirect: '/dashboard' } // redirect to dashboard
   ]

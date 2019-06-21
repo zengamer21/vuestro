@@ -1,29 +1,29 @@
 <template>
   <vuestro-container>
     <vuestro-card color="var(--vuestro-purple)">
-      <template slot="heading"><span class="drag">Area Chart</span></template>
-      <template slot="description">The Vuestro Line Chart is flexible enough to be used with a categorical x axis as well as a time scale.</template>
+      <template #heading><span class="drag">Area Chart</span></template>
+      <template #description>The Vuestro Line Chart is flexible enough to be used with a categorical x axis as well as a time scale.</template>
       <div class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options1"></vuestro-area-chart>
       </div>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">Set the notFilled: true option for a line chart</template>
+      <template #subheading>Set the notFilled: true option for a line chart</template>
       <div class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options2"></vuestro-area-chart>
       </div>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">Set the showAxes: true option to show axes and use a render function to manipulate value scale labels</template>
+      <template #subheading>Set the showAxes: true option to show axes and use a render function to manipulate value scale labels</template>
       <div class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options3"></vuestro-area-chart>
       </div>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">Change the data property and the chart will update</template>
+      <template #subheading>Change the data property and the chart will update</template>
       <div class="chart-wrapper">
         <vuestro-area-chart :data="dynamicData" :options="options4"></vuestro-area-chart>
       </div>

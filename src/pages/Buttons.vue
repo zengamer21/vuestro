@@ -1,14 +1,14 @@
 <template>
   <vuestro-container>
     <vuestro-card cols="12" color="#f47633">
-      <template slot="heading">Buttons</template>
-      <template slot="description">
+      <template #heading>Buttons</template>
+      <template #description>
         Buttons come in all shapes and sizes. Vuestro attempts to provide a flexible implementation suitable for the most common applications in an attractive, easily-configurable component. Outline mode is the default look and feel, but Vue props allow many other options.
       </template>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Basic button
       </template>
       <div class="example-flexbox">
@@ -17,7 +17,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Basic button with FontAwesome icon
       </template>
       <div class="example-flexbox">
@@ -28,7 +28,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Basic button with FontAwesome icon and label (make sure the labels is wrapped in a span/div for spacing in between)
       </template>
       <div class="example-flexbox">
@@ -40,7 +40,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Make it less pointy by setting the rounded property
       </template>
       <div class="example-flexbox">
@@ -56,7 +56,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         ...make pills by setting the pill property
       </template>
       <div class="example-flexbox">
@@ -72,7 +72,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         ...or go all the way by setting the round property
       </template>
       <div class="example-flexbox">
@@ -89,7 +89,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Font size is inherited, but the size {'sm', 'md', 'lg'} property modifies inner padding
       </template>
       <div class="example-flexbox bigger-font">
@@ -105,7 +105,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Button variant can be changed by setting the variant property
       </template>
       <div class="example-flexbox">
@@ -135,7 +135,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Go buttons without borders by setting the no-border property
       </template>
       <div class="example-flexbox">
@@ -153,7 +153,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Checkbox mode
       </template>
       <div class="example-flexbox">
@@ -162,7 +162,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Provide v-model without the checkbox property to enable toggle mode
       </template>
       <div class="example-flexbox">
@@ -171,7 +171,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         ...or simply define the value prop for a simple colorized button
       </template>
       <div class="example-flexbox">
@@ -184,7 +184,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Buttons will stretch to available space by setting the stretch property
       </template>
       <vuestro-button stretch>Button</vuestro-button>
@@ -193,7 +193,7 @@
 
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Disable the button by setting the disabled propery
       </template>
       <div class="example-flexbox">
@@ -206,7 +206,7 @@
 
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Enable dense arrangements by setting the no-spacing property
       </template>
       <div class="example-calculator">
@@ -224,7 +224,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Get dark mode by setting the dark property
       </template>
       <div class="example-flexbox dark">

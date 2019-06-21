@@ -18,11 +18,11 @@
 
       <vuestro-card cols="6">
         <vuestro-panel content-padding="lg">
-          <template slot="title">Vuestro Panel</template>
-          <template slot="toolbar">
+          <template #title>Vuestro Panel</template>
+          <template #toolbar>
             <vuestro-button no-border pill><icon name="sync-alt"></icon><span>Refresh</span></vuestro-button>
             <vuestro-dropdown click-open>
-              <template slot="button">
+              <template #button>
                 <vuestro-button no-border pill>Options</vuestro-button>
               </template>
               <vuestro-list-button>Menu Item 1</vuestro-list-button>
@@ -36,8 +36,8 @@
 
       <vuestro-card cols="6">
         <vuestro-panel dark content-padding="lg">
-          <template slot="title">Dark Vuestro Panel</template>
-          <template slot="toolbar">
+          <template #title>Dark Vuestro Panel</template>
+          <template #toolbar>
             <vuestro-button pill variant="white" no-border dark><icon name="sync-alt"></icon><span>Refresh</span></vuestro-button>
             <vuestro-button round size="sm" no-border dark><icon name="shopping-cart"></icon></vuestro-button>
             <vuestro-button round size="sm" variant="danger" no-border dark><icon name="times"></icon></vuestro-button>
@@ -48,8 +48,8 @@
 
       <vuestro-card cols="6">
         <vuestro-panel dark color="var(--vuestro-purple)" stretch content-padding="lg">
-          <template slot="title">Colorized Vuestro Panel Titlebar</template>
-          <template slot="toolbar">
+          <template #title>Colorized Vuestro Panel Titlebar</template>
+          <template #toolbar>
             <vuestro-button pill variant="white" no-border><icon name="sync-alt"></icon><span>Refresh</span></vuestro-button>
             <vuestro-button round size="sm" no-border><icon name="shopping-cart"></icon></vuestro-button>
             <vuestro-button round size="sm" variant="danger" no-border><icon name="times"></icon></vuestro-button>
@@ -61,10 +61,10 @@
 
       <vuestro-card cols="6">
         <vuestro-panel collapsible>
-          <template slot="title">Collapsible Panel</template>
+          <template #title>Collapsible Panel</template>
           <vuestro-container>
             <vuestro-card>
-              <template slot="description">VuestroPanel can collapse it's content into the titlebar when the collapsible property is set.
+              <template #description>VuestroPanel can collapse it's content into the titlebar when the collapsible property is set.
                 <br><br>
                 Even if the content is tall, the Vuestro containers will all adjust so that the content is shown and the footer is pushed down.
                 <br><br>
@@ -73,20 +73,20 @@
           </vuestro-container>
         </vuestro-panel>
         <vuestro-panel collapsible collapsed>
-          <template slot="title">Collapsed by default</template>
+          <template #title>Collapsed by default</template>
           <vuestro-container>
             <vuestro-card>
-              <template slot="description">Set the collapsed property to have the panel be collapsed by default.
+              <template #description>Set the collapsed property to have the panel be collapsed by default.
                 <br><br>
               </template>
             </vuestro-card>
           </vuestro-container>
         </vuestro-panel>
         <vuestro-panel collapsible>
-          <template slot="title">Collapsible Panel</template>
+          <template #title>Collapsible Panel</template>
           <vuestro-container>
             <vuestro-card>
-              <template slot="description">VuestroPanel can collapse it's content into the titlebar when the collapsible property is set.
+              <template #description>VuestroPanel can collapse it's content into the titlebar when the collapsible property is set.
                 <br><br>
                 Even if the content is tall, the Vuestro containers will all adjust so that the content is shown and the footer is pushed down.
                 <br><br>
@@ -98,10 +98,10 @@
 
       <vuestro-card cols="6">
         <vuestro-panel spinner>
-          <template slot="title">Vuestro Panel</template>
+          <template #title>Vuestro Panel</template>
           <vuestro-container>
             <vuestro-card>
-              <template slot="description">Set the spinner property to show a loading indicator if panel contents is async.</template>
+              <template #description>Set the spinner property to show a loading indicator if panel contents is async.</template>
             </vuestro-card>
           </vuestro-container>
         </vuestro-panel>

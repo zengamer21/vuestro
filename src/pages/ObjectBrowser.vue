@@ -1,14 +1,14 @@
 <template>
   <vuestro-container>
     <vuestro-card color="#f47633">
-      <template slot="heading">VuestroObjectBrowser</template>
-      <template slot="description">
+      <template #heading>VuestroObjectBrowser</template>
+      <template #description>
         VuestroObjectBrowser allows browsing of a generic JavaScript object. No restructuring is necessary, it can take any JavaScript Object as input.
       </template>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         Basic VuestroObjectBrowser just set the 'data' property with the object.
       </template>
       <vuestro-panel>
@@ -17,7 +17,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         <span>Set the <em>expand-all</em> property to expand all objects and arrays by default</span>
       </template>
       <vuestro-panel>
@@ -26,7 +26,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">
+      <template #subheading>
         VuestroObjectBrowser also works for a top-level array
       </template>
       <vuestro-panel>

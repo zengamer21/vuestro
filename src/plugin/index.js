@@ -34,15 +34,8 @@ import VuestroTimePicker from '../components/VuestroTimePicker.vue';
 import VuestroTitle from '../components/VuestroTitle.vue';
 import VuestroTray from '../components/VuestroTray.vue';
 
-// import all icons, creates bloat, but sometimes there just no
-// way to know what a user might want
-import 'vue-awesome/icons';
-import Icon from 'vue-awesome/components/Icon';
-
 export default {
   install(Vue, options) {
-    Vue.component(Icon.name, Icon);
-
     Vue.component(VuestroApp.name, VuestroApp);
     Vue.component(VuestroAreaChart.name, VuestroAreaChart);
     Vue.component(VuestroBarChart.name, VuestroBarChart);
@@ -93,6 +86,9 @@ export default {
     });
 
     Vue.filter('vuestroPhoneUS', (d) => {
+      if (typeof(d) === 'number') {
+        d = `${d}`;
+      }
       return d.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
     });
 
@@ -124,6 +120,24 @@ export default {
       unbind: function (el) {
         document.body.removeEventListener('click', el.clickOutsideEvent);
       },
+    });
+
+    Vue.mixin({
+      methods: {
+        vuestroDownloadAsJson(data, filename) {
+          if (!data || !filename) {
+            console.error('downloadAsJSON needs data and filename params');
+            return;
+          }
+    			var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data,null,2));
+    	    var downloadAnchorNode = document.createElement('a');
+    	    downloadAnchorNode.setAttribute("href", dataStr);
+    	    downloadAnchorNode.setAttribute("download", filename);
+    	    document.body.appendChild(downloadAnchorNode); // required for firefox
+    	    downloadAnchorNode.click();
+    	    downloadAnchorNode.remove();
+        },
+      }
     });
   }
 };

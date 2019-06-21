@@ -1,22 +1,22 @@
 <template>
   <vuestro-container>
     <vuestro-card color="var(--vuestro-purple)">
-      <template slot="heading">Pills</template>
-      <template slot="description">
+      <template #heading>Pills</template>
+      <template #description>
         Pills are a great way to represent either key-value pairs, or "grabbable" bits of information. They consist of an accented title along with a value. If a title is not provided, the first letter of the value will be used for the accented dot.
       </template>
       <vuestro-pill value="Pill Value"></vuestro-pill>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Pill with separate title and value.
       </template>
       <vuestro-pill title="Pill Title" value="Pill Value"></vuestro-pill>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Pills will always stretch to available space unless they are put in a flex box with 'align-items' set.
       </template>
       <div class="example-align-items-start">
@@ -25,7 +25,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Get a color pill by only setting the title property
       </template>
       <div class="example-align-items-start">
@@ -35,7 +35,7 @@
 
     </vuestro-card>
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Use a VuestroTray to keep pills together!
       </template>
   		<vuestro-tray title="Pill Tray">
@@ -45,7 +45,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Pills can also have different colors by specifying a color property.
       </template>
       <div class="example-align-items-start">
@@ -58,7 +58,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         ...or a different size by specifying a size property (with units). The font size will automatically scale!
       </template>
       <div class="example-align-items-start">
@@ -71,7 +71,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         ...or a different radius by specifying a radius property (with units).
       </template>
       <div class="example-align-items-start">
@@ -82,7 +82,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         Set the clickable property to make the pill a button which emits a 'click' event.
       </template>
       <div class="example-align-items-start">
@@ -92,7 +92,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         A pill will show a close button and emit a 'close' event when the closable property is set.
       </template>
       <div class="example-align-items-start">
@@ -104,7 +104,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="description">
+      <template #description>
         A pill will refuse to wrap and will show an ellipsis when the value is too long to fit in the provided space.
       </template>
       <div class="example-constrained-width">

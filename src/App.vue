@@ -3,14 +3,14 @@
                :user="user"
                :user-img="userImg"
                :role="role">
-    <template slot="logo">
+    <template #logo>
     </template>
 
-    <template slot="navbar"></template>
-    <template slot="sidebar"></template>
-    <template slot="sidebar-footer"></template>
+    <template #navbar></template>
+    <template #sidebar></template>
+    <template #sidebar-footer></template>
 
-    <template slot="footer">
+    <template #footer>
       <p class="default-footer">Vuestro ❤ Vue</p>
     </template>
 

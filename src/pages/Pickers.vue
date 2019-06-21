@@ -1,47 +1,47 @@
 <template>
   <vuestro-container>
     <vuestro-card color="var(--vuestro-purple)">
-      <template slot="heading">Pickers</template>
-      <template slot="description">
+      <template #heading>Pickers</template>
+      <template #description>
         Pickers are a necessary part of input to any Web application. Vuestro attempts to provide a comprehensive set of pickers for any need, from datetime pickers to color pickers.
       </template>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">Vuestro Color Picker</template>
-      <template slot="description">
+      <template #subheading>Vuestro Color Picker</template>
+      <template #description>
         Simple drop-down color picker to choose within a pre-defined palette.
       </template>
       <vuestro-color-picker v-model="color" :colors="colorOptions"></vuestro-color-picker>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">Vuestro Time Picker</template>
+      <template #subheading>Vuestro Time Picker</template>
     </vuestro-card>
 
     <vuestro-card cols="6">
-      <template slot="description">
+      <template #description>
         Select time by using spinner controls or typing in each field.
       </template>
       <vuestro-time-picker v-model="exampleTime"></vuestro-time-picker>
     </vuestro-card>
 
     <vuestro-card cols="6">
-      <template slot="description">
+      <template #description>
         ...include seconds by setting the seconds property
       </template>
       <vuestro-time-picker v-model="exampleTime" seconds></vuestro-time-picker>
     </vuestro-card>
 
     <vuestro-card cols="6">
-      <template slot="description">
+      <template #description>
         <span>Use UTC by setting the <em>utc</em> property</span>
       </template>
       <vuestro-time-picker v-model="exampleTime" utc seconds></vuestro-time-picker>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">Vuestro Date Picker</template>
+      <template #subheading>Vuestro Date Picker</template>
       <vuestro-date-picker @change="onChange"></vuestro-date-picker>
     </vuestro-card>
 

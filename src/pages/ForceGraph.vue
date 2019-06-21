@@ -1,7 +1,7 @@
 <template>
   <vuestro-grid :layout.sync="layout">
     <vuestro-card slot-scope="{ item }" :color="item.color">
-      <template slot="heading"><span class="drag">{{ item.title }}</span></template>
+      <template #heading><span class="drag">{{ item.title }}</span></template>
       <div class="frame">
         <vuestro-force-graph :data="item.data" :options="item.options"></vuestro-force-graph>
       </div>

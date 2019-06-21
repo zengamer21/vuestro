@@ -4,15 +4,15 @@
     <vuestro-container :class="{ outlines }" no-wrap>
 
       <vuestro-card cols="3">
-        <template slot="heading">VuestroCard - cols="3"</template>
-        <template slot="description">
+        <template #heading>VuestroCard - cols="3"</template>
+        <template #description>
           <span>
             Set the <strong>no-wrap</strong> property on the container to make cards full height, useful for dividing your layout into columns.
           </span>
         </template>
       </vuestro-card>
       <vuestro-card cols="9" color="var(--vuestro-green)">
-        <template slot="description">The layout will stretch to contain the content without breaking the column layout.</template>
+        <template #description>The layout will stretch to contain the content without breaking the column layout.</template>
       </vuestro-card>
 
     </vuestro-container>
