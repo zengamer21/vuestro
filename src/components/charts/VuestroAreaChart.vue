@@ -22,6 +22,7 @@
         <vuestro-svg-tooltip :x="lastHoverPoint.x"
                              :x-max="width"
                              :categoryKey="categoryKey"
+                             :utc="utc"
                              :series="processedSeries"
                              :values="data[lastHoverPoint.index]">
         </vuestro-svg-tooltip>
@@ -65,6 +66,7 @@ export default {
       showAxes: false,
       hideTooltip: false,
       notFilled: false,
+      utc: false,
     };
   },
   computed: {
@@ -86,7 +88,7 @@ export default {
   },
   watch: {
     data(newVal) {
-      this.prepareData();
+      this.redraw();
     },
   },
   beforeMount() {
@@ -94,16 +96,12 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.resize);
-    this.prepareData();
     this.resize();
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resize);
   },
   methods: {
-    prepareData() {
-      this.localData = _.cloneDeep(this.data);
-    },
     resize() {
       this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
       this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
@@ -125,11 +123,12 @@ export default {
     },
     redraw() {
       let scale;
+      this.localData = _.cloneDeep(this.data);
       if (this.timeSeries) {
         // use d3 time scale
         scale = d3.scaleTime();
         // make sure category data is a native Date
-        for (const d of this.localData) {
+        for (let d of this.localData) {
           if (!_.isDate(d[this.categoryKey])) {
             d[this.categoryKey] = new Date(d[this.categoryKey]);
           }
@@ -159,7 +158,7 @@ export default {
                      d3.max(extents, function(d) { return d[1] * 1.1; })]);
 
       // map the points the data
-      for (const d of this.localData) {
+      for (let d of this.localData) {
         d.x = scaleX(d[this.categoryKey]);
         d.max = this.height;
         for (const s of this.series) {
@@ -176,7 +175,6 @@ export default {
           this.cursorLine = this.getCursor([point]);
           this.$emit('select', this.data[closestPoint.index]);
           this.lastHoverPoint = closestPoint;
-          // console.log(this.data[closestPoint.index])
         }
       }
     },

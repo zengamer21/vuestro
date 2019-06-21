@@ -9,18 +9,26 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">Set the notFilled: true for a line chart</template>
+      <template slot="subheading">Set the notFilled: true option for a line chart</template>
       <div class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options2"></vuestro-area-chart>
       </div>
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">Set the showAxes: true to show axes</template>
+      <template slot="subheading">Set the showAxes: true option to show axes</template>
       <div class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options3"></vuestro-area-chart>
       </div>
     </vuestro-card>
+
+    <vuestro-card>
+      <template slot="subheading">Change the data property and the chart will update</template>
+      <div class="chart-wrapper">
+        <vuestro-area-chart :data="dynamicData" :options="options4"></vuestro-area-chart>
+      </div>
+    </vuestro-card>
+
   </vuestro-container>
 </template>
 
@@ -124,8 +132,30 @@ export default {
           },
         ],
       },
+      dynamicData: [],
+      options4: {
+        series: [
+          {
+            title: 'CPU1',
+            field: 'cpu1',
+          },
+          {
+            title: 'CPU2',
+            field: 'cpu2',
+          },
+        ],
+      },
     };
   },
+  mounted() {
+    setInterval(() => {
+      this.dynamicData.push({
+        key: new Date(),
+        cpu1: Math.floor(Math.random()*(100+1)),
+        cpu2: Math.floor(Math.random()*(100+1)),
+      });
+    }, 1000);
+  }
 };
 
 </script>

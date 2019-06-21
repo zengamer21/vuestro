@@ -2,7 +2,7 @@
   <g class="vuestro-svg-tooltip">
 		<rect :width="tooltipWidth" :height="tooltipHeight" :rx="radius"></rect>
     <text :x="padding/2" :y="padding" ref="text">
-      <tspan dy=".6em">{{ values[categoryKey] }}</tspan>
+      <tspan dy=".6em">{{ renderCategory(values[categoryKey]) }}</tspan>
       <template v-for="s in series">
         <tspan :x="padding/2" dy="1.2em" :fill="s.color" :stroke="s.color" stroke-width="2">|</tspan>
         <tspan>{{ s.title || s.field }}</tspan><tspan :x="tooltipWidth - padding/2" text-anchor="end">{{ values[s.field] }}</tspan>
@@ -27,6 +27,7 @@ export default {
     values: { type: null },
     padding: { type: Number, default: 10 },
     radius: { type: Number, default: 2 },
+    utc: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -79,6 +80,16 @@ export default {
 			this.tooltipWidth = size.width + this.padding;
 			// move it
       d3.select(this.$el).attr("transform", `translate(${newX}, ${newY})`);
+    },
+    renderCategory(d) {
+      if (d instanceof Date) {
+        if (this.utc) {
+          return d.toISOString();
+        } else {
+          return d.toLocaleString();
+        }
+      }
+      return d;
     },
   }
 };
