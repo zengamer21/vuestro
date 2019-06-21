@@ -92,7 +92,7 @@ export default {
           {
             title: 'Series 2',
             field: 'value2',
-            render: (d) => {
+            render(d) {
               return d.toFixed(2);
             },
           },
@@ -123,7 +123,7 @@ export default {
       options3: {
         showAxes: true,
         valueAxis: {
-          render: (d) => {
+          render(d) {
             return `${d.toFixed(2)} kb`;
           },
         },

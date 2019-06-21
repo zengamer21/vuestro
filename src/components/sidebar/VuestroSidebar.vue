@@ -113,7 +113,6 @@ export default {
 </script>
 
 <style>
-/* override these global css vars to set widths */
 .vuestro-app {
   --vuestro-sidebar-normal-width: 180px;
   --vuestro-sidebar-mini-width: 70px;

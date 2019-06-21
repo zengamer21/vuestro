@@ -131,6 +131,7 @@ export default {
 
   --vuestro-popup-bg: #464748;
   --vuestro-popup-fg: #eee;
+  --vuestro-tooltip-opacity: 0.8;
 
   --vuestro-selection: #2e3037;
   --vuestro-outline: #aaa;

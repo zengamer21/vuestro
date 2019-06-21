@@ -109,6 +109,7 @@ export default {
 
 .vuestro-svg-tooltip > rect {
   fill: var(--vuestro-popup-bg);
+  opacity: var(--vuestro-tooltip-opacity);
 }
 
 .vuestro-svg-tooltip > text {
