@@ -1,10 +1,6 @@
 <template>
   <vuestro-grid :layout.sync="layout">
-    <vuestro-card slot-scope="{ item }" :color="item.color">
-      <template v-if="item.title" #heading><span class="drag">{{ item.title }}</span></template>
-      <vuestro-stat-tile v-if="item.type == 'counter'" :data="item.data" :options="item.options"></vuestro-stat-tile>
-      <vuestro-donut v-else-if="item.type == 'donut'" :title="item.value+'%'" :percentage="item.value" :width="14"></vuestro-donut>
-    </vuestro-card>
+    <component slot-scope="{ item }" :is="item.type" :data="item.data" :options="item.options"></component>
   </vuestro-grid>
 </template>
 
@@ -14,12 +10,25 @@ export default {
   name: 'Dashboard',
   data() {
     return {
-      cnt: 0,
-      layout: [
+      exampleData: [{
+        stat: 0,
+      }],
+      layout: [],
+    };
+  },
+  mounted() {
+    this.loadDefaultLayout();
+    setInterval(() => {
+      this.exampleData[0].stat++;
+    }, 1000);
+  },
+  methods: {
+    loadDefaultLayout() {
+      this.layout = [
         {
           id: 'w0',
-          type: 'counter',
-          data: [344],
+          type: 'vuestro-stat-tile',
+          data: this.exampleData,
           options: {
             title: 'Users',
             color: 'var(--vuestro-primary)',
@@ -34,8 +43,8 @@ export default {
         },
         {
           id: 'w1',
-          type: 'counter',
-          data: [13328],
+          type: 'vuestro-stat-tile',
+          data: [{ stat: 13328}],
           options: {
             title: 'Sales',
             color: 'var(--vuestro-purple)',
@@ -50,8 +59,8 @@ export default {
         },
         {
           id: 'w2',
-          type: 'counter',
-          data: [2373],
+          type: 'vuestro-stat-tile',
+          data: [{ stat: 2373}],
           options: {
             title: 'Logs',
             color: 'var(--vuestro-cyan)',
@@ -66,8 +75,8 @@ export default {
         },
         {
           id: 'w3',
-          type: 'counter',
-          data: ['running'],
+          type: 'vuestro-stat-tile',
+          data: [{ stat: 'running'}],
           options: {
             title: 'Status',
             color: 'var(--vuestro-danger)',
@@ -80,9 +89,9 @@ export default {
             h: 1,
           }
         },
-      ],
-    };
-  },
+      ];
+    },
+  }
 };
 
 </script>

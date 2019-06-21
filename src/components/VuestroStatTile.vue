@@ -2,7 +2,7 @@
   <vuestro-panel stretch class="vuestro-stat-tile" :color="color">
     <div class="vuestro-stat-tile-title drag">{{ title }}</div>
     <icon class="vuestro-stat-tile-icon" v-if="icon" :name="icon"></icon>
-    <div class="vuestro-stat-tile-value">{{ data[0] | vuestroCommas }}</div>
+    <div class="vuestro-stat-tile-value">{{ data[data.length-1].stat | vuestroCommas }}</div>
   </vuestro-panel>
 </template>
 
@@ -17,7 +17,7 @@ export default {
     Icon,
   },
   props: {
-    data: { type: Array, default: 0 },
+    data: { type: Array, required: true }, // needs to contain object(s) with "stat" field
     options: { type: Object, default: () => ({}) },
   },
   data() {
