@@ -24,7 +24,7 @@
                              :categoryKey="categoryKey"
                              :utc="utc"
                              :series="processedSeries"
-                             :values="data[lastHoverPoint.index]">
+                             :values="localData[lastHoverPoint.index]">
         </vuestro-svg-tooltip>
       </template>
     </svg>
@@ -62,6 +62,9 @@ export default {
       series: [{
         field: 'value'
       }],
+      valueAxis: {
+        // render()
+      },
       colors: d3.schemeCategory10,
       showAxes: false,
       hideTooltip: false,
@@ -140,10 +143,16 @@ export default {
       let scaleX = scale.range([0, this.width]);
       let scaleY = d3.scaleLinear().range([this.height, 0]);
 
+
       this.scale = {
         x: d3.axisTop(scaleX),
         y: d3.axisRight(scaleY),
       };
+
+      // use value axis render function if provided
+      if (this.valueAxis.render && typeof(this.valueAxis.render) === 'function') {
+        this.scale.y.tickFormat(this.valueAxis.render);
+      }
 
       if (this.timeSeries) {
         scaleX.domain(d3.extent(this.localData, (d) => d[this.categoryKey]));
@@ -197,7 +206,6 @@ export default {
         d3.select(el).call(binding.value[binding.arg]);
       }
     },
-
   }
 };
 </script>

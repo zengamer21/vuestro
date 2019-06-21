@@ -5,7 +5,7 @@
       <tspan dy=".6em">{{ renderCategory(values[categoryKey]) }}</tspan>
       <template v-for="s in series">
         <tspan :x="padding/2" dy="1.2em" :fill="s.color" :stroke="s.color" stroke-width="2">|</tspan>
-        <tspan>{{ s.title || s.field }}</tspan><tspan :x="tooltipWidth - padding/2" text-anchor="end">{{ values[s.field] }}</tspan>
+        <tspan>{{ s.title || s.field }}</tspan><tspan :x="tooltipWidth - padding/2" text-anchor="end">{{ values[s.field] | filterProxy(s.render, values) }}</tspan>
       </template>
     </text>
   </g>
@@ -91,7 +91,16 @@ export default {
       }
       return d;
     },
-  }
+  },
+  filters: {
+    filterProxy(value, renderer, row) {
+      if (renderer) {
+        return renderer(value, row);
+      } else {
+        return value;
+      }
+    }
+  },
 };
 
 </script>

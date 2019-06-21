@@ -97,6 +97,7 @@
 
 <script>
 
+/* global Vue */
 export default {
   name: 'Table',
   data() {

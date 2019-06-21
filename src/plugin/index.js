@@ -100,6 +100,18 @@ export default {
       return `${('0' + d.getHours()).slice(-2)}:${('0' + d.getMinutes()).slice(-2)}:${('0' + d.getSeconds()).slice(-2)}`;
     });
 
+    Vue.filter('vuestroBytes', (intNum) => {
+      if (intNum == null) {
+        return '';
+      }
+      const suffixes = ['B', 'kB', 'MB', 'GB', 'TB', 'PB'];
+      if (intNum < 1000) {
+        return intNum.toFixed(1) + suffixes[0];
+      }
+      let i = parseInt(Math.floor(Math.log(intNum) / Math.log(1000)), 10);
+      return (intNum / Math.pow(1000, i)).toFixed(1) + suffixes[i];
+    });
+
     Vue.directive('vuestro-blur', {
       bind: function (el, binding, vnode) {
         el.clickOutsideEvent = function(event) {

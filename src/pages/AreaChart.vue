@@ -16,7 +16,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template slot="subheading">Set the showAxes: true option to show axes</template>
+      <template slot="subheading">Set the showAxes: true option to show axes and use a render function to manipulate value scale labels</template>
       <div class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options3"></vuestro-area-chart>
       </div>
@@ -34,6 +34,7 @@
 
 <script>
 
+/* global Vue */
 export default {
   name: 'AreaChart',
   data() {
@@ -91,6 +92,9 @@ export default {
           {
             title: 'Series 2',
             field: 'value2',
+            render: (d) => {
+              return d.toFixed(2);
+            },
           },
           {
             title: 'Series 3',
@@ -108,6 +112,7 @@ export default {
           {
             title: 'Series 2',
             field: 'value2',
+            render: Vue.filter('vuestroBytes'),
           },
           {
             title: 'Series 3',
@@ -117,6 +122,11 @@ export default {
       },
       options3: {
         showAxes: true,
+        valueAxis: {
+          render: (d) => {
+            return `${d.toFixed(2)} kb`;
+          },
+        },
         series: [
           {
             title: 'Series 1',
@@ -134,6 +144,7 @@ export default {
       },
       dynamicData: [],
       options4: {
+        utc: true,
         series: [
           {
             title: 'CPU1',
@@ -154,6 +165,9 @@ export default {
         cpu1: Math.floor(Math.random()*(100+1)),
         cpu2: Math.floor(Math.random()*(100+1)),
       });
+      if (this.dynamicData.length > 100) {
+        this.dynamicData.shift();
+      }
     }, 1000);
   }
 };
