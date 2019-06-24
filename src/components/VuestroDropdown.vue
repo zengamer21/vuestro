@@ -42,14 +42,16 @@ export default {
   },
   mounted() {
     // if VuestroButton was used as activator, wire up it's events
-    if (this.$slots.button) {
-      this.$slots.button[0].componentInstance.$on('click', () => {
-        this.onClick();
-      });
-      this.$slots.button[0].componentInstance.$on('hover', () => {
-        this.onHover();
-      });
-    }
+    this.$nextTick(() => {
+      if (this.$slots.button) {
+        this.$children[0].$on('click', () => {
+          this.onClick();
+        });
+        this.$children[0].$on('hover', () => {
+          this.onHover();
+        });
+      }
+    });
     // see if menu would go offscreen so we can flip it to right justified
     if (this.$refs.content.getBoundingClientRect().right > window.innerWidth) {
       this.left = false;

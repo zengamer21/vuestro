@@ -90,6 +90,10 @@
         <vuestro-list-button>Menu Item 2</vuestro-list-button>
       </vuestro-dropdown>
     </vuestro-card>
+    
+    <vuestro-card>
+    </vuestro-card>
+    
 
     <vuestro-card>
       <template #description>

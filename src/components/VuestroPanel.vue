@@ -5,7 +5,7 @@
     <!--TOOLBAR-->
     <div v-if="$slots.title || $slots.toolbar || collapsible" class="vuestro-panel-title-toolbar">
       <vuestro-caret v-if="collapsible"
-                     :collapsed="collapsed"
+                     :collapsed="isCollapsed"
                      @click="toggleCollapse">
       </vuestro-caret>
       <vuestro-title class="vuestro-panel-title"
@@ -18,7 +18,7 @@
         <slot name="toolbar"></slot>
       </div>
     </div>
-    <div v-if="!collapsed" class="vuestro-panel-contents" :class="[contentPadding]">
+    <div v-show="!isCollapsed" class="vuestro-panel-contents" :class="[contentPadding]">
       <slot></slot>
     </div>
   </div>
@@ -38,10 +38,20 @@ export default {
     collapsed: { type: Boolean, default: false },
     contentPadding: { type: String, default: '' },
   },
+  data() {
+    return {
+      isCollapsed: this.collapsed,
+    };
+  },
+  watch: {
+    collapsed(newVal) {
+      this.isCollapsed = newVal;
+    },
+  },
   methods: {
     toggleCollapse() {
       if (this.collapsible) {
-        this.collapsed = !this.collapsed;
+        this.isCollapsed = !this.isCollapsed;
         this.$emit('toggle');
       }
     }
