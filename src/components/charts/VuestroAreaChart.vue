@@ -143,7 +143,6 @@ export default {
       let scaleX = scale.range([0, this.width]);
       let scaleY = d3.scaleLinear().range([this.height, 0]);
 
-
       this.scale = {
         x: d3.axisTop(scaleX),
         y: d3.axisRight(scaleY),

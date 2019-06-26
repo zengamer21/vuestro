@@ -27,7 +27,7 @@ export default {
 }
 
 .vuestro-clean-kvp-sm .vuestro-clean-kvp-key {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 200;
 }
 

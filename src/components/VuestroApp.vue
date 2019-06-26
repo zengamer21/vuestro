@@ -109,6 +109,7 @@ export default {
   --vuestro-teal: #87e6ca;
   --vuestro-cyan: #42b9cc;
   --vuestro-magenta: #ed23a9;
+  --vuestro-gold: #fce228;
 
   --vuestro-white: #fff;
   --vuestro-black: #000;
