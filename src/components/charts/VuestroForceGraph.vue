@@ -59,7 +59,17 @@ export default {
       selectedNode: null,
       colorScale: d3.scaleOrdinal(d3.schemeCategory10),
       labels: false,
+      graph: null,
     };
+  },
+  watch: {
+    data(newVal) {
+      _.merge(this.nodes, newVal.nodes);
+      _.merge(this.links, newVal.links);
+      this.graph.nodes(this.nodes)
+      .force('link', d3.forceLink(this.links))
+      .alpha(1).restart();
+    },
   },
   beforeMount() {
     _.merge(this, this.options);
@@ -80,16 +90,16 @@ export default {
       .force('collide', d3.forceCollide(this.nodeRadius*2));
     },
     resize() {
-      this.$nextTick(() => {
-        this.width = this.$el.clientWidth;
-        this.height = this.$el.clientHeight;
-        if (this.data.nodes && this.data.links) {
+      if (this.nodes.length > 0) {
+        this.$nextTick(() => {
+          this.width = this.$el.clientWidth;
+          this.height = this.$el.clientHeight;
           this.graph = this.forceGraph(this.nodes, this.links);
           this.graph.on("tick", (d) => {
             this.$forceUpdate();
           });
-        }
-      });
+        });
+      }
     },
     onSelectNode(n) {
       this.dragNode = n;
@@ -144,6 +154,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  flex-grow: 1;
   overflow: hidden;
 }
 

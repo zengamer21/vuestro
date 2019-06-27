@@ -86,7 +86,7 @@ export default {
   background-color: var(--vuestro-modal-content-bg);
   width: 600px;
   min-height: 200px;
-  max-height: 50%;
+  max-height: 80%;
   margin-top: 10vh;
   overflow: hidden;
   position: relative;
