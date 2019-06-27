@@ -34,7 +34,7 @@
     </template>
 
     <!--MENU-->
-    <transition name="vuestro-sidebar" mode="out-in">
+    <transition name="vuestro-sidebar" mode="out-in" @after-leave="afterLeave">
       <vuestro-sidebar-menu v-if="!localMini"
                             :role="role"
                             :routes="$router.options.routes"
@@ -55,7 +55,7 @@
 
 <script>
 
-/* global _ */
+/* global _, window, Event */
 import VuestroGeoPattern from '../VuestroGeoPattern.vue';
 import VuestroSidebarMenu from './VuestroSidebarMenu.vue';
 import VuestroMiniSidebarMenu from './VuestroMiniSidebarMenu.vue';
@@ -79,10 +79,10 @@ export default {
     return {
       routes: _.cloneDeep(this.$router.options.routes),
       geoColor: '',
-      localMini: false,
+      localMini: this.mini,
     };
   },
-  mounted() {
+  beforeMount() {
     this.localMini = this.mini;
     this.checkSidebar();
   },
@@ -97,9 +97,6 @@ export default {
       this.localMini = !this.localMini;
       this.$emit('update:mini', this.localMini);
       this.checkSidebar();
-      setTimeout(() => {
-        window.dispatchEvent(new Event('resize'));
-      }, 400);
     },
     checkSidebar() {
       if (this.localMini) {
@@ -108,6 +105,9 @@ export default {
         document.body.classList.remove('vuestro-mini-sidebar');
       }
     },
+    afterLeave() {
+      window.dispatchEvent(new Event('resize'));
+    }
   },
 };
 </script>
@@ -215,7 +215,7 @@ export default {
 
 /* transitions */
 .vuestro-sidebar-enter-active, .vuestro-sidebar-leave-active {
-  transition: opacity 0.2s;
+  transition: opacity 0.4s;
 }
 .vuestro-sidebar-enter, .vuestro-sidebar-leave-to {
   opacity: 0;

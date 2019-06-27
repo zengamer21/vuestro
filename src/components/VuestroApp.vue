@@ -15,7 +15,8 @@
         <slot name="sidebar">
           <vuestro-sidebar :user="user"
                            :user-img="userImg"
-                           :role="role">
+                           :role="role"
+                           mini>
             <template #logo>
               <slot name="sidebar-logo"></slot>
             </template>
