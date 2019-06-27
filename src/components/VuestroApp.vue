@@ -1,7 +1,7 @@
 <template>
   <div class="vuestro-app" :class="{ 'vuestro-dark': dark }">
     <!--MAIN TEMPLATE-->
-    <template v-if="authenticated && !loading">
+    <template v-if="authenticated && !localLoading">
 
       <!--SLOT WITH DEFAULT NAVBAR-->
       <slot name="navbar">
@@ -67,6 +67,11 @@ export default {
     role: { type: String, default: '' },      // user role
     dark: { type: Boolean, default: false },  // dark mode
   },
+  data() {
+    return {
+      loadlLoading: this.loading,
+    };
+  },
   watch: {
     '$route'(to, from) {
       if (to.meta.scrollTop) {
@@ -75,7 +80,12 @@ export default {
           this.$refs.routerView.scrollTop = to.meta.scrollTop;
         });
       }
-    }
+    },
+    loading(newVal) {
+      this.$nextTick(() => {
+        this.localLoading = newVal;
+      });
+    },
   },
   methods: {
     onScroll(e) {
