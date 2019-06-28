@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-card" :class="[`width-${cols}`]">
+  <div class="vuestro-card" :class="[`basis-${cols}`]">
     <!--SLOT FOR HEADER TEXT (only show if "heading" slot was provided)-->
     <div v-if="$slots.heading"
          class="vuestro-card-heading"
@@ -83,53 +83,41 @@ export default {
   cursor: default;
 }
 
-.vuestro-card.width-1 {
+.vuestro-card.basis-1 {
   flex: 0 0 8.33%;
-  max-width: 16.67%;
 }
-.vuestro-card.width-2 {
+.vuestro-card.basis-2 {
   flex: 0 0 16.67%;
-  max-width: 16.67%;
 }
-.vuestro-card.width-3 {
+.vuestro-card.basis-3 {
   flex: 0 0 25%;
-  max-width: 25%;
 }
-.vuestro-card.width-4 {
+.vuestro-card.basis-4 {
   flex: 0 0 33.33%;
-  max-width: 33.33%;
 }
-.vuestro-card.width-5 {
+.vuestro-card.basis-5 {
   flex: 0 0 41.67%;
-  max-width: 41.67%;
 }
-.vuestro-card.width-6 {
+.vuestro-card.basis-6 {
   flex: 0 0 50%;
-  max-width: 50%;
 }
-.vuestro-card.width-7 {
+.vuestro-card.basis-7 {
   flex: 0 0 58.33%;
-  max-width: 58.33%;
 }
-.vuestro-card.width-8 {
+.vuestro-card.basis-8 {
   flex: 0 0 66.67%;
-  max-width: 66.67%;
 }
-.vuestro-card.width-9 {
+.vuestro-card.basis-9 {
   flex: 0 0 75%;
-  max-width: 75%;
 }
-.vuestro-card.width-10 {
+.vuestro-card.basis-10 {
   flex: 0 0 83.33%;
-  max-width: 83.33%;
 }
-.vuestro-card.width-11 {
+.vuestro-card.basis-11 {
   flex: 0 0 91.67%;
-  max-width: 91.67%;
 }
-.vuestro-card.width-12 {
+.vuestro-card.basis-12 {
   flex: 0 0 100%;
-  max-width: 100%;
 }
 
 </style>

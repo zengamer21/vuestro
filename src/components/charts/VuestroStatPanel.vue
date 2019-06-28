@@ -1,8 +1,8 @@
 <template>
-  <vuestro-panel stretch class="vuestro-stat-tile" :color="color">
-    <div class="vuestro-stat-tile-title drag">{{ title }}</div>
-    <icon class="vuestro-stat-tile-icon" v-if="icon" :name="icon"></icon>
-    <div class="vuestro-stat-tile-value">{{ data[data.length-1].stat | vuestroCommas }}</div>
+  <vuestro-panel stretch class="vuestro-stat-panel" :color="color">
+    <div class="vuestro-stat-panel-title drag">{{ title }}</div>
+    <icon class="vuestro-stat-panel-icon" v-if="icon" :name="icon"></icon>
+    <div class="vuestro-stat-panel-value">{{ data[data.length-1].stat | vuestroCommas }}</div>
   </vuestro-panel>
 </template>
 
@@ -12,7 +12,7 @@
 import Icon from 'vue-awesome/components/Icon';
 
 export default {
-  name: 'VuestroStatTile',
+  name: 'VuestroStatPanel',
   components: {
     Icon,
   },
@@ -36,7 +36,7 @@ export default {
 
 <style scoped>
 
-.vuestro-stat-tile-title {
+.vuestro-stat-panel-title {
   color: var(--vuestro-white);
   font-size: 24px;
   padding-top: 5px;
@@ -49,7 +49,7 @@ export default {
   cursor: default;
 }
 
-.vuestro-stat-tile-value {
+.vuestro-stat-panel-value {
   position: absolute;
   right: 0px;
   bottom: 4px;
@@ -60,7 +60,7 @@ export default {
   cursor: default;
 }
 
-.vuestro-stat-tile-icon {
+.vuestro-stat-panel-icon {
   color: var(--vuestro-white);
   position: absolute;
   left: 15px;

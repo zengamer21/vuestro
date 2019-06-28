@@ -33,6 +33,14 @@
         </vuestro-panel>
       </vuestro-card>
 
+      <vuestro-container column no-wrap>
+        <vuestro-card cols="3">
+          <template #heading>Column mode container with cols="3"</template>
+        </vuestro-card>
+        <vuestro-card cols="9">
+          <template #heading>Column mode container with cols="9"</template>
+        </vuestro-card>
+      </vuestro-container>
 
     </vuestro-container>
   </div>

@@ -168,12 +168,11 @@ export default {
 
 .vuestro-force-graph-toolbar {
   width: 100%;
-  padding: 2px 5px;
+  padding: 2px;
   position: absolute;
   bottom: 0;
   font-size: 11px;
   display: flex;
-  justify-content: flex-end;
 }
 
 </style>
