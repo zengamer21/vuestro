@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-object-browser-item">
-    <div v-for="(v, k) in data" :key="k">
+    <div v-for="(v, k) in data">
       <div class="vuestro-object-browser-item-gutter">
         <vuestro-caret v-if="isObject(v) || isArray(v)" :collapsed="isCollapsed(k)" @click="toggleCollapse(k)"></vuestro-caret>
       </div>
@@ -9,8 +9,8 @@
         <template v-if="isObject(v) || isArray(v)">
           <span v-if="isArray(v)">Array[{{ v.length }}]</span>
           <span v-else>Object[{{ Object.keys(v).length }}]</span>
-          <div v-if="expanded.indexOf(k) >= 0" class="vuestro-object-browser-item-sub">
-            <vuestro-object-browser :expand-all="expandAll" :data="v"></vuestro-object-browser>
+          <div v-show="expanded.indexOf(k) >= 0" class="vuestro-object-browser-item-sub">
+            <vuestro-object-browser :ref="k" :expand-all="expandAll" :data="v"></vuestro-object-browser>
           </div>
         </template>
         <template v-else>
@@ -32,28 +32,34 @@ export default {
   name: 'VuestroObjectBrowser',
   props: {
     data: { required: true },
-    expandAll: { type: Boolean, default: false },
+    startExpanded: { type: Boolean, default: false },
   },
   data() {
     return {
       expanded: [],
     };
   },
-  watch: {
-    data() {
-      this.checkExpandAll();
-    },
-  },
   mounted() {
-    this.checkExpandAll();
+    if (this.startExpanded) {
+      this.expandAll();
+    }
   },
   methods: {
-    checkExpandAll() {
-      if (this.expandAll) {
-        _.forEach(this.data, (d, i) => {
-          this.expanded.push(i);
-        });
-      }
+    expandAll() {
+      _.forEach(this.data, (d, i) => {
+        if (this.$refs[i]) {
+          this.$refs[i][0].expandAll();
+        }
+        this.expanded.push(i);
+      });
+    },
+    collapseAll() {
+      this.expanded = [];
+      _.forEach(this.data, (d, i) => {
+        if (this.$refs[i]) {
+          this.$refs[i][0].collapseAll();
+        }
+      });
     },
     isCollapsed(d) {
       return this.expanded.indexOf(d) < 0;

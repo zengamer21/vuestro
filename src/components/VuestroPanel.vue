@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-panel"
-       :class="[ gutter, { dark, stretch }]"
+       :class="[ gutter, { dark, stretch, scroll }]"
        :style="color ? { 'background-color': color }:{}">
     <!--TOOLBAR-->
     <div v-if="$slots.title || $slots.toolbar || collapsible" class="vuestro-panel-title-toolbar">
@@ -18,8 +18,11 @@
         <slot name="toolbar"></slot>
       </div>
     </div>
-    <div v-show="!isCollapsed" class="vuestro-panel-contents" :class="[contentPadding]">
+    <div ref="contents" v-show="!isCollapsed" class="vuestro-panel-contents" :class="[contentPadding]" @scroll="updateScroll">
       <slot></slot>
+    </div>
+    <div v-if="canScroll" class="vuestro-panel-scroll-arrow">
+      <vuestro-icon name="arrow-down"></vuestro-icon>
     </div>
   </div>
 </template>
@@ -37,10 +40,12 @@ export default {
     collapsible: { type: Boolean, default: false },
     collapsed: { type: Boolean, default: false },
     contentPadding: { type: String, default: '' },
+    scroll: { type: Boolean, default: false },
   },
   data() {
     return {
       isCollapsed: this.collapsed,
+      canScroll: false,
     };
   },
   watch: {
@@ -48,7 +53,13 @@ export default {
       this.isCollapsed = newVal;
     },
   },
+  updated() {
+    this.updateScroll();
+  },
   methods: {
+    updateScroll() {
+      this.canScroll = this.scroll && this.$refs.contents && (this.$refs.contents.scrollHeight - this.$refs.contents.scrollTop > this.$refs.contents.clientHeight);
+    },
     toggleCollapse() {
       if (this.collapsible) {
         this.isCollapsed = !this.isCollapsed;
@@ -91,12 +102,16 @@ export default {
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .vuestro-panel.stretch {
   flex-grow: 1;
 }
 .vuestro-panel:not(:first-child) {
   margin-top: var(--gutter-size);
+}
+.vuestro-panel.scroll {
+  overflow: hidden;
 }
 
 /* border only for dark ui, whether it's forced through a prop, or global */
@@ -141,6 +156,9 @@ export default {
 .vuestro-panel.stretch > .vuestro-panel-contents {
   flex-grow: 1;
 }
+.vuestro-panel.scroll > .vuestro-panel-contents {
+  overflow: auto;
+}
 .vuestro-panel-contents.sm {
   padding: 2px;
 }
@@ -153,6 +171,13 @@ export default {
 /* reset top padding when toolbar is present */
 .vuestro-panel-contents:not(:only-child) {
   padding-top: 0;
+}
+
+.vuestro-panel-scroll-arrow {
+  color: var(--vuestro-text-color-muted);
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
 }
 
 </style>
