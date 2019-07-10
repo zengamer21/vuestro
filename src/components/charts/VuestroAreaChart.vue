@@ -28,6 +28,10 @@
         </vuestro-svg-tooltip>
       </template>
     </svg>
+    <!--<div class="vuestro-chart-toolbar">-->
+    <!--  <vuestro-button pill size="sm" background="white">Filled</vuestro-button>-->
+    <!--  <vuestro-button pill size="sm" background="white">Stacked</vuestro-button>-->
+    <!--</div>-->
   </div>
 </template>
 

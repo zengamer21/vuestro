@@ -21,7 +21,7 @@
         Specify columns array property to format column headers and provide options such as padding, sortable, sort (default direction), and a render function.
       </template>
       <vuestro-panel>
-        <vuestro-table :columns="exampleColumns" :data="exampleData"></vuestro-table>
+        <vuestro-table :options="exampleOptions" :data="exampleData"></vuestro-table>
       </vuestro-panel>
     </vuestro-card>
 
@@ -30,7 +30,7 @@
         Provide a template for cells and headers through the cell/header slot. The slot scope object "item" contains a column specifier for headers and both the column specifier and row data item for cells.
       </template>
       <vuestro-panel>
-        <vuestro-table :columns="exampleColumns" :data="exampleData">
+        <vuestro-table :options="exampleOptions" :data="exampleData">
           <template #header="{ item }">
             {{ item }}
           </template>
@@ -46,7 +46,7 @@
         Provide a template for the entire row through the row slot. The slot must contain enough 'td' elements to fill the row. Also, some of the column options such as align will need to be implemented by the parent.
       </template>
       <vuestro-panel>
-        <vuestro-table :columns="exampleColumns" :data="exampleData">
+        <vuestro-table :options="exampleOptions" :data="exampleData">
           <template #row="{ item }">
             <td>{{ item }}</td>
             <td>{{ item }}</td>
@@ -62,7 +62,7 @@
         Specify "component" header property to use a Vue component to render a particular column
       </template>
       <vuestro-panel>
-        <vuestro-table :columns="exampleColumns2" :data="exampleData"></vuestro-table>
+        <vuestro-table :options="exampleOptions2" :data="exampleData"></vuestro-table>
       </vuestro-panel>
     </vuestro-card>
 
@@ -71,7 +71,7 @@
         Set the no-data slot to provide a message when data length is zero.
       </template>
       <vuestro-panel>
-        <vuestro-table :columns="exampleColumns2" :data="[]">
+        <vuestro-table :options="exampleOptions2" :data="[]">
           <template #no-data>
             No data to show
           </template>
@@ -81,10 +81,10 @@
 
     <vuestro-card>
       <template #subheading>
-        Set the no-header property to skip the header row
+        <span>Set the <em>noHeader: true</em> option to skip the header row</span>
       </template>
       <vuestro-panel>
-        <vuestro-table no-header :columns="exampleColumns2" :data="exampleData">
+        <vuestro-table :options="exampleOptions3" :data="exampleData">
           <template #no-data>
             No data to show
           </template>
@@ -102,55 +102,62 @@ export default {
   name: 'Table',
   data() {
     return {
-      exampleColumns: [
-        {
-          field: 'firstName',
-          title: 'First Name',
-          sortable: true,
-        },
-        {
-          field: 'lastName',
-          title: 'Last Name',
-          sortable: true,
-          sort: 'asc',
-        },
-        {
-          field: 'phone',
-          title: 'Phone No. (centered, render fn)',
-          align: 'center',
-          render: Vue.filter('vuestroPhoneUS'),
-        },
-        {
-          field: 'email',
-          title: 'Email (right-justified, zero padding)',
-          align: 'right',
-          padding: 0,
-        },
-      ],
-      exampleColumns2: [
-        {
-          field: 'firstName',
-          title: 'First Name',
-          sortable: true,
-        },
-        {
-          field: 'lastName',
-          title: 'Last Name',
-          sortable: true,
-        },
-        {
-          field: 'phone',
-          title: 'Phone No. (centered, render fn)',
-          align: 'center',
-          render: Vue.filter('vuestroPhoneUS'),
-        },
-        {
-          field: 'email',
-          title: 'Email (VuestroEditableText component)',
-          align: 'right',
-          component: 'VuestroEditableText',
-        },
-      ],
+      exampleOptions: {
+        columns: [
+          {
+            field: 'firstName',
+            title: 'First Name',
+            sortable: true,
+          },
+          {
+            field: 'lastName',
+            title: 'Last Name',
+            sortable: true,
+            sort: 'asc',
+          },
+          {
+            field: 'phone',
+            title: 'Phone No. (centered, render fn)',
+            align: 'center',
+            render: Vue.filter('vuestroPhoneUS'),
+          },
+          {
+            field: 'email',
+            title: 'Email (right-justified, zero padding)',
+            align: 'right',
+            padding: 0,
+          },
+        ],
+      },
+      exampleOptions2: {
+        columns: [
+          {
+            field: 'firstName',
+            title: 'First Name',
+            sortable: true,
+          },
+          {
+            field: 'lastName',
+            title: 'Last Name',
+            sortable: true,
+          },
+          {
+            field: 'phone',
+            title: 'Phone No. (centered, render fn)',
+            align: 'center',
+            render: Vue.filter('vuestroPhoneUS'),
+          },
+          {
+            field: 'email',
+            title: 'Email (VuestroEditableText component)',
+            align: 'right',
+            component: 'VuestroEditableText',
+          },
+        ],
+      },
+      exampleOptions3: {
+        noHeader: true,
+      },
       exampleData: [
         {
           firstName: 'Trent',

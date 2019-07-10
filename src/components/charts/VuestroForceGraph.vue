@@ -30,7 +30,7 @@
         </text>
       </g>
     </svg>
-    <div class="vuestro-force-graph-toolbar">
+    <div class="vuestro-chart-toolbar">
       <vuestro-button pill size="sm" @click="onReset">Reset</vuestro-button>
       <vuestro-button pill size="sm" v-model="labels">Labels</vuestro-button>
     </div>
@@ -41,6 +41,7 @@
 
 /* global _ */
 import * as d3 from 'd3';
+import './VuestroChartStyle';
 
 export default {
   name: 'VuestroForceGraph',
@@ -104,7 +105,7 @@ export default {
     onSelectNode(n) {
       this.dragNode = n;
       this.selectedNode = n;
-      this.$emit('select', this.data.nodes[n.index]);
+      this.$emit('select', this.data.nodes[n.index], n.index);
     },
     onDrag(e) {
       if (this.dragNode) {
@@ -164,15 +165,6 @@ export default {
 
 .vuestro-force-graph-labels {
   pointer-events: none
-}
-
-.vuestro-force-graph-toolbar {
-  width: 100%;
-  padding: 2px;
-  position: absolute;
-  bottom: 0;
-  font-size: 11px;
-  display: flex;
 }
 
 </style>

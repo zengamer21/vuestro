@@ -1,14 +1,14 @@
 <template>
-  <vuestro-panel stretch class="vuestro-chart-panel">
+  <vuestro-panel stretch class="vuestro-table-panel">
     <template #title><span class="drag">{{ options.title }}</span></template>
-    <component :is="options.component" :data="data" :options="options"></component>
+    <vuestro-table :data="data" :columns=""></vuestro-table>
   </vuestro-panel>
 </template>
 
 <script>
 
 export default {
-  name: 'VuestroChartPanel',
+  name: 'VuestroTablePanel',
   props: {
     data: { required: true },
     options: { type: Object, required: true },
@@ -19,7 +19,7 @@ export default {
 
 <style scoped>
 
-.vuestro-chart-panel {
+.vuestro-table-panel {
   overflow: hidden;
 }
 

@@ -2,13 +2,14 @@
   <vuestro-container>
     <vuestro-card color="var(--vuestro-gold)">
       <template #heading>VuestroForceGraph</template>
-      <div class="frame">
+      <vuestro-panel class="frame" stretch>
         <vuestro-force-graph :data="forceGraphData" :options="forceGraphOptions" @select="onSelectNode"></vuestro-force-graph>
-      </div>
+      </vuestro-panel>
     </vuestro-card>
 
     <vuestro-card>
       <template #subheading>Selected Node</template>
+      <template #description>Select a node to receive an event with the node object and node index</template>
       <vuestro-object-browser :data="selectedNode"></vuestro-object-browser>
     </vuestro-card>
   </vuestro-container>
@@ -157,5 +158,8 @@ export default {
 
 <style scoped>
 
+.frame {
+  height: 400px;
+}
 
 </style>

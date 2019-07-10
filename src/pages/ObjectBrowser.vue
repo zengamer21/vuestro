@@ -18,10 +18,10 @@
 
     <vuestro-card>
       <template #subheading>
-        <span>Set the <em>expand-all</em> property to expand all objects and arrays by default</span>
+        <span>Set the <em>start-expanded</em> property to expand all objects and arrays at mount</span>
       </template>
       <vuestro-panel>
-        <vuestro-object-browser expand-all :data="testObject"></vuestro-object-browser>
+        <vuestro-object-browser start-expanded :data="testObject"></vuestro-object-browser>
       </vuestro-panel>
     </vuestro-card>
 
@@ -30,7 +30,7 @@
         VuestroObjectBrowser also works for a top-level array
       </template>
       <vuestro-panel>
-        <vuestro-object-browser expand-all :data="testArray"></vuestro-object-browser>
+        <vuestro-object-browser start-expanded :data="testArray"></vuestro-object-browser>
       </vuestro-panel>
     </vuestro-card>
 

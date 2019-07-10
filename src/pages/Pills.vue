@@ -3,7 +3,7 @@
     <vuestro-card color="var(--vuestro-purple)">
       <template #heading>Pills</template>
       <template #description>
-        Pills are a great way to represent either key-value pairs, or "grabbable" bits of information. They consist of an accented title along with a value. If a title is not provided, the first letter of the value will be used for the accented dot.
+        Pills are a great way to represent either key-value pairs, or "grabbable" bits of information. They consist of an color-accented title along with a value. If a title is not provided, the first letter of the value will be used for the accent dot.
       </template>
       <vuestro-pill value="Pill Value"></vuestro-pill>
     </vuestro-card>

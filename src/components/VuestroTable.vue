@@ -53,14 +53,18 @@ export default {
   },
   props: {
     data: { type: Array, default: () => [] },
-    columns: { type: Array, default: null },
-		noHeader: { type: Boolean, default: false },
+    options: { type: Object, default: () => ({}) },
   },
   data() {
     return {
       sort: [],
       filter: [],
+      columns: null,
+      noHeader: false,
     };
+  },
+  beforeMount() {
+    _.merge(this, this.options);
   },
   mounted() {
     if (this.columns) {

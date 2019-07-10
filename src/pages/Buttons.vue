@@ -18,18 +18,18 @@
 
     <vuestro-card>
       <template #description>
-        Basic button with FontAwesome icon
+        Basic button with VuestroIcon
       </template>
       <div class="example-flexbox">
         <vuestro-button>
-          <icon name="flag"></icon>
+          <vuestro-icon name="flag"></vuestro-icon>
         </vuestro-button>
       </div>
     </vuestro-card>
 
     <vuestro-card>
       <template #description>
-        Basic button with FontAwesome icon and label (make sure the labels is wrapped in a span/div for spacing in between)
+        Basic button with VuestroIcon and label (make sure the labels is wrapped in a span/div for spacing in between)
       </template>
       <div class="example-flexbox">
         <vuestro-button>

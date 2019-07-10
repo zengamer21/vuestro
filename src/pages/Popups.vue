@@ -84,16 +84,18 @@
       <template #description>
         VuestroDropdown automatically stretches to fill its container
       </template>
-      <vuestro-dropdown>
-        <template #title>Stretchy</template>
-        <vuestro-list-button>Menu Item 1</vuestro-list-button>
-        <vuestro-list-button>Menu Item 2</vuestro-list-button>
-      </vuestro-dropdown>
+      <div class="example-stretchy-container">
+        <vuestro-dropdown>
+          <template #title>Stretchy</template>
+          <vuestro-list-button>Menu Item 1</vuestro-list-button>
+          <vuestro-list-button>Menu Item 2</vuestro-list-button>
+        </vuestro-dropdown>
+      </div>
     </vuestro-card>
-    
+
     <vuestro-card>
     </vuestro-card>
-    
+
 
     <vuestro-card>
       <template #description>
@@ -215,6 +217,10 @@ export default {
   background-color: var(--vuestro-popup-bg);
   position: relative;
   justify-content: space-between;
+}
+
+.example-stretchy-container {
+  margin-bottom: 60px;
 }
 
 </style>
