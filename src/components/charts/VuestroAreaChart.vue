@@ -28,10 +28,6 @@
         </vuestro-svg-tooltip>
       </template>
     </svg>
-    <!--<div class="vuestro-chart-toolbar">-->
-    <!--  <vuestro-button pill size="sm" background="white">Filled</vuestro-button>-->
-    <!--  <vuestro-button pill size="sm" background="white">Stacked</vuestro-button>-->
-    <!--</div>-->
   </div>
 </template>
 
@@ -67,13 +63,14 @@ export default {
         field: 'value'
       }],
       valueAxis: {
-        // render()
+        // render() {}
       },
       colors: d3.schemeCategory10,
       showAxes: false,
       hideTooltip: false,
       notFilled: false,
       utc: false,
+      stacked: false,
     };
   },
   computed: {
@@ -81,7 +78,7 @@ export default {
       return d3.scaleOrdinal(this.colors);
     },
     getCursor() {
-      return d3.area().x(d => d.x).y0(d => d.max).y1(0);
+      return d3.area().x(d => d.x).y0(this.height).y1(0);
     },
     // process series prop by adding default colors
     processedSeries() {
@@ -115,14 +112,14 @@ export default {
       this.redraw();
     },
     getArea(v) {
-      let area = d3.area().x(d => d.x).y0(d => d.max).y1(d => d[`${v}_y`]);
+      let area = d3.area().x(d => d.x).y0(d => d[`${v}_y0`]).y1(d => d[`${v}_y1`]);
       if (this.smooth) {
         area.curve(d3.curveNatural);
       }
       return area(this.localData);
     },
     getLine(v) {
-      let line = d3.line().x(d => d.x).y(d => d[`${v}_y`]);
+      let line = d3.line().x(d => d.x).y(d => d[`${v}_y1`]);
       if (this.smooth) {
         line.curve(d3.curveNatural);
       }
@@ -131,6 +128,7 @@ export default {
     redraw() {
       let scale;
       this.localData = _.cloneDeep(this.data);
+
       if (this.timeSeries) {
         // use d3 time scale
         scale = d3.scaleTime();
@@ -162,19 +160,35 @@ export default {
       } else {
         scaleX.domain(this.localData.map((d) => d[this.categoryKey]));
       }
-      var extents = this.series.map((series) => {
-        return d3.extent(this.localData, function(d) { return d[series.field]; });
-      });
 
+      let stackedData;
+      let extents;
+      if (this.stacked) {
+        let keys = _.flatMap(this.series, 'field');
+        stackedData = d3.stack().keys(keys)(this.localData);
+        extents = this.series.map((series, idx) => {
+          return d3.extent(_.flatten(stackedData[idx]));
+        });
+      } else {
+        extents = this.series.map((series) => {
+          return d3.extent(this.localData, function(d) { return d[series.field]; });
+        });
+      }
       scaleY.domain([d3.min(extents, function(d) { return d[0]; }),
                      d3.max(extents, function(d) { return d[1] * 1.1; })]);
 
+
       // map the points the data
-      for (let d of this.localData) {
+      for (let [di, d] of this.localData.entries()) {
         d.x = scaleX(d[this.categoryKey]);
-        d.max = this.height;
-        for (const s of this.series) {
-          d[`${s.field}_y`] = scaleY(d[s.field]);
+        for (const [si, s] of this.series.entries()) {
+          if (stackedData) {
+            d[`${s.field}_y0`] = scaleY(stackedData[si][di][0]);
+            d[`${s.field}_y1`] = scaleY(stackedData[si][di][1]);
+          } else {
+            d[`${s.field}_y0`] = this.height;
+            d[`${s.field}_y1`] = scaleY(d[s.field]);
+          }
         }
       }
     },

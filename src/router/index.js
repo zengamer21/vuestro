@@ -25,6 +25,7 @@ import Typography from '../pages/Typography.vue';
 import Plugin from '../pages/Plugin.vue';
 import Mixins from '../pages/Mixins.vue';
 import Filters from '../pages/Filters.vue';
+import BarChart from '../pages/BarChart.vue';
 
 Vue.use(Router);
 
@@ -107,6 +108,15 @@ export default new Router({
           name: 'area-chart',
           path: 'area-chart',
           component: AreaChart,
+        },
+        {
+          meta: {
+            title: 'Bar Chart',
+            sidebar: true,
+          },
+          name: 'bar-chart',
+          path: 'bar-chart',
+          component: BarChart,
         },
         {
           meta: {

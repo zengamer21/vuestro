@@ -1,6 +1,6 @@
 <template>
   <vuestro-container>
-    <vuestro-card color="var(--vuestro-gold)">
+    <vuestro-card color="var(--vuestro-gold)" overflow-hidden>
       <template #heading>VuestroForceGraph</template>
       <vuestro-panel class="frame" stretch>
         <vuestro-force-graph :data="forceGraphData" :options="forceGraphOptions" @select="onSelectNode"></vuestro-force-graph>

@@ -1,5 +1,36 @@
 <template>
-  <div class="vuestro-bar-chart">
+  <div class="vuestro-bar-chart" >
+    <svg :width="width"
+         :height="height"
+         :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
+         >
+      <!--BARS-->
+      <!--<g v-for="s in processedSeries" :key="s.field">-->
+      <!--  <rect class="vuestro-bar-chart-bar" -->
+      <!--        :fill="s.color"-->
+      <!--        :x="/>-->
+      <!--</g>-->
+      <g v-for="d in localData">
+        <rect class="vuestro-bar-chart-bar"
+              :x="d.x"
+              :y="d.y"
+              :width="d.width"
+              :height="d.height"
+              :fill="color(d[categoryKey])">
+        </rect>
+      </g>
+      <!--TOOLTIP-->
+      <!--<template v-if="!hideTooltip && cursorLine.length > 0">-->
+      <!--  <path class="vuestro-bar-chart-cursor" :d="cursorLine" />-->
+      <!--  <vuestro-svg-tooltip :x="lastHoverPoint.x"-->
+      <!--                       :x-max="width"-->
+      <!--                       :categoryKey="categoryKey"-->
+      <!--                       :utc="utc"-->
+      <!--                       :series="processedSeries"-->
+      <!--                       :values="localData[lastHoverPoint.index]">-->
+      <!--  </vuestro-svg-tooltip>-->
+      <!--</template>-->
+    </svg>
   </div>
 </template>
 
@@ -18,17 +49,39 @@ export default {
     return {
       width: 0,
       height: 0,
-      fill: d3.scaleOrdinal(d3.schemeDark2),
-      scaleX: null,
-      scaleY: null,
+      localData: [],
+      colors: d3.schemeCategory10,
       margin: {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 20,
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
       },
-      valueKeys: ['value'],
+      categoryKey: 'key',
+      series: [{
+        field: 'value'
+      }],
+      stacked: false,
     };
+  },
+  computed: {
+    color() {
+      return d3.scaleOrdinal(this.colors);
+    },
+    // process series prop by adding default colors
+    processedSeries() {
+      return this.series.map((s) => {
+        if (s.field && !s.color) {
+          s.color = this.color(s.field);
+        }
+        return s;
+      });
+    },
+  },
+  watch: {
+    data(newVal) {
+      this.redraw();
+    },
   },
   beforeMount() {
     _.merge(this, this.options);
@@ -40,91 +93,56 @@ export default {
   beforeDestroy() {
     window.removeEventListener('resize', this.resize);
   },
-  watch: {
-    width() {
-      this.redraw();
-    },
-  },
   methods: {
     resize() {
       this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
       this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
+      this.redraw();
+    },
+    getBar(v) {
     },
     redraw() {
-      let stack = d3.stack().keys(d3.range(this.data.length));
-      let series = stack(this.data).map((data, i) => data.map(([y0, y1]) => [y0, y1, i]));
+      this.localData = _.cloneDeep(this.data);
 
-      this.scaleX = d3.scaleBand()
-                     .domain(this.data.map(function(d) { return d.title; }))
+      let scaleX = d3.scaleBand()
+                     .domain(this.data.map((d) => { return d[this.categoryKey]; }))
                      .rangeRound([this.margin.left, this.width - this.margin.right])
                      .padding(0.08);
-      this.scaleY = d3.scaleLinear()
-                     .domain([0, d3.max(this.data, function(d) { return d.value; })])
-                     .range([this.height - this.margin.bottom, this.margin.top]);
 
-      var yAxis = d3.axisLeft(this.scaleY);
+      let scaleY = d3.scaleLinear().range([this.height, 0]);
 
-      var svg = d3.select(this.$el).append('svg')
-          .attr('width', this.width)
-          .attr('height', this.height)
-        .append("g");
+      let stackedData;
+      let extents;
+      if (this.stacked) {
+        let keys = _.flatMap(this.series, 'field');
+        stackedData = d3.stack().keys(keys)(this.localData);
+        extents = this.series.map((series, idx) => {
+          return d3.extent(_.flatten(stackedData[idx]));
+        });
+      } else {
+        extents = this.series.map((series) => {
+          return d3.extent(this.localData, function(d) { return d[series.field]; });
+        });
+      }
+      scaleY.domain([0, d3.max(extents, function(d) { return d[1] * 1.1; })]);
 
-      // bars
-      svg.selectAll('g')
-        .data(series)
-        .enter().append('g')
-          .attr('fill', (d, i) => this.fill(i))
-        .selectAll("rect")
-        .data(d => d)
-        .join('rect')
-          .attr("x", (d) => { return this.scaleX(d.title); })
-          .attr("y", this.height - this.margin.bottom)
-          .attr("width", this.scaleX.bandwidth())
-          .attr("height", (d) => { return this.height - this.scaleY(d.value); });
-
-      // x axis
-      svg.append("g")
-        .attr("class", "x-axis")
-        .attr("transform", `translate(0, ${this.height - this.margin.bottom})`)
-        .call(d3.axisBottom(this.scaleX));
-
-      // y axis
-      svg.append("g")
-        .attr("class", "y-axis")
-        .call(yAxis)
-      .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("value");
-
-      this.grouped();
+      // set the bar descriptions
+      for (let [di, d] of this.localData.entries()) {
+        d.x = scaleX(d[this.categoryKey]);
+        d.width = scaleX.bandwidth();
+        d.y = scaleY(d.value1);
+        d.height = this.height - scaleY(d.value1);
+        for (const [si, s] of this.series.entries()) {
+          if (stackedData) {
+            d[`${s.field}_y0`] = scaleY(stackedData[si][di][0]);
+            d[`${s.field}_y1`] = scaleY(stackedData[si][di][1]);
+          } else {
+            d[`${s.field}_y0`] = this.height;
+            d[`${s.field}_y1`] = scaleY(d[s.field]);
+          }
+        }
+      }
     },
-    grouped() {
-      this.scaleY.domain([0, yMax]);
-
-      rect.transition()
-        .duration(500)
-        .delay((d, i) => i * 20)
-        .attr("x", (d, i) => this.scaleX(i) + this.scaleX.bandwidth() / n * d[2])
-        .attr("width", this.scaleX.bandwidth() / n)
-      .transition()
-        .attr("y", d => y(d[1] - d[0]))
-        .attr("height", d => y(0) - y(d[1] - d[0]));
-    },
-    stacked() {
-      this.scaleY.domain([0, y1Max]);
-
-      rect.transition()
-        .duration(500)
-        .delay((d, i) => i * 20)
-        .attr("y", d => y(d[1]))
-        .attr("height", d => y(d[0]) - y(d[1]))
-      .transition()
-        .attr("x", (d, i) => x(i))
-        .attr("width", x.bandwidth());
-    }
   },
 };
 
@@ -136,6 +154,10 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+.vuestro-bar-chart-bar {
+  transition: all 0.4s ease-in-out;
 }
 
 </style>

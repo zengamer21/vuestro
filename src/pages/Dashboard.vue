@@ -275,6 +275,7 @@ export default {
           options: {
             title: 'Area Chart',
             component: 'vuestro-area-chart',
+            toolbar: true,
             series: [
               {
                 title: 'Series 1',

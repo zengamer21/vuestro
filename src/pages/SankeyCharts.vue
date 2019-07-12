@@ -174,8 +174,4 @@ export default {
   border: 1px solid var(--vuestro-outline);
 }
 
-.drag {
-  cursor: move;
-}
-
 </style>
