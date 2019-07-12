@@ -155,15 +155,21 @@
 
     <vuestro-card>
       <template #description>
-        VuestroModal has a "buttons" slot for adding VuestroButtons
+        VuestroModal has a "toolbar" slot for adding VuestroButtons to the top right, and a "buttons" slot for adding VuestroButtons to the bottom right.
       </template>
       <vuestro-button @click="modalOpen3 = true">Open Modal</vuestro-button>
       <vuestro-modal :active.sync="modalOpen3" close-on-blur>
         <template #title>VuestroModal</template>
-        <template #buttons>
+        <template #toolbar>
           <vuestro-button variant="info">
-            <icon name="sync-alt"></icon>
+            <vuestro-icon name="sync-alt"></vuestro-icon>
             <span>Refresh</span>
+          </vuestro-button>
+        </template>
+        <template #buttons>
+          <vuestro-button variant="success">
+            <vuestro-icon name="save"></vuestro-icon>
+            <span>Save</span>
           </vuestro-button>
         </template>
         <p>Modal content</p>

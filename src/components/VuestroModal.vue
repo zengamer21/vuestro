@@ -6,8 +6,8 @@
           <div class="vuestro-modal-title">
             <slot name="title"></slot>
           </div>
-          <div class="vuestro-modal-buttons">
-            <slot name="buttons"></slot>
+          <div class="vuestro-modal-toolbar-buttons">
+            <slot name="toolbar"></slot>
             <vuestro-button class="close-button" @click="onClose">
               <template v-if="closeText.length > 0">
                 {{ closeText }}
@@ -20,6 +20,9 @@
         </div>
         <div class="vuestro-modal-default-slot">
           <slot></slot>
+        </div>
+        <div v-if="$slots.buttons" class="vuestro-modal-buttons">
+          <slot name="buttons"></slot>
         </div>
       </div>
     </div>
@@ -95,11 +98,6 @@ export default {
   align-content: start;
 }
 
-.vuestro-modal-inner >>> hr {
-  margin: 2px;
-  border-top: 1px solid rgba(0,0,0,0.2);
-}
-
 .vuestro-modal-titlebar {
   padding: 0 2px 0 10px;
   background-color: var(--vuestro-modal-title-bg);
@@ -116,7 +114,7 @@ export default {
   pointer-events: none;
 }
 
-.vuestro-modal-buttons {
+.vuestro-modal-toolbar-buttons {
   display: flex;
   margin-left: auto;
   font-size: 14px;
@@ -128,6 +126,13 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
+}
+
+.vuestro-modal-buttons {
+  border-top: 1px solid rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: flex-end;
+  padding: 2px;
 }
 
 @media screen and (max-width: 768px) {
