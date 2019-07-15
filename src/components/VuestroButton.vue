@@ -1,6 +1,8 @@
 <template>
   <div class="vuestro-button"
-       :class="[`vuestro-button-${variant}`, size, { dark, value, noBorder, noSpacing, round, pill, checkbox, disabled, stretch, rounded }]"
+       :class="[`vuestro-button-${variant}`,
+                size,
+                { dark, value, noBorder, noSpacing, round, pill, checkbox, disabled, stretch, rounded, shadow }]"
        @click="onClick"
        @mouseover="onHover">
     <div class="vuestro-button-content">
@@ -37,6 +39,7 @@ export default {
     stretch: { type: Boolean, default: false },
     size: { type: String, default: 'md' },
     dark: { type: Boolean, default: false },
+    shadow: { type: Boolean, default: false },
   },
   methods: {
     onClick(e) {
@@ -143,6 +146,9 @@ export default {
 }
 .vuestro-button.dark {
   background-color: var(--vuestro-widget-dark-bg);
+}
+.vuestro-button.shadow {
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
 }
 .vuestro-button-content {
   flex: 1 1 auto;

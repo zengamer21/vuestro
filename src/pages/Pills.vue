@@ -3,16 +3,28 @@
     <vuestro-card color="var(--vuestro-purple)">
       <template #heading>Pills</template>
       <template #description>
-        Pills are a great way to represent either key-value pairs, or "grabbable" bits of information. They consist of an color-accented title along with a value. If a title is not provided, the first letter of the value will be used for the accent dot.
+        Pills are a great way to represent either key-value pairs, or "grabbable" bits of information. They consist of an color-accented title along with a value. If a title is not provided, the first letter of the value property will be used for the accent dot.
       </template>
       <vuestro-pill value="Pill Value"></vuestro-pill>
     </vuestro-card>
 
     <vuestro-card>
       <template #description>
-        Pill with separate title and value.
+        <span>Pill with <em>title</em> and <em>value</em> properties</span>
       </template>
       <vuestro-pill title="Pill Title" value="Pill Value"></vuestro-pill>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description>
+        <span>Use VuestroPill with <em>title</em> and <em>value</em> slots to embed components</span>
+      </template>
+      <vuestro-pill>
+        <template #title>
+          <vuestro-icon name="pills"></vuestro-icon>
+        </template>
+        <template #value>value slot</template>
+      </vuestro-pill>
     </vuestro-card>
 
     <vuestro-card>
@@ -33,7 +45,15 @@
       </div>
     </vuestro-card>
 
+    <vuestro-card>
+      <template #description>
+        <span>Enable a shadow by setting the <em>shadow</em> property</span>
+      </template>
+      <div class="example-align-items-start">
+        <vuestro-pill title="Pill Title" value="Pill Value" shadow></vuestro-pill>
+      </div>
     </vuestro-card>
+
     <vuestro-card>
       <template #description>
         Use a VuestroTray to keep pills together!

@@ -73,6 +73,17 @@
 
     <vuestro-card>
       <template #description>
+        <span>Add shadow by setting the <em>shadow</em> property</span>
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button rounded shadow>
+          <span>Shadow</span>
+        </vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description>
         ...or go all the way by setting the round property
       </template>
       <div class="example-flexbox">
@@ -154,7 +165,7 @@
 
     <vuestro-card>
       <template #description>
-        Checkbox mode
+        <span>Enable checkbox mode by setting the <em>checkbox</em> property</span>
       </template>
       <div class="example-flexbox">
         <vuestro-button variant="info" checkbox v-model="exampleCheckbox"></vuestro-button>
@@ -194,7 +205,7 @@
 
     <vuestro-card>
       <template #description>
-        Disable the button by setting the disabled propery
+        <span>Disable the button by setting the <em>disabled</em> propery</span>
       </template>
       <div class="example-flexbox">
         <vuestro-button disabled>Disabled Button</vuestro-button>
@@ -207,7 +218,7 @@
 
     <vuestro-card>
       <template #description>
-        Enable dense arrangements by setting the no-spacing property
+        <span>Enable dense arrangements by setting the <em>no-spacing</em> property</span>
       </template>
       <div class="example-calculator">
         <vuestro-button no-spacing variant="primary">7</vuestro-button>
@@ -225,7 +236,7 @@
 
     <vuestro-card>
       <template #description>
-        Get dark mode by setting the dark property
+        <span>Get dark mode by setting the <em>dark</em> property</span>
       </template>
       <div class="example-flexbox dark">
         <vuestro-button dark size="lg">

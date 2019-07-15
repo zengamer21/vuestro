@@ -1,13 +1,21 @@
 <template>
   <span class="vuestro-pill"
-       :class="{ clickable }"
+       :class="{ clickable, shadow }"
        :style="style"
        @click="onClick">
-    <div class="vuestro-pill-title"
+    <div v-if="value" class="vuestro-pill-title"
          :style="color ? { 'background-color': color }:{}">
       {{ titleComputed }}
     </div>
+    <div v-if="$slots.title"
+         class="vuestro-pill-title vuestro-pill-slot">
+      <slot name="title"></slot>
+    </div>
     <div v-if="value" ref="theText" class="vuestro-pill-value">{{ value }}</div>
+    <div v-if="$slots.value"
+         class="vuestro-pill-value vuestro-pill-slot">
+      <slot name="value"></slot>
+    </div>
     <div v-if="closable" class="vuestro-pill-closer" @click="onClose">&times;</div>
   </span>
 </template>
@@ -24,6 +32,7 @@ export default {
     radius: { type: String, default: '999px' },
     closable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
+    shadow: { type: Boolean, default: false },
   },
   computed: {
     style() {
@@ -35,8 +44,10 @@ export default {
     titleComputed() {
       if (this.title) {
         return this.title;
-      } else {
+      } else if (this.value) {
         return this.value.slice(0, 1).toUpperCase();
+      } else {
+        return '';
       }
     },
   },
@@ -69,6 +80,9 @@ export default {
 .vuestro-pill.clickable {
   cursor: pointer;
 }
+.vuestro-pill.shadow {
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
+}
 
 .vuestro-pill-title {
   min-width: var(--size);
@@ -98,6 +112,11 @@ export default {
   margin-left: calc(var(--size)/-6);
   padding-right: calc(var(--size)/3);
   cursor: pointer;
+}
+
+.vuestro-pill-slot {
+  display: flex;
+  align-items: center;
 }
 
 </style>
