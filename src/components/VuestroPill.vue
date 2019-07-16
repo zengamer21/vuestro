@@ -3,7 +3,7 @@
        :class="{ clickable, shadow }"
        :style="style"
        @click="onClick">
-    <div v-if="value" class="vuestro-pill-title"
+    <div v-if="!$slots.title" class="vuestro-pill-title"
          :style="color ? { 'background-color': color }:{}">
       {{ titleComputed }}
     </div>
