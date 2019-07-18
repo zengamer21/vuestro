@@ -134,9 +134,10 @@ export default {
   display: flex;
   align-items: center;
   border-bottom: var(--vuestro-panel-toolbar-border);
+  background-color: var(--vuestro-panel-toolbar-bg);
 }
 .vuestro-panel-title {
-  color: var(--vuestro-text-color);
+  color: var(--vuestro-panel-toolbar-fg);
 }
 .vuestro-panel.dark .vuestro-panel-title {
   color: var(--vuestro-text-color-inverse);
@@ -145,7 +146,6 @@ export default {
   display: flex;
   align-items: center;
   margin-left: auto;
-  background-color: var(--vuestro-panel-toolbar-bg);
   color: var(--vuestro-panel-toolbar-fg);
 }
 

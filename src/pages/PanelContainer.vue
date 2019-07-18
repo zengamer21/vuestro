@@ -107,6 +107,20 @@
         </vuestro-panel>
       </vuestro-card>
 
+      <vuestro-card cols="6">
+        <vuestro-panel class="dark-toolbar">
+          <template #title>Vuestro Panel</template>
+          <template #toolbar>
+            <vuestro-button pill variant="white" no-border><icon name="sync-alt"></icon><span>Refresh</span></vuestro-button>
+          </template>
+          <vuestro-container>
+            <vuestro-card>
+              <template #description>CSS themed panel title bar (--vuestro-panel-toolbar-bg and --vuestro-panel-toolbar-fg)</template>
+            </vuestro-card>
+          </vuestro-container>
+        </vuestro-panel>
+      </vuestro-card>
+
 
     </vuestro-container>
   </div>
@@ -149,8 +163,9 @@ export default {
   position: relative;
 }
 
-.vuestro-panel-title {
-  /*font-size: 14px;*/
+.dark-toolbar {
+  --vuestro-panel-toolbar-bg: var(--vuestro-dark);
+  --vuestro-panel-toolbar-fg: white;
 }
 
 </style>
