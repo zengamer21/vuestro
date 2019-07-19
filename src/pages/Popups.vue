@@ -126,6 +126,20 @@
     </vuestro-card>
 
     <vuestro-card>
+      <template #description>
+        <span>Speaking of buttons...add buttons to the bottom of a dropdown by adding spans to the <em>buttons</em> slot</span>
+      </template>
+      <div class="example-container">
+        <vuestro-dropdown>
+          <template #title>Dropdown w/ buttons</template>
+          <template #buttons>
+            <span>Button</span>
+          </template>
+        </vuestro-dropdown>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
       <template #heading>Modal</template>
     </vuestro-card>
 

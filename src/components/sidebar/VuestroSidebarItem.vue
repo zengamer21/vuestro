@@ -1,8 +1,10 @@
 <template>
-  <div class="vuestro-sidebar-item" :class="{ bottom: route.meta.sidebarBottom }">
+  <div class="vuestro-sidebar-item"
+       :class="{ bottom: route.meta.sidebarBottom }">
     <!--CHILDREN-->
     <template v-if="route.children">
       <a :class="{ 'router-link-active': isParentRoute }"
+         :style="{ 'background-color': route.meta.bgColor, color: route.meta.fgColor }"
          @click="toggle">
         <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
         <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
@@ -16,7 +18,7 @@
       <vuestro-sub-routes :show="active" :route="route"></vuestro-sub-routes>
     </template>
     <!--NO CHILDREN-->
-    <router-link v-else :to="route">
+    <router-link v-else :to="route" :style="{ 'background-color': route.meta.bgColor, color: route.meta.fgColor }">
       <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
       <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
       <div class="title">

@@ -5,6 +5,7 @@
 
     <div class="vuestro-mini-sidebar-icon"
          :class="{ 'router-link-active': isParentRoute }"
+         :style="{ 'background-color': route.meta.bgColor, color: route.meta.fgColor }"
          @mouseover="onHover"
          @click="tryPush">
       <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>

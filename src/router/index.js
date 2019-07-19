@@ -253,6 +253,8 @@ export default new Router({
         title: 'Plugin',
         sidebar: true,
         icon: 'puzzle-piece',
+        bgColor: 'var(--vuestro-purple)',
+        fgColor: 'var(--vuestro-light)',
       },
       name: 'plugin',
       path: '/plugin',

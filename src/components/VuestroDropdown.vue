@@ -104,6 +104,8 @@ export default {
   --vuestro-dropdown-title-fg: var(--vuestro-popup-fg);
   --vuestro-dropdown-content-bg: var(--vuestro-popup-bg);
   --vuestro-dropdown-content-fg: var(--vuestro-popup-fg);
+  --vuestro-dropdown-buttons-bg: var(--vuestro-primary);
+  --vuestro-dropdown-buttons-fg: var(--vuestro-light);
 }
 .vuestro-dark {
   --vuestro-dropdown-outline: var(--vuestro-outline);
@@ -207,7 +209,8 @@ export default {
 }
 
 .vuestro-dropdown-menu-buttons > span {
-  background-color: var(--vuestro-primary);
+  background-color: var(--vuestro-dropdown-buttons-bg);
+  color: var(--vuestro-dropdown-buttons-fg);
   padding: 6px;
   flex-grow: 1;
   text-align: center;
