@@ -1,10 +1,10 @@
 <template>
 	<div class="vuestro-color-picker" :class="{ disabled, open }">
-    <div class="selected" :style="getBackgroundColor(value)" @click="open = !open">
+    <div class="vuestro-color-picker-selected" :style="getBackgroundColor(value)" @click="open = !open">
       <icon class="down-arrow" name="angle-down"></icon>
     </div>
     <transition name="vuestro-color-options" mode="out-in">
-      <div v-if="open" class="options">
+      <div v-if="open" class="vuestro-color-picker-options">
         <div v-for="c in colors" :key="c"
              class="vuestro-color-picker-option"
              :style="getBackgroundColor(c)"
@@ -60,7 +60,7 @@ export default {
 	position: relative;
 	cursor: pointer;
 }
-.vuestro-color-picker .selected {
+.vuestro-color-picker .vuestro-color-picker-selected {
   width: 100%;
   height: 100%;
 	display: flex;
@@ -72,7 +72,7 @@ export default {
 	border-top-right-radius: 4px;
   transition: all 0.6s;
 }
-.vuestro-color-picker .selected .down-arrow {
+.vuestro-color-picker .vuestro-color-picker-selected .down-arrow {
   color: white;
   align-self: flex-end;
 }
@@ -82,7 +82,7 @@ export default {
   filter: brightness(80%);
 }
 
-.vuestro-color-picker .options {
+.vuestro-color-picker .vuestro-color-picker-options {
   position: absolute;
   width: 28px;
   top: 50%;

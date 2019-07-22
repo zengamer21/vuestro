@@ -4,7 +4,7 @@
        @mouseleave="onLeave">
 
     <div class="vuestro-mini-sidebar-icon"
-         :class="{ 'router-link-active': isParentRoute }"
+         :class="{ 'vuestro-router-link-active': isParentRoute }"
          :style="{ 'background-color': route.meta.bgColor, color: route.meta.fgColor }"
          @mouseover="onHover"
          @click="tryPush">
@@ -16,7 +16,7 @@
          :style="{ visibility: active ? 'visible':'hidden',
                    opacity: active ? '1':'0',
                    height: active ? 'auto':'0' }">
-      <div class="popup-title">
+      <div class="vuestro-mini-sidebar-popup-title">
         <span class="no-select">{{ route.meta.title }}</span>
         <template v-if="route.meta.badgeComponent">
           <component :is="route.meta.badgeComponent"></component>
@@ -103,16 +103,16 @@ export default {
   border-bottom-right-radius: var(--vuestro-sidebar-radius);
 }
 
-.vuestro-mini-sidebar-icon.router-link-exact-active {
+.vuestro-mini-sidebar-icon.vuestro-router-link-exact-active {
   background-color: var(--vuestro-sidebar-item-active-bg);
   color: var(--vuestro-sidebar-item-active-fg);
 }
-.vuestro-mini-sidebar-icon.router-link-active {
+.vuestro-mini-sidebar-icon.vuestro-router-link-active {
   background-color: var(--vuestro-sidebar-item-hover);
   border-left: var(--vuestro-sidebar-active-border);
 }
 .vuestro-mini-sidebar-item:hover,
-.vuestro-mini-sidebar-icon.router-link-active:hover {
+.vuestro-mini-sidebar-icon.vuestro-router-link-active:hover {
   background-color: var(--vuestro-sidebar-item-hover);
   border-radius: 0;
 }
@@ -131,7 +131,7 @@ export default {
   padding-right: var(--vuestro-sidebar-radius);
 }
 
-.vuestro-mini-sidebar-popup > .popup-title {
+.vuestro-mini-sidebar-popup > .vuestro-mini-sidebar-popup-title {
   background-color: var(--vuestro-sidebar-item-hover);
   line-height: var(--vuestro-sidebar-item-height);
   padding-left: 5px;

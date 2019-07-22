@@ -6,7 +6,7 @@
                       :locked="lock">
       <slot :item="item"></slot>
     </vuestro-grid-box>
-    <vuestro-grid-box class="placeholder" boxId="::placeholder::"></vuestro-grid-box>
+    <vuestro-grid-box class="vuestro-grid-placeholder" boxId="::placeholder::"></vuestro-grid-box>
   </div>
 </template>
 
@@ -599,7 +599,7 @@ export default {
   flex-grow: 1;
 }
 
-.vuestro-grid .placeholder {
+.vuestro-grid .vuestro-grid-placeholder {
   border: 2px dashed var(--vuestro-outline);
   border-radius: 8px;
   background: var(--vuestro-active);
@@ -607,7 +607,7 @@ export default {
 }
 
 /* deep-css of special case of resize-handle for placeholder */
-.vuestro-grid .placeholder >>> .resize-handle {
+.vuestro-grid .vuestro-grid-placeholder >>> .resize-handle {
   display: none;
 }
 

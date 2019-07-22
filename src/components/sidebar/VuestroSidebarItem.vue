@@ -3,12 +3,12 @@
        :class="{ bottom: route.meta.sidebarBottom }">
     <!--CHILDREN-->
     <template v-if="route.children">
-      <a :class="{ 'router-link-active': isParentRoute }"
+      <a :class="{ 'vuestro-router-link-active': isParentRoute }"
          :style="{ 'background-color': route.meta.bgColor, color: route.meta.fgColor }"
          @click="toggle">
         <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
         <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
-        <div class="title">
+        <div class="vuestro-sidebar-item-title">
           <span>{{ route.meta.title }}</span>
           <template v-if="route.meta.badgeComponent">
             <component :is="route.meta.badgeComponent"></component>
@@ -18,10 +18,14 @@
       <vuestro-sub-routes :show="active" :route="route"></vuestro-sub-routes>
     </template>
     <!--NO CHILDREN-->
-    <router-link v-else :to="route" :style="{ 'background-color': route.meta.bgColor, color: route.meta.fgColor }">
+    <router-link v-else
+                 :to="route"
+                 active-class="vuestro-router-link-active"
+                 exact-active-class="vuestro-router-link-exact-active"
+                 :style="{ 'background-color': route.meta.bgColor, color: route.meta.fgColor }">
       <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
       <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
-      <div class="title">
+      <div class="vuestro-sidebar-item-title">
         <span>{{ route.meta.title }}</span>
         <template v-if="route.meta.badgeComponent">
           <component :is="route.meta.badgeComponent"></component>
@@ -106,12 +110,12 @@ export default {
 }
 
 .vuestro-sidebar-item > a:hover,
-.vuestro-sidebar-item > a.router-link-active,
-.vuestro-sidebar-item > a.router-link-active:hover {
+.vuestro-sidebar-item > a.vuestro-router-link-active,
+.vuestro-sidebar-item > a.vuestro-router-link-active:hover {
   background-color: var(--vuestro-sidebar-item-hover);
   border-left: var(--vuestro-sidebar-active-border);
 }
-.vuestro-sidebar-item > a.router-link-exact-active {
+.vuestro-sidebar-item > a.vuestro-router-link-exact-active {
   background-color: var(--vuestro-sidebar-item-active-bg);
   color: var(--vuestro-sidebar-item-active-fg);
 }
@@ -125,7 +129,7 @@ export default {
   float: left;
 }
 
-.title {
+.vuestro-sidebar-item-title {
   flex-grow: 1;
   display: flex;
   justify-content: space-between;

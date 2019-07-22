@@ -23,10 +23,10 @@
     <!--USER BLOCK-->
     <template v-if="user">
       <vuestro-geo-pattern class="vuestro-user-block" :seed="user" @color="(c) => {this.geoColor = c}">
-        <img v-if="userImg" :src="userImg" class="img-circle"/>
+        <img v-if="userImg" :src="userImg"/>
         <transition name="vuestro-user-block" mode="out-in">
           <div v-if="!localMini" class="vuestro-user-block-text">
-            <span class="username">{{ user }}</span>
+            <span class="vuestro-sidebar-username">{{ user }}</span>
             <span>{{ role }}</span>
           </div>
         </transition>
@@ -203,7 +203,7 @@ export default {
   overflow: hidden;
   white-space: nowrap;
 }
-.vuestro-user-block-text .username {
+.vuestro-user-block-text .vuestro-sidebar-username {
   font-weight: 700;
 }
 .vuestro-user-block-enter-active, .vuestro-user-blockleave-active {
