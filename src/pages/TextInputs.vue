@@ -14,6 +14,7 @@
       <vuestro-text-field variant="outline" placeholder="Outline Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field placeholder="Existing Value" v-model="exampleEditableText"></vuestro-text-field>
       <vuestro-text-field placeholder="With Hint" hint="go on, type something..." v-model="exampleText"></vuestro-text-field>
+      <vuestro-text-field placeholder="Centered Cursor" hint="centered hint, too!" center v-model="exampleText"></vuestro-text-field>
     </vuestro-card>
 
     <vuestro-card>

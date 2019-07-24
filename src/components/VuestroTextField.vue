@@ -1,7 +1,7 @@
 <!-- Be sure to define CSS variable: --vuestro-text-field-bg -->
 <!-- to define bg color for proper overlap of outline mode -->
 <template>
-  <div class="vuestro-text-field" :class="[ `vuestro-text-field-${variant}`, { dark, focused }]">
+  <div class="vuestro-text-field" :class="[ `vuestro-text-field-${variant}`, { dark, focused, center }]">
     <div class="input-el-wrapper">
       <input ref="inputEl"
              class="input-el"
@@ -45,6 +45,7 @@ export default {
     type: { type: String, default: 'text' },
     dark: { type: Boolean, default: false },
     hint: { type: String, default: null },
+    center: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -147,6 +148,10 @@ export default {
   color: var(--vuestro-text-color-muted);
   pointer-events: none;
 }
+.vuestro-text-field.center .placeholder {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .vuestro-text-field-outline .placeholder.active {
   /* only for outline mode */
   background-color: var(--vuestro-text-field-bg);
@@ -174,6 +179,9 @@ export default {
   color: var(--vuestro-text-color);
   font-size: 15px;
 }
+.vuestro-text-field.center .input-el {
+  text-align: center;
+}
 
 .show-password {
   margin-left: 4px;
@@ -192,7 +200,10 @@ export default {
   font-size: 12px;
   filter: brightness(140%);
 }
-
+.vuestro-text-field.center .hint {
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .input-el-wrapper > input:-webkit-autofill,
 .input-el-wrapper > input:-webkit-autofill:hover,
 .input-el-wrapper > input:-webkit-autofill:focus {
