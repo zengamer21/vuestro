@@ -108,13 +108,15 @@ export default {
   },
   methods: {
     resize() {
-      this.$nextTick(() => {
-        this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
-        this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
-        if (this.data.nodes && this.data.links && this.data.nodes.length > 0 && this.data.links.length > 0) {
-            this.graph = this.sankey(this.data);
-        }
-      });
+      if (this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
+        this.$nextTick(() => {
+          this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
+          this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
+          if (this.data.nodes && this.data.links && this.data.nodes.length > 0 && this.data.links.length > 0) {
+              this.graph = this.sankey(this.data);
+          }
+        });
+      }
     },
   },
 };

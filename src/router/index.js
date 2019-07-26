@@ -281,6 +281,6 @@ export default new Router({
       ]
     },
     { path: '/*', redirect: '/dashboard' } // redirect to dashboard
-  ]
+  ],
 });
 

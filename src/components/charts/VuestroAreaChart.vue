@@ -107,9 +107,11 @@ export default {
   },
   methods: {
     resize() {
-      this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
-      this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
-      this.redraw();
+      if (this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
+        this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
+        this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
+        this.redraw();
+      }
     },
     getArea(v) {
       let area = d3.area().x(d => d.x).y0(d => d[`${v}_y0`]).y1(d => d[`${v}_y1`]);

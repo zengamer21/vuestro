@@ -28,7 +28,7 @@ export default {
 <style scoped>
 
 .vuestro-sidebar-menu {
-  height: 100%;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   padding-right: var(--vuestro-sidebar-item-padding-right);

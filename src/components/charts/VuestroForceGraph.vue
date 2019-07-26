@@ -91,7 +91,7 @@ export default {
       .force('collide', d3.forceCollide(this.nodeRadius*2));
     },
     resize() {
-      if (this.nodes.length > 0) {
+      if (this.nodes.length > 0 && this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
         this.$nextTick(() => {
           this.width = this.$el.clientWidth;
           this.height = this.$el.clientHeight;

@@ -47,6 +47,7 @@
 
 <script>
 
+/* global Event */
 import VuestroNavbar from './VuestroNavbar.vue';
 import VuestroSidebar from './sidebar/VuestroSidebar.vue';
 
@@ -74,6 +75,10 @@ export default {
           this.$refs.routerView.scrollTop = to.meta.scrollTop;
         });
       }
+      // emit a global resize event so widgets/charts can resize
+      this.$nextTick(() => {
+        window.dispatchEvent(new Event('resize'));
+      });
     }
   },
   methods: {
