@@ -3,19 +3,14 @@
         :class="{ 'vuestro-title-clickable': clickable }"
         @click="onClick">
     <slot></slot>
-    <icon name="spinner" pulse v-if="spinner"></icon>
+    <vuestro-icon name="spinner" pulse v-if="spinner"></vuestro-icon>
   </span>
 </template>
 
 <script>
 
-import Icon from 'vue-awesome/components/Icon';
-
 export default {
   name: 'VuestroTitle',
-  components: {
-    Icon,
-  },
   props: {
     spinner: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },

@@ -14,8 +14,8 @@
       </input>
     </div>
     <span class="show-password" v-if="type === 'password'" @click="showPassword = !showPassword">
-      <icon v-if="!showPassword" name="eye-slash"></icon>
-      <icon v-if="showPassword" name="eye"></icon>
+      <vuestro-icon v-if="!showPassword" name="eye-slash"></vuestro-icon>
+      <vuestro-icon v-if="showPassword" name="eye"></vuestro-icon>
     </span>
     <div class="placeholder"
          :class="{ active: raisedPlaceholder }">
@@ -29,15 +29,8 @@
 
 <script>
 
-import 'vue-awesome/icons/eye.js';
-import 'vue-awesome/icons/eye-slash.js';
-import Icon from 'vue-awesome/components/Icon';
-
 export default {
   name: 'VuestroTextField',
-  components: {
-    Icon,
-  },
   props: {
     value: { type: String, required: true },
     placeholder: { type: String, default: null },

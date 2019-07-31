@@ -13,7 +13,7 @@
                 {{ closeText }}
               </template>
               <template v-else>
-                <icon name="times"></icon>
+                <vuestro-icon name="times"></vuestro-icon>
               </template>
             </vuestro-button>
           </div>
@@ -31,13 +31,8 @@
 
 <script>
 
-import Icon from 'vue-awesome/components/Icon';
-
 export default {
   name: 'VuestroModal',
-  components: {
-    Icon,
-  },
   props: {
     active: { type: Boolean, required: false },
     closeText: { type: String, default: '' },

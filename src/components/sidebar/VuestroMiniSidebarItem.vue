@@ -8,7 +8,7 @@
          :style="{ 'background-color': route.meta.bgColor, color: route.meta.fgColor }"
          @mouseover="onHover"
          @click="tryPush">
-      <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
+      <vuestro-icon v-if="route.meta.icon" :name="route.meta.icon"></vuestro-icon>
       <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
     </div>
 
@@ -34,12 +34,10 @@
 <script>
 
 import VuestroSubRoutes from './VuestroSubRoutes.vue';
-import Icon from 'vue-awesome/components/Icon';
 
 export default {
   name: 'VuestroMiniSidebarItem',
   components: {
-    Icon,
     VuestroSubRoutes,
   },
   props: {

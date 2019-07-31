@@ -12,7 +12,7 @@
                   class="vuestro-table-header-sort"
                   :class="{ active: isSortActive(column), desc: isSortDescending(column) }"
                   @click="onSort(column)">
-              <icon name="arrow-up"></icon>
+              <vuestro-icon name="arrow-up"></vuestro-icon>
             </span>
           </template>
         </th>
@@ -44,13 +44,9 @@
 <script>
 
 /* global _ */
-import Icon from 'vue-awesome/components/Icon';
 
 export default {
   name: 'VuestroTable',
-  components: {
-    Icon,
-  },
   props: {
     data: { type: Array, default: () => [] },
     options: { type: Object, default: () => ({}) },

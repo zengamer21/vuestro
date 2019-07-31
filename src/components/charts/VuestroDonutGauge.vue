@@ -11,7 +11,8 @@
                   :stroke-dasharray="dashVal"
                   stroke="#6fdb6f"
                   fill="none"/>
-          <text text-anchor="middle"
+          <text v-if="radius > 0"
+                text-anchor="middle"
                 dominant-baseline="middle"
                 :font-size="radius/2"
                 :y="radius*1.5"

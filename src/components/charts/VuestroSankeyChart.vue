@@ -43,6 +43,7 @@
         </g>
         <g>
           <text v-for="n in graph.nodes"
+                v-if="n.x0 !== undefined && n.x1 !== undefined"
                 :x="n.x0 < width / 2 ? n.x1 + 6 : n.x0 - 6"
                 :key="n.name"
                 :y="(n.y1 + n.y0) / 2"

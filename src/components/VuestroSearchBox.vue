@@ -4,8 +4,8 @@
     <div v-if="history" class="history-dropdown">
       <vuestro-dropdown left rounded no-spacing>
         <template #title>
-          <icon name="search"></icon>
-          <icon class="down-caret" name="caret-down"></icon>
+          <vuestro-icon name="search"></vuestro-icon>
+          <vuestro-icon class="down-caret" name="caret-down"></vuestro-icon>
         </template>
         <div v-if="historyArray.length === 0">No Search History</div>
         <vuestro-list-button v-for="h in historyArray" :key="h" @click="loadFromHistory(h)">
@@ -22,7 +22,7 @@
     </div>
     <!--CLEAR-->
     <span class="clear-button" @click="clearValue()">
-      <icon name="times"></icon>
+      <vuestro-icon name="times"></vuestro-icon>
     </span>
   </div>
 </template>

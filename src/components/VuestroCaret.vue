@@ -1,19 +1,13 @@
 <template>
   <div class="vuestro-caret" :class="[size, { collapsed, left }]" @click="onClick">
-    <icon name="angle-down"></icon>
+    <vuestro-icon name="angle-down"></vuestro-icon>
   </div>
 </template>
 
 <script>
 
-import 'vue-awesome/icons/angle-down.js';
-import Icon from 'vue-awesome/components/Icon';
-
 export default {
   name: 'VuestroCaret',
-  components: {
-    Icon,
-  },
   props: {
     collapsed: { type: Boolean, required: true },
     size: { type: String, default: 'md' },

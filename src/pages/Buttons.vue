@@ -33,7 +33,7 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button>
-          <icon name="tractor"></icon>
+          <vuestro-icon name="tractor"></vuestro-icon>
           <span>Label in span</span>
         </vuestro-button>
       </div>
@@ -45,11 +45,11 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button rounded>
-          <icon name="snowflake"></icon>
+          <vuestro-icon name="snowflake"></vuestro-icon>
         </vuestro-button>
         <vuestro-button rounded>Rounded Button</vuestro-button>
         <vuestro-button rounded>
-          <icon name="fire"></icon>
+          <vuestro-icon name="fire"></vuestro-icon>
           <span>Rounded Button</span>
         </vuestro-button>
       </div>
@@ -61,11 +61,11 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button pill>
-          <icon name="capsules"></icon>
+          <vuestro-icon name="capsules"></vuestro-icon>
         </vuestro-button>
         <vuestro-button pill>Pill-shaped Button</vuestro-button>
         <vuestro-button pill>
-          <icon name="capsules"></icon>
+          <vuestro-icon name="capsules"></vuestro-icon>
           <span>Pill-shaped Button</span>
         </vuestro-button>
       </div>
@@ -88,13 +88,13 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button round size="sm">
-          <icon name="sync-alt"></icon>
+          <vuestro-icon name="sync-alt"></vuestro-icon>
         </vuestro-button>
         <vuestro-button round>
-          <icon name="play-circle"></icon>
+          <vuestro-icon name="play-circle"></vuestro-icon>
         </vuestro-button>
         <vuestro-button round size="lg">
-          <icon name="stop"></icon>
+          <vuestro-icon name="stop"></vuestro-icon>
         </vuestro-button>
       </div>
     </vuestro-card>
@@ -104,13 +104,13 @@
         Font size is inherited, but the size {'sm', 'md', 'lg'} property modifies inner padding
       </template>
       <div class="example-flexbox bigger-font">
-        <vuestro-button><icon name="tractor"></icon></vuestro-button>
+        <vuestro-button><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button>Large Text Button</vuestro-button>
-        <vuestro-button size="sm"><icon name="tractor"></icon></vuestro-button>
+        <vuestro-button size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="sm">sm Button</vuestro-button>
-        <vuestro-button size="md"><icon name="tractor"></icon></vuestro-button>
+        <vuestro-button size="md"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="md">md(default) Button</vuestro-button>
-        <vuestro-button size="lg"><icon name="tractor"></icon></vuestro-button>
+        <vuestro-button size="lg"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="lg">lg Button</vuestro-button>
       </div>
     </vuestro-card>
@@ -189,7 +189,7 @@
         <vuestro-button variant="primary" value>Button</vuestro-button>
         <vuestro-button variant="success" value pill>Button</vuestro-button>
         <vuestro-button variant="warning" value round>
-          <icon name="bug"></icon>
+          <vuestro-icon name="bug"></vuestro-icon>
         </vuestro-button>
       </div>
     </vuestro-card>
@@ -240,19 +240,19 @@
       </template>
       <div class="example-flexbox dark">
         <vuestro-button dark size="lg">
-          <icon name="tractor"></icon>
+          <vuestro-icon name="tractor"></vuestro-icon>
         </vuestro-button>
         <vuestro-button dark size="lg">Dark with Border</vuestro-button>
         <vuestro-button dark size="lg">
-          <icon name="tractor"></icon>
+          <vuestro-icon name="tractor"></vuestro-icon>
           <span>Dark with Border</span>
         </vuestro-button>
         <vuestro-button dark no-border pill variant="secondary" size="lg">
-          <icon name="tractor"></icon>
+          <vuestro-icon name="tractor"></vuestro-icon>
         </vuestro-button>
         <vuestro-button dark no-border pill variant="secondary" size="lg">Dark Pill w/o Border</vuestro-button>
         <vuestro-button dark no-border pill variant="secondary" size="lg">
-          <icon name="tractor"></icon>
+          <vuestro-icon name="tractor"></vuestro-icon>
           <span>Dark Pill w/o Border</span>
         </vuestro-button>
 

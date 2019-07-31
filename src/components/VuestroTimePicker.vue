@@ -3,14 +3,14 @@
     <!--HOURS-->
     <div class="vuestro-time-picker-column">
       <div class="arrow" @click="increaseHours">
-        <icon name="chevron-up"></icon>
+        <vuestro-icon name="chevron-up"></vuestro-icon>
       </div>
       <vuestro-editable-text :value="momentObj.format('HH')"
                              :validator="validateHours"
                              @input="setHours">
       </vuestro-editable-text>
       <div class="arrow" @click="decreaseHours">
-        <icon name="chevron-down"></icon>
+        <vuestro-icon name="chevron-down"></vuestro-icon>
       </div>
     </div>
 
@@ -20,14 +20,14 @@
     <!--MINUTES-->
     <div class="vuestro-time-picker-column">
       <div class="arrow" @click="increaseMinutes">
-        <icon name="chevron-up"></icon>
+        <vuestro-icon name="chevron-up"></vuestro-icon>
       </div>
       <vuestro-editable-text :value="momentObj.format('mm')"
                              :validator="validateMinutesSeconds"
                              @input="setMinutes">
       </vuestro-editable-text>
       <div class="arrow" @click="decreaseMinutes">
-        <icon name="chevron-down"></icon>
+        <vuestro-icon name="chevron-down"></vuestro-icon>
       </div>
     </div>
 
@@ -38,13 +38,13 @@
       <!--SECONDS-->
       <div class="vuestro-time-picker-column">
         <div class="arrow" @click="increaseSeconds">
-          <icon name="chevron-up"></icon>
+          <vuestro-icon name="chevron-up"></vuestro-icon>
         </div>
         <vuestro-editable-text :value="momentObj.format('ss')"
                                :validator="validateMinutesSeconds"
                                @input="setSeconds"></vuestro-editable-text>
         <div class="arrow" @click="decreaseSeconds">
-          <icon name="chevron-down"></icon>
+          <vuestro-icon name="chevron-down"></vuestro-icon>
         </div>
       </div>
     </template>
@@ -55,15 +55,8 @@
 
 import moment from 'moment';
 
-import 'vue-awesome/icons/chevron-up.js';
-import 'vue-awesome/icons/chevron-down.js';
-import Icon from 'vue-awesome/components/Icon';
-
 export default {
   name: 'VuestroTimePicker',
-  components: {
-    Icon,
-  },
   props: {
     value: { type: Date, required: true },
     seconds: { type: Boolean, default: false },

@@ -7,7 +7,7 @@
        @mouseover="onHover">
     <div class="vuestro-button-content">
       <template v-if="checkbox && value">
-        <icon v-if="checkbox && value" name="check"></icon>
+        <vuestro-icon v-if="checkbox && value" name="check"></vuestro-icon>
       </template>
       <template v-else>
         &#8203;<slot></slot>&#8203; <!-- magic zero-width chars to make icon-only buttons size like icon+text -->
@@ -18,14 +18,8 @@
 
 <script>
 
-import 'vue-awesome/icons/check.js';
-import Icon from 'vue-awesome/components/Icon';
-
 export default {
   name: 'VuestroButton',
-  components: {
-    Icon,
-  },
   props: {
     variant: { type: String, default: 'secondary' },
     noBorder: { type: Boolean, default: false },

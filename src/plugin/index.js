@@ -1,3 +1,7 @@
+// import all icons, creates bloat, but sometimes there just no
+// way to know what a user might want
+import 'vue-awesome/icons';
+
 import VuestroApp from '../components/VuestroApp.vue';
 import VuestroAreaChart from '../components/charts/VuestroAreaChart.vue';
 import VuestroBarChart from '../components/charts/VuestroBarChart.vue';

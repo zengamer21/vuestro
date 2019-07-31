@@ -21,7 +21,7 @@
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
         <vuestro-dropdown>
-          <template #title><icon name="tractor"></icon></template>
+          <template #title><vuestro-icon name="tractor"></vuestro-icon></template>
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
@@ -35,14 +35,14 @@
       <div class="example-container">
         <vuestro-dropdown click-to-open>
           <template #title>
-            <icon name="hand-pointer"></icon>
+            <vuestro-icon name="hand-pointer"></vuestro-icon>
             <span>Click-to-Open</span>
           </template>
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
         <vuestro-dropdown click-to-open>
-          <template #title><icon name="tractor"></icon></template>
+          <template #title><vuestro-icon name="tractor"></vuestro-icon></template>
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
@@ -105,7 +105,7 @@
         <vuestro-dropdown>
           <template #button>
             <vuestro-button pill variant="info" size="lg">
-              <icon name="bullhorn"></icon>
+              <vuestro-icon name="bullhorn"></vuestro-icon>
               <span>I'm a button!</span>
             </vuestro-button>
           </template>
@@ -115,7 +115,7 @@
         <vuestro-dropdown click-to-open>
           <template #button>
             <vuestro-button variant="info" size="lg">
-              <icon name="bullhorn"></icon>
+              <vuestro-icon name="bullhorn"></vuestro-icon>
               <span>Click Me to open drop down</span>
             </vuestro-button>
           </template>

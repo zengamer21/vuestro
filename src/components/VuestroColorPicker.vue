@@ -1,7 +1,7 @@
 <template>
 	<div class="vuestro-color-picker" :class="{ disabled, open }">
     <div class="vuestro-color-picker-selected" :style="getBackgroundColor(value)" @click="open = !open">
-      <icon class="down-arrow" name="angle-down"></icon>
+      <vuestro-icon class="down-arrow" name="angle-down"></vuestro-icon>
     </div>
     <transition name="vuestro-color-options" mode="out-in">
       <div v-if="open" class="vuestro-color-picker-options">
@@ -18,13 +18,8 @@
 
 <script>
 
-import Icon from 'vue-awesome/components/Icon';
-
 export default {
 	name: 'VuestroColorPicker',
-	components: {
-	  Icon,
-	},
 	props: {
 	  value: { type: String, required: true },
 	  colors: { type: Array, default: () => [] },

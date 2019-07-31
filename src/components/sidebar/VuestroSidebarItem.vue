@@ -6,7 +6,7 @@
       <a :class="{ 'vuestro-router-link-active': isParentRoute }"
          :style="{ 'background-color': route.meta.bgColor, color: route.meta.fgColor }"
          @click="toggle">
-        <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
+        <vuestro-icon v-if="route.meta.icon" :name="route.meta.icon"></vuestro-icon>
         <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
         <div class="vuestro-sidebar-item-title">
           <span>{{ route.meta.title }}</span>
@@ -23,7 +23,7 @@
                  active-class="vuestro-router-link-active"
                  exact-active-class="vuestro-router-link-exact-active"
                  :style="{ 'background-color': route.meta.bgColor, color: route.meta.fgColor }">
-      <icon v-if="route.meta.icon" :name="route.meta.icon"></icon>
+      <vuestro-icon v-if="route.meta.icon" :name="route.meta.icon"></vuestro-icon>
       <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
       <div class="vuestro-sidebar-item-title">
         <span>{{ route.meta.title }}</span>
@@ -42,12 +42,10 @@
 <script>
 
 import VuestroSubRoutes from './VuestroSubRoutes.vue';
-import Icon from 'vue-awesome/components/Icon';
 
 export default {
   name: 'VuestroSidebarItem',
   components: {
-    Icon,
     VuestroSubRoutes,
   },
   props: {

@@ -33,11 +33,19 @@ export default {
   props: {
     data: { required: true },
     startExpanded: { type: Boolean, default: false },
+    alwaysExpand: { type: Boolean, default: false },
   },
   data() {
     return {
       expanded: [],
     };
+  },
+  watch: {
+    data() {
+      this.$nextTick(() => {
+        this.expandAll();
+      });
+    },
   },
   mounted() {
     if (this.startExpanded) {

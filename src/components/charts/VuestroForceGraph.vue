@@ -20,7 +20,7 @@
                 :cy="n.y"
                 @mousedown="onSelectNode(n)">
         </circle>
-        <text v-if="labels"
+        <text v-if="labels && n.x !== undefined && n.y !== undefined"
               class="vuestro-force-graph-labels"
               :x="n.x + getNodeRadius(n) + 2"
               :y="n.y"
@@ -78,6 +78,9 @@ export default {
   mounted() {
     window.addEventListener('resize', this.resize);
     this.resize();
+    setInterval(() => {
+      console.log(this.data);
+    }, 1000)
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resize);
@@ -91,7 +94,7 @@ export default {
       .force('collide', d3.forceCollide(this.nodeRadius*2));
     },
     resize() {
-      if (this.nodes.length > 0 && this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
+      if (this.nodes && this.nodes.length > 0 && this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
         this.$nextTick(() => {
           this.width = this.$el.clientWidth;
           this.height = this.$el.clientHeight;

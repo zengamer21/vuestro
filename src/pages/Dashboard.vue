@@ -275,7 +275,6 @@ export default {
           options: {
             title: 'Area Chart',
             component: 'vuestro-area-chart',
-            toolbar: true,
             series: [
               {
                 title: 'Series 1',
@@ -311,19 +310,6 @@ export default {
 
 <style scoped>
 
-.frame {
-  margin-top: 5px;
-  flex-grow: 1;
-  border-radius: 4px;
-  background-color: white;
-  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-}
-
-.vuestro-dark .frame {
-  border: 1px solid var(--vuestro-outline);
-}
 
 .drag {
   cursor: move;
