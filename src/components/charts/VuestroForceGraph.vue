@@ -61,6 +61,7 @@ export default {
       colorScale: d3.scaleOrdinal(d3.schemeCategory10),
       labels: false,
       graph: null,
+      distance: 50,
     };
   },
   watch: {
@@ -68,7 +69,7 @@ export default {
       _.merge(this.nodes, newVal.nodes);
       _.merge(this.links, newVal.links);
       this.graph.nodes(this.nodes)
-      .force('link', d3.forceLink(this.links))
+      .force('link', d3.forceLink(this.links).distance([this.distance]))
       .alpha(1).restart();
     },
   },
@@ -85,7 +86,7 @@ export default {
   methods: {
     forceGraph(nodes, links) {
       return d3.forceSimulation(nodes)
-      .force('link', d3.forceLink(links))
+      .force('link', d3.forceLink(links).distance([this.distance]))
       .force('charge', d3.forceManyBody())
       .force('center', d3.forceCenter(this.width / 2, this.height / 2))
       .force('collide', d3.forceCollide(this.nodeRadius*2));
