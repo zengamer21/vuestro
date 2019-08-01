@@ -1,6 +1,8 @@
 <template>
   <vuestro-grid :layout.sync="layout">
-    <component slot-scope="{ item }" :is="item.component" :data="item.data" :options="item.options"></component>
+    <template #default="{ item }">
+      <component :is="item.component" :data="item.data" :options="item.options"></component>
+    </template>
   </vuestro-grid>
 </template>
 

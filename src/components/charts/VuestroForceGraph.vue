@@ -78,9 +78,6 @@ export default {
   mounted() {
     window.addEventListener('resize', this.resize);
     this.resize();
-    setInterval(() => {
-      console.log(this.data);
-    }, 1000)
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resize);

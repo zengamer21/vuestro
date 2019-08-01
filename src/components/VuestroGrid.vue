@@ -394,14 +394,13 @@ export default {
           if (boxLayout.id === this.dragging.boxLayout.id) {
             return;
           }
-            newLayout.push({
-              ...boxLayout,
-              position: this.moveBoxToFreePlace(newLayout, boxLayout.position)
-            });
+          newLayout.push({
+            ...boxLayout,
+            position: this.moveBoxToFreePlace(newLayout, boxLayout.position)
+          });
         });
 
-        this.layoutBubbleUp(newLayout);
-        this.updateLayout(newLayout);
+        this.updateLayout(this.layoutBubbleUp(newLayout));
 
         this.dragging.boxLayout = null;
         this.dragging.offset.x = 0;
