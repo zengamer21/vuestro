@@ -33,6 +33,12 @@
     <div class="vuestro-chart-toolbar">
       <vuestro-button pill size="sm" @click="onReset">Reset</vuestro-button>
       <vuestro-button pill size="sm" v-model="labels">Labels</vuestro-button>
+      <vuestro-button pill size="sm" @click="increaseDistance">
+        <vuestro-icon name="plus"></vuestro-icon>
+      </vuestro-button>
+      <vuestro-button pill size="sm" @click="decreaseDistance" :disabled="(distance + distanceOffset) <= 0">
+        <vuestro-icon name="minus"></vuestro-icon>
+      </vuestro-button>
     </div>
   </div>
 </template>
@@ -61,7 +67,8 @@ export default {
       colorScale: d3.scaleOrdinal(d3.schemeCategory10),
       labels: false,
       graph: null,
-      distance: 50,
+      distance: 20,
+      distanceOffset: 0,
     };
   },
   watch: {
@@ -86,7 +93,7 @@ export default {
   methods: {
     forceGraph(nodes, links) {
       return d3.forceSimulation(nodes)
-      .force('link', d3.forceLink(links).distance([this.distance]))
+      .force('link', d3.forceLink(links).distance([this.distance + this.distanceOffset]))
       .force('charge', d3.forceManyBody())
       .force('center', d3.forceCenter(this.width / 2, this.height / 2))
       .force('collide', d3.forceCollide(this.nodeRadius*2));
@@ -136,14 +143,22 @@ export default {
       return this.nodeRadius;
     },
     onReset() {
+      this.distanceOffset = 0;
       this.selectedNode = null;
       this.dragNode = null;
       this.nodes.map((n) => {
         delete n.fx;
         delete n.fy;
       });
-      this.graph.alpha(1);
-      this.graph.restart();
+      this.resize();
+    },
+    increaseDistance() {
+      this.distanceOffset += 10;
+      this.resize();
+    },
+    decreaseDistance() {
+      this.distanceOffset -= 10;
+      this.resize();
     },
   },
 };

@@ -66,6 +66,7 @@ export default {
   font-size: 34px;
   padding: 0px 15px;
   font-weight: 300;
+  white-space: nowrap;
 }
 
 .v-separator {
