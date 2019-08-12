@@ -1,7 +1,7 @@
 <!-- Be sure to define CSS variable: --vuestro-text-field-bg -->
 <!-- to define bg color for proper overlap of outline mode -->
 <template>
-  <div class="vuestro-text-field" :class="[ `vuestro-text-field-${variant}`, { dark, focused, center }]">
+  <div class="vuestro-text-field" :class="[ `vuestro-text-field-${variant}`, { dark, focused, center, noMargin }]">
     <div class="input-el-wrapper">
       <input ref="inputEl"
              class="input-el"
@@ -39,6 +39,7 @@ export default {
     dark: { type: Boolean, default: false },
     hint: { type: String, default: null },
     center: { type: Boolean, default: false },
+    noMargin: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -115,6 +116,9 @@ export default {
   position: relative;
   margin-bottom: 12px;
   display: flex;
+}
+.vuestro-text-field.noMargin {
+  margin: 0;
 }
 .vuestro-text-field.dark .input-el {
   color: var(--vuestro-text-color-inverse);
