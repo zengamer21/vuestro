@@ -26,6 +26,7 @@ import Plugin from '../pages/Plugin.vue';
 import Mixins from '../pages/Mixins.vue';
 import Filters from '../pages/Filters.vue';
 import BarChart from '../pages/BarChart.vue';
+import InputsEditor from '../pages/InputsEditor.vue';
 
 Vue.use(Router);
 
@@ -242,9 +243,18 @@ export default new Router({
             title: 'Search',
             sidebar: true,
           },
-          name: 'search',
-          path: 'search',
+          name: 'inputs-search',
+          path: 'inputs-search',
           component: SearchInput,
+        },
+        {
+          meta: {
+            title: 'Editor',
+            sidebar: true,
+          },
+          name: 'inputs-editor',
+          path: 'inputs-editor',
+          component: InputsEditor,
         },
       ]
     },
