@@ -83,7 +83,9 @@ export default {
       }
     },
     lang(newLang) {
-      this.editor.getSession().setMode('ace/mode/' + newLang);
+      this.editor.getSession()
+      .setMode('ace/mode/' + newLang)
+      .setTabSize(2);
     },
     colorTheme() {
       this.setColorTheme();
@@ -96,7 +98,9 @@ export default {
     let vm = this;
     vm.editor = ace.edit(this.$el);
 
-    vm.editor.getSession().setMode('ace/mode/' + vm.lang);
+    let sess = vm.editor.getSession();
+    sess.setMode('ace/mode/' + vm.lang);
+
     vm.setColorTheme();
     vm.editor.setValue(vm.value, 1);
 
@@ -106,7 +110,7 @@ export default {
       vm.contentBackup = content;
     });
 
-    if(vm.options) {
+    if (vm.options) {
       vm.editor.setOptions(vm.options);
     }
   },

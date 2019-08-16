@@ -41,7 +41,7 @@ export default {
     data: { required: true },
     startExpanded: { type: Boolean, default: false },
     alwaysExpand: { type: Boolean, default: false },
-    parent: { type: String, default: 'root' },
+    parent: { type: null, default: 'root' },
   },
   data() {
     return {
