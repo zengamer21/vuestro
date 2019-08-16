@@ -1,24 +1,31 @@
 <template>
   <div class="vuestro-object-browser-item">
     <div v-for="(v, k) in data">
-      <div class="vuestro-object-browser-item-gutter">
-        <vuestro-caret v-if="isObject(v) || isArray(v)" :collapsed="isCollapsed(k)" @click="toggleCollapse(k)"></vuestro-caret>
-      </div>
-      <div class="vuestro-object-browser-item-kv">
-        <div class="vuestro-object-browser-item-key-title">{{ k }}:</div>
-        <template v-if="isObject(v) || isArray(v)">
-          <span v-if="isArray(v)">Array[{{ v.length }}]</span>
-          <span v-else>Object[{{ Object.keys(v).length }}]</span>
-          <div v-show="expanded.indexOf(k) >= 0" class="vuestro-object-browser-item-sub">
-            <vuestro-object-browser :ref="k" :expand-all="expandAll" :data="v"></vuestro-object-browser>
+      <div class="vuestro-object-browser-item">
+        <div class="vuestro-object-browser-item-kv">
+          <div class="vuestro-object-browser-item-gutter">
+            <vuestro-caret v-if="isObject(v) || isArray(v)" :collapsed="isCollapsed(k)" @click="toggleCollapse(k)"></vuestro-caret>
           </div>
-        </template>
-        <template v-else>
+          <span class="vuestro-object-browser-item-key-title">{{ k }}:</span>
           <span v-if="isString(v)" class="vuestro-object-browser-item-string" title="String">{{ JSON.stringify(v) }}</span>
           <span v-if="isBoolean(v)" class="vuestro-object-browser-item-bool" title="Boolean">{{ v }}</span>
           <span v-if="isDate(v)" class="vuestro-object-browser-item-date" title="Date">{{ v.toISOString() }}</span>
           <span v-if="isNumber(v)" class="vuestro-object-browser-item-number" title="Number">{{ v }}</span>
-        </template>
+          <span v-if="isArray(v)">Array[{{ v.length }}]</span>
+          <span v-if="isObject(v)">Object[{{ Object.keys(v).length }}]</span>
+          <span class="vuestro-object-browser-item-slot">
+            <slot name="post-value" :value="v"></slot>
+          </span>
+        </div>
+        <div v-if="isObject(v) || isArray(v)">
+          <div v-show="expanded.indexOf(k) >= 0" class="vuestro-object-browser-item-sub">
+            <vuestro-object-browser :ref="k" :expand-all="expandAll" :data="v">
+              <template #post-value="{ value }">
+                <slot name=post-value :value="value"></slot>
+              </template>
+            </vuestro-object-browser>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -132,19 +139,21 @@ export default {
   padding-top: 2px;
 }
 
-.vuestro-object-browser-item-kv {
+.vuestro-object-browser-item {
   padding-top: 2px;
   padding-bottom: 2px;
 }
-
-.vuestro-object-browser-item-key {
+.vuestro-object-browser-item-kv {
   display: flex;
+  align-items: center;
 }
+
 .vuestro-object-browser-item-key-title {
   font-weight: 500;
   text-align: right;
   display: inline-block;
   min-width: 10px;
+  margin-right: 5px;
   color: var(--vuestro-object-browser-key-fg);
 }
 
@@ -162,6 +171,10 @@ export default {
 
 .vuestro-object-browser-item-number {
   color: var(--vuestro-object-browser-number-fg);
+}
+
+.vuestro-object-browser-item-slot {
+  margin-left: 5px;
 }
 
 </style>

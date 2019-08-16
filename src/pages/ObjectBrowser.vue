@@ -34,6 +34,17 @@
       </vuestro-panel>
     </vuestro-card>
 
+    <vuestro-card>
+      <template #subheading>
+        <span>VuestroObjectBrowser provides a <em>post-value</em> slot to add buttons, etc.</span>
+      </template>
+      <vuestro-panel>
+        <vuestro-object-browser start-expanded :data="testArray">
+          <template #post-value="{ value }"><vuestro-button>{{ value }}</vuestro-button></template>
+        </vuestro-object-browser>
+      </vuestro-panel>
+    </vuestro-card>
+
   </vuestro-container>
 </template>
 

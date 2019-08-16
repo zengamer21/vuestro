@@ -1,5 +1,5 @@
 <template>
-  <div class="editor"></div>
+  <div class="vuestro-editor"></div>
 </template>
 
 <script>
@@ -129,7 +129,7 @@ export default {
 
 <style scoped>
 
-.editor {
+.vuestro-editor {
   height: 100%;
 }
 
