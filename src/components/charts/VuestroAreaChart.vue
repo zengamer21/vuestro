@@ -177,7 +177,14 @@ export default {
         });
       }
       scaleY.domain([d3.min(extents, function(d) { return d[0]; }),
-                     d3.max(extents, function(d) { return d[1] * 1.1; })]);
+                     d3.max(extents, function(d) {
+                       let m = d[1] * 1.1;
+                       if (m > 0) {
+                         return m;
+                       } else {
+                         return 1;
+                       }
+                     })]);
 
 
       // map the points the data

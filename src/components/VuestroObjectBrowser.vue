@@ -14,14 +14,14 @@
           <span v-if="isArray(v)">Array[{{ v.length }}]</span>
           <span v-if="isObject(v)">Object[{{ Object.keys(v).length }}]</span>
           <span class="vuestro-object-browser-item-slot">
-            <slot name="post-value" :value="v"></slot>
+            <slot name="post-value" :k="k" :v="v" :parent="parent"></slot>
           </span>
         </div>
         <div v-if="isObject(v) || isArray(v)">
           <div v-show="expanded.indexOf(k) >= 0" class="vuestro-object-browser-item-sub">
-            <vuestro-object-browser :ref="k" :expand-all="expandAll" :data="v">
-              <template #post-value="{ value }">
-                <slot name=post-value :value="value"></slot>
+            <vuestro-object-browser :ref="k" :expand-all="expandAll" :data="v" :parent="k">
+              <template #post-value="{ k, v, parent }">
+                <slot name=post-value :k="k" :v="v" :parent="parent"></slot>
               </template>
             </vuestro-object-browser>
           </div>
@@ -41,6 +41,7 @@ export default {
     data: { required: true },
     startExpanded: { type: Boolean, default: false },
     alwaysExpand: { type: Boolean, default: false },
+    parent: { type: String, default: 'root' },
   },
   data() {
     return {

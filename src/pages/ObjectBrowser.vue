@@ -36,11 +36,11 @@
 
     <vuestro-card>
       <template #subheading>
-        <span>VuestroObjectBrowser provides a <em>post-value</em> slot to add buttons, etc.</span>
+        <span>VuestroObjectBrowser provides a <em>post-value</em> slot to add buttons or any other component. The slot receives <em>k</em>, <em>v</em>, and <em>parent</em> slot scope fields.</span>
       </template>
       <vuestro-panel>
-        <vuestro-object-browser start-expanded :data="testArray">
-          <template #post-value="{ value }"><vuestro-button>{{ value }}</vuestro-button></template>
+        <vuestro-object-browser start-expanded :data="testObject">
+          <template #post-value="{ k, v, parent }"><vuestro-button>button</vuestro-button></template>
         </vuestro-object-browser>
       </vuestro-panel>
     </vuestro-card>
