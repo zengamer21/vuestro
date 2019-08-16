@@ -196,8 +196,8 @@ export default {
   padding: 0;
 }
 .vuestro-button.round.sm svg { /* shrink svgs a little */
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
 }
 .vuestro-button.round.md {
   width: 28px;
