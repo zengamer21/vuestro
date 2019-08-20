@@ -182,7 +182,12 @@ export default {
 .vuestro-table-header:hover {
   color: var(--vuestro-table-header-fg-active);
 }
-
+.vuestro-table-header.vuestro-table-align-right {
+  text-align: right;
+}
+.vuestro-table-header.vuestro-table-align-center {
+  text-align: center;
+}
 .vuestro-table-header-sort {
   color: var(--vuestro-table-header-fg);
   cursor: pointer;
