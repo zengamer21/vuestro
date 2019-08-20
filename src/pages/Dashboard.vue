@@ -37,6 +37,7 @@ export default {
             title: 'Users',
             color: 'var(--vuestro-primary)',
             icon: 'users',
+            clickRoute: 'buttons',
           },
           position: {
             x: 0,

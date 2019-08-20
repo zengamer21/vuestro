@@ -2,7 +2,11 @@
   <vuestro-panel stretch class="vuestro-stat-panel" :color="color">
     <div class="vuestro-stat-panel-title drag">{{ title }}</div>
     <vuestro-icon class="vuestro-stat-panel-icon" v-if="icon" :name="icon"></vuestro-icon>
-    <div class="vuestro-stat-panel-value">{{ data[data.length-1].stat | vuestroCommas }}</div>
+    <div class="vuestro-stat-panel-value"
+         :class="{ clickable: options.clickRoute }"
+         @click="onClick">
+      {{ data[data.length-1].stat | vuestroCommas }}
+    </div>
   </vuestro-panel>
 </template>
 
@@ -25,6 +29,13 @@ export default {
   },
   beforeMount() {
     _.merge(this, this.options);
+  },
+  methods: {
+    onClick() {
+      if (this.options.clickRoute) {
+        this.$router.push({ name: this.options.clickRoute });
+      }
+    },
   },
 };
 
@@ -54,6 +65,9 @@ export default {
   font-size: 36px;
   text-shadow: 1px 1px 0px rgba(0,0,0,.1);
   cursor: default;
+}
+.vuestro-stat-panel-value.clickable {
+  cursor: pointer;
 }
 
 .vuestro-stat-panel-icon {
