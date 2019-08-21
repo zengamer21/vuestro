@@ -1,7 +1,7 @@
 <template>
   <transition name="vuestro-modal" mode="out-in">
-    <div class="vuestro-modal-outer" v-if="active" @click="onBlur">
-      <div class="vuestro-modal-inner" @click.stop>
+    <div class="vuestro-modal-outer" v-if="active" @click.exact="onBlur">
+      <div class="vuestro-modal-inner">
         <div class="vuestro-modal-titlebar">
           <div class="vuestro-modal-title">
             <slot name="title"></slot>
@@ -43,8 +43,8 @@ export default {
       this.$emit('update:active', false);
       this.$emit('close');
     },
-    onBlur() {
-      if (this.closeOnBlur) {
+    onBlur(e) {
+      if (this.closeOnBlur && e.target.classList.contains('vuestro-modal-outer')) {
         this.onClose();
       }
       return false;
@@ -86,7 +86,6 @@ export default {
   min-height: 200px;
   max-height: 80%;
   margin-top: 10vh;
-  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -112,12 +111,10 @@ export default {
 .vuestro-modal-toolbar-buttons {
   display: flex;
   margin-left: auto;
-  font-size: 14px;
+  font-size: 12px;
 }
-
 .vuestro-modal-default-slot {
   flex-grow: 1;
-  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;

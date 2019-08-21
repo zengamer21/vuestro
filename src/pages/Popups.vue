@@ -101,7 +101,7 @@
       <template #description>
         Or make it look like a button by using a VuestroButton in the "button" slot. VuestroDropdown will automatically wire it up!
       </template>
-      <div class="example-container">
+      <div class="example-vertical-container">
         <vuestro-dropdown>
           <template #button>
             <vuestro-button pill variant="info" size="lg">
@@ -151,7 +151,34 @@
       <vuestro-modal :active.sync="modalOpen1">
         <template #title>VuestroModal</template>
         <template #buttons></template>
-        <p>Modal content</p>
+        <vuestro-container column>
+          <vuestro-dropdown click-to-open>
+            <template #button>
+              <vuestro-button rounded>
+                <vuestro-icon name="car"></vuestro-icon>
+                <span>Make</span>
+              </vuestro-button>
+            </template>
+            <vuestro-list-button>Chevy</vuestro-list-button>
+            <vuestro-list-button>Dodge</vuestro-list-button>
+            <vuestro-list-button>Ford</vuestro-list-button>
+            <vuestro-list-button>Honda</vuestro-list-button>
+            <vuestro-list-button>Toyota</vuestro-list-button>
+          </vuestro-dropdown>
+          <vuestro-dropdown click-to-open>
+            <template #button>
+              <vuestro-button rounded>
+                <vuestro-icon name="car"></vuestro-icon>
+                <span>Model</span>
+              </vuestro-button>
+            </template>
+            <vuestro-list-button>Suburban</vuestro-list-button>
+            <vuestro-list-button>Ram</vuestro-list-button>
+            <vuestro-list-button>Festiva</vuestro-list-button>
+            <vuestro-list-button>Civic</vuestro-list-button>
+            <vuestro-list-button>Camry</vuestro-list-button>
+          </vuestro-dropdown>
+        </vuestro-container>
       </vuestro-modal>
     </vuestro-card>
 
@@ -163,7 +190,12 @@
       <vuestro-modal :active.sync="modalOpen2" close-on-blur>
         <template #title>VuestroModal</template>
         <template #buttons></template>
-        <p>Modal content</p>
+        <vuestro-container column>
+          <vuestro-button rounded>
+            <vuestro-icon name="hospital"></vuestro-icon>
+            <span>SOS</span>
+          </vuestro-button>
+        </vuestro-container>
       </vuestro-modal>
     </vuestro-card>
 
@@ -239,8 +271,10 @@ export default {
   justify-content: space-between;
 }
 
-.example-stretchy-container {
-  margin-bottom: 60px;
+.example-vertical-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 </style>

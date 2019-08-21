@@ -144,6 +144,10 @@ export default {
 .vuestro-button.shadow {
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
 }
+.vuestro-button svg {
+  width: 14px;
+  height: 14px;
+}
 .vuestro-button-content {
   flex: 1 1 auto;
   display: flex;
@@ -191,8 +195,8 @@ export default {
   overflow: hidden; /* make sure it centers properly */
 }
 .vuestro-button.round.sm {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   padding: 0;
 }
 .vuestro-button.round.sm svg { /* shrink svgs a little */
@@ -200,13 +204,13 @@ export default {
   height: 10px;
 }
 .vuestro-button.round.md {
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   padding: 0;
 }
 .vuestro-button.round.lg {
-  width: 32px;
-  height: 32px;
+  width: 26px;
+  height: 26px;
   padding: 0;
 }
 /* pill mode */

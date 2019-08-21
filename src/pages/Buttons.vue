@@ -9,7 +9,7 @@
 
     <vuestro-card>
       <template #description>
-        Basic button
+        Basic flat, blocky button
       </template>
       <div class="example-flexbox">
         <vuestro-button>Button</vuestro-button>
@@ -18,7 +18,7 @@
 
     <vuestro-card>
       <template #description>
-        Basic button with VuestroIcon
+        Basic button wrapping a VuestroIcon
       </template>
       <div class="example-flexbox">
         <vuestro-button>

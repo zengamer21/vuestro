@@ -1,5 +1,6 @@
 <template>
-  <div class="vuestro-dropdown" v-vuestro-blur="onBlur">
+  <div class="vuestro-dropdown" v-vuestro-blur="onBlur"
+    :style="{ 'z-index': active ? 200:100 }">
     <div class="vuestro-dropdown-inner" @mouseleave="onLeave" :class="{ dark, active, noSpacing, rounded, clickToOpen }">
       <div v-if="$slots.title" class="vuestro-dropdown-title" @mouseover="onHover" @click="onClick">
         &#8203;<slot name="title"></slot>&#8203;
@@ -116,7 +117,6 @@ export default {
 <style scoped>
 
 .vuestro-dropdown {
-  z-index: 100;
   height: 100%;
   position: relative;
   cursor: default;
