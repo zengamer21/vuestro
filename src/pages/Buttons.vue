@@ -88,30 +88,36 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button round size="sm">
-          <vuestro-icon name="sync-alt"></vuestro-icon>
+          <vuestro-icon name="archway"></vuestro-icon>
         </vuestro-button>
         <vuestro-button round>
-          <vuestro-icon name="play-circle"></vuestro-icon>
+          <vuestro-icon name="archway"></vuestro-icon>
         </vuestro-button>
         <vuestro-button round size="lg">
-          <vuestro-icon name="stop"></vuestro-icon>
+          <vuestro-icon name="archway"></vuestro-icon>
         </vuestro-button>
       </div>
     </vuestro-card>
 
     <vuestro-card>
       <template #description>
-        Font size is inherited, but the size {'sm', 'md', 'lg'} property modifies inner padding
+        <span>Set the <em>size</em> property {'sm', 'md', 'lg'} to affect the size of the button</span>
       </template>
-      <div class="example-flexbox bigger-font">
-        <vuestro-button><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
-        <vuestro-button>Large Text Button</vuestro-button>
+      <div class="example-flexbox">
         <vuestro-button size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="sm">sm Button</vuestro-button>
         <vuestro-button size="md"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="md">md(default) Button</vuestro-button>
         <vuestro-button size="lg"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="lg">lg Button</vuestro-button>
+      </div>
+      <div class="example-flexbox">
+        <vuestro-button round size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
+        <vuestro-button pill size="sm">sm Button</vuestro-button>
+        <vuestro-button round size="md"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
+        <vuestro-button pill size="md">md(default) Button</vuestro-button>
+        <vuestro-button round size="lg"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
+        <vuestro-button pill size="lg">lg Button</vuestro-button>
       </div>
     </vuestro-card>
 
@@ -160,6 +166,9 @@
         <vuestro-button no-border variant="black">black</vuestro-button>
         <vuestro-button no-border variant="text">text</vuestro-button>
         <vuestro-button no-border variant="link">link</vuestro-button>
+        <vuestro-button no-border round>
+          <vuestro-icon name="download"></vuestro-icon>
+        </vuestro-button>
       </div>
     </vuestro-card>
 
@@ -297,9 +306,6 @@ export default {
 .example-calculator .vuestro-button {
   flex-grow: 1;
   min-width: 80px;
-}
-.bigger-font {
-  font-size: 18px;
 }
 .example-flexbox.dark {
   padding: 40px;

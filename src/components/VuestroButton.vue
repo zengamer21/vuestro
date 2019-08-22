@@ -130,13 +130,16 @@ export default {
   border-radius: 3px;
 }
 .vuestro-button.sm {
-  padding: 0px 6px;
+  padding: 1px 6px;
+  font-size: 10px;
 }
 .vuestro-button.md {
   padding: 2px 6px;
+  font-size: 14px;
 }
 .vuestro-button.lg {
   padding: 6px 10px;
+  font-size: 16px;
 }
 .vuestro-button.dark {
   background-color: var(--vuestro-widget-dark-bg);
@@ -198,16 +201,16 @@ export default {
   overflow: hidden; /* make sure it centers properly */
 }
 .vuestro-button.round.sm {
-  height: calc(1em + 2px);
-  width: calc(1em + 2px);
+  height: calc(1em + 4px);
+  width: calc(1em + 4px);
 }
 .vuestro-button.noBorder.round.sm {
   height: calc(1em);
   width: calc(1em);
 }
-.vuestro-button.round.sm svg { /* shrink svgs a little for size=sm */
-  width: 10px;
-  height: 10px;
+.vuestro-button.sm svg { /* shrink svgs a little for size=sm */
+  width: 8px;
+  height: 8px;
 }
 .vuestro-button.round.md {
   height: calc(1em + 6px);
@@ -217,6 +220,10 @@ export default {
   height: calc(1em + 4px);
   width: calc(1em + 4px);
 }
+.vuestro-button.md svg { /* shrink svgs a little for size=md */
+  width: 10px;
+  height: 10px;
+}
 .vuestro-button.round.lg {
   height: calc(1em + 14px);
   width: calc(1em + 14px);
@@ -224,6 +231,10 @@ export default {
 .vuestro-button.noBorder.round.lg {
   height: calc(1em + 12px);
   width: calc(1em + 12px);
+}
+.vuestro-button.lg svg { /* enlarge svgs a little for size=lg */
+  width: 16px;
+  height: 16px;
 }
 
 
