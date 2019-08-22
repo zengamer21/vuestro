@@ -243,10 +243,6 @@ export default {
 .vuestro-button.pill {
   border-radius: 999px;
 }
-.vuestro-button.pill svg {
-  width: 12px;
-  height: 12px;
-}
 
 /* checkbox mode */
 .vuestro-button.checkbox {

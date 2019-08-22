@@ -105,19 +105,37 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
-        <vuestro-button size="sm">sm Button</vuestro-button>
+        <vuestro-button size="sm">
+          <vuestro-icon name="tractor"></vuestro-icon>
+          <span>sm Button</span>
+        </vuestro-button>
         <vuestro-button size="md"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
-        <vuestro-button size="md">md(default) Button</vuestro-button>
+        <vuestro-button size="md">
+          <vuestro-icon name="tractor"></vuestro-icon>
+          <span>md(default) Button</span>
+        </vuestro-button>
         <vuestro-button size="lg"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
-        <vuestro-button size="lg">lg Button</vuestro-button>
+        <vuestro-button size="lg">
+          <vuestro-icon name="tractor"></vuestro-icon>
+          <span>lg Button</span>
+        </vuestro-button>
       </div>
       <div class="example-flexbox">
         <vuestro-button round size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
-        <vuestro-button pill size="sm">sm Button</vuestro-button>
+        <vuestro-button pill size="sm">
+          <vuestro-icon name="tractor"></vuestro-icon>
+          <span>sm Button</span>
+        </vuestro-button>
         <vuestro-button round size="md"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
-        <vuestro-button pill size="md">md(default) Button</vuestro-button>
+        <vuestro-button pill size="md">
+          <vuestro-icon name="tractor"></vuestro-icon>
+          <span>md(default) Button</span>
+        </vuestro-button>
         <vuestro-button round size="lg"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
-        <vuestro-button pill size="lg">lg Button</vuestro-button>
+        <vuestro-button pill size="lg">
+          <vuestro-icon name="tractor"></vuestro-icon>
+          <span>lg Button</span>
+        </vuestro-button>
       </div>
     </vuestro-card>
 
