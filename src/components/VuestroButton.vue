@@ -152,6 +152,7 @@ export default {
   flex: 1 1 auto;
   display: flex;
   justify-content: space-evenly;
+  line-height: 1em;
 }
 .vuestro-button.disabled {
   pointer-events: none;
@@ -187,32 +188,46 @@ export default {
   filter: brightness(120%);
   background-color: transparent;
 }
-/* round mode (need padding to be same) */
+
+/* round mode */
 .vuestro-button.round {
   border-radius: 50%;
+  padding: 0;
 }
 .vuestro-button.round .vuestro-button-content {
   overflow: hidden; /* make sure it centers properly */
 }
 .vuestro-button.round.sm {
-  width: 18px;
-  height: 18px;
-  padding: 0;
+  height: calc(1em + 2px);
+  width: calc(1em + 2px);
 }
-.vuestro-button.round.sm svg { /* shrink svgs a little */
+.vuestro-button.noBorder.round.sm {
+  height: calc(1em);
+  width: calc(1em);
+}
+.vuestro-button.round.sm svg { /* shrink svgs a little for size=sm */
   width: 10px;
   height: 10px;
 }
 .vuestro-button.round.md {
-  width: 22px;
-  height: 22px;
-  padding: 0;
+  height: calc(1em + 6px);
+  width: calc(1em + 6px);
+}
+.vuestro-button.noBorder.round.md {
+  height: calc(1em + 4px);
+  width: calc(1em + 4px);
 }
 .vuestro-button.round.lg {
-  width: 26px;
-  height: 26px;
-  padding: 0;
+  height: calc(1em + 14px);
+  width: calc(1em + 14px);
 }
+.vuestro-button.noBorder.round.lg {
+  height: calc(1em + 12px);
+  width: calc(1em + 12px);
+}
+
+
+
 /* pill mode */
 .vuestro-button.pill {
   border-radius: 999px;
@@ -221,6 +236,7 @@ export default {
   width: 12px;
   height: 12px;
 }
+
 /* checkbox mode */
 .vuestro-button.checkbox {
   width: 17px;

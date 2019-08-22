@@ -206,7 +206,7 @@ export default {
 
 .vuestro-app {
   color: var(--vuestro-text-color);
-  font-size: 13px;
+  font-size: 14px;
   font-family: 'Quicksand', sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
   text-rendering: optimizeLegibility;
