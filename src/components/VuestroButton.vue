@@ -130,7 +130,7 @@ export default {
   border-radius: 3px;
 }
 .vuestro-button.sm {
-  padding: 1px 6px;
+  padding: 1px 4px;
   font-size: 10px;
 }
 .vuestro-button.md {
@@ -205,8 +205,8 @@ export default {
   width: calc(1em + 4px);
 }
 .vuestro-button.noBorder.round.sm {
-  height: calc(1em);
-  width: calc(1em);
+  height: calc(1em + 2px);
+  width: calc(1em + 2px);
 }
 .vuestro-button.sm svg { /* shrink svgs a little for size=sm */
   width: 8px;

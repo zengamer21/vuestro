@@ -88,13 +88,13 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button round size="sm">
-          <vuestro-icon name="archway"></vuestro-icon>
+          <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
         <vuestro-button round>
-          <vuestro-icon name="archway"></vuestro-icon>
+          <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
         <vuestro-button round size="lg">
-          <vuestro-icon name="archway"></vuestro-icon>
+          <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
       </div>
     </vuestro-card>
@@ -184,6 +184,13 @@
         <vuestro-button no-border variant="black">black</vuestro-button>
         <vuestro-button no-border variant="text">text</vuestro-button>
         <vuestro-button no-border variant="link">link</vuestro-button>
+        <vuestro-button no-border round size="sm">
+          <vuestro-icon name="download"></vuestro-icon>
+        </vuestro-button>
+        <vuestro-button no-border pill size="sm">
+          <vuestro-icon name="download"></vuestro-icon>
+          <span>Download</span>
+        </vuestro-button>
         <vuestro-button no-border round>
           <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
