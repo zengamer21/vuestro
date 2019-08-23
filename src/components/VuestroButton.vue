@@ -131,7 +131,7 @@ export default {
 }
 .vuestro-button.sm {
   padding: 1px 4px;
-  font-size: 10px;
+  font-size: 12px;
 }
 .vuestro-button.md {
   padding: 2px 6px;

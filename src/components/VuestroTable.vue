@@ -27,7 +27,7 @@
           <slot v-if="$scopedSlots.row" name="row" :item="row"></slot>
           <td v-else v-for="column in headers"
               class="vuestro-table-cell"
-              :class="[ `vuestro-table-align-${column.align}` ]"
+              :class="[ `vuestro-table-align-${column.align}`, column.classes]"
               :style="`padding: ${column.padding}px`">
             <slot v-if="$scopedSlots.cell" name="cell" :item="{ column, row }"></slot>
             <component v-else-if="column.component" :is="column.component" v-model="row[column.field]"></component>

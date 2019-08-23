@@ -18,7 +18,7 @@
 
     <vuestro-card>
       <template #subheading>
-        Specify columns array property to format column headers and provide options such as padding, sortable, sort (default direction), and a render function.
+        Specify columns array property to format column headers and provide options such as padding, sortable, classes, sort (default direction), and a render function.
       </template>
       <vuestro-panel>
         <vuestro-table :options="exampleOptions" :data="exampleData"></vuestro-table>
@@ -27,7 +27,7 @@
 
     <vuestro-card>
       <template #subheading>
-        Provide a template for cells and headers through the cell/header slot. The slot scope object "item" contains a column specifier for headers and both the column specifier and row data item for cells.
+        <span>Provide a template for cells and headers through the cell/header slot. The slot scope object <em>item</em> contains a column specifier for headers and both the column specifier and row data item for cells.</span>
       </template>
       <vuestro-panel>
         <vuestro-table :options="exampleOptions" :data="exampleData">
@@ -43,7 +43,7 @@
 
     <vuestro-card>
       <template #subheading>
-        Provide a template for the entire row through the row slot. The slot must contain enough 'td' elements to fill the row. Also, some of the column options such as align will need to be implemented by the parent.
+        <span>Provide a template for the entire row through the row slot. The slot must contain enough <em>td</em> elements to fill the row. Also, some of the column options such as align will need to be implemented by the parent.</span>
       </template>
       <vuestro-panel>
         <vuestro-table :options="exampleOptions" :data="exampleData">
@@ -59,7 +59,7 @@
 
     <vuestro-card>
       <template #subheading>
-        Specify "component" header property to use a Vue component to render a particular column
+        <span>Specify <em>component</em> header property to use a Vue component to render a particular column</span>
       </template>
       <vuestro-panel>
         <vuestro-table :options="exampleOptions2" :data="exampleData"></vuestro-table>
@@ -111,9 +111,10 @@ export default {
           },
           {
             field: 'lastName',
-            title: 'Last Name',
+            title: 'Last Name (specified class)',
             sortable: true,
             sort: 'asc',
+            classes: 'test-column-class',
           },
           {
             field: 'phone',
@@ -192,5 +193,9 @@ export default {
 
 <style scoped>
 
+.vuestro-table >>> .test-column-class {
+  font-weight: 700;
+  padding: 10px;
+}
 
 </style>
