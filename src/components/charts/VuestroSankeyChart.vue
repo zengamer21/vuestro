@@ -134,9 +134,9 @@ export default {
           keptLinks = _.take(_.orderBy(this.data.links, 'value', ['desc']), this.maxLinks);
         } else {
           // node was focused, take that node and top N links in and out of it
-          keptLinks = _.take(_.filter(this.data.links, function (d) {
+          keptLinks = _.take(_.orderBy(_.filter(this.data.links, function (d) {
             return d.source === fidx || d.target === fidx;
-          }), this.maxLinks);
+          }), 'value', ['desc']), this.maxLinks);
         }
         for (let l of keptLinks) {
           let srcIdx = _.findIndex(this.prunedData.nodes, this.data.nodes[l.source]);
