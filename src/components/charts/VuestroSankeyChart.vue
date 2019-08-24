@@ -18,8 +18,9 @@
       </defs>
       <g>
         <g stroke="#000">
-          <rect class="node"
+          <rect class="vuestro-sankey-node"
                 v-for="n in graph.nodes"
+                :class="{ focused: n.focus }"
                 :x="n.x0"
                 :y="n.y0"
                 :key="n.name"
@@ -70,6 +71,7 @@ export default {
   },
   data() {
     return {
+      prunedData: {},
       width: 0,
       height: 0,
       nodeWidth: 10,
@@ -81,6 +83,7 @@ export default {
         bottom: 20,
         left: 20,
       },
+      maxLinks: 100,
     };
   },
   computed: {
@@ -97,24 +100,70 @@ export default {
       return Sankey.sankeyLinkHorizontal();
     },
   },
+  watch: {
+    data(newVal) {
+      this.processData();
+    },
+  },
   beforeMount() {
     _.merge(this, this.options);
   },
   mounted() {
     window.addEventListener('resize', this.resize);
+    this.processData();
     this.resize();
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resize);
   },
   methods: {
+    processData() {
+      if (this.data.links && this.data.links.length < this.maxLinks) {
+        // take all the data
+        this.prunedData = this.data;
+      } else {
+        this.prunedData = {
+          nodes: [],
+          links: [],
+        };
+        let keptLinks = [];
+        // see if a node was marked as focused
+        let fidx = _.findIndex(this.data.nodes, 'focus');
+        if (fidx < 0) {
+          // no focused node, just take the top N links by value
+          keptLinks = _.take(_.orderBy(this.data.links, 'value', ['desc']), this.maxLinks);
+        } else {
+          // node was focused, take that node and top N links in and out of it
+          keptLinks = _.take(_.filter(this.data.links, function (d) {
+            return d.source === fidx || d.target === fidx;
+          }), this.maxLinks);
+        }
+        for (let l of keptLinks) {
+          let srcIdx = _.findIndex(this.prunedData.nodes, this.data.nodes[l.source]);
+          if (srcIdx < 0) {
+            srcIdx = this.prunedData.nodes.length;
+            this.prunedData.nodes.push(this.data.nodes[l.source]);
+          }
+          let tgtIdx = _.findIndex(this.prunedData.nodes, this.data.nodes[l.target]);
+          if (tgtIdx < 0) {
+            tgtIdx = this.prunedData.nodes.length;
+            this.prunedData.nodes.push(this.data.nodes[l.target]);
+          }
+          this.prunedData.links.push({
+            source: srcIdx,
+            target: tgtIdx,
+            value: l.value,
+          });
+        }
+      }
+    },
     resize() {
       if (this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
         this.$nextTick(() => {
           this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
           this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
-          if (this.data.nodes && this.data.links && this.data.nodes.length > 0 && this.data.links.length > 0) {
-              this.graph = this.sankey(this.data);
+          if (this.prunedData.nodes && this.prunedData.links && this.prunedData.nodes.length > 0 && this.prunedData.links.length > 0) {
+              this.graph = this.sankey(this.prunedData);
           }
         });
       }
@@ -140,5 +189,12 @@ export default {
 .sankey-link:hover {
   stroke-opacity: 0.8
 }
+
+
+.vuestro-sankey-node.focused {
+  stroke: var(--vuestro-gold);
+  stroke-width: 3;
+}
+
 
 </style>
