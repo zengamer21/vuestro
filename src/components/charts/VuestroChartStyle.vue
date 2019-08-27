@@ -1,11 +1,11 @@
 <style>
 
 .vuestro-chart-toolbar {
+  height: 24px;
   width: 100%;
   padding: 2px;
   position: absolute;
   bottom: 0;
-  font-size: 11px;
   display: flex;
 }
 

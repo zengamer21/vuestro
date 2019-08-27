@@ -106,7 +106,9 @@ export default {
       }
     },
     afterLeave() {
-      window.dispatchEvent(new Event('resize'));
+      this.$nextTick(() => {
+        window.dispatchEvent(new Event('resize'));
+      });
     }
   },
 };

@@ -106,7 +106,6 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  pointer-events: none;
 }
 
 .vuestro-pill-closer {

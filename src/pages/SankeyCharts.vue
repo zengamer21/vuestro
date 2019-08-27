@@ -1,17 +1,19 @@
 <template>
   <vuestro-grid :layout.sync="layout">
-    <vuestro-card slot-scope="{ item }" :color="item.color">
-      <template #heading><span class="drag">{{ item.title }}</span></template>
-      <div class="frame">
-        <vuestro-sankey-chart :data="item.data" :options="item.options">
-          <template #default="{ node }">
-            <vuestro-button round no-border>
-              <vuestro-icon name="external-link-alt"></vuestro-icon>
-            </vuestro-button>
-          </template>
-        </vuestro-sankey-chart>
-      </div>
-    </vuestro-card>
+    <template #default="{ item }">
+      <vuestro-card :color="item.color" overflow-hidden>
+        <template #heading><span class="drag">{{ item.title }}</span></template>
+        <vuestro-panel stretch overflow-hidden>
+          <vuestro-sankey-chart :data="item.data" :options="item.options">
+            <template #default="{ node }">
+              <vuestro-button variant="link" no-border no-padding>
+                <vuestro-icon name="external-link-alt"></vuestro-icon>
+              </vuestro-button>
+            </template>
+          </vuestro-sankey-chart>
+        </vuestro-panel>
+      </vuestro-card>
+    </template>
   </vuestro-grid>
 </template>
 
@@ -165,19 +167,5 @@ export default {
 
 
 <style scoped>
-
-.frame {
-  margin-top: 5px;
-  flex-grow: 1;
-  border-radius: 4px;
-  background-color: white;
-  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-}
-
-.vuestro-dark .frame {
-  border: 1px solid var(--vuestro-outline);
-}
 
 </style>

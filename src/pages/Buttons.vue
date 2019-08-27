@@ -255,19 +255,19 @@
 
     <vuestro-card>
       <template #description>
-        <span>Enable dense arrangements by setting the <em>no-spacing</em> property</span>
+        <span>Enable dense arrangements by setting the <em>no-border</em> property</span>
       </template>
       <div class="example-calculator">
-        <vuestro-button no-spacing variant="primary">7</vuestro-button>
-        <vuestro-button no-spacing variant="primary">8</vuestro-button>
-        <vuestro-button no-spacing variant="primary">9</vuestro-button>
-        <vuestro-button no-spacing variant="primary">4</vuestro-button>
-        <vuestro-button no-spacing variant="primary">5</vuestro-button>
-        <vuestro-button no-spacing variant="primary">6</vuestro-button>
-        <vuestro-button no-spacing variant="primary">1</vuestro-button>
-        <vuestro-button no-spacing variant="primary">2</vuestro-button>
-        <vuestro-button no-spacing variant="primary">3</vuestro-button>
-        <vuestro-button no-spacing variant="primary">0</vuestro-button>
+        <vuestro-button no-margin variant="primary">7</vuestro-button>
+        <vuestro-button no-margin variant="primary">8</vuestro-button>
+        <vuestro-button no-margin variant="primary">9</vuestro-button>
+        <vuestro-button no-margin variant="primary">4</vuestro-button>
+        <vuestro-button no-margin variant="primary">5</vuestro-button>
+        <vuestro-button no-margin variant="primary">6</vuestro-button>
+        <vuestro-button no-margin variant="primary">1</vuestro-button>
+        <vuestro-button no-margin variant="primary">2</vuestro-button>
+        <vuestro-button no-margin variant="primary">3</vuestro-button>
+        <vuestro-button no-margin variant="primary">0</vuestro-button>
       </div>
     </vuestro-card>
 

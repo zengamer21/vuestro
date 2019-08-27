@@ -2,7 +2,7 @@
   <div class="vuestro-button"
        :class="[`vuestro-button-${variant}`,
                 size,
-                { dark, value, noBorder, noSpacing, round, pill, checkbox, disabled, stretch, rounded, shadow }]"
+                { dark, value, noBorder, noMargin, noPadding, round, pill, checkbox, disabled, stretch, rounded, shadow }]"
        @click="onClick"
        @mouseover="onHover">
     <div class="vuestro-button-content">
@@ -23,7 +23,8 @@ export default {
   props: {
     variant: { type: String, default: 'secondary' },
     noBorder: { type: Boolean, default: false },
-    noSpacing: { type: Boolean, default: false },
+    noMargin: { type: Boolean, default: false },
+    noPadding: { type: Boolean, default: false },
     checkbox: { type: Boolean, required: false },
     value: { type: Boolean, default: false }, // for v-model support
     disabled: { type: Boolean, default: false },
@@ -117,12 +118,6 @@ export default {
   opacity: .2;
   transition: 0s;
 }
-.vuestro-button.noBorder {
-  border: none;
-}
-.vuestro-button.noSpacing {
-  margin: 0;
-}
 .vuestro-button.stretch {
   align-self: stretch;
 }
@@ -140,6 +135,15 @@ export default {
 .vuestro-button.lg {
   padding: 6px 10px;
   font-size: 16px;
+}
+.vuestro-button.noBorder {
+  border: none;
+}
+.vuestro-button.noMargin {
+  margin: 0;
+}
+.vuestro-button.noPadding {
+  padding: 0;
 }
 .vuestro-button.dark {
   background-color: var(--vuestro-widget-dark-bg);

@@ -20,14 +20,14 @@
         <g stroke="#000">
           <rect class="vuestro-sankey-node"
                 v-for="(n, idx) in graph.nodes"
-                :class="{ focused: idx === focusedNode }"
+                :class="{ focused: n.name === focusedNode }"
                 :x="n.x0"
                 :y="n.y0"
                 :key="n.name"
-                :height="n.y1- n.y0"
+                :height="n.y1 - n.y0"
                 :width="n.x1 - n.x0"
                 :fill="color(n.name)"
-                @click="focusNode(idx)">
+                @click="focusNode(n)">
           </rect>
         </g>
         <g fill="none" stroke-opacity="0.5">
@@ -48,29 +48,39 @@
                 v-if="n.x0 !== undefined && n.x1 !== undefined"
                 :x="n.x0 < width / 2 ? n.x1 + 6 : n.x0 - 6"
                 :key="n.name"
-                :y="(n.y1 + n.y0) / 2"
-                :text-anchor="n.x0 < width / 2 ? 'start' : 'end'">
+                :y="(n.y1 + n.y0) / 2 + 1"
+                :text-anchor="n.x0 < width / 2 ? 'start' : 'end'"
+                alignment-baseline="middle">
             {{ n.name }}
           </text>
         </g>
       </g>
     </svg>
     <div class="sankey-toolbar" :style="{ height: `${toolbarHeight}px` }">
-      <span class="text">Max Links</span>
-      <vuestro-button pill size="sm" @click="increaseLinkThreshold">
+      <vuestro-button pill size="sm" @click="increaseLinkThreshold" value>
         <vuestro-icon name="plus"></vuestro-icon>
       </vuestro-button>
-      <vuestro-pill color="var(--vuestro-secondary)">
-        <template #title>{{ maxLinks }}</template>
+      <vuestro-pill color="var(--vuestro-secondary)" clickable @click="resetLinkThreshold">
+        <template #title>{{ maxLinks }} links</template>
       </vuestro-pill>
-      <vuestro-button pill size="sm" @click="decreaseLinkThreshold">
+      <vuestro-button pill size="sm" @click="decreaseLinkThreshold" value>
         <vuestro-icon name="minus"></vuestro-icon>
       </vuestro-button>
-      <div class="sankey-toolbar-selected-node" v-if="focusedNode !== null">
-        <span class="sankey-toolbar-selected-node-title">{{ selectedNodeLabel }}</span>
-        <span class="sankey-toolbar-selected-node-value">{{ this.data.nodes[focusedNode].name }}</span>
-        <slot :node="this.data.nodes[focusedNode]"></slot>
-      </div>
+      <vuestro-button pill size="sm" @click="cycleNodeAlign">
+        <span v-if="nodeAlign === nodeAlignOptions.justify"><vuestro-icon name="align-justify"></vuestro-icon></span>
+        <span v-if="nodeAlign === nodeAlignOptions.center"><vuestro-icon name="align-center"></vuestro-icon></span>
+        <span v-if="nodeAlign === nodeAlignOptions.left"><vuestro-icon name="align-left"></vuestro-icon></span>
+        <span v-if="nodeAlign === nodeAlignOptions.right"><vuestro-icon name="align-right"></vuestro-icon></span>
+      </vuestro-button>
+      <vuestro-pill color="var(--vuestro-gold)">
+        <template #title>
+          <span class="sankey-toolbar-selected-node-title">{{ selectedNodeLabel }}</span>
+        </template>
+        <template #value>
+          <span class="sankey-toolbar-selected-node-value">{{ focusedNode }}</span>
+          <slot :node="data.nodes[focusedNode]"></slot>
+        </template>
+      </vuestro-pill>
     </div>
   </div>
 </template>
@@ -97,10 +107,10 @@ export default {
       nodePadding: 5,
       graph: {},
       margin: {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 20,
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10,
       },
       maxLinks: this.data.links.length,
       renderValue: (d) => {
@@ -108,6 +118,13 @@ export default {
       },
       focusedNode: null,
       selectedNodeLabel: 'Selected Node',
+      nodeAlign: Sankey.sankeyJustify,
+      nodeAlignOptions: {
+        justify: Sankey.sankeyJustify,
+        center: Sankey.sankeyCenter,
+        left: Sankey.sankeyLeft,
+        right: Sankey.sankeyRight,
+      }
     };
   },
   computed: {
@@ -116,9 +133,10 @@ export default {
     },
     sankey() {
       return Sankey.sankey()
+        .nodeAlign(this.nodeAlign)
         .nodeWidth(this.nodeWidth)
         .nodePadding(this.nodePadding)
-        .size([this.width, this.height]);
+        .extent([[this.nodePadding/2, this.nodePadding/2], [this.width - this.nodePadding/2, this.height - this.nodePadding/2]]);
     },
     sankeyLink() {
       return Sankey.sankeyLinkHorizontal();
@@ -144,7 +162,7 @@ export default {
     processData() {
       // see if a node was marked as focused
       if (!this.focusedNode) {
-        this.focusedNode = _.findIndex(this.data.nodes, 'focus');
+        this.focusedNode = _.find(this.data.nodes, 'focus').name;
       }
       if (this.data.links && this.data.links.length <= this.maxLinks) {
         // take all the data
@@ -159,9 +177,10 @@ export default {
           // no focused node, just take the top N links by value
           keptLinks = _.take(_.orderBy(this.data.links, 'value', ['desc']), this.maxLinks);
         } else {
+          let fidx = _.findIndex(this.data.nodes, { name: this.focusedNode });
           // node was focused, take that node and top N links in and out of it
           keptLinks = _.take(_.orderBy(_.filter(this.data.links, (d) => {
-            return d.source === this.focusedNode || d.target === this.focusedNode;
+            return d.source === fidx || d.target === fidx;
           }), 'value', ['desc']), this.maxLinks);
         }
         for (let l of keptLinks) {
@@ -210,9 +229,31 @@ export default {
       this.processData();
       this.resize();
     },
-    focusNode(nidx) {
-      this.focusedNode = nidx;
+    resetLinkThreshold() {
+      this.maxLinks = this.data.links.length;
       this.processData();
+      this.resize();
+    },
+    focusNode(n) {
+      this.focusedNode = n.name;
+      this.processData();
+      this.resize();
+    },
+    cycleNodeAlign() {
+      switch (this.nodeAlign) {
+        case this.nodeAlignOptions.justify:
+          this.nodeAlign = this.nodeAlignOptions.center;
+          break;
+        case this.nodeAlignOptions.center:
+          this.nodeAlign = this.nodeAlignOptions.left;
+          break;
+        case this.nodeAlignOptions.left:
+          this.nodeAlign = this.nodeAlignOptions.right;
+          break;
+        case this.nodeAlignOptions.right:
+          this.nodeAlign = this.nodeAlignOptions.justify;
+          break;
+      }
       this.resize();
     },
   },
@@ -226,6 +267,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+  flex-grow: 1;
   overflow: hidden;
 }
 
@@ -242,8 +284,8 @@ export default {
 }
 
 .vuestro-sankey-node.focused {
+  fill: var(--vuestro-gold);
   stroke: var(--vuestro-gold);
-  stroke-width: 3;
 }
 
 .sankey-toolbar {
@@ -253,30 +295,15 @@ export default {
   bottom: 0;
   display: flex;
 }
-.sankey-toolbar > .text {
-  margin-left: 6px;
-  align-self: center;
-  font-size: 12px;
-  color: var(--vuestro-text-color-muted);
-  font-weight: 500;
-  margin-right: 6px;
+
+.sankey-toolbar-selected-node-title {
+  color: var(--vuestro-dark);
+  font-weight: 300;
 }
 
-.sankey-toolbar-selected-node {
-  font-weight: 500;
-  font-size: 12px;
-  align-self: center;
-  margin-left: 10px;
-  display: flex;
-  align-items: center;
-}
-.sankey-toolbar-selected-node-title {
-  color: var(--vuestro-text-color-muted);
-  margin-right: 8px;
-}
 .sankey-toolbar-selected-node-value {
-  font-size: 13px;
   margin-right: 5px;
+  font-weight: 500;
 }
 
 </style>
