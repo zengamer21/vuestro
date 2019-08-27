@@ -142,6 +142,10 @@ export default {
   },
   methods: {
     processData() {
+      // see if a node was marked as focused
+      if (!this.focusedNode) {
+        this.focusedNode = _.findIndex(this.data.nodes, 'focus');
+      }
       if (this.data.links && this.data.links.length <= this.maxLinks) {
         // take all the data
         this.prunedData = _.cloneDeep(this.data);
@@ -151,10 +155,6 @@ export default {
           links: [],
         };
         let keptLinks = [];
-        // see if a node was marked as focused
-        if (!this.focusedNode) {
-          this.focusedNode = _.findIndex(this.data.nodes, 'focus');
-        }
         if (this.focusedNode < 0) {
           // no focused node, just take the top N links by value
           keptLinks = _.take(_.orderBy(this.data.links, 'value', ['desc']), this.maxLinks);
