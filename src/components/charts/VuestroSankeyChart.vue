@@ -66,7 +66,7 @@
       <vuestro-button pill size="sm" @click="decreaseLinkThreshold">
         <vuestro-icon name="minus"></vuestro-icon>
       </vuestro-button>
-      <div class="sankey-toolbar-selected-node" v-if="!!focusedNode">
+      <div class="sankey-toolbar-selected-node" v-if="focusedNode !== null">
         <span class="sankey-toolbar-selected-node-title">{{ selectedNodeLabel }}</span>
         <span class="sankey-toolbar-selected-node-value">{{ this.data.nodes[focusedNode].name }}</span>
         <slot :node="this.data.nodes[focusedNode]"></slot>
