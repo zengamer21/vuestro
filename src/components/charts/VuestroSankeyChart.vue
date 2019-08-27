@@ -19,14 +19,15 @@
       <g>
         <g stroke="#000">
           <rect class="vuestro-sankey-node"
-                v-for="n in graph.nodes"
-                :class="{ focused: n.focus }"
+                v-for="(n, idx) in graph.nodes"
+                :class="{ focused: idx === focusedNode }"
                 :x="n.x0"
                 :y="n.y0"
                 :key="n.name"
                 :height="n.y1- n.y0"
                 :width="n.x1 - n.x0"
-                :fill="color(n.name)">
+                :fill="color(n.name)"
+                @click="focusNode(idx)">
           </rect>
         </g>
         <g fill="none" stroke-opacity="0.5">
@@ -55,7 +56,7 @@
       </g>
     </svg>
     <div class="sankey-toolbar" :style="{ height: `${toolbarHeight}px` }">
-      <span>Max Links&nbsp;</span>
+      <span class="text">Max Links</span>
       <vuestro-button pill size="sm" @click="increaseLinkThreshold">
         <vuestro-icon name="plus"></vuestro-icon>
       </vuestro-button>
@@ -65,6 +66,11 @@
       <vuestro-button pill size="sm" @click="decreaseLinkThreshold">
         <vuestro-icon name="minus"></vuestro-icon>
       </vuestro-button>
+      <div class="sankey-toolbar-selected-node" v-if="focusedNode">
+        <span class="sankey-toolbar-selected-node-title">Selected Node</span>
+        <span class="sankey-toolbar-selected-node-value">{{ this.data.nodes[focusedNode].name }}</span>
+        <slot :node="this.data.nodes[focusedNode]"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -100,6 +106,7 @@ export default {
       renderValue: (d) => {
         return d;
       },
+      focusedNode: null,
     };
   },
   computed: {
@@ -144,14 +151,16 @@ export default {
         };
         let keptLinks = [];
         // see if a node was marked as focused
-        let fidx = _.findIndex(this.data.nodes, 'focus');
-        if (fidx < 0) {
+        if (!this.focusedNode) {
+          this.focusedNode = _.findIndex(this.data.nodes, 'focus');
+        }
+        if (this.focusedNode < 0) {
           // no focused node, just take the top N links by value
           keptLinks = _.take(_.orderBy(this.data.links, 'value', ['desc']), this.maxLinks);
         } else {
           // node was focused, take that node and top N links in and out of it
-          keptLinks = _.take(_.orderBy(_.filter(this.data.links, function (d) {
-            return d.source === fidx || d.target === fidx;
+          keptLinks = _.take(_.orderBy(_.filter(this.data.links, (d) => {
+            return d.source === this.focusedNode || d.target === this.focusedNode;
           }), 'value', ['desc']), this.maxLinks);
         }
         for (let l of keptLinks) {
@@ -200,6 +209,11 @@ export default {
       this.processData();
       this.resize();
     },
+    focusNode(nidx) {
+      this.focusedNode = nidx;
+      this.processData();
+      this.resize();
+    },
   },
 };
 
@@ -222,6 +236,9 @@ export default {
   stroke-opacity: 0.8
 }
 
+.vuestro-sankey-node {
+  cursor: pointer;
+}
 
 .vuestro-sankey-node.focused {
   stroke: var(--vuestro-gold);
@@ -230,10 +247,34 @@ export default {
 
 .sankey-toolbar {
   width: 100%;
-  padding: 2px 8px;
+  padding: 2px;
   position: absolute;
   bottom: 0;
   display: flex;
+}
+.sankey-toolbar > .text {
+  margin-left: 6px;
+  align-self: center;
+  font-size: 12px;
+  color: var(--vuestro-text-color-muted);
+  font-weight: 500;
+}
+
+.sankey-toolbar-selected-node {
+  font-weight: 500;
+  font-size: 12px;
+  align-self: center;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+.sankey-toolbar-selected-node-title {
+  color: var(--vuestro-text-color-muted);
+  margin-right: 8px;
+}
+.sankey-toolbar-selected-node-value {
+  font-size: 13px;
+  margin-right: 5px;
 }
 
 </style>

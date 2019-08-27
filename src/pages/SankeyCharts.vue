@@ -3,7 +3,13 @@
     <vuestro-card slot-scope="{ item }" :color="item.color">
       <template #heading><span class="drag">{{ item.title }}</span></template>
       <div class="frame">
-        <vuestro-sankey-chart :data="item.data" :options="item.options"></vuestro-sankey-chart>
+        <vuestro-sankey-chart :data="item.data" :options="item.options">
+          <template #default="{ node }">
+            <vuestro-button round no-border>
+              <vuestro-icon name="external-link-alt"></vuestro-icon>
+            </vuestro-button>
+          </template>
+        </vuestro-sankey-chart>
       </div>
     </vuestro-card>
   </vuestro-grid>
@@ -51,7 +57,7 @@ export default {
             {"name":"Geothermal"},
             {"name":"H2"},
             {"name":"Hydro"},
-            {"name":"International shipping"},
+            {"name":"International shipping", focus: true},
             {"name":"Domestic aviation"},
             {"name":"International aviation"},
             {"name":"National navigation"},

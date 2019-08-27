@@ -187,6 +187,9 @@
         <vuestro-button no-border round size="sm">
           <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
+        <vuestro-button no-border round size="sm">
+          <vuestro-icon name="external-link-alt"></vuestro-icon>
+        </vuestro-button>
         <vuestro-button no-border pill size="sm">
           <vuestro-icon name="download"></vuestro-icon>
           <span>Download</span>
