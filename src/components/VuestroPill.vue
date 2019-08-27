@@ -8,7 +8,8 @@
       {{ titleComputed }}
     </div>
     <div v-if="$slots.title"
-         class="vuestro-pill-title vuestro-pill-slot">
+         class="vuestro-pill-title vuestro-pill-slot"
+         :style="color ? { 'background-color': color }:{}">
       <slot name="title"></slot>
     </div>
     <div v-if="value" ref="theText" class="vuestro-pill-value">{{ value }}</div>

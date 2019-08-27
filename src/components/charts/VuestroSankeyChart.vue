@@ -38,7 +38,7 @@
                 :stroke-width="l.width"
                 class="sankey-link">
             <title>
-              <text>{{ l.value }}</text>
+              <text>{{ renderValue(l.value) }}</text>
             </title>
           </path>
         </g>
@@ -54,6 +54,18 @@
         </g>
       </g>
     </svg>
+    <div class="sankey-toolbar" :style="{ height: `${toolbarHeight}px` }">
+      <span>Max Links&nbsp;</span>
+      <vuestro-button pill size="sm" @click="increaseLinkThreshold">
+        <vuestro-icon name="plus"></vuestro-icon>
+      </vuestro-button>
+      <vuestro-pill color="var(--vuestro-secondary)">
+        <template #title>{{ maxLinks }}</template>
+      </vuestro-pill>
+      <vuestro-button pill size="sm" @click="decreaseLinkThreshold">
+        <vuestro-icon name="minus"></vuestro-icon>
+      </vuestro-button>
+    </div>
   </div>
 </template>
 
@@ -71,6 +83,7 @@ export default {
   },
   data() {
     return {
+      toolbarHeight: 24,
       prunedData: {},
       width: 0,
       height: 0,
@@ -83,7 +96,10 @@ export default {
         bottom: 20,
         left: 20,
       },
-      maxLinks: 100,
+      maxLinks: this.data.links.length,
+      renderValue: (d) => {
+        return d;
+      },
     };
   },
   computed: {
@@ -118,9 +134,9 @@ export default {
   },
   methods: {
     processData() {
-      if (this.data.links && this.data.links.length < this.maxLinks) {
+      if (this.data.links && this.data.links.length <= this.maxLinks) {
         // take all the data
-        this.prunedData = this.data;
+        this.prunedData = _.cloneDeep(this.data);
       } else {
         this.prunedData = {
           nodes: [],
@@ -161,12 +177,28 @@ export default {
       if (this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
         this.$nextTick(() => {
           this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
-          this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
+          this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom - this.toolbarHeight;
           if (this.prunedData.nodes && this.prunedData.links && this.prunedData.nodes.length > 0 && this.prunedData.links.length > 0) {
               this.graph = this.sankey(this.prunedData);
           }
         });
       }
+    },
+    increaseLinkThreshold() {
+      this.maxLinks += 5;
+      if (this.maxLinks > this.data.links.length) {
+        this.maxLinks = this.data.links.length;
+      }
+      this.processData();
+      this.resize();
+    },
+    decreaseLinkThreshold() {
+      this.maxLinks -= 5;
+      if (this.maxLinks < 0) {
+        this.maxLinks = 0;
+      }
+      this.processData();
+      this.resize();
     },
   },
 };
@@ -196,5 +228,12 @@ export default {
   stroke-width: 3;
 }
 
+.sankey-toolbar {
+  width: 100%;
+  padding: 2px 8px;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+}
 
 </style>
