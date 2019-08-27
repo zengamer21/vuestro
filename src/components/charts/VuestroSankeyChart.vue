@@ -67,7 +67,7 @@
         <vuestro-icon name="minus"></vuestro-icon>
       </vuestro-button>
       <div class="sankey-toolbar-selected-node" v-if="focusedNode">
-        <span class="sankey-toolbar-selected-node-title">Selected Node</span>
+        <span class="sankey-toolbar-selected-node-title">{{ selectedNodeLabel }}</span>
         <span class="sankey-toolbar-selected-node-value">{{ this.data.nodes[focusedNode].name }}</span>
         <slot :node="this.data.nodes[focusedNode]"></slot>
       </div>
@@ -107,6 +107,7 @@ export default {
         return d;
       },
       focusedNode: null,
+      selectedNodeLabel: 'Selected Node',
     };
   },
   computed: {
