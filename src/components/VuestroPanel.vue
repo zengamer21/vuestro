@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-panel"
-       :class="[ gutter, { dark, stretch, scroll }]"
+       :class="[ gutter, { dark, stretch, scroll, noBorder }]"
        :style="color ? { 'background-color': color }:{}">
     <!--TOOLBAR-->
     <div v-if="$slots.title || $slots.toolbar || collapsible" class="vuestro-panel-title-toolbar">
@@ -42,6 +42,7 @@ export default {
     contentPadding: { type: String, default: '' },
     scroll: { type: Boolean, default: false },
     overflowHidden: { type: Boolean, default: null },
+    noBorder: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -121,6 +122,10 @@ export default {
   background-color: var(--vuestro-panel-dark-bg);
   color: var(--vuestro-text-color-inverse);
   border: 1px solid var(--vuestro-outline);
+}
+.vuestro-panel.noBorder {
+  box-shadow: none;
+  border: none;
 }
 
 .vuestro-panel .vuestro-tray:not(:last-child) {

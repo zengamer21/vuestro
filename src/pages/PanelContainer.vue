@@ -121,6 +121,18 @@
         </vuestro-panel>
       </vuestro-card>
 
+      <vuestro-card cols="6">
+        <vuestro-panel no-border>
+          <template #title>Vuestro Panel with no border</template>
+          <vuestro-container>
+            <vuestro-card>
+              <template #description>
+                <span>Set the <em>no-border</em> property to remove the default shadow/border.</span>
+              </template>
+            </vuestro-card>
+          </vuestro-container>
+        </vuestro-panel>
+      </vuestro-card>
 
     </vuestro-container>
   </div>
