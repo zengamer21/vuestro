@@ -78,7 +78,7 @@
         </template>
         <template #value>
           <span class="sankey-toolbar-selected-node-value">{{ focusedNode }}</span>
-          <slot :node="data.nodes[focusedNode]"></slot>
+          <slot :node="focusedNode"></slot>
         </template>
       </vuestro-pill>
     </div>
@@ -116,7 +116,7 @@ export default {
       renderValue: (d) => {
         return d;
       },
-      focusedNode: null,
+      focusedNode: null,                    // name of focused node
       selectedNodeLabel: 'Selected Node',
       nodeAlign: Sankey.sankeyJustify,
       nodeAlignOptions: {
@@ -173,7 +173,7 @@ export default {
           links: [],
         };
         let keptLinks = [];
-        if (this.focusedNode < 0) {
+        if (!this.focusedNode) {
           // no focused node, just take the top N links by value
           keptLinks = _.take(_.orderBy(this.data.links, 'value', ['desc']), this.maxLinks);
         } else {

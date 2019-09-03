@@ -6,7 +6,7 @@
         <vuestro-panel stretch overflow-hidden>
           <vuestro-sankey-chart :data="item.data" :options="item.options">
             <template #default="{ node }">
-              <vuestro-button variant="link" no-border no-padding>
+              <vuestro-button variant="link" no-border no-padding @click="onClickNode(node)">
                 <vuestro-icon name="external-link-alt"></vuestro-icon>
               </vuestro-button>
             </template>
@@ -161,6 +161,11 @@ export default {
       ],
     };
   },
+  methods: {
+    onClickNode(n) {
+      console.log('clicked', n);
+    },
+  }
 };
 
 </script>
