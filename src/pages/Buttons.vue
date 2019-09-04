@@ -259,7 +259,7 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button disabled>Disabled Button</vuestro-button>
-        <vuestro-button disabled rounded>Disabled Button</vuestro-button>
+        <vuestro-button disabled rounded value>Disabled Button</vuestro-button>
         <vuestro-button disabled pill>Disabled Button</vuestro-button>
         <vuestro-button disabled variant="primary">Disabled Button</vuestro-button>
         <vuestro-button disabled pill no-border>Disabled Button</vuestro-button>

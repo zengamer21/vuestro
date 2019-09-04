@@ -165,19 +165,19 @@ export default {
   justify-content: space-evenly;
   line-height: 1em;
 }
-.vuestro-button.disabled {
-  pointer-events: none;
-  image-rendering: pixelated;
-  background-image: linear-gradient(to right top, transparent 45%, var(--variant-color) 45%, var(--variant-color) 55%, transparent 55%);
-  background-size: 4px 4px;
-}
-.vuestro-button.value,
+.vuestro-button.value:not(.disabled),
 .vuestro-button:hover {
   color: var(--vuestro-white);
   background-color: var(--variant-color);
 }
 .vuestro-button.value:hover {
   filter: brightness(110%);
+}
+.vuestro-button.disabled {
+  pointer-events: none;
+  image-rendering: pixelated;
+  background-image: linear-gradient(to right top, transparent 45%, var(--variant-color) 45%, var(--variant-color) 55%, transparent 55%);
+  background-size: 4px 4px;
 }
 .vuestro-button.vuestro-button-white.value,
 .vuestro-button.vuestro-button-white:hover {
