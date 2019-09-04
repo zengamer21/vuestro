@@ -133,11 +133,11 @@ export default {
   font-size: 12px;
 }
 .vuestro-button.lg {
-  padding: 6px 10px;
+  padding: 4px 8px;
   font-size: 14px;
 }
 .vuestro-button.xl {
-  padding: 8px 12px;
+  padding: 7px 10px;
   font-size: 16px;
 }
 .vuestro-button.noBorder {
@@ -167,7 +167,9 @@ export default {
 }
 .vuestro-button.disabled {
   pointer-events: none;
-  background-image: repeating-linear-gradient(-45deg, transparent, transparent 6px, var(--variant-color) 6px, var(--variant-color) 7px);
+  image-rendering: pixelated;
+  background-image: linear-gradient(to right top, transparent 45%, var(--variant-color) 45%, var(--variant-color) 55%, transparent 55%);
+  background-size: 4px 4px;
 }
 .vuestro-button.value,
 .vuestro-button:hover {

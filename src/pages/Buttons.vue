@@ -262,6 +262,10 @@
         <vuestro-button disabled rounded>Disabled Button</vuestro-button>
         <vuestro-button disabled pill>Disabled Button</vuestro-button>
         <vuestro-button disabled variant="primary">Disabled Button</vuestro-button>
+        <vuestro-button disabled pill no-border>Disabled Button</vuestro-button>
+        <vuestro-button disabled round no-border>
+          <vuestro-icon name="download"></vuestro-icon>
+        </vuestro-button>
       </div>
     </vuestro-card>
 

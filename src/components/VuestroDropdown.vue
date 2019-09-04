@@ -120,6 +120,7 @@ export default {
   height: 100%;
   position: relative;
   cursor: default;
+  display: flex;
 }
 .vuestro-dropdown-inner {
   height: 100%;
