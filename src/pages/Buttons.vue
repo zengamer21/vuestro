@@ -96,12 +96,15 @@
         <vuestro-button round size="lg">
           <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
+        <vuestro-button round size="xl">
+          <vuestro-icon name="download"></vuestro-icon>
+        </vuestro-button>
       </div>
     </vuestro-card>
 
     <vuestro-card>
       <template #description>
-        <span>Set the <em>size</em> property {'sm', 'md', 'lg'} to affect the size of the button</span>
+        <span>Set the <em>size</em> property {'sm', 'md', 'lg', 'xl'} to affect the size of the button</span>
       </template>
       <div class="example-flexbox">
         <vuestro-button size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
@@ -119,6 +122,11 @@
           <vuestro-icon name="tractor"></vuestro-icon>
           <span>lg Button</span>
         </vuestro-button>
+        <vuestro-button size="xl"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
+        <vuestro-button size="xl">
+          <vuestro-icon name="tractor"></vuestro-icon>
+          <span>xl Button</span>
+        </vuestro-button>
       </div>
       <div class="example-flexbox">
         <vuestro-button round size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
@@ -135,6 +143,11 @@
         <vuestro-button pill size="lg">
           <vuestro-icon name="tractor"></vuestro-icon>
           <span>lg Button</span>
+        </vuestro-button>
+        <vuestro-button round size="xl"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
+        <vuestro-button pill size="xl">
+          <vuestro-icon name="tractor"></vuestro-icon>
+          <span>xl Button</span>
         </vuestro-button>
       </div>
     </vuestro-card>

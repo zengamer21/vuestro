@@ -126,14 +126,18 @@ export default {
 }
 .vuestro-button.sm {
   padding: 1px 4px;
-  font-size: 12px;
+  font-size: 10px;
 }
 .vuestro-button.md {
   padding: 2px 6px;
-  font-size: 14px;
+  font-size: 12px;
 }
 .vuestro-button.lg {
   padding: 6px 10px;
+  font-size: 14px;
+}
+.vuestro-button.xl {
+  padding: 8px 12px;
   font-size: 16px;
 }
 .vuestro-button.noBorder {
@@ -229,14 +233,26 @@ export default {
   height: 10px;
 }
 .vuestro-button.round.lg {
+  height: calc(1em + 10px);
+  width: calc(1em + 10px);
+}
+.vuestro-button.noBorder.round.lg {
+  height: calc(1em + 8px);
+  width: calc(1em + 8px);
+}
+.vuestro-button.lg svg { /* enlarge svgs a little for size=lg */
+  width: 12px;
+  height: 12px;
+}
+.vuestro-button.round.xl {
+  height: calc(1em + 16px);
+  width: calc(1em + 16px);
+}
+.vuestro-button.noBorder.round.xl {
   height: calc(1em + 14px);
   width: calc(1em + 14px);
 }
-.vuestro-button.noBorder.round.lg {
-  height: calc(1em + 12px);
-  width: calc(1em + 12px);
-}
-.vuestro-button.lg svg { /* enlarge svgs a little for size=lg */
+.vuestro-button.xl svg { /* enlarge svgs a little for size=xl */
   width: 16px;
   height: 16px;
 }
