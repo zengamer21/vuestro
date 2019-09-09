@@ -82,15 +82,18 @@
             </vuestro-card>
           </vuestro-container>
         </vuestro-panel>
-        <vuestro-panel collapsible>
-          <template #title>Collapsible Panel</template>
+        <vuestro-panel collapsible defer-content>
+          <template #title>Collapsible Panel with deferred content rendering</template>
           <vuestro-container>
             <vuestro-card>
-              <template #description>VuestroPanel can collapse it's content into the titlebar when the collapsible property is set.
-                <br><br>
-                Even if the content is tall, the Vuestro containers will all adjust so that the content is shown and the footer is pushed down.
-                <br><br>
+              <template #description>
               </template>
+              <span>
+                VuestroPanel can collapse it's content into the titlebar when the collapsible property is set.
+                <br><br>
+                Defer the rendering of the contents until the panel is expanded by setting the <em>defer-content</em> property.
+                <br><br>
+              </span>
             </vuestro-card>
           </vuestro-container>
         </vuestro-panel>

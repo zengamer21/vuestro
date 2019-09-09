@@ -18,9 +18,16 @@
         <slot name="toolbar"></slot>
       </div>
     </div>
-    <div ref="contents" v-show="!isCollapsed" class="vuestro-panel-contents" :class="[contentPadding, { overflowHidden }]" @scroll="updateScroll">
-      <slot></slot>
-    </div>
+    <template v-if="!deferContent">
+      <div ref="contents" v-show="!isCollapsed" class="vuestro-panel-contents" :class="[contentPadding, { overflowHidden }]" @scroll="updateScroll">
+        <slot></slot>
+      </div>
+    </template>
+    <template v-else>
+      <div ref="contents" v-if="!isCollapsed" class="vuestro-panel-contents" :class="[contentPadding, { overflowHidden }]" @scroll="updateScroll">
+        <slot></slot>
+      </div>
+    </template>
     <div v-if="canScroll" class="vuestro-panel-scroll-arrow">
       <vuestro-icon name="arrow-down"></vuestro-icon>
     </div>
@@ -38,6 +45,7 @@ export default {
     spinner: { type: Boolean, default: false },
     stretch: { type: Boolean, default: false },
     collapsible: { type: Boolean, default: false },
+    deferContent: { type: Boolean, default: false },   // defer loading/rendering of content until expanded
     collapsed: { type: Boolean, default: false },
     contentPadding: { type: String, default: '' },
     scroll: { type: Boolean, default: false },
