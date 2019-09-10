@@ -20,7 +20,7 @@ export default {
     spin: { type: Boolean, default: false },
     inverse: { type: Boolean, default: false },
     pulse: { type: Boolean, default: false },
-    flip: { type: Boolean, default: false },
+    flip: { type: String, default: null },
     label: { type: String },
     title: { type: String },
   },
