@@ -1,5 +1,5 @@
 <template>
-  <icon :name="name"></icon>
+  <icon :name="name" :scale="scale" :spin="spin" :inverse="inverse" :pulse="pulse" :flip="flip" :label="label" :title="title"></icon>
 </template>
 
 <script>
@@ -16,6 +16,13 @@ export default {
   },
   props: {
     name: { type: String, required: true },
+    scale: { type: null },
+    spin: { type: Boolean, default: false },
+    inverse: { type: Boolean, default: false },
+    pulse: { type: Boolean, default: false },
+    flip: { type: Boolean, default: false },
+    label: { type: String },
+    title: { type: String },
   },
 };
 

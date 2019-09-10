@@ -41,10 +41,18 @@
     </vuestro-card>
 
     <vuestro-card>
+      <template #description>
+        <span>Text color is inherited</span>
+      </template>
+      <div class="example-flexbox dark">
+        <vuestro-time-picker v-model="exampleTime" seconds></vuestro-time-picker>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
       <template #subheading>Vuestro Date Picker</template>
       <vuestro-date-picker @change="onChange"></vuestro-date-picker>
     </vuestro-card>
-
 
   </vuestro-container>
 </template>
@@ -85,3 +93,14 @@ export default {
 };
 
 </script>
+
+<style scoped>
+
+.example-flexbox.dark {
+  padding: 10px;
+  background-color: var(--vuestro-popup-bg);
+  position: relative;
+  color: var(--vuestro-gray);
+}
+
+</style>

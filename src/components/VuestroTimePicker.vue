@@ -2,16 +2,16 @@
   <div class="vuestro-time-picker">
     <!--HOURS-->
     <div class="vuestro-time-picker-column">
-      <div class="arrow" @click="increaseHours">
+      <vuestro-button round no-border size="lg" @click="increaseHours">
         <vuestro-icon name="chevron-up"></vuestro-icon>
-      </div>
+      </vuestro-button>
       <vuestro-editable-text :value="momentObj.format('HH')"
                              :validator="validateHours"
                              @input="setHours">
       </vuestro-editable-text>
-      <div class="arrow" @click="decreaseHours">
+      <vuestro-button round no-border size="lg" @click="decreaseHours">
         <vuestro-icon name="chevron-down"></vuestro-icon>
-      </div>
+      </vuestro-button>
     </div>
 
     <!--:-->
@@ -19,16 +19,16 @@
 
     <!--MINUTES-->
     <div class="vuestro-time-picker-column">
-      <div class="arrow" @click="increaseMinutes">
+      <vuestro-button round no-border size="lg" @click="increaseMinutes">
         <vuestro-icon name="chevron-up"></vuestro-icon>
-      </div>
+      </vuestro-button>
       <vuestro-editable-text :value="momentObj.format('mm')"
                              :validator="validateMinutesSeconds"
                              @input="setMinutes">
       </vuestro-editable-text>
-      <div class="arrow" @click="decreaseMinutes">
+      <vuestro-button round no-border size="lg" @click="decreaseMinutes">
         <vuestro-icon name="chevron-down"></vuestro-icon>
-      </div>
+      </vuestro-button>
     </div>
 
     <template v-if="seconds">
@@ -37,15 +37,15 @@
 
       <!--SECONDS-->
       <div class="vuestro-time-picker-column">
-        <div class="arrow" @click="increaseSeconds">
+        <vuestro-button round no-border size="lg" @click="increaseSeconds">
           <vuestro-icon name="chevron-up"></vuestro-icon>
-        </div>
+        </vuestro-button>
         <vuestro-editable-text :value="momentObj.format('ss')"
                                :validator="validateMinutesSeconds"
                                @input="setSeconds"></vuestro-editable-text>
-        <div class="arrow" @click="decreaseSeconds">
+        <vuestro-button round no-border size="lg" @click="decreaseSeconds">
           <vuestro-icon name="chevron-down"></vuestro-icon>
-        </div>
+        </vuestro-button>
       </div>
     </template>
   </div>
@@ -128,10 +128,6 @@ export default {
   align-self: center;
   margin: 0 2px 4px 2px;
   pointer-events: none;
-}
-
-.arrow {
-  cursor: pointer;
 }
 
 </style>
