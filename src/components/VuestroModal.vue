@@ -118,6 +118,7 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 .vuestro-modal-buttons {
