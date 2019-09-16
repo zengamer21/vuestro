@@ -35,7 +35,7 @@ export default {
     return {
       testValue: 'Ace Editor integration\n\nuse :value="<data>" to set the value of the buffer\n\n',
       testJson: {
-        lang: 'json',
+        thisIs: 'JSON',
       },
       editorOptions: {
         useSoftTabs: true,

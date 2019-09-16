@@ -7,8 +7,8 @@ import Buttons from '../pages/Buttons.vue';
 import Pickers from '../pages/Pickers.vue';
 import Pills from '../pages/Pills.vue';
 import Inputs from '../pages/Inputs.vue';
-import TextInputs from '../pages/TextInputs.vue';
-import SearchInput from '../pages/SearchInput.vue';
+import InputsText from '../pages/InputsText.vue';
+import InputsSearch from '../pages/InputsSearch.vue';
 import Containers from '../pages/Containers.vue';
 import ContainerContainer from '../pages/ContainerContainer.vue';
 import CardContainer from '../pages/CardContainer.vue';
@@ -23,8 +23,9 @@ import ObjectBrowser from '../pages/ObjectBrowser.vue';
 import ForceGraph from '../pages/ForceGraph.vue';
 import Typography from '../pages/Typography.vue';
 import Plugin from '../pages/Plugin.vue';
-import Mixins from '../pages/Mixins.vue';
-import Filters from '../pages/Filters.vue';
+import PluginDirectives from '../pages/PluginDirectives.vue';
+import PluginMixins from '../pages/PluginMixins.vue';
+import PluginFilters from '../pages/PluginFilters.vue';
 import BarChart from '../pages/BarChart.vue';
 import InputsEditor from '../pages/InputsEditor.vue';
 
@@ -236,7 +237,7 @@ export default new Router({
           },
           name: 'inputs-text',
           path: 'inputs-text',
-          component: TextInputs,
+          component: InputsText,
         },
         {
           meta: {
@@ -245,7 +246,7 @@ export default new Router({
           },
           name: 'inputs-search',
           path: 'inputs-search',
-          component: SearchInput,
+          component: InputsSearch,
         },
         {
           meta: {
@@ -272,12 +273,21 @@ export default new Router({
       children: [
         {
           meta: {
+            title: 'Directives',
+            sidebar: true,
+          },
+          name: 'directives',
+          path: 'directives',
+          component: PluginDirectives,
+        },
+        {
+          meta: {
             title: 'Mixins',
             sidebar: true,
           },
           name: 'mixins',
           path: 'mixins',
-          component: Mixins,
+          component: PluginMixins,
         },
         {
           meta: {
@@ -286,7 +296,7 @@ export default new Router({
           },
           name: 'filters',
           path: 'filters',
-          component: Filters,
+          component: PluginFilters,
         },
       ]
     },

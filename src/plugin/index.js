@@ -34,6 +34,7 @@ import VuestroTable from '../components/VuestroTable.vue';
 import VuestroTextField from '../components/VuestroTextField.vue';
 import VuestroTimePicker from '../components/VuestroTimePicker.vue';
 import VuestroTitle from '../components/VuestroTitle.vue';
+import VuestroTooltip from '../components/VuestroTooltip.vue';
 import VuestroTray from '../components/VuestroTray.vue';
 
 export default {
@@ -74,6 +75,7 @@ export default {
     Vue.component(VuestroTextField.name, VuestroTextField);
     Vue.component(VuestroTimePicker.name, VuestroTimePicker);
     Vue.component(VuestroTitle.name, VuestroTitle);
+    Vue.component(VuestroTooltip.name, VuestroTooltip);
     Vue.component(VuestroTray.name, VuestroTray);
 
     Vue.filter('vuestroCommas', (d) => {

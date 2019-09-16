@@ -65,7 +65,7 @@ require('brace/theme/twilight');
 export default {
   name: 'VuestroEditor',
   props: {
-    value: { type: String, required: true }, // the actual text
+    value: { type: String, default: '' }, // the actual text
     lang: { type: String, default: 'text' }, // language mode
     dark: { type: Boolean, default: false },
     options: { type: Object, default: function() { return {}; } }, // options object passed to Ace
@@ -102,7 +102,12 @@ export default {
     sess.setMode('ace/mode/' + vm.lang);
 
     vm.setColorTheme();
-    vm.editor.setValue(vm.value, 1);
+
+    if (this.$slots.default) {
+      vm.editor.setValue(this.$slots.default[0].text, 1);
+    } else {
+      vm.editor.setValue(vm.value, 1);
+    }
 
     vm.editor.on('change', function() {
       let content = vm.editor.getValue();
@@ -135,6 +140,7 @@ export default {
 
 .vuestro-editor {
   height: 100%;
+  min-height: 28px;
 }
 
 </style>

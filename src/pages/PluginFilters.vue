@@ -28,7 +28,7 @@
 <script>
 
 export default {
-  name: 'Filters',
+  name: 'PluginFilters',
   data() {
     return {
       testDate: new Date(),

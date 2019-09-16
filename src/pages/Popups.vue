@@ -61,7 +61,7 @@
         </vuestro-dropdown>
         <vuestro-dropdown dark click-to-open always-open>
           <template #title>Dark DropDown</template>
-          <vuestro-list-button>Long Menu Item 1 which would go off screen</vuestro-list-button>
+          <vuestro-list-button>Long Menu Item 1 which would go off screen automatically flips</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
       </div>
@@ -222,7 +222,48 @@
       </vuestro-modal>
     </vuestro-card>
 
+    <vuestro-card>
+      <template #heading>Tooltip</template>
+    </vuestro-card>
 
+    <vuestro-card>
+      <template #description>
+        VuestroTooltip provides a fully template-able Vue tooltip.
+      </template>
+
+      <vuestro-container space-between>
+        <vuestro-tooltip>
+          <template #content>
+            hello this is a tooltip with components inside
+            <vuestro-button>test</vuestro-button>
+          </template>
+          <vuestro-button ref="buttonWithTooltip">top</vuestro-button>
+        </vuestro-tooltip>
+
+        <vuestro-tooltip position="left" rounded>
+          <template #content>
+            hello this is a tooltip with components inside
+            <vuestro-button>test</vuestro-button>
+          </template>
+          <vuestro-button ref="buttonWithTooltip">left</vuestro-button>
+        </vuestro-tooltip>
+        <vuestro-tooltip position="right">
+          <template #content>
+            hello this is a tooltip with components inside
+            <vuestro-button>test</vuestro-button>
+          </template>
+          <vuestro-button ref="buttonWithTooltip">right</vuestro-button>
+        </vuestro-tooltip>
+        <vuestro-tooltip position="bottom">
+          <template #content>
+            hello this is a tooltip with components inside
+            <vuestro-button>test</vuestro-button>
+          </template>
+          <vuestro-button ref="buttonWithTooltip">bottom</vuestro-button>
+        </vuestro-tooltip>
+      </vuestro-container>
+
+    </vuestro-card>
 
   </vuestro-container>
 </template>
