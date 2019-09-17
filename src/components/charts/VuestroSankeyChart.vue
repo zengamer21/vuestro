@@ -20,7 +20,7 @@
         <g stroke="#000">
           <rect class="vuestro-sankey-node"
                 v-for="(n, idx) in graph.nodes"
-                :class="{ focused: n.name === focusedNode }"
+                :class="{ focused: n.name === focusedNode.name }"
                 :x="n.x0"
                 :y="n.y0"
                 :key="n.name"
@@ -77,7 +77,7 @@
           <span class="sankey-toolbar-selected-node-title">{{ selectedNodeLabel }}</span>
         </template>
         <template #value>
-          <span class="sankey-toolbar-selected-node-value">{{ focusedNode }}</span>
+          <span class="sankey-toolbar-selected-node-value">{{ focusedNode.name }}</span>
           <slot :node="focusedNode"></slot>
         </template>
       </vuestro-pill>
@@ -162,7 +162,7 @@ export default {
     processData() {
       // see if a node was marked as focused
       if (!this.focusedNode) {
-        this.focusedNode = _.find(this.data.nodes, 'focus').name;
+        this.focusedNode = _.find(this.data.nodes, 'focus');
       }
       if (this.data.links && this.data.links.length <= this.maxLinks) {
         // take all the data
@@ -177,7 +177,7 @@ export default {
           // no focused node, just take the top N links by value
           keptLinks = _.take(_.orderBy(this.data.links, 'value', ['desc']), this.maxLinks);
         } else {
-          let fidx = _.findIndex(this.data.nodes, { name: this.focusedNode });
+          let fidx = _.findIndex(this.data.nodes, { name: this.focusedNode.name });
           // node was focused, take that node and top N links in and out of it
           keptLinks = _.take(_.orderBy(_.filter(this.data.links, (d) => {
             return d.source === fidx || d.target === fidx;
@@ -235,7 +235,7 @@ export default {
       this.resize();
     },
     focusNode(n) {
-      this.focusedNode = n.name;
+      this.focusedNode = n;
       this.processData();
       this.resize();
     },
