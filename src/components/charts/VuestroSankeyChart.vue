@@ -57,20 +57,20 @@
       </g>
     </svg>
     <div class="sankey-toolbar" :style="{ height: `${toolbarHeight}px` }">
-      <vuestro-button pill size="sm" @click="increaseLinkThreshold" value>
-        <vuestro-icon name="plus"></vuestro-icon>
+      <vuestro-button pill size="sm" @click="decreaseLinkThreshold" value>
+        <vuestro-icon name="minus"></vuestro-icon>
       </vuestro-button>
       <vuestro-pill color="var(--vuestro-secondary)" clickable @click="resetLinkThreshold">
         <template #title>{{ maxLinks }} links</template>
       </vuestro-pill>
-      <vuestro-button pill size="sm" @click="decreaseLinkThreshold" value>
-        <vuestro-icon name="minus"></vuestro-icon>
+      <vuestro-button pill size="sm" @click="increaseLinkThreshold" value>
+        <vuestro-icon name="plus"></vuestro-icon>
       </vuestro-button>
       <vuestro-button pill size="sm" @click="cycleNodeAlign">
-        <span v-if="nodeAlign === nodeAlignOptions.justify"><vuestro-icon name="align-justify"></vuestro-icon></span>
-        <span v-if="nodeAlign === nodeAlignOptions.center"><vuestro-icon name="align-center"></vuestro-icon></span>
-        <span v-if="nodeAlign === nodeAlignOptions.left"><vuestro-icon name="align-left"></vuestro-icon></span>
-        <span v-if="nodeAlign === nodeAlignOptions.right"><vuestro-icon name="align-right"></vuestro-icon></span>
+        <template v-if="nodeAlign === nodeAlignOptions.justify"><vuestro-icon name="align-justify"></vuestro-icon></template>
+        <template v-if="nodeAlign === nodeAlignOptions.center"><vuestro-icon name="align-center"></vuestro-icon></template>
+        <template v-if="nodeAlign === nodeAlignOptions.left"><vuestro-icon name="align-left"></vuestro-icon></template>
+        <template v-if="nodeAlign === nodeAlignOptions.right"><vuestro-icon name="align-right"></vuestro-icon></template>
       </vuestro-button>
       <vuestro-pill color="var(--vuestro-gold)">
         <template #title>

@@ -1,5 +1,5 @@
 <template>
-  <vuestro-panel stretch class="vuestro-chart-panel">
+  <vuestro-panel stretch class="vuestro-chart-panel" overflow-hidden>
     <template #title><span class="drag">{{ options.title }}</span></template>
     <component :is="options.component" :data="data" :options="options"></component>
   </vuestro-panel>

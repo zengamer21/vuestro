@@ -31,14 +31,14 @@
       </g>
     </svg>
     <div class="vuestro-chart-toolbar">
-      <vuestro-button pill size="sm" @click="increaseDistance" value>
-        <vuestro-icon name="plus"></vuestro-icon>
+      <vuestro-button pill size="sm" @click="decreaseDistance" :disabled="(distance + distanceOffset) <= 0" value>
+        <vuestro-icon name="minus"></vuestro-icon>
       </vuestro-button>
       <vuestro-pill color="var(--vuestro-secondary)" clickable @click="resetLinkThreshold">
         <template #title>{{ distance + distanceOffset }}</template>
       </vuestro-pill>
-      <vuestro-button pill size="sm" @click="decreaseDistance" :disabled="(distance + distanceOffset) <= 0" value>
-        <vuestro-icon name="minus"></vuestro-icon>
+      <vuestro-button pill size="sm" @click="increaseDistance" value>
+        <vuestro-icon name="plus"></vuestro-icon>
       </vuestro-button>
       <vuestro-button pill size="sm" @click="onReset">Reset</vuestro-button>
       <vuestro-button pill size="sm" v-model="labels">Labels</vuestro-button>

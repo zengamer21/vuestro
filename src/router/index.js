@@ -3,6 +3,10 @@ import Router from 'vue-router';
 
 import Dashboard from '../pages/Dashboard.vue';
 import Charts from '../pages/Charts.vue';
+import ChartsAreaChart from '../pages/ChartsAreaChart.vue';
+import ChartsBarChart from '../pages/ChartsBarChart.vue';
+import ChartsSankey from '../pages/ChartsSankey.vue';
+import ChartsForceGraph from '../pages/ChartsForceGraph.vue';
 import Buttons from '../pages/Buttons.vue';
 import Pickers from '../pages/Pickers.vue';
 import Pills from '../pages/Pills.vue';
@@ -15,18 +19,14 @@ import CardContainer from '../pages/CardContainer.vue';
 import ColumnContainer from '../pages/ColumnContainer.vue';
 import PanelContainer from '../pages/PanelContainer.vue';
 import Popups from '../pages/Popups.vue';
-import SankeyCharts from '../pages/SankeyCharts.vue';
-import AreaChart from '../pages/AreaChart.vue';
 import DataContainers from '../pages/DataContainers.vue';
 import Table from '../pages/Table.vue';
 import ObjectBrowser from '../pages/ObjectBrowser.vue';
-import ForceGraph from '../pages/ForceGraph.vue';
 import Typography from '../pages/Typography.vue';
 import Plugin from '../pages/Plugin.vue';
 import PluginDirectives from '../pages/PluginDirectives.vue';
 import PluginMixins from '../pages/PluginMixins.vue';
 import PluginFilters from '../pages/PluginFilters.vue';
-import BarChart from '../pages/BarChart.vue';
 import InputsEditor from '../pages/InputsEditor.vue';
 
 Vue.use(Router);
@@ -109,7 +109,7 @@ export default new Router({
           },
           name: 'area-chart',
           path: 'area-chart',
-          component: AreaChart,
+          component: ChartsAreaChart,
         },
         {
           meta: {
@@ -118,7 +118,7 @@ export default new Router({
           },
           name: 'bar-chart',
           path: 'bar-chart',
-          component: BarChart,
+          component: ChartsBarChart,
         },
         {
           meta: {
@@ -127,7 +127,7 @@ export default new Router({
           },
           name: 'sankey-charts',
           path: 'sankey-charts',
-          component: SankeyCharts,
+          component: ChartsSankey,
         },
         {
           meta: {
@@ -136,7 +136,7 @@ export default new Router({
           },
           name: 'force-graph',
           path: 'force-graph',
-          component: ForceGraph,
+          component: ChartsForceGraph,
         },
       ]
     },
