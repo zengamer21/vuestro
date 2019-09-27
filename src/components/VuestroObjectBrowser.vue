@@ -1,5 +1,6 @@
 <template>
   <div class="vuestro-object-browser-item">
+    <div v-if="empty" class="vuestro-object-browser-empty">Empty Object</div>
     <div v-for="(v, k) in data || value">
       <div class="vuestro-object-browser-item">
         <div class="vuestro-object-browser-item-kv">
@@ -49,6 +50,19 @@ export default {
     return {
       expanded: [],
     };
+  },
+  computed: {
+    empty() {
+      if (!this.data && !this.value) {
+        return true;
+      } else {
+        if (this.data && Object.keys(this.data).length == 0) {
+          return true;
+        } else if (this.value && Object.keys(this.value).length == 0) {
+          return true;
+        }
+      }
+    }
   },
   watch: {
     data() {
@@ -178,6 +192,10 @@ export default {
 
 .vuestro-object-browser-item-slot {
   margin-left: 5px;
+}
+
+.vuestro-object-browser-empty {
+  padding: 5px 8px;
 }
 
 </style>
