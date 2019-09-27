@@ -57,13 +57,13 @@
       </g>
     </svg>
     <div class="sankey-toolbar" :style="{ height: `${toolbarHeight}px` }">
-      <vuestro-button pill size="sm" @click="decreaseLinkThreshold" value>
+      <vuestro-button round size="sm" @click="decreaseLinkThreshold" value>
         <vuestro-icon name="minus"></vuestro-icon>
       </vuestro-button>
       <vuestro-pill color="var(--vuestro-secondary)" clickable @click="resetLinkThreshold">
         <template #title>{{ maxLinks }} links</template>
       </vuestro-pill>
-      <vuestro-button pill size="sm" @click="increaseLinkThreshold" value>
+      <vuestro-button round size="sm" @click="increaseLinkThreshold" value>
         <vuestro-icon name="plus"></vuestro-icon>
       </vuestro-button>
       <vuestro-button pill size="sm" @click="cycleNodeAlign">

@@ -218,7 +218,7 @@
         <span>Enable checkbox mode by setting the <em>checkbox</em> property</span>
       </template>
       <div class="example-flexbox">
-        <vuestro-button variant="info" checkbox v-model="exampleCheckbox"></vuestro-button>
+        <vuestro-button variant="info" size="md" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
       </div>
     </vuestro-card>
 

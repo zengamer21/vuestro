@@ -1,17 +1,29 @@
 <template>
-  <div class="vuestro-button"
-       :class="[`vuestro-button-${variant}`,
-                size,
-                { dark, value, noBorder, noMargin, noPadding, round, pill, checkbox, disabled, stretch, rounded, shadow }]"
-       @click="onClick"
-       @mouseover="onHover">
-    <div class="vuestro-button-content">
-      <template v-if="checkbox && value">
-        <vuestro-icon v-if="checkbox && value" name="check"></vuestro-icon>
+  <div class="vuestro-button-outer">
+    <div class="vuestro-button"
+         :class="[`vuestro-button-${variant}`,
+                  size,
+                  { dark, value, noBorder, noMargin, noPadding, round, pill, checkbox, disabled, stretch, rounded, shadow }]"
+         @click="onClick"
+         @mouseover="onHover">
+      <template v-if="checkbox">
+        <template v-if="value">
+          <div class="vuestro-button-content">
+            <vuestro-icon v-if="checkbox && value" name="check"></vuestro-icon>
+          </div>
+        </template>
+        <template v-else>
+          <div class="vuestro-button-content"></div>
+        </template>
       </template>
       <template v-else>
-        &#8203;<slot></slot>&#8203; <!-- magic zero-width chars to make icon-only buttons size like icon+text -->
+        <div class="vuestro-button-content">
+          &#8203;<slot></slot>&#8203; <!-- magic zero-width chars to make icon-only buttons size like icon+text -->
+        </div>
       </template>
+    </div>
+    <div v-if="checkbox" class="vuestro-button-checkbox-text" :class="[ size ]">
+      <slot></slot>
     </div>
   </div>
 </template>
@@ -83,8 +95,13 @@ export default {
   --variant-text-color: var(--vuestro-text-color);
 }
 
-.vuestro-button {
+.vuestro-button-outer {
   align-self: center;
+  display: flex;
+  align-items: center;
+}
+
+.vuestro-button {
   text-transform: none;
   border: 1px solid var(--variant-color);
   margin: 2px;
@@ -259,8 +276,6 @@ export default {
   height: 16px;
 }
 
-
-
 /* pill mode */
 .vuestro-button.pill {
   border-radius: 999px;
@@ -291,6 +306,25 @@ export default {
   color: var(--vuestro-white);
 }
 
+/* styling for the separate text slot next to checkbox button */
+.vuestro-button-checkbox-text {
+  margin-left: 4px;
+  cursor: default;
+}
+.vuestro-button-checkbox-text.sm {
+  font-size: 10px;
+}
+.vuestro-button-checkbox-text.md {
+  font-size: 12px;
+}
+.vuestro-button-checkbox-text.lg {
+  font-size: 14px;
+}
+.vuestro-button-checkbox-text.xl {
+  font-size: 16px;
+}
+
+/* styling for svg icons within button */
 .vuestro-button-content >>> svg {
   align-self: center;
   margin: 0;

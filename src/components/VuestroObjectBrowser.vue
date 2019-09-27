@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-object-browser-item">
-    <div v-for="(v, k) in data">
+    <div v-for="(v, k) in data || value">
       <div class="vuestro-object-browser-item">
         <div class="vuestro-object-browser-item-kv">
           <div class="vuestro-object-browser-item-gutter">
@@ -38,10 +38,12 @@
 export default {
   name: 'VuestroObjectBrowser',
   props: {
-    data: { required: true },
+    data: { type: null },
+    value: { type: null },
     startExpanded: { type: Boolean, default: false },
     alwaysExpand: { type: Boolean, default: false },
-    parent: { type: null, default: 'root' },
+    editable: { type: Boolean, default: false },
+    parent: { type: null, default: 'root' }, // non-end-user property, used for recursion
   },
   data() {
     return {

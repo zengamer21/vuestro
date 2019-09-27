@@ -19,9 +19,9 @@ import CardContainer from '../pages/CardContainer.vue';
 import ColumnContainer from '../pages/ColumnContainer.vue';
 import PanelContainer from '../pages/PanelContainer.vue';
 import Popups from '../pages/Popups.vue';
-import DataContainers from '../pages/DataContainers.vue';
-import Table from '../pages/Table.vue';
-import ObjectBrowser from '../pages/ObjectBrowser.vue';
+import Data from '../pages/Data.vue';
+import DataTable from '../pages/DataTable.vue';
+import DataObjectBrowser from '../pages/DataObjectBrowser.vue';
 import Typography from '../pages/Typography.vue';
 import Plugin from '../pages/Plugin.vue';
 import PluginDirectives from '../pages/PluginDirectives.vue';
@@ -192,13 +192,13 @@ export default new Router({
     },
     {
       meta: {
-        title: 'Data Containers',
+        title: 'Data',
         sidebar: true,
         icon: 'table',
       },
       name: 'datacontainers',
       path: '/datacontainers',
-      component: DataContainers,
+      component: Data,
       children: [
         {
           meta: {
@@ -207,7 +207,7 @@ export default new Router({
           },
           name: 'table',
           path: 'table',
-          component: Table,
+          component: DataTable,
         },
         {
           meta: {
@@ -216,7 +216,7 @@ export default new Router({
           },
           name: 'object-browser',
           path: 'object-browser',
-          component: ObjectBrowser,
+          component: DataObjectBrowser,
         },
       ]
     },
