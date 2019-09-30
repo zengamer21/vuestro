@@ -1,6 +1,6 @@
 <template>
-  <div class="vuestro-object-browser-item">
-    <div v-if="empty" class="vuestro-object-browser-empty">Empty Object</div>
+  <div class="vuestro-object-browser-item" :class="{ root: parent === 'root' }">
+    <div v-if="empty" class="vuestro-object-browser-empty">{{ emptyMessage }}</div>
     <div v-for="(v, k) in data || value">
       <div class="vuestro-object-browser-item">
         <div class="vuestro-object-browser-item-kv">
@@ -40,15 +40,17 @@ export default {
   name: 'VuestroObjectBrowser',
   props: {
     data: { type: null },
-    value: { type: null },
-    startExpanded: { type: Boolean, default: false },
-    alwaysExpand: { type: Boolean, default: false },
-    editable: { type: Boolean, default: false },
+    value: { type: null }, // alias for data to allow v-model binding
+    options: { type: Object, default: () => ({}) },
     parent: { type: null, default: 'root' }, // non-end-user property, used for recursion
   },
   data() {
     return {
       expanded: [],
+      startExpanded: false,
+      alwaysExpand: false,
+      editable: false,
+      emptyMessage: 'Empty',
     };
   },
   computed: {
@@ -70,6 +72,9 @@ export default {
         this.expandAll();
       });
     },
+  },
+  beforeMount() {
+    _.merge(this, this.options);
   },
   mounted() {
     if (this.startExpanded) {
@@ -144,7 +149,12 @@ export default {
 <style scoped>
 
 .vuestro-object-browser-item {
-  padding: 4px;
+  padding: 0px 4px;
+}
+
+.vuestro-object-browser-item.root {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .vuestro-object-browser-item > div {
@@ -156,10 +166,6 @@ export default {
   padding-top: 2px;
 }
 
-.vuestro-object-browser-item {
-  padding-top: 2px;
-  padding-bottom: 2px;
-}
 .vuestro-object-browser-item-kv {
   display: flex;
   align-items: center;
@@ -195,7 +201,11 @@ export default {
 }
 
 .vuestro-object-browser-empty {
-  padding: 5px 8px;
+  padding: 2px 24px;
+}
+/* decrease padding for empty root */
+.vuestro-object-browser-item.root > .vuestro-object-browser-empty {
+  padding-left: 6px;
 }
 
 </style>

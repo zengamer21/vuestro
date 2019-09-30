@@ -18,10 +18,10 @@
 
     <vuestro-card>
       <template #subheading>
-        <span>Set the <em>start-expanded</em> property to expand all objects and arrays at mount</span>
+        <span>Set the <em>startExpanded</em> option to expand all objects and arrays at mount</span>
       </template>
       <vuestro-panel>
-        <vuestro-object-browser start-expanded :data="testObject"></vuestro-object-browser>
+        <vuestro-object-browser :options="{ startExpanded: true }" :data="testObject"></vuestro-object-browser>
       </vuestro-panel>
     </vuestro-card>
 
@@ -30,16 +30,16 @@
         VuestroObjectBrowser also works for a top-level array
       </template>
       <vuestro-panel>
-        <vuestro-object-browser start-expanded :data="testArray"></vuestro-object-browser>
+        <vuestro-object-browser :data="testArray"></vuestro-object-browser>
       </vuestro-panel>
     </vuestro-card>
 
     <vuestro-card>
       <template #subheading>
-        <span>Set the <em>editable</em> property to provide editing controls that directly modify the v-model bound object.</span>
+        <span>Set the <em>editable</em> option to provide editing controls that directly modify the v-model bound object.</span>
       </template>
       <vuestro-panel>
-        <vuestro-object-browser start-expanded v-model="testObject" editable></vuestro-object-browser>
+        <vuestro-object-browser v-model="testObject" :options="{ editable: true }"></vuestro-object-browser>
       </vuestro-panel>
     </vuestro-card>
 
@@ -48,7 +48,7 @@
         <span>VuestroObjectBrowser provides a <em>post-value</em> slot to add buttons or any other component. The slot receives <em>k</em>, <em>v</em>, and <em>parent</em> slot scope fields.</span>
       </template>
       <vuestro-panel>
-        <vuestro-object-browser start-expanded :data="testObject">
+        <vuestro-object-browser :options="{ startExpanded: true }" :data="testObject">
           <template #post-value="{ k, v, parent }"><vuestro-button>button</vuestro-button></template>
         </vuestro-object-browser>
       </vuestro-panel>
@@ -59,7 +59,7 @@
         <span>VuestroObjectBrowser calls out empty objects</span>
       </template>
       <vuestro-panel>
-        <vuestro-object-browser start-expanded :data="{}"></vuestro-object-browser>
+        <vuestro-object-browser :data="{}"></vuestro-object-browser>
       </vuestro-panel>
     </vuestro-card>
 
@@ -92,6 +92,8 @@ export default {
         dateVal1: new Date(),
         numberVal1: 324,
         numberVal2: 8.32,
+        emptyObject: {},
+        emptyArray: [],
       },
       testArray: [
         'stringVal',
