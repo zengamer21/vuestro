@@ -112,7 +112,7 @@ export default {
 <style scoped>
 
 .vuestro-text-field {
-  padding: 10px;
+  padding: 5px;
   position: relative;
   margin-bottom: 12px;
   display: flex;
@@ -155,7 +155,7 @@ export default {
 }
 
 .placeholder.active {
-  top: 0;
+  top: -2px;
   transform: translate(0, -50%);
   font-size: 12px;
   padding-left: 3px;

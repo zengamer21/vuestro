@@ -11,6 +11,7 @@ import Buttons from '../pages/Buttons.vue';
 import Pickers from '../pages/Pickers.vue';
 import Pills from '../pages/Pills.vue';
 import Inputs from '../pages/Inputs.vue';
+import InputsSpinner from '../pages/InputsSpinner.vue';
 import InputsText from '../pages/InputsText.vue';
 import InputsSearch from '../pages/InputsSearch.vue';
 import Containers from '../pages/Containers.vue';
@@ -238,6 +239,15 @@ export default new Router({
           name: 'inputs-text',
           path: 'inputs-text',
           component: InputsText,
+        },
+        {
+          meta: {
+            title: 'Spinner',
+            sidebar: true,
+          },
+          name: 'inputs-spinner',
+          path: 'inputs-spinner',
+          component: InputsSpinner,
         },
         {
           meta: {
