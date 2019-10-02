@@ -94,6 +94,8 @@ export default {
         numberVal2: 8.32,
         emptyObject: {},
         emptyArray: [],
+        nullValue: null,
+        undefinedValue: undefined,
       },
       testArray: [
         'stringVal',

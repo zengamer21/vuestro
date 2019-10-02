@@ -14,6 +14,8 @@
           <span v-if="isNumber(v)" class="vuestro-object-browser-item-number" title="Number">{{ v }}</span>
           <span v-if="isArray(v)">Array[{{ v.length }}]</span>
           <span v-if="isObject(v)">Object[{{ Object.keys(v).length }}]</span>
+          <span v-if="v === null" class="vuestro-object-browser-item-null">null</span>
+          <span v-if="v === undefined" class="vuestro-object-browser-item-null">undefined</span>
           <span class="vuestro-object-browser-item-slot">
             <slot name="post-value" :k="k" :v="v" :parent="parent"></slot>
           </span>
@@ -142,6 +144,7 @@ export default {
   --vuestro-object-browser-bool-fg: var(--vuestro-blue);
   --vuestro-object-browser-date-fg: var(--vuestro-green);
   --vuestro-object-browser-number-fg: var(--vuestro-indigo);
+  --vuestro-object-browser-null-fg: var(--vuestro-danger);
 }
 
 </style>
@@ -194,6 +197,10 @@ export default {
 
 .vuestro-object-browser-item-number {
   color: var(--vuestro-object-browser-number-fg);
+}
+
+.vuestro-object-browser-item-null {
+  color: var(--vuestro-object-browser-null-fg);
 }
 
 .vuestro-object-browser-item-slot {

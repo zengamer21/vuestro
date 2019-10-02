@@ -131,6 +131,9 @@ export default {
         this.editor.setTheme('ace/theme/chrome');
       }
     },
+    resize() {
+      this.editor.resize();
+    },
   },
 };
 
