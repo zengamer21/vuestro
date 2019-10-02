@@ -14,7 +14,17 @@
       <vuestro-text-field variant="outline" placeholder="Outline Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field placeholder="Existing Value" v-model="exampleEditableText"></vuestro-text-field>
       <vuestro-text-field placeholder="With Hint" hint="go on, type something..." v-model="exampleText"></vuestro-text-field>
+      <vuestro-text-field placeholder="With Clear Button" hint="go on, type something..." v-model="exampleText" clearable></vuestro-text-field>
       <vuestro-text-field placeholder="Centered Cursor" hint="centered hint, too!" center v-model="exampleText"></vuestro-text-field>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>
+        Text Field with presets
+      </template>
+      <div class="example-flexbox">
+        <vuestro-text-field placeholder="With Presets Dropdown" :presets="examplePresets" v-model="exampleText"></vuestro-text-field>
+      </div>
     </vuestro-card>
 
     <vuestro-card>
@@ -22,7 +32,7 @@
         Set the dark property for a dark-theme compatible text field.
       </template>
       <div class="example-container dark">
-        <vuestro-text-field dark placeholder="Regular Text Field" v-model="exampleText"></vuestro-text-field>
+        <vuestro-text-field dark placeholder="Regular Text Field" v-model="exampleText" clearable></vuestro-text-field>
       </div>
     </vuestro-card>
 
@@ -35,8 +45,6 @@
       </div>
     </vuestro-card>
 
-
-
   </vuestro-container>
 </template>
 
@@ -48,6 +56,12 @@ export default {
     return {
       exampleEditableText: 'edit me',
       exampleText: '',
+      examplePresets: [
+        'preset1',
+        'preset2',
+        'preset3',
+        'preset4',
+      ]
     };
   },
 };

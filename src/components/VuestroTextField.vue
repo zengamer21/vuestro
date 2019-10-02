@@ -13,6 +13,19 @@
              @keyup="onKeyUp">
       </input>
     </div>
+    <div v-if="presets.length > 0">
+      <vuestro-dropdown>
+        <template #button>
+          <vuestro-button no-border round>
+            <vuestro-icon name="chevron-down"></vuestro-icon>
+          </vuestro-button>
+        </template>
+        <vuestro-list-button v-for="p in presets" @click="$emit('input', p)">{{ p }}</vuestro-list-button>
+      </vuestro-dropdown>
+    </div>
+    <vuestro-button v-if="clearable" no-border round @click="$emit('input', '')">
+      <vuestro-icon name="times"></vuestro-icon>
+    </vuestro-button>
     <span class="show-password" v-if="type === 'password'" @click="showPassword = !showPassword">
       <vuestro-icon v-if="!showPassword" name="eye-slash"></vuestro-icon>
       <vuestro-icon v-if="showPassword" name="eye"></vuestro-icon>
@@ -40,6 +53,8 @@ export default {
     hint: { type: String, default: null },
     center: { type: Boolean, default: false },
     noMargin: { type: Boolean, default: false },
+    presets: { type: Array, default: () => [] },
+    clearable: { type: Boolean, default: false },
   },
   data() {
     return {
