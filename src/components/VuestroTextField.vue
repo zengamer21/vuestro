@@ -14,13 +14,13 @@
       </input>
     </div>
     <div v-if="presets.length > 0">
-      <vuestro-dropdown>
+      <vuestro-dropdown right click-to-open close-on-content-click>
         <template #button>
           <vuestro-button no-border round>
             <vuestro-icon name="chevron-down"></vuestro-icon>
           </vuestro-button>
         </template>
-        <vuestro-list-button v-for="p in presets" @click="$emit('input', p)">{{ p }}</vuestro-list-button>
+        <vuestro-list-button v-for="p in presets" :key="p" @click="$emit('input', p)">{{ p }}</vuestro-list-button>
       </vuestro-dropdown>
     </div>
     <vuestro-button v-if="clearable" no-border round @click="$emit('input', '')">

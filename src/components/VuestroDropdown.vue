@@ -12,7 +12,7 @@
            class="vuestro-dropdown-menu"
            :style="{ visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }"
            :class="{ left }">
-        <div class="vuestro-dropdown-menu-content">
+        <div class="vuestro-dropdown-menu-content" @click="onContentClick">
           <slot></slot>
         </div>
         <div class="vuestro-dropdown-menu-buttons" v-if="$slots.buttons">
@@ -34,6 +34,7 @@ export default {
     dark: { type: Boolean, default: false },
     right: { type: Boolean, default: false }, // force right justification
     noSpacing: { type: Boolean, default: false },
+    closeOnContentClick: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -90,6 +91,11 @@ export default {
       if (this.clickToOpen) {
         this.active = this.alwaysOpen;
         this.$emit('leave');
+      }
+    },
+    onContentClick() {
+      if (this.closeOnContentClick) {
+        this.onBlur();
       }
     },
   },
