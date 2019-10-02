@@ -148,7 +148,7 @@
         VuestroModal default configuration with a VuestroButton as trigger
       </template>
       <vuestro-button @click="modalOpen1 = true">Open Modal</vuestro-button>
-      <vuestro-modal :active.sync="modalOpen1">
+      <vuestro-modal :active.sync="modalOpen1" no-scroll>
         <template #title>VuestroModal</template>
         <template #buttons></template>
         <vuestro-container column>
@@ -163,6 +163,7 @@
             <vuestro-list-button>Dodge</vuestro-list-button>
             <vuestro-list-button>Ford</vuestro-list-button>
             <vuestro-list-button>Honda</vuestro-list-button>
+            <vuestro-list-button>Lexus</vuestro-list-button>
             <vuestro-list-button>Toyota</vuestro-list-button>
           </vuestro-dropdown>
           <vuestro-dropdown click-to-open>
@@ -204,10 +205,10 @@
         VuestroModal has a "toolbar" slot for adding VuestroButtons to the top right, and a "buttons" slot for adding VuestroButtons to the bottom right.
       </template>
       <vuestro-button @click="modalOpen3 = true">Open Modal</vuestro-button>
-      <vuestro-modal :active.sync="modalOpen3" close-on-blur>
+      <vuestro-modal :active.sync="modalOpen3" close-on-blur close-text="Done">
         <template #title>VuestroModal</template>
         <template #toolbar>
-          <vuestro-button variant="info">
+          <vuestro-button pill no-border variant="info">
             <vuestro-icon name="sync-alt"></vuestro-icon>
             <span>Refresh</span>
           </vuestro-button>

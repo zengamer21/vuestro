@@ -8,14 +8,14 @@
           </div>
           <div class="vuestro-modal-toolbar-buttons">
             <slot name="toolbar"></slot>
-            <vuestro-button class="close-button" @click="onClose">
-              <template v-if="closeText.length > 0">
-                {{ closeText }}
-              </template>
-              <template v-else>
+            <template v-if="closeText.length > 0">
+              <vuestro-button pill no-border class="close-button" @click="onClose">{{ closeText }}</vuestro-button>
+            </template>
+            <template v-else>
+              <vuestro-button round no-border class="close-button" @click="onClose">
                 <vuestro-icon name="times"></vuestro-icon>
-              </template>
-            </vuestro-button>
+              </vuestro-button>
+            </template>
           </div>
         </div>
         <div class="vuestro-modal-default-slot">
@@ -71,21 +71,22 @@ export default {
   position: fixed;
   top: 0px;
   left: 0px;
-  height: 100%;
-  width: 100%;
+  right: 0px;
+  bottom: 0px;
   display: flex;
   align-items: start;
   justify-content: center;
   z-index: 2000;
   background-color: var(--vuestro-modal-active-bg);
+  overflow: auto;
 }
 
 .vuestro-modal-inner {
   background-color: var(--vuestro-modal-content-bg);
   width: 600px;
   min-height: 200px;
-  max-height: 80%;
   margin-top: 10vh;
+  margin-bottom: 10vh;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -112,13 +113,13 @@ export default {
   display: flex;
   margin-left: auto;
   font-size: 12px;
+  margin-right: 5px;
 }
 .vuestro-modal-default-slot {
   flex-grow: 1;
   position: relative;
   display: flex;
   flex-direction: column;
-  overflow: auto;
 }
 
 .vuestro-modal-buttons {
