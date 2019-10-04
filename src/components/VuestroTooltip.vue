@@ -6,6 +6,7 @@
     <slot></slot>
     <div ref="content"
          class="vuestro-tooltip-content"
+         :class="{ noWrap }"
          :style="[style, { 'min-width': `${minWidth}px`, visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }]">
       <slot name="content"></slot>
     </div>
@@ -20,6 +21,7 @@ export default {
     position: { type: String, default: 'top' },
     rounded: { type: Boolean, default: false },
     minWidth: { type: null, default: 10 },
+    noWrap: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -94,6 +96,9 @@ export default {
 }
 .vuestro-tooltip.rounded .vuestro-tooltip-content {
   border-radius: 4px;
+}
+.vuestro-tooltip-content.noWrap {
+  white-space: nowrap;
 }
 
 /* render arrow */

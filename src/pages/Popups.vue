@@ -241,7 +241,7 @@
           <vuestro-button ref="buttonWithTooltip">top</vuestro-button>
         </vuestro-tooltip>
 
-        <vuestro-tooltip position="left" rounded min-width="200">
+        <vuestro-tooltip position="left" rounded min-width="200" no-wrap>
           <template #content>
             hello this is a tooltip with components inside
             <vuestro-button>test</vuestro-button>
