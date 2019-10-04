@@ -233,7 +233,7 @@
       </template>
 
       <vuestro-container space-between>
-        <vuestro-tooltip>
+        <vuestro-tooltip min-width="200">
           <template #content>
             hello this is a tooltip with components inside
             <vuestro-button>test</vuestro-button>
@@ -248,14 +248,14 @@
           </template>
           <vuestro-button ref="buttonWithTooltip">left</vuestro-button>
         </vuestro-tooltip>
-        <vuestro-tooltip position="right">
+        <vuestro-tooltip position="right" min-width="200">
           <template #content>
             hello this is a tooltip with components inside
             <vuestro-button>test</vuestro-button>
           </template>
           <vuestro-button ref="buttonWithTooltip">right</vuestro-button>
         </vuestro-tooltip>
-        <vuestro-tooltip position="bottom">
+        <vuestro-tooltip position="bottom" min-width="200">
           <template #content>
             hello this is a tooltip with components inside
             <vuestro-button>test</vuestro-button>

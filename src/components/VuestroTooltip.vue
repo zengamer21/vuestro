@@ -28,6 +28,7 @@ export default {
       active: false,
       offsetX: 0,
       offsetY: 0,
+      edgePadding: 5,
     };
   },
   computed: {
@@ -62,13 +63,13 @@ export default {
   },
   mounted() {
     let bcr = this.$refs.content.getBoundingClientRect();
-    // see if menu would go offscreen so we can flip it to right justified
+    // handle right edge
     if (bcr.right > window.innerWidth) {
-      this.offsetX =  window.innerWidth - this.$refs.content.getBoundingClientRect().right;
+      this.offsetX =  window.innerWidth - this.$refs.content.getBoundingClientRect().right - this.edgePadding;
     }
-    // add offset if tooltip is too close to edge based on the local offsetLeft value
+    // handle left edge
     if (this.$el.offsetLeft < this.$refs.content.clientWidth / 2) {
-      this.offsetX = this.$refs.content.clientWidth / 2 - this.$el.offsetLeft;
+      this.offsetX = this.$refs.content.clientWidth / 2 - this.$el.offsetLeft + this.edgePadding;
     }
   },
   methods: {
