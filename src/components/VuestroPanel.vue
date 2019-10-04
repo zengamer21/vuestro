@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-panel"
-       :class="[ gutter, { dark, stretch, scroll, noBorder }]"
+       :class="[ gutter, { dark, noBorder }]"
        :style="color ? { 'background-color': color }:{}">
     <!--TOOLBAR-->
     <div v-if="$slots.title || $slots.toolbar || collapsible" class="vuestro-panel-title-toolbar">
@@ -18,18 +18,20 @@
         <slot name="toolbar"></slot>
       </div>
     </div>
-    <template v-if="!deferContent">
-      <div ref="contents" v-show="!isCollapsed" class="vuestro-panel-contents" :class="[contentPadding, { overflowHidden }]" @scroll="updateScroll">
-        <slot></slot>
+    <div class="vuestro-panel-contents-wrapper" :class="[contentPadding, { scroll, frame }]">
+      <template v-if="!deferContent">
+        <div ref="contents" v-show="!isCollapsed" class="vuestro-panel-contents" @scroll="updateScroll">
+          <slot></slot>
+        </div>
+      </template>
+      <template v-else>
+        <div ref="contents" v-if="!isCollapsed" class="vuestro-panel-contents" @scroll="updateScroll">
+          <slot></slot>
+        </div>
+      </template>
+      <div v-if="canScroll" class="vuestro-panel-scroll-arrow">
+        <vuestro-icon name="arrow-down"></vuestro-icon>
       </div>
-    </template>
-    <template v-else>
-      <div ref="contents" v-if="!isCollapsed" class="vuestro-panel-contents" :class="[contentPadding, { overflowHidden }]" @scroll="updateScroll">
-        <slot></slot>
-      </div>
-    </template>
-    <div v-if="canScroll" class="vuestro-panel-scroll-arrow">
-      <vuestro-icon name="arrow-down"></vuestro-icon>
     </div>
   </div>
 </template>
@@ -43,13 +45,12 @@ export default {
     gutter: { type: String, default: 'md' },
     color: { type: String, default: null },
     spinner: { type: Boolean, default: false },
-    stretch: { type: Boolean, default: false },
     collapsible: { type: Boolean, default: false },
     deferContent: { type: Boolean, default: false },   // defer loading/rendering of content until expanded
     collapsed: { type: Boolean, default: false },
     contentPadding: { type: String, default: '' },
     scroll: { type: Boolean, default: false },
-    overflowHidden: { type: Boolean, default: null },
+    frame: { type: Boolean, default: false },
     noBorder: { type: Boolean, default: false },
   },
   data() {
@@ -65,6 +66,12 @@ export default {
   },
   updated() {
     this.updateScroll();
+  },
+  created() {
+    window.addEventListener('resize', this.updateScroll);
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.updateScroll);
   },
   methods: {
     updateScroll() {
@@ -112,16 +119,11 @@ export default {
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  position: relative;
-}
-.vuestro-panel.stretch {
   flex-grow: 1;
+  position: relative;
 }
 .vuestro-panel:not(:first-child) {
   margin-top: var(--gutter-size);
-}
-.vuestro-panel.scroll {
-  overflow: hidden;
 }
 
 /* border only for dark ui, whether it's forced through a prop, or global */
@@ -163,27 +165,35 @@ export default {
   color: var(--vuestro-panel-toolbar-fg);
 }
 
+.vuestro-panel-contents-wrapper {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+}
 .vuestro-panel-contents {
   display: flex;
   flex-direction: column;
-}
-.vuestro-panel.stretch > .vuestro-panel-contents {
   flex-grow: 1;
 }
-.vuestro-panel.scroll > .vuestro-panel-contents {
+.vuestro-panel-contents-wrapper.sm {
+  margin: 2px;
+}
+.vuestro-panel-contents-wrapper.md {
+  margin: 5px;
+}
+.vuestro-panel-contents-wrapper.lg {
+  margin: 10px;
+}
+.vuestro-panel-contents-wrapper.scroll > .vuestro-panel-contents,
+.vuestro-panel-contents-wrapper.frame > .vuestro-panel-contents {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.vuestro-panel-contents-wrapper.scroll > .vuestro-panel-contents {
   overflow: auto;
-}
-.vuestro-panel-contents.sm {
-  padding: 2px;
-}
-.vuestro-panel-contents.md {
-  padding: 5px;
-}
-.vuestro-panel-contents.lg {
-  padding: 10px;
-}
-.vuestro-panel-contents.overflowHidden {
-  overflow: hidden;
 }
 
 /* reset top padding when toolbar is present */

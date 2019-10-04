@@ -266,6 +266,17 @@
 
     </vuestro-card>
 
+    <vuestro-card cols="6">
+      <template #description>Tooltip inside Panel</template>
+      <vuestro-panel>
+        <template #title>Panel</template>
+        <vuestro-tooltip>
+          <template #content>Tooltip!</template>
+          <vuestro-button>Test</vuestro-button>
+        </vuestro-tooltip>
+      </vuestro-panel>
+    </vuestro-card>
+
   </vuestro-container>
 </template>
 

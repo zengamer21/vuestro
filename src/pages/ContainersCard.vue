@@ -51,7 +51,7 @@
 import Icon from 'vue-awesome/components/Icon';
 
 export default {
-  name: 'CardContainer',
+  name: 'ContainersCard',
   components: {
     Icon,
   },

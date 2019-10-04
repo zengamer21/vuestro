@@ -146,7 +146,7 @@
 import Icon from 'vue-awesome/components/Icon';
 
 export default {
-  name: 'Containers',
+  name: 'ContainersPanel',
   components: {
     Icon,
   },

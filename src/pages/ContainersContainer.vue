@@ -89,7 +89,7 @@ justify-content: flex-start;
 <script>
 
 export default {
-  name: 'ContainerContainer',
+  name: 'ContainersContainer',
   data() {
     return {
       outlines: true,

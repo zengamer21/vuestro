@@ -1,5 +1,5 @@
 <template>
-  <vuestro-panel stretch class="vuestro-chart-panel" overflow-hidden>
+  <vuestro-panel class="vuestro-chart-panel" frame>
     <template #title><span class="drag">{{ options.title }}</span></template>
     <component :is="options.component" :data="data" :options="options"></component>
   </vuestro-panel>
@@ -18,9 +18,5 @@ export default {
 </script>
 
 <style scoped>
-
-.vuestro-chart-panel {
-  overflow: hidden;
-}
 
 </style>

@@ -15,10 +15,11 @@ import InputsSpinner from '../pages/InputsSpinner.vue';
 import InputsText from '../pages/InputsText.vue';
 import InputsSearch from '../pages/InputsSearch.vue';
 import Containers from '../pages/Containers.vue';
-import ContainerContainer from '../pages/ContainerContainer.vue';
-import CardContainer from '../pages/CardContainer.vue';
-import ColumnContainer from '../pages/ColumnContainer.vue';
-import PanelContainer from '../pages/PanelContainer.vue';
+import ContainersContainer from '../pages/ContainersContainer.vue';
+import ContainersCard from '../pages/ContainersCard.vue';
+import ContainersColumn from '../pages/ContainersColumn.vue';
+import ContainersPanel from '../pages/ContainersPanel.vue';
+import ContainersPanelScroll from '../pages/ContainersPanelScroll.vue';
 import Popups from '../pages/Popups.vue';
 import Data from '../pages/Data.vue';
 import DataTable from '../pages/DataTable.vue';
@@ -62,7 +63,7 @@ export default new Router({
           },
           name: 'container',
           path: 'container',
-          component: ContainerContainer,
+          component: ContainersContainer,
         },
         {
           meta: {
@@ -71,7 +72,7 @@ export default new Router({
           },
           name: 'card-container',
           path: 'card-container',
-          component: CardContainer,
+          component: ContainersCard,
         },
         {
           meta: {
@@ -80,7 +81,7 @@ export default new Router({
           },
           name: 'column-container',
           path: 'column-container',
-          component: ColumnContainer,
+          component: ContainersColumn,
         },
         {
           meta: {
@@ -89,7 +90,16 @@ export default new Router({
           },
           name: 'panel-container',
           path: 'panel-container',
-          component: PanelContainer,
+          component: ContainersPanel,
+        },
+        {
+          meta: {
+            title: 'Panel Scroll',
+            sidebar: true,
+          },
+          name: 'panel-scroll',
+          path: 'panel-scroll',
+          component: ContainersPanelScroll,
         },
       ],
     },

@@ -1,5 +1,5 @@
 <template>
-  <vuestro-panel stretch class="vuestro-stat-panel" :color="color">
+  <vuestro-panel class="vuestro-stat-panel" :color="color" frame>
     <div class="vuestro-stat-panel-title drag">{{ title }}</div>
     <vuestro-icon class="vuestro-stat-panel-icon" v-if="icon" :name="icon"></vuestro-icon>
     <div class="vuestro-stat-panel-value"
