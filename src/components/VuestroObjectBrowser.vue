@@ -181,6 +181,7 @@ export default {
   min-width: 10px;
   margin-right: 5px;
   color: var(--vuestro-object-browser-key-fg);
+  flex: none;
 }
 
 .vuestro-object-browser-item-string {

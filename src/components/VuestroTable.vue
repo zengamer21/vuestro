@@ -4,7 +4,8 @@
       <thead v-if="!noHeader" class="vuestro-table-header-row">
         <th v-for="column in headers"
             class="vuestro-table-header"
-            :class="[ `vuestro-table-align-${column.align}` ]">
+            :class="[ column.align && `vuestro-table-align-${column.align}` ]"
+            :style="column.padding !== undefined && `padding: ${column.padding}px`">
           <slot v-if="$scopedSlots.header" name="header" :item="column"></slot>
           <template v-else>
             {{ column.title }}
