@@ -6,7 +6,7 @@
     <slot></slot>
     <div ref="content"
          class="vuestro-tooltip-content"
-         :style="[style, { visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }]">
+         :style="[style, { 'min-width': `${minWidth}px`, visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }]">
       <slot name="content"></slot>
     </div>
   </div>
@@ -19,6 +19,7 @@ export default {
   props: {
     position: { type: String, default: 'top' },
     rounded: { type: Boolean, default: false },
+    minWidth: { type: null, default: 10 },
   },
   data() {
     return {
@@ -88,7 +89,6 @@ export default {
   background: var(--vuestro-dropdown-content-bg);
   color: var(--vuestro-dropdown-content-fg);
   border: 1px solid var(--vuestro-dropdown-outline);
-  min-width: 160px;
   padding: 2px;
   z-index: 999;
 }
