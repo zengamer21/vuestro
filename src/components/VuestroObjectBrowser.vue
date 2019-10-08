@@ -70,9 +70,11 @@ export default {
   },
   watch: {
     data() {
-      this.$nextTick(() => {
-        this.expandAll();
-      });
+      if (this.alwaysExpand) {
+        this.$nextTick(() => {
+          this.expandAll();
+        });
+      }
     },
   },
   beforeMount() {
