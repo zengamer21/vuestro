@@ -99,6 +99,18 @@
         <vuestro-button round size="xl">
           <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
+        <vuestro-button round size="sm">
+          <vuestro-icon name="pen"></vuestro-icon>
+        </vuestro-button>
+        <vuestro-button round>
+          <vuestro-icon name="pen"></vuestro-icon>
+        </vuestro-button>
+        <vuestro-button round size="lg">
+          <vuestro-icon name="pen"></vuestro-icon>
+        </vuestro-button>
+        <vuestro-button round size="xl">
+          <vuestro-icon name="pen"></vuestro-icon>
+        </vuestro-button>
       </div>
     </vuestro-card>
 

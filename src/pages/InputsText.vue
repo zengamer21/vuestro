@@ -28,6 +28,15 @@
     </vuestro-card>
 
     <vuestro-card>
+      <template #subheading>
+        Text Field with Save/Cancel buttons
+      </template>
+      <div class="example-flexbox">
+        <vuestro-text-field variant="outline" v-model="exampleEditableText" editing-buttons @save="onSaveButton" @cancel="onCancelButton"></vuestro-text-field>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
       <template #description>
         Set the dark property for a dark-theme compatible text field.
       </template>
@@ -64,6 +73,14 @@ export default {
       ]
     };
   },
+  methods: {
+    onSaveButton(v) {
+      console.log('new val', v);
+    },
+    onCancelButton() {
+      console.log('cancelled');
+    },
+  }
 };
 
 </script>

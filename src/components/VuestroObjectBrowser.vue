@@ -8,21 +8,31 @@
             <vuestro-caret v-if="isObject(v) || isArray(v)" :collapsed="isCollapsed(k)" @click="toggleCollapse(k)"></vuestro-caret>
           </div>
           <span class="vuestro-object-browser-item-key-title">{{ k }}:</span>
-          <span v-if="isString(v)" class="vuestro-object-browser-item-string" title="String">{{ JSON.stringify(v) }}</span>
-          <span v-if="isBoolean(v)" class="vuestro-object-browser-item-bool" title="Boolean">{{ v }}</span>
-          <span v-if="isDate(v)" class="vuestro-object-browser-item-date" title="Date">{{ v.toISOString() }}</span>
-          <span v-if="isNumber(v)" class="vuestro-object-browser-item-number" title="Number">{{ v }}</span>
-          <span v-if="isArray(v)">Array[{{ v.length }}]</span>
-          <span v-if="isObject(v)">Object[{{ Object.keys(v).length }}]</span>
-          <span v-if="v === null" class="vuestro-object-browser-item-null">null</span>
-          <span v-if="v === undefined" class="vuestro-object-browser-item-null">undefined</span>
+          <template v-if="k === editKeyActive">
+            <vuestro-text-field :value="v" variant="outline" no-margin size="sm" selected editing-buttons @save="onSave(k, v, ...arguments)" @cancel="editKeyActive = ''"></vuestro-text-field>
+          </template>
+          <template v-else>
+            <span v-if="isString(v)" class="vuestro-object-browser-item-string" title="String">{{ JSON.stringify(v) }}</span>
+            <span v-if="isBoolean(v)" class="vuestro-object-browser-item-bool" title="Boolean">{{ v }}</span>
+            <span v-if="isDate(v)" class="vuestro-object-browser-item-date" title="Date">{{ v.toISOString() }}</span>
+            <span v-if="isNumber(v)" class="vuestro-object-browser-item-number" title="Number">{{ v }}</span>
+            <span v-if="isArray(v)">Array[{{ v.length }}]</span>
+            <span v-if="isObject(v)">Object[{{ Object.keys(v).length }}]</span>
+            <span v-if="v === null" class="vuestro-object-browser-item-null">null</span>
+            <span v-if="v === undefined" class="vuestro-object-browser-item-null">undefined</span>
+            <span v-if="editable && !isObject(v) && !isArray(v)" class="vuestro-object-editing-buttons">
+              <vuestro-button round no-border size="sm" @click="editKeyActive = k">
+                <vuestro-icon name="pen"></vuestro-icon>
+              </vuestro-button>
+            </span>
+          </template>
           <span class="vuestro-object-browser-item-slot">
             <slot name="post-value" :k="k" :v="v" :parent="parent"></slot>
           </span>
         </div>
         <div v-if="isObject(v) || isArray(v)">
           <div v-show="expanded.indexOf(k) >= 0" class="vuestro-object-browser-item-sub">
-            <vuestro-object-browser :ref="k" :expand-all="expandAll" :data="v" :parent="k">
+            <vuestro-object-browser :ref="k" :options="options" :data="v" :parent="k">
               <template #post-value="{ k, v, parent }">
                 <slot name=post-value :k="k" :v="v" :parent="parent"></slot>
               </template>
@@ -53,6 +63,7 @@ export default {
       alwaysExpand: false,
       editable: false,
       emptyMessage: 'Empty',
+      editKeyActive: '',
     };
   },
   computed: {
@@ -132,6 +143,14 @@ export default {
         // remove from expanded
         this.expanded.splice(idx, 1);
       }
+    },
+    onSave(k, origVal, newVal) {
+      if (this.data) {
+        this.data[k] = newVal;
+      } else if (this.value) {
+        this.value[k] = newVal;
+      }
+      this.editKeyActive = '';
     },
   }
 };
@@ -216,6 +235,11 @@ export default {
 /* decrease padding for empty root */
 .vuestro-object-browser-item.root > .vuestro-object-browser-empty {
   padding-left: 6px;
+}
+
+.vuestro-object-editing-buttons {
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 </style>

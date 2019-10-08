@@ -1,7 +1,7 @@
 <!-- Be sure to define CSS variable: --vuestro-text-field-bg -->
 <!-- to define bg color for proper overlap of outline mode -->
 <template>
-  <div class="vuestro-text-field" :class="[ `vuestro-text-field-${variant}`, { dark, focused, center, noMargin }]">
+  <div class="vuestro-text-field" :class="[ `vuestro-text-field-${variant}`, size, { dark, focused, center, noMargin }]">
     <div class="input-el-wrapper">
       <input ref="inputEl"
              class="input-el"
@@ -12,6 +12,14 @@
              @input="updateValue"
              @keyup="onKeyUp">
       </input>
+    </div>
+    <div v-if="editingButtons" class="vuestro-text-field-editing-buttons">
+      <vuestro-button round no-border size="sm" variant="success" @click="onSaveButton">
+        <vuestro-icon name="save"></vuestro-icon>
+      </vuestro-button>
+      <vuestro-button round no-border size="sm" variant="danger" @click="onCancelButton">
+        <vuestro-icon name="times"></vuestro-icon>
+      </vuestro-button>
     </div>
     <div v-if="presets.length > 0">
       <vuestro-dropdown right click-to-open close-on-content-click>
@@ -42,10 +50,11 @@
 
 <script>
 
+/* global _ */
 export default {
   name: 'VuestroTextField',
   props: {
-    value: { type: String, required: true },
+    value: { type: null, required: true },
     placeholder: { type: String, default: null },
     variant: { type: String, default: 'regular' },
     type: { type: String, default: 'text' },
@@ -55,12 +64,16 @@ export default {
     noMargin: { type: Boolean, default: false },
     presets: { type: Array, default: () => [] },
     clearable: { type: Boolean, default: false },
+    size: { type: String, default: 'md' },
+    editingButtons: { type: Boolean, default: false },
+    selected: { type: Boolean, default: false },
   },
   data() {
     return {
       focused: false,
       raisedPlaceholder: false,
       showPassword: false,
+      editingButtonsBuffer: this.value,
     };
   },
   watch: {
@@ -83,7 +96,13 @@ export default {
       if (window.getComputedStyle(this.$refs.inputEl).content === `"${String.fromCharCode(0xFEFF)}"`) {
         this.raisedPlaceholder = true;
       }
-    }, 200); // 200ms seems to be enough, but may need to be increased
+    }, 300); // 300ms seems to be enough, but may need to be increased
+    if (this.selected) {
+      this.$nextTick(() => {
+        this.$refs.inputEl.focus();
+        this.$refs.inputEl.setSelectionRange(0, 999);
+      });
+    }
   },
   methods: {
     focus() { // proxy the focus() call
@@ -95,6 +114,7 @@ export default {
       // fine-grained, called with every keystroke so parent
       // can update value prop according to v-model convention
       this.$emit('input', this.$refs.inputEl.value);
+      this.editingButtonsBuffer = this.$refs.inputEl.value;
     },
     onKeyUp(e) { // passthrough for 'keyup.enter'-type binding
       this.$emit('keyup', e);
@@ -110,8 +130,24 @@ export default {
         this.raisedPlaceholder = false;
       }
     },
+    onSaveButton() {
+      let retVal = null;
+      if (_.isBoolean(this.value)) {
+        retVal = this.editingButtonsBuffer === 'true';
+      } else if (_.isNumber(this.value)) {
+        retVal = parseFloat(this.editingButtonsBuffer);
+      } else if (_.isDate(this.value)) {
+        retVal = new Date(this.editingButtonsBuffer);
+      } else {
+        retVal = this.editingButtonsBuffer;
+      }
+      console.log(retVal)
+      this.$emit('save', retVal);
+    },
+    onCancelButton() {
+      this.$emit('cancel');
+    },
   },
-
 };
 
 </script>
@@ -127,10 +163,18 @@ export default {
 <style scoped>
 
 .vuestro-text-field {
-  padding: 5px;
   position: relative;
   margin-bottom: 12px;
   display: flex;
+}
+.vuestro-text-field.sm {
+  padding: 2px;
+}
+.vuestro-text-field.md {
+  padding: 5px;
+}
+.vuestro-text-field.lg {
+  padding: 8px;
 }
 .vuestro-text-field.noMargin {
   margin: 0;
@@ -189,10 +233,18 @@ export default {
   border: none;
   outline: none;
   color: var(--vuestro-text-color);
-  font-size: 15px;
 }
 .vuestro-text-field.center .input-el {
   text-align: center;
+}
+.vuestro-text-field.sm .input-el {
+  font-size: 12px;
+}
+.vuestro-text-field.md .input-el {
+  font-size: 15px;
+}
+.vuestro-text-field.lg .input-el {
+  font-size: 18px;
 }
 
 .show-password {
@@ -223,6 +275,10 @@ export default {
   border: 1px solid var(--vuestro-gray);
   -webkit-text-fill-color: var(--vuestro-black);
   -webkit-box-shadow: 0 0 0px 1000px var(--vuestro-gray) inset;
+}
+
+.vuestro-text-field-editing-buttons {
+  display: flex;
 }
 
 </style>
