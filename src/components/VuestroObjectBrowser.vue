@@ -32,7 +32,7 @@
         </div>
         <div v-if="isObject(v) || isArray(v)">
           <div v-show="expanded.indexOf(k) >= 0" class="vuestro-object-browser-item-sub">
-            <vuestro-object-browser :ref="k" :options="options" :data="v" :parent="k">
+            <vuestro-object-browser :ref="k" :options="options" :data="v" :parent="k" @change="$emit('change')">
               <template #post-value="{ k, v, parent }">
                 <slot name=post-value :k="k" :v="v" :parent="parent"></slot>
               </template>
