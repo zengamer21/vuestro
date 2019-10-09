@@ -168,6 +168,7 @@ export default {
         this.data[k] = newVal;
       }
       this.editKeyActive = '';
+      this.$emit('change');
     },
     onAddMember() {
       if (this.isArray(this.data)) {
@@ -194,6 +195,7 @@ export default {
       this.addingMember = false;
       this.newMemberKey = '';
       this.newMemberVal = '';
+      this.$emit('change');
     }
   }
 };
