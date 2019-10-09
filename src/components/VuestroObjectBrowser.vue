@@ -1,7 +1,7 @@
 <template>
   <div class="vuestro-object-browser-item" :class="{ root: parent === 'root' }">
     <div v-if="empty" class="vuestro-object-browser-empty">{{ emptyMessage }}</div>
-    <div v-for="(v, k) in data || value">
+    <div v-for="(v, k) in data">
       <div class="vuestro-object-browser-item">
         <div class="vuestro-object-browser-item-kv">
           <div class="vuestro-object-browser-item-gutter">
@@ -41,18 +41,35 @@
         </div>
       </div>
     </div>
+    <div v-if="editable" class="vuestro-object-add-member">
+      <vuestro-button v-if="!addingMember" round no-border @click="onAddMember">
+        <vuestro-icon name="plus"></vuestro-icon>
+      </vuestro-button>
+      <template v-else>
+        <vuestro-text-field variant="outline" no-margin size="sm" v-model="newMemberKey" selected></vuestro-text-field>:
+        <vuestro-text-field variant="outline" 
+                            no-margin 
+                            size="sm" 
+                            v-model="newMemberVal" 
+                            editing-buttons 
+                            @save="onSaveAddedMember" 
+                            @cancel="addingMember = false"
+                            @keyup.enter="onSaveAddedMember">
+        </vuestro-text-field>
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
 
 /* global _ */
+import moment from 'moment';
 
 export default {
   name: 'VuestroObjectBrowser',
   props: {
     data: { type: null },
-    value: { type: null }, // alias for data to allow v-model binding
     options: { type: Object, default: () => ({}) },
     parent: { type: null, default: 'root' }, // non-end-user property, used for recursion
   },
@@ -64,19 +81,21 @@ export default {
       editable: false,
       emptyMessage: 'Empty',
       editKeyActive: '',
+      addingMember: false,
+      newMemberKey: '',
+      newMemberVal: '',
     };
   },
   computed: {
     empty() {
-      if (!this.data && !this.value) {
+      if (!this.data) {
         return true;
       } else {
         if (this.data && Object.keys(this.data).length == 0) {
           return true;
-        } else if (this.value && Object.keys(this.value).length == 0) {
-          return true;
         }
       }
+      return false;
     }
   },
   watch: {
@@ -147,11 +166,35 @@ export default {
     onSave(k, origVal, newVal) {
       if (this.data) {
         this.data[k] = newVal;
-      } else if (this.value) {
-        this.value[k] = newVal;
       }
       this.editKeyActive = '';
     },
+    onAddMember() {
+      if (this.isArray(this.data)) {
+        this.newMemberKey = this.data.length;
+      }
+      this.addingMember = true;
+    },
+    onSaveAddedMember() {
+      if (this.data) {
+        let v = this.newMemberVal;
+        // try to promote type to bool, date, or number
+        if (this.newMemberVal.match(/(true|false)/)) {
+          v = this.newMemberVal === 'true';
+        }
+        if (this.newMemberVal.match(/[0-9\.]+/)) {
+          v = parseFloat(this.newMemberVal);
+        }
+        let dt = moment(this.newMemberVal, moment.ISO_8601);
+        if (dt.isValid()) {
+          v = dt.toDate();
+        }
+        this.$set(this.data, this.newMemberKey, v);
+      }
+      this.addingMember = false;
+      this.newMemberKey = '';
+      this.newMemberVal = '';
+    }
   }
 };
 
@@ -240,6 +283,10 @@ export default {
 .vuestro-object-editing-buttons {
   margin-left: 2px;
   margin-right: 2px;
+}
+
+.vuestro-object-add-member {
+  padding: 0px 18px;
 }
 
 </style>

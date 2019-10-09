@@ -36,10 +36,10 @@
 
     <vuestro-card>
       <template #subheading>
-        <span>Set the <em>editable</em> option to provide editing controls that directly modify the v-model bound object.</span>
+        <span>Set the <em>editable</em> option to provide editing controls that directly modify the bound object.</span>
       </template>
       <vuestro-panel>
-        <vuestro-object-browser v-model="testObject" :options="{ editable: true }"></vuestro-object-browser>
+        <vuestro-object-browser :data="testObject" :options="{ editable: true }"></vuestro-object-browser>
       </vuestro-panel>
     </vuestro-card>
 

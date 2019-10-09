@@ -141,7 +141,6 @@ export default {
       } else {
         retVal = this.editingButtonsBuffer;
       }
-      console.log(retVal)
       this.$emit('save', retVal);
     },
     onCancelButton() {
