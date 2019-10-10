@@ -28,10 +28,10 @@
             <vuestro-icon name="chevron-down"></vuestro-icon>
           </vuestro-button>
         </template>
-        <vuestro-list-button v-for="p in presets" :key="p" @click="$emit('input', p)">{{ p }}</vuestro-list-button>
+        <vuestro-list-button v-for="p in presets" :key="p" @click="onPreset(p)">{{ p }}</vuestro-list-button>
       </vuestro-dropdown>
     </div>
-    <vuestro-button v-if="clearable" no-border round @click="$emit('input', '')">
+    <vuestro-button v-if="clearable && value.length > 0" no-border round @click.stop="onClear">
       <vuestro-icon name="times"></vuestro-icon>
     </vuestro-button>
     <span class="show-password" v-if="type === 'password'" @click="showPassword = !showPassword">
@@ -145,6 +145,14 @@ export default {
     },
     onCancelButton() {
       this.$emit('cancel');
+    },
+    onClear() {
+      this.$emit('input', '');
+      this.focus();
+    },
+    onPreset(p) {
+      this.$emit('input', p);
+      this.$emit('preset', p);
     },
   },
 };

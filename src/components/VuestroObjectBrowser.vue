@@ -20,8 +20,8 @@
             <span v-if="isObject(v)">Object[{{ Object.keys(v).length }}]</span>
             <span v-if="v === null" class="vuestro-object-browser-item-null">null</span>
             <span v-if="v === undefined" class="vuestro-object-browser-item-null">undefined</span>
-            <span v-if="editable && !isObject(v) && !isArray(v)" class="vuestro-object-editing-buttons">
-              <vuestro-button round no-border size="sm" @click="editKeyActive = k">
+            <span v-if="isEditable(k, v)" class="vuestro-object-editing-buttons">
+              <vuestro-button round no-border size="sm" @click="onEditActive(k)">
                 <vuestro-icon name="pen"></vuestro-icon>
               </vuestro-button>
             </span>
@@ -32,7 +32,13 @@
         </div>
         <div v-if="isObject(v) || isArray(v)">
           <div v-show="expanded.indexOf(k) >= 0" class="vuestro-object-browser-item-sub">
-            <vuestro-object-browser :ref="k" :options="options" :data="v" :parent="k" @change="$emit('change')">
+            <vuestro-object-browser :ref="k"
+                                    :options="options"
+                                    :data="v"
+                                    :parent="k"
+                                    @edit="onEditActive"
+                                    @done="$emit('done')"
+                                    @change="onChange">
               <template #post-value="{ k, v, parent }">
                 <slot name=post-value :k="k" :v="v" :parent="parent"></slot>
               </template>
@@ -41,18 +47,18 @@
         </div>
       </div>
     </div>
-    <div v-if="editable" class="vuestro-object-add-member">
+    <div v-if="isExtendable()" class="vuestro-object-add-member">
       <vuestro-button v-if="!addingMember" round no-border @click="onAddMember">
         <vuestro-icon name="plus"></vuestro-icon>
       </vuestro-button>
       <template v-else>
         <vuestro-text-field variant="outline" no-margin size="sm" v-model="newMemberKey" selected></vuestro-text-field>:
-        <vuestro-text-field variant="outline" 
-                            no-margin 
-                            size="sm" 
-                            v-model="newMemberVal" 
-                            editing-buttons 
-                            @save="onSaveAddedMember" 
+        <vuestro-text-field variant="outline"
+                            no-margin
+                            size="sm"
+                            v-model="newMemberVal"
+                            editing-buttons
+                            @save="onSaveAddedMember"
                             @cancel="addingMember = false"
                             @keyup.enter="onSaveAddedMember">
         </vuestro-text-field>
@@ -79,6 +85,7 @@ export default {
       startExpanded: false,
       alwaysExpand: false,
       editable: false,
+      extendable: false,
       emptyMessage: 'Empty',
       editKeyActive: '',
       addingMember: false,
@@ -153,6 +160,18 @@ export default {
     isNumber(d) {
       return _.isNumber(d);
     },
+    isEditable(key, value) {
+      if (_.isFunction(this.editable)) {
+        return this.editable(this.getFullPath(key), value);
+      }
+      return this.editable;
+    },
+    isExtendable() {
+      if (_.isFunction(this.extendable)) {
+        return this.extendable(this.parent);
+      }
+      return this.extendable;
+    },
     toggleCollapse(d) {
       let idx = this.expanded.indexOf(d);
       if (idx < 0) {
@@ -163,12 +182,22 @@ export default {
         this.expanded.splice(idx, 1);
       }
     },
+    getFullPath(key) {
+      if (this.parent === 'root') {
+        return key;
+      }
+      return `${this.parent}.${key}`;
+    },
+    onEditActive(k) {
+      this.editKeyActive = k;
+      this.$emit('edit', this.getFullPath(k));
+    },
     onSave(k, origVal, newVal) {
       if (this.data) {
         this.data[k] = newVal;
       }
       this.editKeyActive = '';
-      this.$emit('change');
+      this.onChange(this.getFullPath(k), newVal);
     },
     onAddMember() {
       if (this.isArray(this.data)) {
@@ -191,11 +220,15 @@ export default {
           v = dt.toDate();
         }
         this.$set(this.data, this.newMemberKey, v);
+        this.onChange(this.getFullPath(this.newMemberKey), v);
       }
       this.addingMember = false;
       this.newMemberKey = '';
       this.newMemberVal = '';
-      this.$emit('change');
+    },
+    onChange(k, v) {
+      this.$emit('change', k, v);
+      this.$emit('done');
     }
   }
 };

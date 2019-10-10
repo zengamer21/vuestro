@@ -32,7 +32,7 @@
         Text Field with Save/Cancel buttons
       </template>
       <div class="example-flexbox">
-        <vuestro-text-field variant="outline" v-model="exampleEditableText" editing-buttons @save="onSaveButton" @cancel="onCancelButton"></vuestro-text-field>
+        <vuestro-text-field variant="outline" v-model="exampleText" editing-buttons @save="onSaveButton" @cancel="onCancelButton"></vuestro-text-field>
       </div>
     </vuestro-card>
 
@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     onSaveButton(v) {
-      console.log('new val', v);
+      this.exampleText = v;
     },
     onCancelButton() {
       console.log('cancelled');
