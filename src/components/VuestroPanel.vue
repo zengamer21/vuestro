@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-panel"
-       :class="[ gutter, { dark, noBorder }]"
+       :class="[ gutter, { dark, stretch, noBorder }]"
        :style="color ? { 'background-color': color }:{}">
     <!--TOOLBAR-->
     <div v-if="$slots.title || $slots.toolbar || collapsible" class="vuestro-panel-title-toolbar">
@@ -52,6 +52,7 @@ export default {
     scroll: { type: Boolean, default: false },
     frame: { type: Boolean, default: false },
     noBorder: { type: Boolean, default: false },
+    stretch: { type: Boolean, default: true },
   },
   data() {
     return {
@@ -119,8 +120,10 @@ export default {
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   position: relative;
+}
+.vuestro-panel.stretch {
+  flex-grow: 1;
 }
 .vuestro-panel:not(:first-child) {
   margin-top: var(--gutter-size);

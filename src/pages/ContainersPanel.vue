@@ -47,7 +47,7 @@
       </vuestro-card>
 
       <vuestro-card cols="6">
-        <vuestro-panel dark color="var(--vuestro-purple)" stretch content-padding="lg">
+        <vuestro-panel dark color="var(--vuestro-purple)" :stretch="false" content-padding="lg">
           <template #title>Colorized Vuestro Panel Titlebar</template>
           <template #toolbar>
             <vuestro-button no-border pill variant="white"><vuestro-icon name="sync-alt"></vuestro-icon><span>Refresh</span></vuestro-button>
@@ -55,7 +55,7 @@
             <vuestro-button no-border round variant="danger"><vuestro-icon name="times"></vuestro-icon></vuestro-button>
           </template>
           <p>Colorize the panel background by setting the color property. If you choose a dark color, add the dark property as well for contrasting text.</p>
-          <p>Set the stretch property to have the panel stretch to available vertical space.</p>
+          <p>Set the stretch property to false to prevent the panel from stretching to available vertical space.</p>
         </vuestro-panel>
       </vuestro-card>
 
