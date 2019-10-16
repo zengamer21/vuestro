@@ -60,7 +60,7 @@
       </vuestro-card>
 
       <vuestro-card cols="6">
-        <vuestro-panel collapsible>
+        <vuestro-panel collapsible content-padding="lg">
           <template #title>Collapsible Panel</template>
           <vuestro-container>
             <vuestro-card>

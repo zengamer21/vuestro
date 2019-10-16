@@ -18,7 +18,7 @@
         <slot name="toolbar"></slot>
       </div>
     </div>
-    <div class="vuestro-panel-contents-wrapper" :class="[contentPadding, { scroll, frame }]">
+    <div class="vuestro-panel-contents-wrapper" :class="[contentPadding, { isCollapsed, scroll, frame }]">
       <template v-if="!deferContent">
         <div ref="contents" v-show="!isCollapsed" class="vuestro-panel-contents" @scroll="updateScroll">
           <slot></slot>
@@ -183,6 +183,9 @@ export default {
 }
 .vuestro-panel-contents-wrapper.lg {
   margin: 10px;
+}
+.vuestro-panel-contents-wrapper.isCollapsed {
+  margin: 0;
 }
 .vuestro-panel-contents-wrapper.scroll > .vuestro-panel-contents,
 .vuestro-panel-contents-wrapper.frame > .vuestro-panel-contents {
