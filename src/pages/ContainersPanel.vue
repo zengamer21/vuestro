@@ -7,10 +7,10 @@
       </vuestro-card>
 
       <vuestro-card cols="6">
-        <vuestro-panel content-padding="sm">Set the content-padding to "sm"...</vuestro-panel>
+        <vuestro-panel :stretch="false" content-padding="sm">Set the content-padding to "sm"...</vuestro-panel>
       </vuestro-card>
       <vuestro-card cols="6">
-        <vuestro-panel content-padding="md">..."md"...</vuestro-panel>
+        <vuestro-panel :stretch="false" content-padding="md">..."md"...</vuestro-panel>
       </vuestro-card>
       <vuestro-card cols="6">
         <vuestro-panel content-padding="lg">..."lg" to add padding to VuestroPanel contents.</vuestro-panel>

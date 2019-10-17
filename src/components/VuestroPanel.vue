@@ -1,9 +1,9 @@
 <template>
   <div class="vuestro-panel"
-       :class="[ gutter, { dark, stretch, noBorder }]"
+       :class="[ gutter, { dark, stretch, noBorder, hasTitlebar }]"
        :style="color ? { 'background-color': color }:{}">
     <!--TOOLBAR-->
-    <div v-if="$slots.title || $slots.toolbar || collapsible" class="vuestro-panel-title-toolbar">
+    <div v-if="hasTitlebar" class="vuestro-panel-title-toolbar">
       <vuestro-caret v-if="collapsible"
                      :collapsed="isCollapsed"
                      @click="toggleCollapse">
@@ -53,6 +53,11 @@ export default {
     frame: { type: Boolean, default: false },
     noBorder: { type: Boolean, default: false },
     stretch: { type: Boolean, default: true },
+  },
+  computed: {
+    hasTitlebar() {
+      return this.$slots.title || this.$slots.toolbar || this.collapsible;
+    },
   },
   data() {
     return {
@@ -186,6 +191,9 @@ export default {
 }
 .vuestro-panel-contents-wrapper.lg {
   margin: 10px;
+}
+.vuestro-panel.hasTitlebar .vuestro-panel-contents-wrapper {
+  margin-top: 0px;
 }
 .vuestro-panel-contents-wrapper.isCollapsed {
   margin: 0;
