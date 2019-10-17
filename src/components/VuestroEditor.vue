@@ -83,9 +83,11 @@ export default {
       }
     },
     lang(newLang) {
-      this.editor.getSession()
-      .setMode('ace/mode/' + newLang)
-      .setTabSize(2);
+      let sess = this.editor.getSession();
+      if (sess) {
+        sess.setMode('ace/mode/' + newLang);
+        sess.setTabSize(2);
+      }
     },
     colorTheme() {
       this.setColorTheme();

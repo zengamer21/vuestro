@@ -257,7 +257,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template #description>
+      <template #description> 
         Buttons will stretch to available space by setting the stretch property
       </template>
       <vuestro-button stretch>Button</vuestro-button>

@@ -20,7 +20,7 @@
         <span>Set the <em>lang</em> attribute to set the editor mode</span>
       </template>
       <vuestro-panel stretch>
-        <vuestro-editor :value="JSON.stringify(testJson,null,2)" :lang="'json'" :options="editorOptions"></vuestro-editor>
+        <vuestro-editor :value="JSON.stringify(testJson,null,2)" lang="json" :options="editorOptions"></vuestro-editor>
       </vuestro-panel>
     </vuestro-card>
 
