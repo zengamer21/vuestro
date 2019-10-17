@@ -18,7 +18,7 @@
         <slot name="toolbar"></slot>
       </div>
     </div>
-    <div class="vuestro-panel-contents-wrapper" :class="[contentPadding, { isCollapsed, scroll, frame }]">
+    <div class="vuestro-panel-contents-wrapper" :class="[contentPadding, { isCollapsed, scroll, frame, overflowHidden }]">
       <template v-if="!deferContent">
         <div ref="contents" v-show="!isCollapsed" class="vuestro-panel-contents" @scroll="updateScroll">
           <slot></slot>
@@ -53,6 +53,7 @@ export default {
     frame: { type: Boolean, default: false },
     noBorder: { type: Boolean, default: false },
     stretch: { type: Boolean, default: true },
+    overflowHidden: { type: Boolean, default: false },
   },
   computed: {
     hasTitlebar() {
@@ -208,6 +209,9 @@ export default {
 }
 .vuestro-panel-contents-wrapper.scroll > .vuestro-panel-contents {
   overflow: auto;
+}
+.vuestro-panel-contents-wrapper.overflowHidden > .vuestro-panel-contents {
+  overflow: hidden;
 }
 
 /* reset top padding when toolbar is present */
