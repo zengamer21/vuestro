@@ -1,9 +1,9 @@
 <template>
-  <div class="vuestro-button-outer">
+  <div class="vuestro-button-outer" :class="{ stretch }">
     <div class="vuestro-button"
          :class="[`vuestro-button-${variant}`,
                   size,
-                  { dark, value, noBorder, noMargin, noPadding, round, pill, checkbox, disabled, stretch, rounded, shadow }]"
+                  { dark, value, noBorder, noMargin, noPadding, round, pill, checkbox, disabled, rounded, shadow }]"
          @click="onClick"
          @mouseover="onHover">
       <template v-if="checkbox">
@@ -135,8 +135,12 @@ export default {
   opacity: .2;
   transition: 0s;
 }
-.vuestro-button.stretch {
+.vuestro-button-outer.stretch {
   align-self: stretch;
+}
+.vuestro-button-outer.stretch > .vuestro-button {
+  align-self: stretch;
+  flex-grow: 1;
 }
 .vuestro-button.rounded {
   border-radius: 3px;
