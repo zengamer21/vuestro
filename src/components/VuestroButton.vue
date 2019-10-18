@@ -1,10 +1,11 @@
 <template>
-  <div class="vuestro-button-outer" :class="{ stretch }">
+  <div class="vuestro-button-outer"
+       :class="{ stretch }"
+       @click="onClick">
     <div class="vuestro-button"
          :class="[`vuestro-button-${variant}`,
                   size,
                   { dark, value, noBorder, noMargin, noPadding, round, pill, checkbox, disabled, rounded, shadow }]"
-         @click="onClick"
          @mouseover="onHover">
       <template v-if="checkbox">
         <template v-if="value">
@@ -313,7 +314,7 @@ export default {
 /* styling for the separate text slot next to checkbox button */
 .vuestro-button-checkbox-text {
   margin-left: 4px;
-  cursor: default;
+  cursor: pointer;
 }
 .vuestro-button-checkbox-text.sm {
   font-size: 10px;
