@@ -188,6 +188,8 @@ export default {
   top: calc(100% - 1px);
   right: 0px;
   min-width: 160px;
+  max-height: 50vh;
+  overflow: auto;
   border: 1px solid var(--vuestro-dropdown-outline);
   z-index: -1;
 }
@@ -202,6 +204,7 @@ export default {
 
 .vuestro-dropdown-menu-content {
   padding: 8px;
+  /*max-height: 80%;*/
 }
 
 .vuestro-dropdown-menu-buttons {
