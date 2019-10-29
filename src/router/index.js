@@ -30,6 +30,9 @@ import PluginDirectives from '../pages/PluginDirectives.vue';
 import PluginMixins from '../pages/PluginMixins.vue';
 import PluginFilters from '../pages/PluginFilters.vue';
 import InputsEditor from '../pages/InputsEditor.vue';
+import Example from '../pages/Example.vue';
+import ExampleDark from '../pages/ExampleDark.vue';
+
 
 Vue.use(Router);
 
@@ -317,6 +320,29 @@ export default new Router({
           name: 'filters',
           path: 'filters',
           component: PluginFilters,
+        },
+      ]
+    },
+    {
+      meta: {
+        title: 'Example UIs',
+        sidebar: true,
+        icon: 'puzzle-piece',
+        bgColor: 'var(--vuestro-cyan)',
+        fgColor: 'var(--vuestro-light)',
+      },
+      name: 'example',
+      path: '/example',
+      component: Example,
+      children: [
+        {
+          meta: {
+            title: 'Dark',
+            sidebar: true,
+          },
+          name: 'example-dark',
+          path: 'example-dark',
+          component: ExampleDark,
         },
       ]
     },

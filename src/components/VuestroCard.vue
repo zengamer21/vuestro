@@ -34,8 +34,8 @@ export default {
     colorBarStyle() {
       if (this.color) {
         return {
-          'border-left': `4px solid ${this.color}`,
-          'padding-left': '8px',
+          'border-left': `2px solid ${this.color}`,
+          'padding-left': '6px',
         };
       }
     },
@@ -48,6 +48,17 @@ export default {
 };
 
 </script>
+
+<style>
+.vuestro-app {
+  --vuestro-card-heading-font-size: 24px;
+  --vuestro-card-heading-font-weight: 300;
+  --vuestro-card-subheading-font-size: 20px;
+  --vuestro-card-subheading-font-weight: 300;
+  --vuestro-card-description-font-size: 18px;
+  --vuestro-card-description-font-weight: 300;
+}
+</style>
 
 <style scoped>
 
@@ -62,7 +73,9 @@ export default {
 }
 
 .vuestro-card-heading {
-  font-size: 22px;
+  font-size: var(--vuestro-card-heading-font-size);
+  line-height: var(--vuestro-card-heading-font-size);
+  font-weight: var(--vuestro-card-heading-font-weight);
   padding: 0px;
   margin-bottom: 5px;
   display: flex;
@@ -72,7 +85,8 @@ export default {
 }
 
 .vuestro-card-subheading {
-  font-size: 20px;
+  font-size: var(--vuestro-card-subheading-font-size);
+  font-weight: var(--vuestro-card-subheading-font-weight);
   padding: 2px 0px;
   margin-bottom: 5px;
   display: flex;
@@ -82,7 +96,8 @@ export default {
 }
 
 .vuestro-card-description {
-  font-size: 18px;
+  font-size: var(--vuestro-card-description-font-size);
+  font-weight: var(--vuestro-card-description-font-weight);
   padding: 2px 0px;
   margin-bottom: 5px;
   display: flex;

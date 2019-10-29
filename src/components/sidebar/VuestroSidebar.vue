@@ -133,6 +133,7 @@ export default {
   --vuestro-sidebar-active-border: 3px solid var(--vuestro-primary);
   --vuestro-sidebar-subroute-active-border: 3px solid var(--vuestro-orange);
   --vuestro-sidebar-user-image-width: 40px;
+  --vuestro-sidebar-font-weight: 400;
 }
 </style>
 
@@ -147,7 +148,7 @@ export default {
   flex: none;
   display: flex;
   flex-direction: column;
-  font-weight: 500;
+  font-weight: var(--vuestro-sidebar-font-weight);
 }
 
 /* .vuestro-mini-sidebar is added to body */
@@ -206,7 +207,7 @@ export default {
   white-space: nowrap;
 }
 .vuestro-user-block-text .vuestro-sidebar-username {
-  font-weight: 700;
+  font-weight: calc(var(--vuestro-sidebar-font-weight) + 200);
 }
 .vuestro-user-block-enter-active, .vuestro-user-blockleave-active {
   transition: all 1s;
@@ -229,7 +230,7 @@ export default {
   text-align: center;
   font-size: 34px;
   padding: 5px 0;
-  font-weight: 300;
+  font-weight: var(--vuestro-sidebar-font-weight);
 }
 .vuestro-title-text-enter-active, .vuestro-title-text-leave-active {
   transition: all 0.4s;

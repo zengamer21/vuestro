@@ -92,11 +92,9 @@ export default {
     }
     // special sauce to see if browser autofilled in this text field, if so,
     // move the placeholder out of the way
-    setTimeout(() => {
-      if (window.getComputedStyle(this.$refs.inputEl).content === `"${String.fromCharCode(0xFEFF)}"`) {
-        this.raisedPlaceholder = true;
-      }
-    }, 300); // 300ms seems to be enough, but may need to be increased
+    setTimeout(this.checkPlaceholder, 300);
+    setTimeout(this.checkPlaceholder, 600);
+    setTimeout(this.checkPlaceholder, 900);
     if (this.selected) {
       this.$nextTick(() => {
         this.$refs.inputEl.focus();
@@ -105,6 +103,11 @@ export default {
     }
   },
   methods: {
+    checkPlaceholder() {
+      if (window.getComputedStyle(this.$refs.inputEl).content === `"${String.fromCharCode(0xFEFF)}"`) {
+        this.raisedPlaceholder = true;
+      }
+    },
     focus() { // proxy the focus() call
       this.$nextTick(() => {
         this.$refs.inputEl.focus();
