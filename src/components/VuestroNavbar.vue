@@ -43,7 +43,7 @@ export default {
 .vuestro-app {
   --vuestro-navbar-height: 60px;
   --vuestro-navbar-bg: var(--vuestro-content-bg);
-  --vuestro-navbar-fg: #eee;
+  --vuestro-navbar-fg: #323334;
   --vuestro-navbar-border: transparent;
 }
 </style>
@@ -54,6 +54,7 @@ export default {
   width: 100%;
   height: var(--vuestro-navbar-height);
   background-color: var(--vuestro-navbar-bg);
+  color: var(--vuestro-navbar-fg);
   border-bottom: 1px solid var(--vuestro-navbar-border);
   flex: none; /* don't let flexbox reduce our size */
   display: flex;
@@ -71,7 +72,7 @@ export default {
 
 .v-separator {
   border-right: 1px solid var(--vuestro-outline);
-  height: 20px;
+  height: calc(var(--vuestro-navbar-height) / 2);
   margin-right: 10px;
 }
 

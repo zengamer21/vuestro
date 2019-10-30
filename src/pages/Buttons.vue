@@ -257,7 +257,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template #description> 
+      <template #description>
         Buttons will stretch to available space by setting the stretch property
       </template>
       <vuestro-button stretch>Button</vuestro-button>
@@ -284,19 +284,21 @@
 
     <vuestro-card>
       <template #description>
-        <span>Enable dense arrangements by setting the <em>no-border</em> property</span>
+        <span>Enable dense arrangements by setting the <em>no-margin</em> property</span>
       </template>
       <div class="example-calculator">
-        <vuestro-button no-margin variant="primary">7</vuestro-button>
-        <vuestro-button no-margin variant="primary">8</vuestro-button>
-        <vuestro-button no-margin variant="primary">9</vuestro-button>
-        <vuestro-button no-margin variant="primary">4</vuestro-button>
-        <vuestro-button no-margin variant="primary">5</vuestro-button>
-        <vuestro-button no-margin variant="primary">6</vuestro-button>
-        <vuestro-button no-margin variant="primary">1</vuestro-button>
-        <vuestro-button no-margin variant="primary">2</vuestro-button>
-        <vuestro-button no-margin variant="primary">3</vuestro-button>
-        <vuestro-button no-margin variant="primary">0</vuestro-button>
+        <vuestro-button no-margin stretch variant="primary">7</vuestro-button>
+        <vuestro-button no-margin stretch variant="primary">8</vuestro-button>
+        <vuestro-button no-margin stretch variant="primary">9</vuestro-button>
+        <vuestro-button no-margin stretch variant="primary">4</vuestro-button>
+        <vuestro-button no-margin stretch variant="primary">5</vuestro-button>
+        <vuestro-button no-margin stretch variant="primary">6</vuestro-button>
+        <vuestro-button no-margin stretch variant="primary">1</vuestro-button>
+        <vuestro-button no-margin stretch variant="primary">2</vuestro-button>
+        <vuestro-button no-margin stretch variant="primary">3</vuestro-button>
+      </div>
+      <div class="example-calculator">
+        <vuestro-button no-margin stretch variant="primary">0</vuestro-button>
       </div>
     </vuestro-card>
 
@@ -358,12 +360,12 @@ export default {
 .example-calculator {
   display: flex;
   flex-wrap: wrap;
-  width: 250px;
+  width: 100px;
 }
 .example-calculator .vuestro-button {
-  flex-grow: 1;
-  min-width: 80px;
+  min-width: 30px;
 }
+
 .example-flexbox.dark {
   padding: 40px;
   background-color: var(--vuestro-popup-bg);

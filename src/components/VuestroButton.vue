@@ -1,8 +1,8 @@
 <template>
-  <div class="vuestro-button-outer"
+  <div class="vuestro-button"
        :class="{ stretch }"
        @click="onClick">
-    <div class="vuestro-button"
+    <div class="vuestro-button-inner"
          :class="[`vuestro-button-${variant}`,
                   size,
                   { dark, value, noBorder, noMargin, noPadding, round, pill, checkbox, disabled, rounded, shadow }]"
@@ -96,13 +96,13 @@ export default {
   --variant-text-color: var(--vuestro-text-color);
 }
 
-.vuestro-button-outer {
+.vuestro-button {
   align-self: center;
   display: flex;
   align-items: center;
 }
 
-.vuestro-button {
+.vuestro-button-inner {
   text-transform: none;
   border: 1px solid var(--variant-color);
   margin: 2px;
@@ -115,7 +115,7 @@ export default {
   transform: translate3d(0, 0, 0);
 }
 /* ripple effect */
-.vuestro-button:after {
+.vuestro-button-inner:after {
   content: "";
   display: block;
   position: absolute;
@@ -131,53 +131,54 @@ export default {
   opacity: 0;
   transition: transform .5s, opacity 1s;
 }
-.vuestro-button:active:after {
+.vuestro-button-inner:active:after {
   transform: scale(0,0);
   opacity: .2;
   transition: 0s;
 }
-.vuestro-button-outer.stretch {
-  align-self: stretch;
-}
-.vuestro-button-outer.stretch > .vuestro-button {
+.vuestro-button.stretch {
   align-self: stretch;
   flex-grow: 1;
 }
-.vuestro-button.rounded {
+.vuestro-button.stretch > .vuestro-button-inner {
+  align-self: stretch;
+  flex-grow: 1;
+}
+.vuestro-button-inner.rounded {
   border-radius: 3px;
 }
-.vuestro-button.sm {
+.vuestro-button-inner.sm {
   padding: 1px 4px;
   font-size: 10px;
 }
-.vuestro-button.md {
+.vuestro-button-inner.md {
   padding: 2px 6px;
   font-size: 12px;
 }
-.vuestro-button.lg {
+.vuestro-button-inner.lg {
   padding: 4px 8px;
   font-size: 14px;
 }
-.vuestro-button.xl {
+.vuestro-button-inner.xl {
   padding: 7px 10px;
   font-size: 16px;
 }
-.vuestro-button.noBorder {
+.vuestro-button-inner.noBorder {
   border: none;
 }
-.vuestro-button.noMargin {
+.vuestro-button-inner.noMargin {
   margin: 0;
 }
-.vuestro-button.noPadding {
+.vuestro-button-inner.noPadding {
   padding: 0;
 }
-.vuestro-button.dark {
+.vuestro-button-inner.dark {
   background-color: var(--vuestro-widget-dark-bg);
 }
-.vuestro-button.shadow {
+.vuestro-button-inner.shadow {
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
 }
-.vuestro-button svg {
+.vuestro-button-inner svg {
   width: 14px;
   height: 14px;
 }
@@ -187,107 +188,107 @@ export default {
   justify-content: space-evenly;
   line-height: 1em;
 }
-.vuestro-button.value:not(.disabled),
-.vuestro-button:hover {
+.vuestro-button-inner.value:not(.disabled),
+.vuestro-button-inner:hover {
   color: var(--vuestro-white);
   background-color: var(--variant-color);
 }
-.vuestro-button.value:hover {
+.vuestro-button-inner.value:hover {
   filter: brightness(110%);
 }
-.vuestro-button.disabled {
+.vuestro-button-inner.disabled {
   pointer-events: none;
   image-rendering: pixelated;
   background-image: linear-gradient(to right top, transparent 45%, var(--variant-color) 45%, var(--variant-color) 55%, transparent 55%);
   background-size: 4px 4px;
 }
-.vuestro-button.vuestro-button-white.value,
-.vuestro-button.vuestro-button-white:hover {
+.vuestro-button-inner.vuestro-button-white.value,
+.vuestro-button-inner.vuestro-button-white:hover {
   color: var(--variant-text-color);
 }
-.vuestro-button.vuestro-button-black.value,
-.vuestro-button.vuestro-button-black:hover {
+.vuestro-button-inner.vuestro-button-black.value,
+.vuestro-button-inner.vuestro-button-black:hover {
   color: var(--vuestro-white);
 }
-.vuestro-button.vuestro-button-text:hover {
+.vuestro-button-inner.vuestro-button-text:hover {
   color: var(--variant-text-color);
   filter: brightness(150%);
   background-color: transparent;
 }
-.vuestro-button.vuestro-button-link {
+.vuestro-button-inner.vuestro-button-link {
   color: var(--vuestro-primary);
   border-color: transparent;
 }
-.vuestro-button.vuestro-button-link.value,
-.vuestro-button.vuestro-button-link:hover {
+.vuestro-button-inner.vuestro-button-link.value,
+.vuestro-button-inner.vuestro-button-link:hover {
   filter: brightness(120%);
   background-color: transparent;
 }
 
 /* round mode */
-.vuestro-button.round {
+.vuestro-button-inner.round {
   border-radius: 50%;
   padding: 0;
 }
-.vuestro-button.round .vuestro-button-content {
+.vuestro-button-inner.round .vuestro-button-content {
   overflow: hidden; /* make sure it centers properly */
 }
-.vuestro-button.round.sm {
+.vuestro-button-inner.round.sm {
   height: calc(1em + 4px);
   width: calc(1em + 4px);
 }
-.vuestro-button.noBorder.round.sm {
+.vuestro-button-inner.noBorder.round.sm {
   height: calc(1em + 2px);
   width: calc(1em + 2px);
 }
-.vuestro-button.sm svg { /* shrink svgs a little for size=sm */
+.vuestro-button-inner.sm svg { /* shrink svgs a little for size=sm */
   width: 8px;
   height: 8px;
 }
-.vuestro-button.round.md {
+.vuestro-button-inner.round.md {
   height: calc(1em + 6px);
   width: calc(1em + 6px);
 }
-.vuestro-button.noBorder.round.md {
+.vuestro-button-inner.noBorder.round.md {
   height: calc(1em + 4px);
   width: calc(1em + 4px);
 }
-.vuestro-button.md svg { /* shrink svgs a little for size=md */
+.vuestro-button-inner.md svg { /* shrink svgs a little for size=md */
   width: 10px;
   height: 10px;
 }
-.vuestro-button.round.lg {
+.vuestro-button-inner.round.lg {
   height: calc(1em + 10px);
   width: calc(1em + 10px);
 }
-.vuestro-button.noBorder.round.lg {
+.vuestro-button-inner.noBorder.round.lg {
   height: calc(1em + 8px);
   width: calc(1em + 8px);
 }
-.vuestro-button.lg svg { /* enlarge svgs a little for size=lg */
+.vuestro-button-inner.lg svg { /* enlarge svgs a little for size=lg */
   width: 12px;
   height: 12px;
 }
-.vuestro-button.round.xl {
+.vuestro-button-inner.round.xl {
   height: calc(1em + 16px);
   width: calc(1em + 16px);
 }
-.vuestro-button.noBorder.round.xl {
+.vuestro-button-inner.noBorder.round.xl {
   height: calc(1em + 14px);
   width: calc(1em + 14px);
 }
-.vuestro-button.xl svg { /* enlarge svgs a little for size=xl */
+.vuestro-button-inner.xl svg { /* enlarge svgs a little for size=xl */
   width: 16px;
   height: 16px;
 }
 
 /* pill mode */
-.vuestro-button.pill {
+.vuestro-button-inner.pill {
   border-radius: 999px;
 }
 
 /* checkbox mode */
-.vuestro-button.checkbox {
+.vuestro-button-inner.checkbox {
   width: 17px;
   height: 17px;
   line-height: 17px;
@@ -296,16 +297,16 @@ export default {
   background-color: var(--vuestro-field-bg);
   border-radius: 3px;
 }
-.vuestro-button.checkbox .fa-icon {
+.vuestro-button-inner.checkbox .fa-icon {
   width: 11px;
   height: 11px;
   margin-top: 0px;
 }
-.vuestro-button.checkbox:hover {
+.vuestro-button-inner.checkbox:hover {
   border-color: var(--variant-color);
   background-color: var(--variant-color);
 }
-.vuestro-button.checkbox.value {
+.vuestro-button-inner.checkbox.value {
   border-color: var(--variant-color);
   background-color: var(--variant-color);
   color: var(--vuestro-white);
