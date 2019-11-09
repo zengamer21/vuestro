@@ -1,6 +1,7 @@
 import VuestroApp from '../components/VuestroApp.vue';
 import VuestroAreaChart from '../components/charts/VuestroAreaChart.vue';
 import VuestroBarChart from '../components/charts/VuestroBarChart.vue';
+import VuestroBreadcrumb from '../components/VuestroBreadcrumb.vue';
 import VuestroButton from '../components/VuestroButton.vue';
 import VuestroCaret from '../components/VuestroCaret.vue';
 import VuestroCard from '../components/VuestroCard.vue';
@@ -42,6 +43,7 @@ export default {
     Vue.component(VuestroApp.name, VuestroApp);
     Vue.component(VuestroAreaChart.name, VuestroAreaChart);
     Vue.component(VuestroBarChart.name, VuestroBarChart);
+    Vue.component(VuestroBreadcrumb.name, VuestroBreadcrumb);
     Vue.component(VuestroButton.name, VuestroButton);
     Vue.component(VuestroCaret.name, VuestroCaret);
     Vue.component(VuestroCard.name, VuestroCard);

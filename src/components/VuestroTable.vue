@@ -17,6 +17,7 @@
             </span>
           </template>
         </th>
+        <th v-if="$scopedSlots['row-buttons']" class="vuestro-table-header"></th>
       </thead>
       <tbody>
         <tr v-if="sortedFilteredData.length === 0" class="vuestro-table-row">
@@ -35,6 +36,9 @@
             <template v-else>
               {{ row[column.field] | cellFilterProxy(column.render, row) }}
             </template>
+          </td>
+          <td>
+            <slot name="row-buttons"></slot>
           </td>
         </tr>
       </tbody>

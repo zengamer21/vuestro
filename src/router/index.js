@@ -15,6 +15,7 @@ import InputsSpinner from '../pages/InputsSpinner.vue';
 import InputsText from '../pages/InputsText.vue';
 import InputsSearch from '../pages/InputsSearch.vue';
 import Containers from '../pages/Containers.vue';
+import ContainersBreadcrumb from '../pages/ContainersBreadcrumb.vue';
 import ContainersContainer from '../pages/ContainersContainer.vue';
 import ContainersCard from '../pages/ContainersCard.vue';
 import ContainersColumn from '../pages/ContainersColumn.vue';
@@ -103,6 +104,15 @@ export default new Router({
           name: 'panel-scroll',
           path: 'panel-scroll',
           component: ContainersPanelScroll,
+        },
+        {
+          meta: {
+            title: 'Breadcrumb',
+            sidebar: true,
+          },
+          name: 'breadcrumb',
+          path: 'breadcrumb',
+          component: ContainersBreadcrumb,
         },
       ],
     },

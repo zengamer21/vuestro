@@ -92,6 +92,21 @@
       </vuestro-panel>
     </vuestro-card>
 
+    <vuestro-card>
+      <template #subheading>
+        Set the row-buttons slot to provide buttons at the end of the row
+      </template>
+      <vuestro-panel>
+        <vuestro-table :options="exampleOptions2" :data="exampleData">
+          <template #row-buttons>
+            <vuestro-button round no-border>
+              <vuestro-icon name="trash"></vuestro-icon>
+            </vuestro-button>
+          </template>
+        </vuestro-table>
+      </vuestro-panel>
+    </vuestro-card>
+
   </vuestro-container>
 </template>
 
