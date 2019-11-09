@@ -38,7 +38,7 @@
             </template>
           </td>
           <td>
-            <slot name="row-buttons"></slot>
+            <slot name="row-buttons" :item="{ row }"></slot>
           </td>
         </tr>
       </tbody>
