@@ -37,8 +37,10 @@
               {{ row[column.field] | cellFilterProxy(column.render, row) }}
             </template>
           </td>
-          <td>
-            <slot name="row-buttons" :item="row"></slot>
+          <td v-if="$scopedSlots['row-buttons']">
+            <div class="vuestro-table-row-buttons">
+              <slot name="row-buttons" :item="row"></slot>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -239,6 +241,9 @@ export default {
 .vuestro-table-cell.vuestro-table-align-center {
   text-align: center;
 }
-
+.vuestro-table-row-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+}
 
 </style>

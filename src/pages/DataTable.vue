@@ -100,6 +100,12 @@
         <vuestro-table :options="exampleOptions2" :data="exampleData">
           <template #row-buttons>
             <vuestro-button round no-border>
+              <vuestro-icon name="eye"></vuestro-icon>
+            </vuestro-button>
+            <vuestro-button round no-border>
+              <vuestro-icon name="edit"></vuestro-icon>
+            </vuestro-button>
+            <vuestro-button round no-border>
               <vuestro-icon name="trash"></vuestro-icon>
             </vuestro-button>
           </template>
