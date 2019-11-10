@@ -244,6 +244,8 @@ export default {
 .vuestro-table-row-buttons {
   display: flex;
   flex-wrap: nowrap;
+  justify-content: flex-end;
+  padding-right: 5px;
 }
 
 </style>
