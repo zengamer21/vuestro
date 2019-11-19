@@ -5,6 +5,7 @@ import Dashboard from '../pages/Dashboard.vue';
 import Charts from '../pages/Charts.vue';
 import ChartsAreaChart from '../pages/ChartsAreaChart.vue';
 import ChartsBarChart from '../pages/ChartsBarChart.vue';
+import ChartsMap from '../pages/ChartsMap.vue';
 import ChartsSankey from '../pages/ChartsSankey.vue';
 import ChartsForceGraph from '../pages/ChartsForceGraph.vue';
 import Buttons from '../pages/Buttons.vue';
@@ -161,6 +162,15 @@ export default new Router({
           name: 'force-graph',
           path: 'force-graph',
           component: ChartsForceGraph,
+        },
+        {
+          meta: {
+            title: 'Map',
+            sidebar: true,
+          },
+          name: 'map',
+          path: 'map',
+          component: ChartsMap,
         },
       ]
     },
