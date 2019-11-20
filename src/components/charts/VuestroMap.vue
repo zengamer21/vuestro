@@ -174,8 +174,10 @@ export default {
             // always show coords
             tooltipHtml += this.formatCoords(d[this.dataCoordinateKey]);
             // add extra kvps
-            for (let k of this.dataExtraKvps) {
-              tooltipHtml += `<br>${k}: ${d[k]}`;
+            for (let k of this.options.dataExtraKvps) { // use options instance directly, since this is never changed locally
+              if (d[k] !== undefined) { // only if defined
+                tooltipHtml += `<br>${k}: ${d[k]}`;
+              }
             }
             markers.addLayer(L.marker(d[this.dataCoordinateKey]).bindPopup(tooltipHtml).openPopup());
           }
