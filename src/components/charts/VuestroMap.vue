@@ -9,7 +9,7 @@
       </vuestro-pill>
       <vuestro-pill color="var(--vuestro-indigo)">
         <template #title>Zoom</template>
-        <template #value>{{ map && map.getZoom() }}</template>
+        <template #value>{{ view.zoom }}</template>
       </vuestro-pill>
       <vuestro-pill color="var(--vuestro-primary)">
         <template #title>Markers</template>
@@ -48,9 +48,11 @@ export default {
     return {
       dataTitleKey: 'title',
       dataCoordinateKey: 'coords',
+      dataExtraKvps: [],
       map: null,
       layers: [],
       view: {
+        fit: true,
         center: [0, 0],
         zoom: 17,
       },
@@ -164,26 +166,52 @@ export default {
         var markers = L.markerClusterGroup();
         for (let d of this.data) {
           if (d[this.dataTitleKey] && d[this.dataCoordinateKey]) {
-            markers.addLayer(L.marker(d[this.dataCoordinateKey]).bindPopup(d[this.dataTitleKey]).openPopup());
+            let tooltipHtml = `${d[this.dataTitleKey]}<br>${this.formatCoords(d[this.dataCoordinateKey])}`;
+            for (let k of this.dataExtraKvps) {
+              tooltipHtml += `<br>${k}: ${d[k]}`;
+            }
+            markers.addLayer(L.marker(d[this.dataCoordinateKey]).bindPopup(tooltipHtml).openPopup());
           }
           overlayMaps.push(markers);
         }
       }
-      
+
+      // kill existing map
       if (this.map) {
         this.map.remove();
       }
 
       this.map = L.map(this.$refs.theMap, {
         layers: [...baseMaps, ...overlayMaps],
-      }).setView(this.view.center, this.view.zoom, this.view.options || {});
-      L.control.scale().addTo(this.map);
-      this.map.on('move', () => {
-        // update map center data from leaflet
-        let center = this.map.getCenter();
-        this.$set(this.view.center, 0, center.lat);
-        this.$set(this.view.center, 1, center.lng);
       });
+      if (this.view.fit && this.data.length > 0) {
+        let bounds = [];
+        for (let d of this.data) {
+          bounds.push(d[this.dataCoordinateKey]);
+        }
+        this.map.fitBounds(bounds);
+        // set center and zoom based on fitment
+        this.updateCenter();
+        this.updateZoom();
+      } else {
+        this.map.setView(this.view.center, this.view.zoom, this.view.options || {});
+      }
+      L.control.scale().addTo(this.map);
+      this.map.on('move', this.updateCenter);
+      this.map.on('zoom', this.updateZoom);
+    },
+    updateCenter() {
+      // update map center data from leaflet
+      let center = this.map.getCenter();
+      this.$set(this.view.center, 0, center.lat);
+      this.$set(this.view.center, 1, center.lng);
+    },
+    updateZoom() {
+      // update map zoom from leaflet
+      this.view.zoom = this.map.getZoom();
+    },
+    formatCoords(c) {
+      return `${c[0]}, ${c[1]}`;
     },
   },
 };
