@@ -165,7 +165,7 @@ export default {
       if (this.data && this.data.length > 0) {
         var markers = L.markerClusterGroup();
         for (let d of this.data) {
-          if (d[this.dataTitleKey] && d[this.dataCoordinateKey]) {
+          if (d[this.dataCoordinateKey]) {
             let tooltipHtml = '';
             // title is optional
             if (d[this.dataTitleKey]) {
