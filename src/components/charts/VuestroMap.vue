@@ -166,7 +166,14 @@ export default {
         var markers = L.markerClusterGroup();
         for (let d of this.data) {
           if (d[this.dataTitleKey] && d[this.dataCoordinateKey]) {
-            let tooltipHtml = `${d[this.dataTitleKey]}<br>${this.formatCoords(d[this.dataCoordinateKey])}`;
+            let tooltipHtml = '';
+            // title is optional
+            if (d[this.dataTitleKey]) {
+              tooltipHtml += `${d[this.dataTitleKey]}<br>`;
+            }
+            // always show coords
+            tooltipHtml += this.formatCoords(d[this.dataCoordinateKey]);
+            // add extra kvps
             for (let k of this.dataExtraKvps) {
               tooltipHtml += `<br>${k}: ${d[k]}`;
             }
@@ -189,7 +196,7 @@ export default {
         for (let d of this.data) {
           bounds.push(d[this.dataCoordinateKey]);
         }
-        this.map.fitBounds(bounds);
+        this.map.fitBounds(bounds, { padding: [20, 20] });
         // set center and zoom based on fitment
         this.updateCenter();
         this.updateZoom();
