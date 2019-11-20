@@ -169,6 +169,10 @@ export default {
           overlayMaps.push(markers);
         }
       }
+      
+      if (this.map) {
+        this.map.remove();
+      }
 
       this.map = L.map(this.$refs.theMap, {
         layers: [...baseMaps, ...overlayMaps],
