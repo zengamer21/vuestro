@@ -4,7 +4,7 @@
       <template #heading><span class="drag">Map</span></template>
       <template #description>VuestroMap uses Leaflet with some nice additions for power users</template>
       <vuestro-panel stretch overflow-hidden>
-        <vuestro-map :data="data" :options="options"></vuestro-map>
+        <vuestro-map :data="data" :options="options" @click="onMapClick"></vuestro-map>
       </vuestro-panel>
     </vuestro-card>
   </vuestro-container>
@@ -181,7 +181,12 @@ export default {
         rating: 2,
       },
     ];
-  }
+  },
+  methods: {
+    onMapClick() {
+      
+    },
+  },
 };
 
 </script>

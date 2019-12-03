@@ -16,6 +16,11 @@
         <template #value>{{ data.length }}</template>
       </vuestro-pill>
     </div>
+    <!--<div class="vuestro-map-tools">-->
+    <!--  <vuestro-button round size="xl" value variant="info">-->
+    <!--    <vuestro-icon name="draw-polygon"></vuestro-icon>-->
+    <!--  </vuestro-button>-->
+    <!--</div>-->
   </div>
 </template>
 
@@ -37,6 +42,10 @@ L.Icon.Default.mergeOptions({
 require('leaflet.markercluster/dist/MarkerCluster.css');
 require('leaflet.markercluster/dist/MarkerCluster.Default.css');
 require('leaflet.markercluster/dist/leaflet.markercluster.js');
+
+/* geoman plugin */
+require('@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css');
+require('@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.min.js');
 
 export default {
   name: 'VuestroMap',
@@ -208,6 +217,18 @@ export default {
       L.control.scale().addTo(this.map);
       this.map.on('move', this.updateCenter);
       this.map.on('zoom', this.updateZoom);
+
+      this.map.pm.addControls({
+        position: 'topleft',
+        drawPolyline: false,
+        drawCircleMarker: false,
+      });
+      this.map.on('pm:create', e => {
+        let el = e.layer._path || e.layer._icon;
+        el.onclick = () => {
+          this.handleShapeClick(e.shape, e);
+        };
+      });
     },
     updateCenter() {
       // update map center data from leaflet
@@ -221,6 +242,40 @@ export default {
     },
     formatCoords(c) {
       return `${c[0]}, ${c[1]}`;
+    },
+    handleShapeClick(shape, e) {
+      let ret;
+      switch (shape) {
+        case 'Rectangle':
+          ret = {
+            shape,
+            minLat: e.layer._bounds._southWest.lat,
+            maxLat: e.layer._bounds._northEast.lat,
+            minLng: e.layer._bounds._southWest.lng,
+            maxLng: e.layer._bounds._northEast.lng,
+          };
+          break;
+        case 'Polygon':
+          ret = {
+            shape,
+            points: e.layer._latlngs[0],
+          };
+          break;
+        case 'Circle':
+          ret = {
+            shape,
+            ...e.layer._latlng,
+            radius: e.layer._radius,
+          };
+          break;
+        case 'Marker':
+          ret = {
+            shape,
+            ...e.layer._latlng,
+          };
+          break;
+      }
+      this.$emit('click', ret);
     },
   },
 };
@@ -252,7 +307,8 @@ export default {
 .vuestro-map >>> .leaflet-bar {
   border: none;
 }
-.vuestro-map >>> .leaflet-bar > a {
+.vuestro-map >>> .leaflet-bar > a,
+.vuestro-map >>> .leaflet-buttons-control-button {
   border-radius: 0;
   border: 1px solid var(--vuestro-outline);
 }
@@ -265,4 +321,10 @@ export default {
   display: flex;
 }
 
+.vuestro-map-tools {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  z-index: 1000;
+}
 </style>
