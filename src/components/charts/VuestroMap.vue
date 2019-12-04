@@ -16,11 +16,48 @@
         <template #value>{{ data.length }}</template>
       </vuestro-pill>
     </div>
-    <!--<div class="vuestro-map-tools">-->
-    <!--  <vuestro-button round size="xl" value variant="info">-->
-    <!--    <vuestro-icon name="draw-polygon"></vuestro-icon>-->
-    <!--  </vuestro-button>-->
-    <!--</div>-->
+    <div ref="popupContent">
+      <div class="vuestro-map-popup-title">{{ currentItem.title || currentItem.shape }}</div>
+      <div v-if="currentItem.shape === 'Rectangle'" class="vuestro-map-popup-kvp">
+        <span>Max Lat</span><span>{{ currentItem.maxLat }}</span>
+      </div>
+      <div v-if="currentItem.shape === 'Rectangle'" class="vuestro-map-popup-kvp">
+        <span>Min Lat</span><span>{{ currentItem.minLat }}</span>
+      </div>
+      <div v-if="currentItem.shape === 'Rectangle'" class="vuestro-map-popup-kvp">
+        <span>Min Lon</span><span>{{ currentItem.minLng }}</span>
+      </div>
+      <div v-if="currentItem.shape === 'Rectangle'" class="vuestro-map-popup-kvp">
+        <span>Max Lon</span><span>{{ currentItem.maxLng }}</span>
+      </div>
+      <div v-if="currentItem.shape === 'Circle'" class="vuestro-map-popup-kvp">
+        <span>Lat</span><span>{{ currentItem.lat }}</span>
+      </div>
+      <div v-if="currentItem.shape === 'Circle'" class="vuestro-map-popup-kvp">
+        <span>Lon</span><span>{{ currentItem.lng }}</span>
+      </div>
+      <div v-if="currentItem.shape === 'Circle'" class="vuestro-map-popup-kvp">
+        <span>Radius</span><span>{{ currentItem.radius }}</span>
+      </div>
+      <template v-if="currentItem.shape === 'Polygon'" v-for="(p, idx) in currentItem.points">
+        {{ p.lat }}, {{ p.lng }}
+      </template>
+      <div v-if="currentItem.shape === 'Marker'" class="vuestro-map-popup-kvp">
+        <span>Lat</span><span>{{ currentItem.lat }}</span>
+      </div>
+      <div v-if="currentItem.shape === 'Marker'" class="vuestro-map-popup-kvp">
+        <span>Lon</span><span>{{ currentItem.lng }}</span>
+      </div>
+      <template v-if="currentItem.kvps" v-for="(v, k) in currentItem.kvps">
+        <div class="vuestro-map-popup-kvp">
+          <span>{{ k }}</span><span>{{ v }}</span>
+        </div>
+      </template>
+
+      <div class="vuestro-map-popup-content">
+        <slot name="popup-content" :item="currentItem"></slot>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -55,6 +92,7 @@ export default {
   },
   data() {
     return {
+      showShapeInfoModal: false,
       dataTitleKey: 'title',
       dataCoordinateKey: 'coords',
       dataExtraKvps: [],
@@ -64,6 +102,10 @@ export default {
         fit: true,
         center: [0, 0],
         zoom: 17,
+      },
+      currentItem: {
+        title: 'test',
+        description: 'desc',
       },
     };
   },
@@ -175,20 +217,22 @@ export default {
         var markers = L.markerClusterGroup();
         for (let d of this.data) {
           if (d[this.dataCoordinateKey]) {
-            let tooltipHtml = '';
-            // title is optional
-            if (d[this.dataTitleKey]) {
-              tooltipHtml += `${d[this.dataTitleKey]}<br>`;
-            }
-            // always show coords
-            tooltipHtml += this.formatCoords(d[this.dataCoordinateKey]);
+            let kvps = {};
             // add extra kvps
             for (let k of this.options.dataExtraKvps) { // use options instance directly, since this is never changed locally
               if (d[k] !== undefined) { // only if defined
-                tooltipHtml += `<br>${k}: ${d[k]}`;
+                kvps[k] = d[k];
               }
             }
-            markers.addLayer(L.marker(d[this.dataCoordinateKey]).bindPopup(tooltipHtml).openPopup());
+            markers.addLayer(L.marker(d[this.dataCoordinateKey]).bindPopup(this.$refs.popupContent).on('popupopen', () => {
+              this.currentItem = {
+                title: d[this.dataTitleKey],
+                shape: 'Marker',
+                lat: d[this.dataCoordinateKey][0],
+                lng: d[this.dataCoordinateKey][1],
+                kvps
+              };
+            }));
           }
           overlayMaps.push(markers);
         }
@@ -223,11 +267,10 @@ export default {
         drawPolyline: false,
         drawCircleMarker: false,
       });
-      this.map.on('pm:create', e => {
-        let el = e.layer._path || e.layer._icon;
-        el.onclick = () => {
-          this.handleShapeClick(e.shape, e);
-        };
+      this.map.on('pm:create', (e) => {
+        e.layer.bindPopup(this.$refs.popupContent).on('popupopen', () => {
+          this.currentItem = this.handleShapeClick(e);
+        });
       });
     },
     updateCenter() {
@@ -243,12 +286,12 @@ export default {
     formatCoords(c) {
       return `${c[0]}, ${c[1]}`;
     },
-    handleShapeClick(shape, e) {
+    handleShapeClick(e) {
       let ret;
-      switch (shape) {
+      switch (e.shape) {
         case 'Rectangle':
           ret = {
-            shape,
+            shape: e.shape,
             minLat: e.layer._bounds._southWest.lat,
             maxLat: e.layer._bounds._northEast.lat,
             minLng: e.layer._bounds._southWest.lng,
@@ -257,25 +300,25 @@ export default {
           break;
         case 'Polygon':
           ret = {
-            shape,
+            shape: e.shape,
             points: e.layer._latlngs[0],
           };
           break;
         case 'Circle':
           ret = {
-            shape,
+            shape: e.shape,
             ...e.layer._latlng,
             radius: e.layer._radius,
           };
           break;
         case 'Marker':
           ret = {
-            shape,
+            shape: e.shape,
             ...e.layer._latlng,
           };
           break;
       }
-      this.$emit('click', ret);
+      return ret;
     },
   },
 };
@@ -313,18 +356,26 @@ export default {
   border: 1px solid var(--vuestro-outline);
 }
 
-.vuestro-map-view-info {
-  position: absolute;
-  top: 2px;
-  right: 5px;
-  z-index: 1000;
-  display: flex;
+.vuestro-map-popup-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--vuestro-gray-med);
+  width: 240px;
+  margin-bottom: 5px;
 }
 
-.vuestro-map-tools {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  z-index: 1000;
+.vuestro-map-popup-kvp {
+  display: flex;
+  justify-content: space-between;
 }
+.vuestro-map-popup-kvp span:first-child {
+  font-weight: 500;
+}
+.vuestro-map-popup-content {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
 </style>
