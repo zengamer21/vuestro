@@ -98,6 +98,11 @@
       </template>
       <vuestro-panel>
         <vuestro-table :options="exampleOptions2" :data="exampleData">
+          <template #header-buttons>
+            <vuestro-button round no-border>
+              <vuestro-icon name="plus"></vuestro-icon>
+            </vuestro-button>
+          </template>
           <template #row-buttons>
             <vuestro-button round no-border>
               <vuestro-icon name="eye"></vuestro-icon>

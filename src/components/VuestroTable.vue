@@ -17,7 +17,12 @@
             </span>
           </template>
         </th>
-        <th v-if="$scopedSlots['row-buttons']" class="vuestro-table-header"></th>
+        <th v-if="$scopedSlots['header-buttons']" class="vuestro-table-header">
+          <div class="vuestro-table-row-buttons">
+            <slot name="header-buttons"></slot>
+          </div>
+        </th>
+        <th v-else-if="$scopedSlots['row-buttons']" class="vuestro-table-header"></th>
       </thead>
       <tbody>
         <tr v-if="sortedFilteredData.length === 0" class="vuestro-table-row">

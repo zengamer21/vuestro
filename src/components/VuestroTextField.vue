@@ -95,6 +95,7 @@ export default {
     setTimeout(this.checkPlaceholder, 300);
     setTimeout(this.checkPlaceholder, 600);
     setTimeout(this.checkPlaceholder, 900);
+    setTimeout(this.checkPlaceholder, 1200);
     if (this.selected) {
       this.$nextTick(() => {
         this.$refs.inputEl.focus();
@@ -104,7 +105,7 @@ export default {
   },
   methods: {
     checkPlaceholder() {
-      if (window.getComputedStyle(this.$refs.inputEl).content === `"${String.fromCharCode(0xFEFF)}"`) {
+      if (this.$refs.inputEl && window.getComputedStyle(this.$refs.inputEl).content === `"${String.fromCharCode(0xFEFF)}"`) {
         this.raisedPlaceholder = true;
       }
     },
