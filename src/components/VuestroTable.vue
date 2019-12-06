@@ -18,7 +18,7 @@
           </template>
         </th>
         <th v-if="$scopedSlots['header-buttons']" class="vuestro-table-header">
-          <div class="vuestro-table-row-buttons">
+          <div class="vuestro-table-header-buttons">
             <slot name="header-buttons"></slot>
           </div>
         </th>
@@ -250,7 +250,12 @@ export default {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-end;
-  padding-right: 5px;
+  padding-right: 10px;
+}
+.vuestro-table-header-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
 }
 
 </style>
