@@ -26,7 +26,7 @@
       </thead>
       <tbody>
         <tr v-if="sortedFilteredData.length === 0" class="vuestro-table-row">
-          <td :colspan="headers.length" align="center">
+          <td :colspan="headers.length + 1" align="center"><!-- plus one in case there are header buttons -->
             <slot name="no-data"></slot>
           </td>
         </tr>
