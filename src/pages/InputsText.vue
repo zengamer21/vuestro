@@ -13,6 +13,7 @@
       <vuestro-text-field placeholder="Regular Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field variant="outline" placeholder="Outline Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field placeholder="Existing Value" v-model="exampleEditableText"></vuestro-text-field>
+			<vuestro-text-field placeholder="Responsive Value" v-model="delayedText"></vuestro-text-field>
       <vuestro-text-field placeholder="With Hint" hint="go on, type something..." v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field placeholder="With Clear Button" hint="go on, type something..." v-model="exampleText" clearable></vuestro-text-field>
       <vuestro-text-field placeholder="Centered Cursor" hint="centered hint, too!" center v-model="exampleText"></vuestro-text-field>
@@ -63,8 +64,9 @@ export default {
   name: 'TextInputs',
   data() {
     return {
-      exampleEditableText: 'edit me',
+      exampleEditableText: '',
       exampleText: '',
+			delayedText: '',
       examplePresets: [
         'preset1',
         'preset2',
@@ -73,6 +75,12 @@ export default {
       ]
     };
   },
+	mounted() {
+		this.exampleEditableText = 'edit me';
+		setTimeout(() => {
+			this.delayedText = 'delayed  value';
+		}, 1000);
+	},
   methods: {
     onSaveButton(v) {
       this.exampleText = v;
