@@ -328,6 +328,18 @@
       </div>
     </vuestro-card>
 
+    <vuestro-card>
+      <template #description>
+        <span>Get a tall icon + text button by setting <em>size="tall"</em></span>
+      </template>
+      <div class="example-tall-button-container">
+        <vuestro-button size="tall">
+          <vuestro-icon name="download"></vuestro-icon>
+          <span>Download</span>
+        </vuestro-button>
+      </div>
+    </vuestro-card>
+
   </vuestro-container>
 </template>
 
@@ -377,6 +389,10 @@ export default {
   top: 0;
   left: 0;
   color: white;
+}
+
+.example-tall-button-container {
+  display: flex;
 }
 
 </style>

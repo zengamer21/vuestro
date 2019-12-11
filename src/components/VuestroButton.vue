@@ -188,6 +188,17 @@ export default {
   justify-content: space-evenly;
   line-height: 1em;
 }
+.vuestro-button-inner.tall .vuestro-button-content {
+  flex-direction: column;
+  padding-left: 8px;
+  padding-right: 8px;
+  align-items: center;
+}
+.vuestro-button-inner.tall svg {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 10px;
+}
 .vuestro-button-inner.value:not(.disabled),
 .vuestro-button-inner:hover {
   color: var(--vuestro-white);

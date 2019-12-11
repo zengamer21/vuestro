@@ -58,7 +58,7 @@
 export default {
   name: 'VuestroTextField',
   props: {
-    value: { type: null, required: true },
+    value: { type: String, required: true },
     placeholder: { type: String, default: null },
     variant: { type: String, default: 'regular' },
     type: { type: String, default: 'text' },
@@ -72,7 +72,7 @@ export default {
     editingButtons: { type: Boolean, default: false },
     selected: { type: Boolean, default: false },      // true for all text selected by default
     readonly: { type: Boolean, default: false },      // true for readonly
-    invalid: { type: null, default: null },           // true or string to set invalid state
+    invalid: { type: null, default: false },           // true or string to set invalid state
   },
   data() {
     return {

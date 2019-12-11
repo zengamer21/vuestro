@@ -26,7 +26,7 @@
       <div class="example-flexbox">
         <vuestro-text-field placeholder="Enter a number" v-model="exampleNumber" clearable></vuestro-text-field>
         <vuestro-text-field placeholder="Enter a date string" v-model="exampleDate" clearable></vuestro-text-field>
-        <vuestro-text-field placeholder="Enter a boolean" v-model="exampleBoolean" :invalid="isBoolean(exampleBoolean)" clearable></vuestro-text-field>
+        <vuestro-text-field placeholder="Enter a boolean" v-model="exampleBoolean" :invalid="isBooleanString(exampleBoolean)" clearable></vuestro-text-field>
       </div>
     </vuestro-card>
 
@@ -62,7 +62,7 @@
         <span>Set the <em>invalid</em> property to true or a string to provide validation feedback.</span>
       </template>
       <div class="example-flexbox">
-        <vuestro-text-field variant="outline" v-model="exampleEditableText" editing-buttons :invalid="isBoolean(exampleEditableText)"></vuestro-text-field>
+        <vuestro-text-field variant="outline" v-model="exampleEditableText" editing-buttons :invalid="isBooleanString(exampleEditableText)"></vuestro-text-field>
       </div>
     </vuestro-card>
 
@@ -95,9 +95,9 @@ export default {
     return {
       exampleEditableText: '',
       exampleText: '',
-      exampleNumber: 32.23,
-      exampleDate: new Date(),
-      exampleBoolean: true,
+      exampleNumber: '32.23',
+      exampleDate: (new Date()).toISOString(),
+      exampleBoolean: 'true',
 			delayedText: '',
       examplePresets: [
         'preset1',
@@ -120,7 +120,7 @@ export default {
     onCancelButton() {
       console.log('cancelled');
     },
-    isBoolean(str) {
+    isBooleanString(str) {
       if (str === 'true' || str === 'false') {
         return false;
       }
