@@ -21,6 +21,17 @@
 
     <vuestro-card>
       <template #subheading>
+        Non-String Text Fields
+      </template>
+      <div class="example-flexbox">
+        <vuestro-text-field placeholder="Enter a number" v-model="exampleNumber"></vuestro-text-field>
+        <vuestro-text-field placeholder="Enter a date string" v-model="exampleDate"></vuestro-text-field>
+        <vuestro-text-field placeholder="Enter a boolean" v-model="exampleBoolean" :validator="isBoolean"></vuestro-text-field>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>
         Text Field with presets
       </template>
       <div class="example-flexbox">
@@ -32,8 +43,26 @@
       <template #subheading>
         Text Field with Save/Cancel buttons
       </template>
-      <div class="example-flexbox">
+      <div class="example-flexbox"  >
         <vuestro-text-field variant="outline" v-model="exampleText" editing-buttons @save="onSaveButton" @cancel="onCancelButton"></vuestro-text-field>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>
+        <span>Set the <em>readonly</em> property for a text field which ignores pointer events</span>
+      </template>
+      <div class="example-flexbox"  >
+        <vuestro-text-field variant="outline" v-model="exampleEditableText" readonly></vuestro-text-field>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>
+        <span>Set the <em>invalid</em> property to true or a string to provide validation feedback.</span>
+      </template>
+      <div class="example-flexbox">
+        <vuestro-text-field variant="outline" v-model="exampleEditableText" editing-buttons :invalid="isBoolean(exampleEditableText)"></vuestro-text-field>
       </div>
     </vuestro-card>
 
@@ -66,6 +95,9 @@ export default {
     return {
       exampleEditableText: '',
       exampleText: '',
+      exampleNumber: 32.23,
+      exampleDate: new Date(),
+      exampleBoolean: true,
 			delayedText: '',
       examplePresets: [
         'preset1',
@@ -87,6 +119,12 @@ export default {
     },
     onCancelButton() {
       console.log('cancelled');
+    },
+    isBoolean(str) {
+      if (str === 'true' || str === 'false') {
+        return false;
+      }
+      return 'should be a boolean';
     },
   }
 };

@@ -1,7 +1,7 @@
 <!-- Be sure to define CSS variable: --vuestro-text-field-bg -->
 <!-- to define bg color for proper overlap of outline mode -->
 <template>
-  <div class="vuestro-text-field" :class="[ `vuestro-text-field-${variant}`, size, { dark, focused, center, noMargin }]">
+  <div class="vuestro-text-field" :class="[ `vuestro-text-field-${variant}`, size, { dark, focused, center, noMargin, readonly, invalid }]">
     <div class="input-el-wrapper">
       <input ref="inputEl"
              class="input-el"
@@ -13,8 +13,12 @@
              @keyup="onKeyUp">
       </input>
     </div>
+    <div v-if="invalid" class="vuestro-text-field-invalid-msg">
+      <vuestro-icon name="angle-left"></vuestro-icon>
+      <span>&nbsp;{{ invalid }}</span>
+    </div>
     <div v-if="editingButtons" class="vuestro-text-field-editing-buttons">
-      <vuestro-button round no-border size="sm" variant="success" @click="onSaveButton">
+      <vuestro-button v-if="!invalid" round no-border size="sm" variant="success" @click="onSaveButton">
         <vuestro-icon name="save"></vuestro-icon>
       </vuestro-button>
       <vuestro-button round no-border size="sm" variant="danger" @click="onCancelButton">
@@ -66,7 +70,9 @@ export default {
     clearable: { type: Boolean, default: false },
     size: { type: String, default: 'md' },
     editingButtons: { type: Boolean, default: false },
-    selected: { type: Boolean, default: false },
+    selected: { type: Boolean, default: false },      // true for all text selected by default
+    readonly: { type: Boolean, default: false },      // true for readonly
+    invalid: { type: null, default: null },           // true or string to set invalid state
   },
   data() {
     return {
@@ -78,7 +84,7 @@ export default {
   },
   watch: {
     value(newVal) {
-      if (newVal.length > 0 || this.focused) {
+      if (newVal || this.focused) {
         this.raisedPlaceholder = true;
       } else {
         this.raisedPlaceholder = false;
@@ -87,7 +93,7 @@ export default {
   },
   mounted() {
     // move placeholder for initial value
-    if (this.value.length > 0) {
+    if (this.value > 0) {
       this.raisedPlaceholder = true;
     }
     // special sauce to see if browser autofilled in this text field, if so,
@@ -175,7 +181,8 @@ export default {
 
 .vuestro-text-field {
   position: relative;
-  margin-bottom: 12px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   display: flex;
 }
 .vuestro-text-field.sm {
@@ -195,6 +202,12 @@ export default {
 }
 .vuestro-text-field.focused {
   border-color: var(--vuestro-primary);
+}
+.vuestro-text-field.readonly {
+  pointer-events: none;
+}
+.vuestro-text-field.invalid {
+  border-color: var(--vuestro-danger);
 }
 
 .vuestro-text-field-outline {
@@ -290,6 +303,12 @@ export default {
 
 .vuestro-text-field-editing-buttons {
   display: flex;
+}
+
+.vuestro-text-field-invalid-msg {
+  color: var(--vuestro-danger);
+  display: flex;
+  align-items: center;
 }
 
 </style>
