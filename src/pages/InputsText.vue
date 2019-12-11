@@ -24,9 +24,9 @@
         Non-String Text Fields
       </template>
       <div class="example-flexbox">
-        <vuestro-text-field placeholder="Enter a number" v-model="exampleNumber"></vuestro-text-field>
-        <vuestro-text-field placeholder="Enter a date string" v-model="exampleDate"></vuestro-text-field>
-        <vuestro-text-field placeholder="Enter a boolean" v-model="exampleBoolean" :validator="isBoolean"></vuestro-text-field>
+        <vuestro-text-field placeholder="Enter a number" v-model="exampleNumber" clearable></vuestro-text-field>
+        <vuestro-text-field placeholder="Enter a date string" v-model="exampleDate" clearable></vuestro-text-field>
+        <vuestro-text-field placeholder="Enter a boolean" v-model="exampleBoolean" :invalid="isBoolean(exampleBoolean)" clearable></vuestro-text-field>
       </div>
     </vuestro-card>
 

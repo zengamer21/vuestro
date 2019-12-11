@@ -35,7 +35,7 @@
         <vuestro-list-button v-for="p in presets" :key="p" @click="onPreset(p)">{{ p }}</vuestro-list-button>
       </vuestro-dropdown>
     </div>
-    <vuestro-button v-if="clearable && value.length > 0" no-border round @click.stop="onClear">
+    <vuestro-button v-if="clearable && value" no-border round @click.stop="onClear">
       <vuestro-icon name="times"></vuestro-icon>
     </vuestro-button>
     <span class="show-password" v-if="type === 'password'" @click="showPassword = !showPassword">
@@ -93,7 +93,7 @@ export default {
   },
   mounted() {
     // move placeholder for initial value
-    if (this.value > 0) {
+    if (this.value) {
       this.raisedPlaceholder = true;
     }
     // special sauce to see if browser autofilled in this text field, if so,
