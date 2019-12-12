@@ -112,13 +112,17 @@
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
-        <vuestro-dropdown click-to-open>
+        <vuestro-dropdown click-to-open close-on-content-click>
           <template #button>
             <vuestro-button variant="info" size="lg">
               <vuestro-icon name="bullhorn"></vuestro-icon>
               <span>Click Me to open drop down</span>
             </vuestro-button>
           </template>
+					<vuestro-pill dark clickable @click="onClick">
+						<template #title>X</template>
+						<template #value>Xylophone</template>
+					</vuestro-pill>
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
@@ -300,6 +304,11 @@ export default {
       modalOpen3: false,
     };
   },
+	methods: {
+		onClick() {
+			console.log('click');
+		},
+	}
 };
 
 </script>
