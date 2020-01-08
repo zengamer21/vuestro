@@ -1,7 +1,7 @@
 <template>
   <div class="vuestro-dropdown" v-vuestro-blur="onBlur"
     :style="{ 'z-index': active ? 200:100 }">
-    <div class="vuestro-dropdown-inner" @mouseleave="onLeave" :class="{ dark, active, noSpacing, rounded, clickToOpen }">
+    <div class="vuestro-dropdown-inner" @mouseleave="onLeave" :class="{ dark, active, noSpacing, noScroll, rounded, bottom, clickToOpen }">
       <div v-if="$slots.title" class="vuestro-dropdown-title" @mouseover="onHover" @click="onClick">
         &#8203;<slot name="title"></slot>&#8203;
       </div>
@@ -11,7 +11,7 @@
       <div ref="content"
            class="vuestro-dropdown-menu"
            :style="{ visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }"
-           :class="{ left }">
+           :class="{ left, bottom }">
         <div class="vuestro-dropdown-menu-content" @click="onContentClick">
           <slot></slot>
         </div>
@@ -34,11 +34,13 @@ export default {
     dark: { type: Boolean, default: false },
     right: { type: Boolean, default: false }, // force right justification
     noSpacing: { type: Boolean, default: false },
+    noScroll: { type: Boolean, default: false },
     closeOnContentClick: { type: Boolean, default: false },
   },
   data() {
     return {
       left: true, // left justified
+      bottom: true, // default to bottom position
       active: this.alwaysOpen,
     };
   },
@@ -57,6 +59,10 @@ export default {
     // see if menu would go offscreen so we can flip it to right justified
     if (this.$refs.content.getBoundingClientRect().right > window.innerWidth) {
       this.left = false;
+    }
+    // see if menu would go offscreen so we can flip it to right justified
+    if (this.$refs.content.getBoundingClientRect().bottom > window.innerHeight) {
+      this.bottom = false;
     }
     // see if right-justify was specified
     if (this.right) {
@@ -141,7 +147,7 @@ export default {
 
 .vuestro-dropdown-title {
   border: 1px solid transparent;
-  border-bottom: none;
+  border-top: none;
   position: relative;
   padding: 2px 6px;
   height: 100%;
@@ -152,6 +158,10 @@ export default {
   text-overflow: ellipsis;
   cursor: default;
   user-select: none;
+}
+.vuestro-dropdown-inner.bottom .vuestro-dropdown-title {
+  border-top: 1px solid transparent;
+  border-bottom: none;
 }
 .vuestro-dropdown-inner.noSpacing .vuestro-dropdown-title {
   padding: 0;
@@ -185,13 +195,16 @@ export default {
   color: var(--vuestro-dropdown-content-fg);
   box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
   position: absolute;
-  top: calc(100% - 1px);
+  bottom: calc(100% - 1px);
   right: 0px;
   min-width: 160px;
   max-height: 50vh;
   overflow: auto;
   border: 1px solid var(--vuestro-dropdown-outline);
   z-index: -1;
+}
+.vuestro-dropdown-inner.noScroll .vuestro-dropdown-menu {
+  overflow: visible;
 }
 .vuestro-dropdown-inner.rounded .vuestro-dropdown-menu {
   border-bottom-left-radius: 6px;
@@ -200,11 +213,15 @@ export default {
 
 .vuestro-dropdown-menu.left {
   left: 0px;
+  right: initial;
+}
+.vuestro-dropdown-menu.bottom {
+  bottom: initial;
+  top: calc(100% - 1px);
 }
 
 .vuestro-dropdown-menu-content {
   padding: 8px;
-  /*max-height: 80%;*/
 }
 
 .vuestro-dropdown-menu-buttons {

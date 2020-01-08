@@ -169,6 +169,7 @@
             <vuestro-list-button>Nissan</vuestro-list-button>
             <vuestro-list-button>Lexus</vuestro-list-button>
             <vuestro-list-button>Toyota</vuestro-list-button>
+            <vuestro-list-button>Super-loooooooong-title</vuestro-list-button>
           </vuestro-dropdown>
           <vuestro-dropdown click-to-open>
             <template #button>

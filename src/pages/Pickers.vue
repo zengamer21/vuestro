@@ -51,13 +51,64 @@
 
     <vuestro-card>
       <template #subheading>Vuestro Date Picker</template>
-      <vuestro-date-picker @change="onChange"></vuestro-date-picker>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description>Single date - value is array with selected date</template>
+      <vuestro-container space-between>
+        <vuestro-date-picker v-model="exampleDate"></vuestro-date-picker>
+        <div>value: {{ exampleDate | vuestroDate }}</div>
+      </vuestro-container>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description><span>Date range - set the <em>range</em> property to use an array as the value with [start, end] dates</span></template>
+      <vuestro-container space-between>
+        <vuestro-date-picker v-model="exampleDateRange" range></vuestro-date-picker>
+        <div>value: {{ exampleDateRange }}</div>
+      </vuestro-container>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description><span>In a popup</span></template>
+      <vuestro-container space-between>
+        <vuestro-dropdown click-to-open no-scroll>
+          <template #title>{{ formatRange(exampleDateRange) }}</template>
+          <vuestro-date-picker v-model="exampleDateRange" range></vuestro-date-picker>
+        </vuestro-dropdown>
+      </vuestro-container>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description><span>Use UTC by setting the <em>utc</em> property</span></template>
+      <vuestro-container space-between>
+        <vuestro-dropdown click-to-open no-scroll>
+          <template #title>{{ formatIsoRange(exampleDateRange) }}</template>
+          <vuestro-date-picker v-model="exampleDateRange" range utc></vuestro-date-picker>
+        </vuestro-dropdown>
+      </vuestro-container>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description><span>Combine date picker with time picker</span></template>
+      <vuestro-container space-between>
+        <vuestro-dropdown click-to-open no-scroll>
+          <template #title>{{ formatIsoRange(exampleDateRange) }}</template>
+          <vuestro-date-picker v-model="exampleDateRange" range utc></vuestro-date-picker>
+          <vuestro-container space-between>
+            <vuestro-time-picker v-model="exampleDateRange[0]" utc seconds></vuestro-time-picker>
+            <vuestro-time-picker v-model="exampleDateRange[1]" utc seconds></vuestro-time-picker>
+          </vuestro-container>
+        </vuestro-dropdown>
+      </vuestro-container>
     </vuestro-card>
 
   </vuestro-container>
 </template>
 
 <script>
+
+import moment from 'moment';
 
 export default {
   name: 'Pickers',
@@ -83,12 +134,20 @@ export default {
         '#ff9e80',
   		],
   		exampleTime: new Date(),
+  		exampleDate: [moment().subtract(1, 'day')],
+  		exampleDateRange: [moment().subtract(7, 'days').toDate(), new Date()],
     };
   },
   methods: {
     onChange() {
 
     },
+    formatRange(ary) {
+      return `${ary[0].toLocaleString()} - ${ary[1].toLocaleString()}`;
+    },
+    formatIsoRange(ary) {
+      return `${ary[0].toISOString()} - ${ary[1].toISOString()}`;
+    }
   },
 };
 

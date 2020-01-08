@@ -9,6 +9,7 @@ import VuestroChartPanel from '../components/charts/VuestroChartPanel.vue';
 import VuestroContainer from '../components/VuestroContainer.vue';
 import VuestroCleanKvp from '../components/VuestroCleanKvp.vue';
 import VuestroColorPicker from '../components/VuestroColorPicker.vue';
+import VuestroDatePicker from '../components/date/VuestroDatePicker.vue';
 import VuestroDropdown from '../components/VuestroDropdown.vue';
 import VuestroDonutGauge from '../components/charts/VuestroDonutGauge.vue';
 import VuestroEditableText from '../components/VuestroEditableText.vue';
@@ -34,7 +35,7 @@ import VuestroStatPanel from '../components/charts/VuestroStatPanel.vue';
 import VuestroSvgTooltip from '../components/charts/VuestroSvgTooltip.vue';
 import VuestroTable from '../components/VuestroTable.vue';
 import VuestroTextField from '../components/VuestroTextField.vue';
-import VuestroTimePicker from '../components/VuestroTimePicker.vue';
+import VuestroTimePicker from '../components/date/VuestroTimePicker.vue';
 import VuestroTitle from '../components/VuestroTitle.vue';
 import VuestroTooltip from '../components/VuestroTooltip.vue';
 import VuestroTray from '../components/VuestroTray.vue';
@@ -52,6 +53,7 @@ export default {
     Vue.component(VuestroContainer.name, VuestroContainer);
     Vue.component(VuestroCleanKvp.name, VuestroCleanKvp);
     Vue.component(VuestroColorPicker.name, VuestroColorPicker);
+    Vue.component(VuestroDatePicker.name, VuestroDatePicker);
     Vue.component(VuestroDropdown.name, VuestroDropdown);
     Vue.component(VuestroDonutGauge.name, VuestroDonutGauge);
     Vue.component(VuestroEditableText.name, VuestroEditableText);
@@ -104,6 +106,14 @@ export default {
 
     Vue.filter('vuestroHMS', (d) => {
       return `${('0' + d.getHours()).slice(-2)}:${('0' + d.getMinutes()).slice(-2)}:${('0' + d.getSeconds()).slice(-2)}`;
+    });
+
+    Vue.filter('vuestroIsoDate', (d) => {
+      return d.toISOString();
+    });
+
+    Vue.filter('vuestroDate', (d) => {
+      return d.toLocaleString();
     });
 
     Vue.filter('vuestroBytes', (intNum) => {
