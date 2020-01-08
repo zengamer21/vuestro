@@ -106,6 +106,7 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+	color: var(--vuestro-text-color);
 }
 
 .vuestro-pill-closer {
