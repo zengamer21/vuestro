@@ -50,7 +50,7 @@ export default {
   },
   data() {
     return {
-      displayedMoment: moment().startOf('month'),
+      displayedMoment: moment().startOf('month'), // default to this month
       dayRangeStart: null,
       dayRangeEnd: null,
       dayRangeState: 0, // 0=start date, 1=end date
@@ -62,7 +62,7 @@ export default {
         return [-1, 0, 1];
       }
       return [0];
-    }
+    },
   },
   mounted() {
     this.updateDisplay();
@@ -107,8 +107,12 @@ export default {
           this.$emit('input', [d, d]);
           this.dayRangeState = 1;
         } else {
-          if (moment(d).isSameOrAfter(this.value[0])) {
-            this.$emit('input', [this.value[0], d]);
+          let md = moment(d);
+          if (this.utc) {
+            md.utc();
+          }
+          if (md.isSameOrAfter(this.value[0])) {
+            this.$emit('input', [this.value[0], md.endOf('day').toDate()]);
           } else {
             this.$emit('input', [d, this.value[0]]);
           }
