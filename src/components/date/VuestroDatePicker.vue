@@ -104,17 +104,19 @@ export default {
         this.$emit('input', [d]);
       } else {
         if (this.dayRangeState == 0) {
-          this.$emit('input', [d, d]);
+          // for first click, false as 2nd param
+          this.$emit('input', [d, d], false);
           this.dayRangeState = 1;
         } else {
           let md = moment(d);
           if (this.utc) {
             md.utc();
           }
+          // for 2nd click, send true as 2nd param
           if (md.isSameOrAfter(this.value[0])) {
-            this.$emit('input', [this.value[0], md.endOf('day').toDate()]);
+            this.$emit('input', [this.value[0], md.endOf('day').toDate()], true);
           } else {
-            this.$emit('input', [d, this.value[0]]);
+            this.$emit('input', [d, this.value[0]], true);
           }
           this.dayRangeState = 0;
         }

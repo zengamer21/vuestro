@@ -139,15 +139,12 @@ export default {
     };
   },
   methods: {
-    onChange() {
-
-    },
     formatRange(ary) {
       return `${ary[0].toLocaleString()} - ${ary[1].toLocaleString()}`;
     },
     formatIsoRange(ary) {
       return `${ary[0].toISOString()} - ${ary[1].toISOString()}`;
-    }
+    },
   },
 };
 
