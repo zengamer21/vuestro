@@ -87,6 +87,7 @@ export default {
       filter: [],
       noHeader: false,
       expandedRows: [],
+      transparentHeader: false,
     };
   },
   beforeMount() {
