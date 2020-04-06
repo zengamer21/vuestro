@@ -1,6 +1,8 @@
 <template>
-  <div class="vuestro-container" :class="[gutter, { column, noWrap, shrink, spaceBetween, spaceEvenly, center, middle }]">
-    <slot></slot>
+  <div class="vuestro-container" :class="{ noWrap }">
+    <div class="vuestro-container-inner" :class="[gutter, { column, noWrap, noShrink, spaceBetween, spaceEvenly, center, middle }]">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -12,7 +14,7 @@ export default {
     gutter: { type: String, default: 'md' },
     column: { type: Boolean, default: false },
     noWrap: { type: Boolean, default: false },
-    shrink: { type: Boolean, default: false },
+    noShrink: { type: Boolean, default: false }, // for compatibility
     spaceBetween: { type: Boolean, default: false },
     spaceEvenly: { type: Boolean, default: false },
     center: { type: Boolean, default: false },
@@ -24,47 +26,52 @@ export default {
 
 <style scoped>
 
-.vuestro-container.lg {
+.vuestro-container {
+  display: flex;
+  flex: 1 0 auto;
+}
+
+.vuestro-container-inner.lg {
   --vuestro-gutter: 15px;
 }
-.vuestro-container.md {
+.vuestro-container-inner.md {
   --vuestro-gutter: 8px;
 }
-.vuestro-container.sm {
+.vuestro-container-inner.sm {
   --vuestro-gutter: 4px;
 }
-.vuestro-container.none {
+.vuestro-container-inner.none {
   --vuestro-gutter: 0px;
 }
 
-.vuestro-container {
+.vuestro-container-inner {
   display: flex;
-  flex: 1 0 auto; /* clear shrink and make it an option since it triggers bugs in non-latest browsers */
+  flex: 1 1 auto;
   flex-wrap: wrap;
   flex-direction: row;
   padding: var(--vuestro-gutter);
   align-content: flex-start;
   justify-content: flex-start;
 }
-.vuestro-container.column {
+.vuestro-container-inner.column {
   flex-direction: column;
 }
-.vuestro-container.noWrap {
+.vuestro-container-inner.noWrap {
   flex-wrap: nowrap;
 }
-.vuestro-container.shrink {
-  flex-shrink: 1;
+.vuestro-container-inner.noShrink {
+  flex-shrink: 0;
 }
-.vuestro-container.spaceBetween {
+.vuestro-container-inner.spaceBetween {
   justify-content: space-between;
 }
-.vuestro-container.spaceEvenly {
+.vuestro-container-inner.spaceEvenly {
   justify-content: space-evenly;
 }
-.vuestro-container.center {
+.vuestro-container-inner.center {
   justify-content: center;
 }
-.vuestro-container.middle {
+.vuestro-container-inner.middle {
   align-items: center;
 }
 

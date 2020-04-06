@@ -12,6 +12,7 @@ import VuestroColorPicker from '../components/VuestroColorPicker.vue';
 import VuestroDatePicker from '../components/date/VuestroDatePicker.vue';
 import VuestroDropdown from '../components/VuestroDropdown.vue';
 import VuestroDonutGauge from '../components/charts/VuestroDonutGauge.vue';
+import VuestroDynamicTable from '../components/VuestroDynamicTable.vue';
 import VuestroEditableText from '../components/VuestroEditableText.vue';
 import VuestroEditor from '../components/VuestroEditor.vue';
 import VuestroEllipsisText from '../components/VuestroEllipsisText.vue';
@@ -56,6 +57,7 @@ export default {
     Vue.component(VuestroDatePicker.name, VuestroDatePicker);
     Vue.component(VuestroDropdown.name, VuestroDropdown);
     Vue.component(VuestroDonutGauge.name, VuestroDonutGauge);
+    Vue.component(VuestroDynamicTable.name, VuestroDynamicTable);
     Vue.component(VuestroEditableText.name, VuestroEditableText);
     Vue.component(VuestroEditor.name, VuestroEditor);
     Vue.component(VuestroEllipsisText.name, VuestroEllipsisText);

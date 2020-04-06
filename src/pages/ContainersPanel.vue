@@ -1,5 +1,5 @@
 <template>
-  <div style="flex-grow:1;display:flex;flex-direction:column">
+  <vuestro-container column>
     <vuestro-button size="lg" v-model="outlines">Toggle Outlines</vuestro-button>
     <vuestro-container :class="{ outlines }">
       <vuestro-card cols="6">
@@ -138,7 +138,7 @@
       </vuestro-card>
 
     </vuestro-container>
-  </div>
+  </vuestro-container>
 </template>
 
 <script>

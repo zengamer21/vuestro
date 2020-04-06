@@ -9,7 +9,7 @@
                      @click="toggleCollapse">
       </vuestro-caret>
       <vuestro-title class="vuestro-panel-title"
-                     :spinner="spinner"
+                     :spinner="spinner" 
                      :clickable="collapsible"
                      @click="toggleCollapse">
         <slot name="title"></slot>

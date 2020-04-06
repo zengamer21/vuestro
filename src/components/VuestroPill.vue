@@ -1,6 +1,6 @@
 <template>
   <span class="vuestro-pill"
-       :class="{ clickable, shadow }"
+       :class="{ clickable, shadow, draggable }"
        :style="style"
        @click="onClick">
     <div v-if="!$slots.title" class="vuestro-pill-title"
@@ -9,8 +9,10 @@
     </div>
     <div v-if="$slots.title"
          class="vuestro-pill-title vuestro-pill-slot"
+         :class="$slots['title-buttons'] ? ['vuestro-pill-title-no-right']:[]"
          :style="color ? { 'background-color': color }:{}">
       <slot name="title"></slot>
+      <slot name="title-buttons"></slot>
     </div>
     <div v-if="value" ref="theText" class="vuestro-pill-value">{{ value }}</div>
     <div v-if="$slots.value"
@@ -33,6 +35,7 @@ export default {
     radius: { type: String, default: '999px' },
     closable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
+    draggable: { type: Boolean, default: false },
     shadow: { type: Boolean, default: false },
   },
   computed: {
@@ -60,7 +63,7 @@ export default {
       if (this.clickable) { // only if set
         this.$emit('click', e);
       }
-    }
+    },
   }
 };
 
@@ -81,6 +84,9 @@ export default {
 .vuestro-pill.clickable {
   cursor: pointer;
 }
+.vuestro-pill.draggable {
+  cursor: move;
+}
 .vuestro-pill.shadow {
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
 }
@@ -97,6 +103,9 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+.vuestro-pill-title-no-right {
+  padding-right: 0;
 }
 
 .vuestro-pill-value {

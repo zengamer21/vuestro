@@ -1,18 +1,18 @@
 <template>
-  <div>
+  <div style="flex-grow:1;display:flex;flex-direction:column">
     <vuestro-button size="lg" v-model="outlines">Toggle Outlines</vuestro-button>
-    <vuestro-container :class="{ outlines }" no-wrap>
+    <vuestro-container :class="{ outlines }" column no-wrap>
 
       <vuestro-card cols="3">
         <template #heading>VuestroCard - cols="3"</template>
         <template #description>
           <span>
-            Set the <strong>no-wrap</strong> property on the container to make cards full height, useful for dividing your layout into columns.
+            Set the <strong>no-wrap</strong> and <strong>column</strong> properties on the container to make cards take up the full height, useful for dividing your layout into rows.
           </span>
         </template>
       </vuestro-card>
-      <vuestro-card cols="9" color="var(--vuestro-green)">
-        <template #description>The layout will stretch to contain the content without breaking the column layout.</template>
+      <vuestro-card cols="9">
+        <template #description>The layout will stretch to contain the content while keeping full height with small content.</template>
       </vuestro-card>
 
     </vuestro-container>
@@ -24,7 +24,7 @@
 import Icon from 'vue-awesome/components/Icon';
 
 export default {
-  name: 'CardContainer',
+  name: 'ContainersRow',
   components: {
     Icon,
   },
@@ -53,7 +53,6 @@ export default {
 
 .vuestro-container.outlines .vuestro-card {
   border: 1px dashed black;
-  position: relative;
 }
 
 </style>

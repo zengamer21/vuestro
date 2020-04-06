@@ -1,12 +1,18 @@
 <template>
   <div class="vuestro-table">
     <table class="vuestro-table-table">
-      <thead v-if="!noHeader" class="vuestro-table-header-row">
-        <th v-for="column in headers"
+      <slot v-if="$scopedSlots.thead" name="thead" :headers="headers"></slot>
+      <thead v-else-if="!noHeader"
+             class="vuestro-table-header-row"
+             :class="{ transparentHeader }">
+        <!-- spacer for detail expander -->
+        <th v-if="$scopedSlots.detail" class="vuestro-table-header vuestro-table-header-spacer"></th>
+        <slot v-if="$scopedSlots['header-row']" name="header-row" :headers="headers"></slot>
+        <th v-else v-for="column in headers"
             class="vuestro-table-header"
             :class="[ column.align && `vuestro-table-align-${column.align}` ]"
             :style="column.padding !== undefined && `padding: ${column.padding}px`">
-          <slot v-if="$scopedSlots.header" name="header" :item="column"></slot>
+          <slot v-if="$scopedSlots['header-cell']" name="header-cell" :item="column"></slot>
           <template v-else>
             {{ column.title }}
             <span v-if="column.sortable"
@@ -30,24 +36,36 @@
             <slot name="no-data"></slot>
           </td>
         </tr>
-        <tr v-for="row in sortedFilteredData" class="vuestro-table-row">
-          <slot v-if="$scopedSlots.row" name="row" :item="row"></slot>
-          <td v-else v-for="column in headers"
-              class="vuestro-table-cell"
-              :class="[ `vuestro-table-align-${column.align}`, column.classes]"
-              :style="`padding: ${column.padding}px`">
-            <slot v-if="$scopedSlots.cell" name="cell" :item="{ column, row }"></slot>
-            <component v-else-if="column.component" :is="column.component" v-model="row[column.field]"></component>
-            <template v-else>
-              {{ row[column.field] | cellFilterProxy(column.render, row) }}
-            </template>
-          </td>
-          <td v-if="$scopedSlots['row-buttons']">
-            <div class="vuestro-table-row-buttons">
-              <slot name="row-buttons" :item="row"></slot>
-            </div>
-          </td>
-        </tr>
+        <template v-for="(row, idx) in sortedFilteredData">
+          <tr class="vuestro-table-row">
+            <!-- detail expander caret -->
+            <td v-if="$scopedSlots.detail">
+              <vuestro-caret :collapsed="!isExpanded(idx)" @click="toggleDetail(idx)"></vuestro-caret>
+            </td>
+            <slot v-if="$scopedSlots.row" name="row" :item="row"></slot>
+            <td v-else v-for="column in headers"
+                class="vuestro-table-cell"
+                :class="[ `vuestro-table-align-${column.align}`, column.classes]"
+                :style="`padding: ${column.padding}px`">
+              <slot v-if="$scopedSlots.cell" name="cell" :item="{ column, row }"></slot>
+              <component v-else-if="column.component" :is="column.component" v-model="row[column.field]"></component>
+              <template v-else>
+                {{ row[column.field] | cellFilterProxy(column.render, row) }}
+              </template>
+            </td>
+            <td v-if="$scopedSlots['row-buttons']">
+              <div class="vuestro-table-row-buttons">
+                <slot name="row-buttons" :item="row" :index="idx"></slot>
+              </div>
+            </td>
+          </tr>
+          <tr v-if="$scopedSlots.detail && isExpanded(idx)" class="vuestro-table-detail-row">
+            <td v-if="$scopedSlots.detail"><!-- spacer --></td>
+            <td :colspan="headers.length">
+              <slot name="detail" :item="row"></slot>
+            </td>
+          </tr>
+        </template>
       </tbody>
     </table>
   </div>
@@ -67,8 +85,8 @@ export default {
     return {
       sort: [],
       filter: [],
-      columns: null,
       noHeader: false,
+      expandedRows: [],
     };
   },
   beforeMount() {
@@ -89,8 +107,8 @@ export default {
   },
   computed: {
     headers() {
-      if (this.columns) {
-        return this.columns;
+      if (this.options.columns) {
+        return this.options.columns;
       } else {
         // auto-create headers from keys of first data items (assumes data is homogenous)
         if (this.data.length > 0) {
@@ -141,7 +159,18 @@ export default {
         let idx = _.findIndex(this.sort, { field: o.field });
         this.sort.splice(idx, 1);
       }
-    }
+    },
+    isExpanded(idx) {
+      return this.expandedRows.indexOf(idx) > -1;
+    },
+    toggleDetail(idx) {
+      let expandedRowsIdx = this.expandedRows.indexOf(idx);
+      if (expandedRowsIdx > -1) {
+        this.expandedRows.splice(expandedRowsIdx, 1);
+      } else {
+        this.expandedRows.push(idx);
+      }
+    },
   },
   filters: {
     cellFilterProxy(value, renderer, row) {
@@ -183,6 +212,9 @@ export default {
 .vuestro-table-header-row {
   background-color: var(--vuestro-table-header-bg);
 }
+.vuestro-table-header-row.transparentHeader {
+  background-color: transparent;
+}
 
 .vuestro-table-header {
   text-align: left;
@@ -221,6 +253,9 @@ export default {
 .vuestro-table-header-sort.desc svg {
   transform: rotate(180deg);
 }
+.vuestro-table-header-spacer {
+  width: 10px;
+}
 
 .vuestro-table-row {
   height: 30px;
@@ -235,6 +270,9 @@ export default {
 }
 .vuestro-table-row:hover {
   background-color: var(--vuestro-table-hover-bg);
+}
+.vuestro-table-detail-row {
+  border-bottom: 1px solid rgba(0,0,0,0.12);
 }
 
 .vuestro-table-cell {

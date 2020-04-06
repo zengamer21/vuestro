@@ -1,5 +1,5 @@
 <template>
-  <div style="flex-grow:1;display:flex;flex-direction:column">
+  <div>
     <vuestro-button size="lg" v-model="outlines">Toggle Outlines</vuestro-button>
     <vuestro-container :class="{ outlines }">
       <vuestro-card>
@@ -7,7 +7,7 @@
         <template #description>Use as a generic flexbox-based container to hold any other Vuestro component (or any HTML in general.)
         The default flexbox options are:</template>
         <pre>
-flex: 1 0 auto;
+flex: 1 1 auto;
 flex-wrap: wrap;
 flex-direction: row;
 align-content: flex-start;
@@ -22,7 +22,7 @@ justify-content: flex-start;
       <vuestro-card>
         <template #heading>Other flexbox options are set as properties:</template>
       </vuestro-card>
-      
+
       <vuestro-card>
         <template #subheading><em>column</em></template>
         <vuestro-container column :class="{ outlines }">
@@ -111,7 +111,7 @@ export default {
   margin-top: 10px;
 }
 .vuestro-container.outlines:before {
-  content: 'VuestroContainer (60px height)';
+  content: 'VuestroContainer';
   position: absolute;
   top: -18px;
   left: 0;

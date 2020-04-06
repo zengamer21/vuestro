@@ -43,7 +43,7 @@
 
     <vuestro-card>
       <template #subheading>
-        <span>Provide a template for the entire row through the row slot. The slot must contain enough <em>td</em> elements to fill the row. Also, some of the column options such as align will need to be implemented by the parent.</span>
+        <span>Provide a template for the entire row through the <em>row</em> slot. The slot must contain enough <em>td</em> elements to fill the row. Also, some of the column options such as align won't work unless implemented manually.</span>
       </template>
       <vuestro-panel>
         <vuestro-table :options="exampleOptions" :data="exampleData">
@@ -94,7 +94,7 @@
 
     <vuestro-card>
       <template #subheading>
-        Set the row-buttons slot to provide buttons at the end of the row
+        <span>Set the <em>header-buttons</em> or <em>row-buttons</em> slot to provide buttons at the end of the header or row</span>
       </template>
       <vuestro-panel>
         <vuestro-table :options="exampleOptions2" :data="exampleData">
@@ -103,14 +103,14 @@
               <vuestro-icon name="plus"></vuestro-icon>
             </vuestro-button>
           </template>
-          <template #row-buttons>
+          <template #row-buttons="{ index }">
             <vuestro-button round no-border>
               <vuestro-icon name="eye"></vuestro-icon>
             </vuestro-button>
             <vuestro-button round no-border>
               <vuestro-icon name="edit"></vuestro-icon>
             </vuestro-button>
-            <vuestro-button round no-border>
+            <vuestro-button round no-border @click="onDelete(index)">
               <vuestro-icon name="trash"></vuestro-icon>
             </vuestro-button>
           </template>
@@ -212,6 +212,11 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    onDelete(index) {
+      console.log(index);
+    },
   },
 };
 

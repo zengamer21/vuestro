@@ -1,5 +1,5 @@
 <template>
-  <div style="flex-grow:1;display:flex;flex-direction:column">
+  <div>
     <vuestro-button size="lg" v-model="outlines">Toggle Outlines</vuestro-button>
     <vuestro-container :class="{ outlines }">
 
@@ -33,7 +33,7 @@
         </vuestro-panel>
       </vuestro-card>
 
-      <vuestro-container column no-wrap>
+      <vuestro-container column no-wrap gutter="none">
         <vuestro-card cols="3">
           <template #heading>Column mode container with cols="3"</template>
         </vuestro-card>

@@ -64,6 +64,8 @@ export default {
 
 .vuestro-card {
   display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
   flex-direction: column;
   padding: var(--vuestro-gutter); /* inherit from vuestro-container */
 }
@@ -106,41 +108,44 @@ export default {
   cursor: default;
 }
 
+.vuestro-card.basis-0 {
+  flex-basis: auto;
+}
 .vuestro-card.basis-1 {
-  flex: 0 0 8.33%;
+  flex-basis: 8.33%;
 }
 .vuestro-card.basis-2 {
-  flex: 0 0 16.67%;
+  flex-basis: 16.67%;
 }
 .vuestro-card.basis-3 {
-  flex: 0 0 25%;
+  flex-basis: 25%;
 }
 .vuestro-card.basis-4 {
-  flex: 0 0 33.33%;
+  flex-basis: 33.33%;
 }
 .vuestro-card.basis-5 {
-  flex: 0 0 41.67%;
+  flex-basis: 41.67%;
 }
 .vuestro-card.basis-6 {
-  flex: 0 0 50%;
+  flex-basis: 50%;
 }
 .vuestro-card.basis-7 {
-  flex: 0 0 58.33%;
+  flex-basis: 58.33%;
 }
 .vuestro-card.basis-8 {
-  flex: 0 0 66.67%;
+  flex-basis: 66.67%;
 }
 .vuestro-card.basis-9 {
-  flex: 0 0 75%;
+  flex-basis: 75%;
 }
 .vuestro-card.basis-10 {
-  flex: 0 0 83.33%;
+  flex-basis: 83.33%;
 }
 .vuestro-card.basis-11 {
-  flex: 0 0 91.67%;
+  flex-basis: 91.67%;
 }
 .vuestro-card.basis-12 {
-  flex: 0 0 100%;
+  flex-basis: 100%;
 }
 
 .vuestro-card.stretch {

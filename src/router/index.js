@@ -20,11 +20,13 @@ import ContainersBreadcrumb from '../pages/ContainersBreadcrumb.vue';
 import ContainersContainer from '../pages/ContainersContainer.vue';
 import ContainersCard from '../pages/ContainersCard.vue';
 import ContainersColumn from '../pages/ContainersColumn.vue';
+import ContainersRow from '../pages/ContainersRow.vue';
 import ContainersPanel from '../pages/ContainersPanel.vue';
 import ContainersPanelScroll from '../pages/ContainersPanelScroll.vue';
 import Popups from '../pages/Popups.vue';
 import Data from '../pages/Data.vue';
 import DataTable from '../pages/DataTable.vue';
+import DynamicTable from '../pages/DynamicTable.vue';
 import DataObjectBrowser from '../pages/DataObjectBrowser.vue';
 import Typography from '../pages/Typography.vue';
 import Plugin from '../pages/Plugin.vue';
@@ -87,6 +89,15 @@ export default new Router({
           name: 'column-container',
           path: 'column-container',
           component: ContainersColumn,
+        },
+        {
+          meta: {
+            title: 'Rows',
+            sidebar: true,
+          },
+          name: 'row-container',
+          path: 'row-container',
+          component: ContainersRow,
         },
         {
           meta: {
@@ -242,6 +253,15 @@ export default new Router({
           name: 'table',
           path: 'table',
           component: DataTable,
+        },
+        {
+          meta: {
+            title: 'Dynamic Table',
+            sidebar: true,
+          },
+          name: 'dynamic-table',
+          path: 'dynamic-table',
+          component: DynamicTable,
         },
         {
           meta: {
