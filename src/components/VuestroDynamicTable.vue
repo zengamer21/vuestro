@@ -87,6 +87,7 @@ export default {
     checkDefaultColumns() {
       // add some default columns if none were specified
       if (this.data && this.data.length > 0 &&
+          this.columns.length == 0 &&
           this.options.columns && this.options.columns.length == 0) {
         let keys = Object.keys(this.data[0]);
         for (let i=0; i<this.numDefaultColumns; i++) {
