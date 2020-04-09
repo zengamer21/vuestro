@@ -4,10 +4,11 @@
       <draggable tag="thead"
                  draggable=".vuestro-dynamic-table-header"
                  v-model="columns"
-                 :options="{group:'vuestro-dynamic-table'}">
+                 :options="{ group:'vuestro-dynamic-table' }"
+                 @sort="onSort">
           <th v-for="item in columns" :key="item.id" class="vuestro-dynamic-table-header">
             <div class="vuestro-dynamic-table-pill-wrapper">
-              <vuestro-pill draggable>
+              <vuestro-pill draggable geopattern>
                 <template #title>
                   {{ item.field }}
                 </template>
@@ -40,7 +41,7 @@
                  :sort="false"
                  :clone="getHeader">
         <div class="vuestro-dynamic-table-pill-wrapper" v-for="(v, k) of item" :key="k+v">
-          <vuestro-pill draggable>
+          <vuestro-pill draggable geopattern>
             <template #title>{{ k }}</template>
             <template #value>{{ v }}</template>
           </vuestro-pill>
@@ -86,16 +87,24 @@ export default {
   methods: {
     checkDefaultColumns() {
       // add some default columns if none were specified
-      if (this.data && this.data.length > 0 &&
-          this.columns.length == 0 &&
-          this.options.columns && this.options.columns.length == 0) {
-        let keys = Object.keys(this.data[0]);
-        for (let i=0; i<this.numDefaultColumns; i++) {
-          this.columns.push({
-            field: keys[i],
-            padding: 0,
-            id: _.uniqueId(Date.now()),
-          });
+      if (this.columns.length == 0) {
+        if (this.options.columns.length > 0) {
+          for (let c of this.options.columns) {
+            this.columns.push({
+              field: c,
+              padding: 0,
+              id: _.uniqueId(Date.now()),
+            });
+          }
+        } else {
+          let keys = Object.keys(this.data[0]);
+          for (let i=0; i<this.numDefaultColumns; i++) {
+            this.columns.push({
+              field: keys[i],
+              padding: 0,
+              id: _.uniqueId(Date.now()),
+            });
+          }
         }
       }
     },
@@ -117,17 +126,13 @@ export default {
         id: _.uniqueId(Date.now()),
       };
     },
+    onSort() {
+      this.$emit('change', _.flatMap(this.columns, 'field'));
+    },
   },
 };
 
 </script>
-
-<style>
-
-.vuestro-app {
-}
-
-</style>
 
 <style scoped>
 

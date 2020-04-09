@@ -8,7 +8,10 @@
 
       <vuestro-panel>
         <template #title>Dynamic Table Example</template>
-        <vuestro-dynamic-table :data="exampleData"></vuestro-dynamic-table>
+        <vuestro-dynamic-table :options="exampleOptions"
+                               :data="exampleData"
+                               @change="onChange">
+        </vuestro-dynamic-table>
       </vuestro-panel>
     </vuestro-card>
   </vuestro-container>
@@ -21,9 +24,21 @@ export default {
   data() {
     return {
       exampleOptions: {
+        columns: [
+          'firstName',
+          'lastName',
+          'ipAddress',
+          'carMake',
+          'carModel',
+        ]
       },
       exampleData: require('@/assets/example.json'),
     };
+  },
+  methods: {
+    onChange(c) {
+      this.exampleOptions.columns = c;
+    },
   },
 };
 

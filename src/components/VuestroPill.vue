@@ -1,16 +1,16 @@
 <template>
   <span class="vuestro-pill"
-       :class="{ clickable, shadow, draggable }"
+       :class="{ clickable, shadow, draggable, geopattern }"
        :style="style"
        @click="onClick">
     <div v-if="!$slots.title" class="vuestro-pill-title"
-         :style="color ? { 'background-color': color }:{}">
+         :style="titleStyle">
       {{ titleComputed }}
     </div>
     <div v-if="$slots.title"
          class="vuestro-pill-title vuestro-pill-slot"
          :class="$slots['title-buttons'] ? ['vuestro-pill-title-no-right']:[]"
-         :style="color ? { 'background-color': color }:{}">
+         :style="titleStyle">
       <slot name="title"></slot>
       <slot name="title-buttons"></slot>
     </div>
@@ -25,6 +25,8 @@
 
 <script>
 
+import GeoPattern from 'geopattern/geopattern.js';
+
 export default {
   name: 'VuestroPill',
   props: {
@@ -37,6 +39,7 @@ export default {
     clickable: { type: Boolean, default: false },
     draggable: { type: Boolean, default: false },
     shadow: { type: Boolean, default: false },
+    geopattern: { type: Boolean, default: false },
   },
   computed: {
     style() {
@@ -44,6 +47,19 @@ export default {
         '--size': this.size,
         '--radius': this.radius,
       };
+    },
+    titleStyle() {
+      if (this.geopattern) {
+        let text = this.$slots.title[0].text || this.title;
+        return {
+          'background-image': GeoPattern.generate(text).toDataUrl(),
+        };
+      }
+      if (this.color) {
+        return {
+          'background-color': this.color,
+        };
+      }
     },
     titleComputed() {
       if (this.title) {
@@ -127,6 +143,10 @@ export default {
 .vuestro-pill-slot {
   display: flex;
   align-items: center;
+}
+
+.vuestro-pill.geopattern .vuestro-pill-title {
+  background-repeat: repeat;
 }
 
 </style>
