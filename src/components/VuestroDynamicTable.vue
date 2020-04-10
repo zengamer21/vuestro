@@ -88,7 +88,7 @@ export default {
     checkDefaultColumns() {
       // add some default columns if none were specified
       if (this.columns.length == 0) {
-        if (this.options.columns.length > 0) {
+        if (this.options.columns && this.options.columns.length > 0) {
           for (let c of this.options.columns) {
             this.columns.push({
               field: c,

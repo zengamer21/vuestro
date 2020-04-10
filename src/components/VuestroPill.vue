@@ -52,7 +52,7 @@ export default {
       if (this.geopattern) {
         let text = this.$slots.title[0].text || this.title;
         return {
-          'background-image': GeoPattern.generate(text).toDataUrl(),
+          'background-image': GeoPattern.generate(text.trim()).toDataUrl(),
         };
       }
       if (this.color) {
