@@ -270,12 +270,12 @@
         <span>Disable the button by setting the <em>disabled</em> propery</span>
       </template>
       <div class="example-flexbox">
-        <vuestro-button disabled>Disabled Button</vuestro-button>
-        <vuestro-button disabled rounded value>Disabled Button</vuestro-button>
-        <vuestro-button disabled pill>Disabled Button</vuestro-button>
-        <vuestro-button disabled variant="primary">Disabled Button</vuestro-button>
-        <vuestro-button disabled pill no-border>Disabled Button</vuestro-button>
-        <vuestro-button disabled round no-border>
+        <vuestro-button disabled @click="onClick">Disabled Button</vuestro-button>
+        <vuestro-button disabled @click="onClick" rounded value>Disabled Button</vuestro-button>
+        <vuestro-button disabled @click="onClick" pill>Disabled Button</vuestro-button>
+        <vuestro-button disabled @click="onClick" variant="primary">Disabled Button</vuestro-button>
+        <vuestro-button disabled @click="onClick" pill no-border>Disabled Button</vuestro-button>
+        <vuestro-button disabled @click="onClick" round no-border>
           <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
       </div>
@@ -356,6 +356,11 @@ export default {
     return {
       exampleCheckbox: true,
     };
+  },
+  methods: {
+    onClick() {
+      console.log('click');
+    },
   },
 };
 

@@ -51,8 +51,10 @@ export default {
   },
   methods: {
     onClick(e) {
-      this.$emit('click', e);
-      this.$emit('input', !this.value);
+      if (this.disabled === false) {
+        this.$emit('click', e);
+        this.$emit('input', !this.value);
+      }
     },
     onHover(e) {
       this.$emit('hover', e);
