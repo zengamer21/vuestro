@@ -2,13 +2,13 @@
   <span class="vuestro-icon"
         :class="[`vuestro-icon-${variant}`]">
     <icon :name="name"
-        :scale="scale"
-        :spin="spin"
-        :inverse="inverse"
-        :pulse="pulse"
-        :flip="flip"
-        :label="label"
-        :title="title"></icon>
+          :scale="scale"
+          :spin="spin"
+          :inverse="inverse"
+          :pulse="pulse"
+          :flip="flip"
+          :label="label"
+          :title="title"></icon>
   </span>
 </template>
 

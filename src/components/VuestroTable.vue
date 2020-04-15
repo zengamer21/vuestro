@@ -14,13 +14,17 @@
             :style="column.padding !== undefined && `padding: ${column.padding}px`">
           <slot v-if="$scopedSlots['header-cell']" name="header-cell" :item="column"></slot>
           <template v-else>
-            {{ column.title }}
-            <span v-if="column.sortable"
-                  class="vuestro-table-header-sort"
-                  :class="{ active: isSortActive(column), desc: isSortDescending(column) }"
-                  @click="onSort(column)">
-              <vuestro-icon name="arrow-up"></vuestro-icon>
-            </span>
+            <vuestro-container gutter="none">
+              {{ column.title }}
+              <vuestro-button v-if="column.sortable"
+                    no-border
+                    round
+                    class="vuestro-table-header-sort"
+                    :class="{ active: isSortActive(column), desc: isSortDescending(column) }"
+                    @click="onSort(column)">
+                <vuestro-icon name="arrow-up"></vuestro-icon>
+              </vuestro-button>
+            </vuestro-container>
           </template>
         </th>
         <th v-if="$scopedSlots['header-buttons']" class="vuestro-table-header">
@@ -234,12 +238,10 @@ export default {
   text-align: center;
 }
 .vuestro-table-header-sort {
-  color: var(--vuestro-table-header-fg);
-  cursor: pointer;
   opacity: 0;
   transition: opacity 0.4s;
 }
-.vuestro-table-header-sort svg {
+.vuestro-table-header-sort >>> svg {
   width: 10px;
   height: 10px;
   transition: transform 0.4s;
@@ -251,7 +253,7 @@ export default {
   opacity: 1;
   color: var(--vuestro-table-header-fg-active);
 }
-.vuestro-table-header-sort.desc svg {
+.vuestro-table-header-sort.desc >>> svg {
   transform: rotate(180deg);
 }
 .vuestro-table-header-spacer {
