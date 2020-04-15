@@ -44,6 +44,7 @@ export default {
 .vuestro-icon {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .vuestro-icon-primary {
   color: var(--vuestro-primary);
