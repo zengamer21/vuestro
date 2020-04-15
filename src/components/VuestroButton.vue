@@ -40,7 +40,7 @@ export default {
     noPadding: { type: Boolean, default: false },
     checkbox: { type: Boolean, required: false },
     value: { type: Boolean, default: false }, // for v-model support
-    disabled: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false }, // no hover, no click
     pill: { type: Boolean, default: false },
     round: { type: Boolean, default: false },
     rounded: { type: Boolean, default: false },
@@ -180,7 +180,7 @@ export default {
 .vuestro-button-inner.shadow {
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
 }
-.vuestro-button-inner svg {
+.vuestro-button-inner >>> svg {
   width: 14px;
   height: 14px;
 }
@@ -196,7 +196,7 @@ export default {
   padding-right: 8px;
   align-items: center;
 }
-.vuestro-button-inner.tall svg {
+.vuestro-button-inner.tall >>> svg {
   width: 22px;
   height: 22px;
   margin-bottom: 10px;
@@ -255,7 +255,7 @@ export default {
   height: calc(1em + 2px);
   width: calc(1em + 2px);
 }
-.vuestro-button-inner.sm svg { /* shrink svgs a little for size=sm */
+.vuestro-button-inner.sm >>> svg { /* shrink svgs a little for size=sm */
   width: 8px;
   height: 8px;
 }
@@ -267,7 +267,7 @@ export default {
   height: calc(1em + 4px);
   width: calc(1em + 4px);
 }
-.vuestro-button-inner.md svg { /* shrink svgs a little for size=md */
+.vuestro-button-inner.md >>> svg { /* shrink svgs a little for size=md */
   width: 10px;
   height: 10px;
 }
@@ -279,7 +279,7 @@ export default {
   height: calc(1em + 8px);
   width: calc(1em + 8px);
 }
-.vuestro-button-inner.lg svg { /* enlarge svgs a little for size=lg */
+.vuestro-button-inner.lg >>> svg { /* enlarge svgs a little for size=lg */
   width: 12px;
   height: 12px;
 }
@@ -291,7 +291,7 @@ export default {
   height: calc(1em + 14px);
   width: calc(1em + 14px);
 }
-.vuestro-button-inner.xl svg { /* enlarge svgs a little for size=xl */
+.vuestro-button-inner.xl >>> svg { /* enlarge svgs a little for size=xl */
   width: 16px;
   height: 16px;
 }
@@ -310,11 +310,6 @@ export default {
   border: 1px solid var(--vuestro-field-bg);
   background-color: var(--vuestro-field-bg);
   border-radius: 3px;
-}
-.vuestro-button-inner.checkbox .fa-icon {
-  width: 11px;
-  height: 11px;
-  margin-top: 0px;
 }
 .vuestro-button-inner.checkbox:hover {
   border-color: var(--variant-color);
@@ -344,12 +339,8 @@ export default {
   font-size: 16px;
 }
 
-/* styling for svg icons within button */
-.vuestro-button-content >>> svg {
-  align-self: center;
-  margin: 0;
-}
-.vuestro-button-content >>> svg:not(:only-child) {
+/* add a right margin when icon is paired anything else */
+.vuestro-button-content .vuestro-icon:not(:only-child) {
   margin-right: 4px;
 }
 

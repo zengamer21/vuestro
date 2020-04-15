@@ -50,7 +50,7 @@ export default {
 .vuestro-caret.collapsed.left {
   transform: rotate(90deg);
 }
-.vuestro-caret svg {
+.vuestro-caret >>> svg {
   width: var(--size);
   height: var(--size);
   position: absolute;

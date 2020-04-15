@@ -146,8 +146,8 @@ export default {
   opacity: 0.5;
 }
 
-.fa-icon {
-  height: 10px;
+.vuestro-search-box >>> svg {
+  height: 11px;
 }
 
 .down-caret {

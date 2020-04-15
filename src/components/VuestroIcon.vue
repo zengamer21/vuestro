@@ -1,5 +1,15 @@
 <template>
-  <icon :name="name" :scale="scale" :spin="spin" :inverse="inverse" :pulse="pulse" :flip="flip" :label="label" :title="title"></icon>
+  <span class="vuestro-icon"
+        :class="[`vuestro-icon-${variant}`]">
+    <icon :name="name"
+        :scale="scale"
+        :spin="spin"
+        :inverse="inverse"
+        :pulse="pulse"
+        :flip="flip"
+        :label="label"
+        :title="title"></icon>
+  </span>
 </template>
 
 <script>
@@ -23,8 +33,35 @@ export default {
     flip: { type: String, default: null },
     label: { type: String },
     title: { type: String },
+    variant: { type: String, default: 'none' },
   },
 };
 
 </script>
 
+<style scoped>
+
+.vuestro-icon {
+  display: flex;
+  align-items: center;
+}
+.vuestro-icon-primary {
+  color: var(--vuestro-primary);
+}
+.vuestro-icon-secondary {
+  color: var(--vuestro-secondary);
+}
+.vuestro-icon-success {
+  color: var(--vuestro-success);
+}
+.vuestro-icon-warning {
+  color: var(--vuestro-warning);
+}
+.vuestro-icon-danger {
+  color: var(--vuestro-danger);
+}
+.vuestro-icon-info {
+  color: var(--vuestro-info);
+}
+
+</style>

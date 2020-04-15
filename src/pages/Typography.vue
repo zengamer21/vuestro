@@ -22,6 +22,11 @@
         </vuestro-clean-kvp>
       </vuestro-container>
     </vuestro-card>
+    
+    <vuestro-card>
+      <template #subheading>Icons</template>
+      <vuestro-icon variant="danger" name="tractor"></vuestro-icon>
+    </vuestro-card>
   </vuestro-container>
 </template>
 
