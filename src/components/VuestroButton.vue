@@ -214,6 +214,7 @@ export default {
   image-rendering: pixelated;
   background-image: linear-gradient(to right top, transparent 45%, var(--variant-color) 45%, var(--variant-color) 55%, transparent 55%);
   background-size: 4px 4px;
+  background-repeat: repeat;
 }
 .vuestro-button-inner.vuestro-button-white.value,
 .vuestro-button-inner.vuestro-button-white:hover {
