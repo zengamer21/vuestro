@@ -57,7 +57,7 @@
       <template #description>Single date - value is array with selected date</template>
       <vuestro-container space-between>
         <vuestro-date-picker v-model="exampleDate"></vuestro-date-picker>
-        <div>value: {{ exampleDate | vuestroDate }}</div>
+        <div>value: {{ exampleDate }}</div>
       </vuestro-container>
     </vuestro-card>
 

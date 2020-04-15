@@ -26,7 +26,7 @@ export default {
     isSelected() {
       if (this.value) {
         if (this.value.length === 1) {
-          if (moment(this.date).isSame(this.value[0].startOf('day'))) {
+          if (moment(this.date).isSame(moment(this.value[0]).startOf('day'))) {
             return true;
           }
         } else {
