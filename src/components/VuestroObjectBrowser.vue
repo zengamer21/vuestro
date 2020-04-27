@@ -266,6 +266,7 @@ export default {
 .vuestro-object-browser-item-gutter {
   width: 20px;
   padding-top: 2px;
+  flex: none;
 }
 
 .vuestro-object-browser-item-kv {
