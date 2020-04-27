@@ -285,6 +285,7 @@ export default {
 
 .vuestro-object-browser-item-string {
   color: var(--vuestro-object-browser-string-fg);
+  word-break: break-all;
 }
 
 .vuestro-object-browser-item-bool {
