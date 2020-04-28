@@ -75,6 +75,8 @@ export default {
   position: absolute;
   left: 15px;
   bottom: 12px;
+}
+.vuestro-stat-panel-icon >>> svg {
   width: 36px;
   height: 36px;
 }
