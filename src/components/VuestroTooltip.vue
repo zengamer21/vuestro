@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      active: true,
+      active: false,
       offsetX: 0,
       offsetY: 0,
       edgePadding: 5,
