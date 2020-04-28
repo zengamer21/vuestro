@@ -1,7 +1,7 @@
 <template>
   <div class="vuestro-tooltip"
        :class="[ position, { active, rounded }]"
-       @mouseover="active=true"
+       @mouseover="onMouseOver"
        @mouseleave="active=false">
     <slot></slot>
     <div ref="content"
@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      active: false,
+      active: true,
       offsetX: 0,
       offsetY: 0,
       edgePadding: 5,
@@ -73,7 +73,10 @@ export default {
     }
   },
   methods: {
-
+    onMouseOver() {
+      this.active = true;
+      return true;
+    }
   },
 };
 
@@ -106,45 +109,41 @@ export default {
 .vuestro-tooltip.active.top::after {
   content: " ";
   position: absolute;
-  bottom: calc(100% - 10px);
-  left: 50%;
-  margin-left: -10px;
-  border-width: 10px;
-  border-style: solid;
-  border-color: var(--vuestro-dropdown-content-bg) transparent transparent transparent;
+  bottom: 100%;
+  left: calc(50% - 10px);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--vuestro-dropdown-content-bg);
 }
 
 .vuestro-tooltip.active.left::after {
   content: " ";
   position: absolute;
-  right: calc(100% - 10px);
-  top: 50%;
-  margin-top: -10px;
-  border-width: 10px;
-  border-style: solid;
-  border-color: transparent transparent transparent var(--vuestro-dropdown-content-bg);
+  right: 100%;
+  top: calc(50% - 10px);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid var(--vuestro-dropdown-content-bg);
 }
 
 .vuestro-tooltip.active.bottom::after {
   content: " ";
   position: absolute;
-  top: calc(100% - 10px);
-  left: 50%;
-  margin-left: -10px;
-  border-width: 10px;
-  border-style: solid;
-  border-color: transparent transparent var(--vuestro-dropdown-content-bg) transparent;
+  top: 100%;
+  left: calc(50% - 10px);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid var(--vuestro-dropdown-content-bg);
 }
 
 .vuestro-tooltip.active.right::after {
   content: " ";
   position: absolute;
-  left: calc(100% - 10px);
-  top: 50%;
-  margin-top: -10px;
-  border-width: 10px;
-  border-style: solid;
-  border-color: transparent var(--vuestro-dropdown-content-bg) transparent transparent;
+  left: 100%;
+  top: calc(50% - 10px);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid var(--vuestro-dropdown-content-bg);
 }
 
 </style>

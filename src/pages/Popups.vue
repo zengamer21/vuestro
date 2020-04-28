@@ -155,7 +155,7 @@
       <vuestro-modal :active.sync="modalOpen1" no-scroll>
         <template #title>VuestroModal</template>
         <template #buttons></template>
-        <vuestro-container column>
+        <vuestro-container no-grow>
           <vuestro-dropdown click-to-open>
             <template #button>
               <vuestro-button rounded>
@@ -285,6 +285,30 @@
         </vuestro-tooltip>
       </vuestro-panel>
     </vuestro-card>
+
+    <vuestro-card cols="6">
+      <template #description>Tooltip inside Panel</template>
+      <vuestro-panel>
+        <template #title>Panel</template>
+        <vuestro-tooltip position="bottom">
+          <template #content>Tooltip!</template>
+          <vuestro-button>Test</vuestro-button>
+        </vuestro-tooltip>
+      </vuestro-panel>
+    </vuestro-card>
+
+    <vuestro-card cols="12">
+      <template #description>Tooltip on icon</template>
+      <div class="example-container">
+        <vuestro-tooltip position="bottom" no-wrap rounded>
+          <template #content>Download entire log as JSON</template>
+          <vuestro-button round no-border>
+            <vuestro-icon name="download"></vuestro-icon>
+          </vuestro-button>
+        </vuestro-tooltip>
+      </div>
+    </vuestro-card>
+
 
   </vuestro-container>
 </template>
