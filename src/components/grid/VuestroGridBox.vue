@@ -131,10 +131,6 @@ export default {
       });
     }
   },
-  beforeDestroy() {
-    // unregister component on parent
-    this.$parent.unregisterBox(this);
-  },
 };
 </script>
 
