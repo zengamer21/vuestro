@@ -11,6 +11,7 @@
       <vuestro-title class="vuestro-panel-title"
                      :spinner="spinner" 
                      :clickable="collapsible"
+                     :draggable="draggable"
                      @click="toggleCollapse">
         <slot name="title"></slot>
       </vuestro-title>
@@ -54,6 +55,7 @@ export default {
     noBorder: { type: Boolean, default: false },
     stretch: { type: Boolean, default: true },
     overflowHidden: { type: Boolean, default: false },
+    draggable: { type: Boolean, default: false },
   },
   computed: {
     hasTitlebar() {

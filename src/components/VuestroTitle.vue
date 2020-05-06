@@ -1,6 +1,7 @@
 <template>
   <span class="vuestro-title"
-        :class="{ 'vuestro-title-clickable': clickable }"
+        :class="{ 'vuestro-title-clickable': clickable,
+                  'vuestro-title-draggable': draggable }"
         @click="onClick">
     <slot></slot>
     <vuestro-icon name="spinner" pulse v-if="spinner"></vuestro-icon>
@@ -14,6 +15,7 @@ export default {
   props: {
     spinner: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
+    draggable: { type: Boolean, default: false },
   },
   methods: {
     onClick(e) {
@@ -47,6 +49,11 @@ export default {
 .vuestro-title-clickable {
   pointer-events: initial;
   cursor: pointer;
+}
+
+.vuestro-title-draggable {
+  pointer-events: initial;
+  cursor: move;
 }
 
 .vuestro-title svg {

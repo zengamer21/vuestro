@@ -37,7 +37,7 @@
         <span>Lon</span><span>{{ currentItem.lng }}</span>
       </div>
       <div v-if="currentItem.shape === 'Circle'" class="vuestro-map-popup-kvp">
-        <span>Radius</span><span>{{ currentItem.radius }}</span>
+        <span>Radius (m)</span><span>{{ currentItem.radius | vuestroCommas }}</span>
       </div>
       <template v-if="currentItem.shape === 'Polygon'" v-for="(p, idx) in currentItem.points">
         {{ p.lat }}, {{ p.lng }}
@@ -266,6 +266,7 @@ export default {
         position: 'topleft',
         drawPolyline: false,
         drawCircleMarker: false,
+        cutPolygon: false,
       });
       this.map.on('pm:create', (e) => {
         e.layer.bindPopup(this.$refs.popupContent).on('popupopen', () => {
@@ -305,10 +306,11 @@ export default {
           };
           break;
         case 'Circle':
+          console.log(e.layer)
           ret = {
             shape: e.shape,
             ...e.layer._latlng,
-            radius: e.layer._radius,
+            radius: e.layer._mRadius,
           };
           break;
         case 'Marker':

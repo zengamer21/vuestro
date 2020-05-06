@@ -1,6 +1,6 @@
 <template>
   <div ref="grid" class="vuestro-grid" :style="style">
-    <vuestro-grid-box v-for="item in layout"
+    <vuestro-grid-box v-for="item in localLayout"
                       :key="item.id"
                       :boxId="item.id"
                       :locked="lock">
@@ -12,6 +12,7 @@
 
 <script>
 
+/* global localStorage */
 import VuestroGridBox from './VuestroGridBox.vue';
 
 export default {
@@ -20,12 +21,13 @@ export default {
     VuestroGridBox
   },
   props: {
-    layout: { type: Array, required: true }, // use with :layout.sync=
+    layout: { type: Array },
     columns: { type: Number, default: 12 },  // number of grid 'columns'
     margin: { type: Number, default: 14 },   // margin/gutter
     cellSize: { type: Object, default() { return { w: 100, h: 100 }; }}, // default cell size
     defaultSize: { type: Object, default() { return { w: 2, h: 2 }; }},  // default grid box size
     lock: { type: Boolean, default: false }, // lock everything in place
+    localStorageKey: { type: String, default: null }, // if set, enable local storage for layout using provided key
   },
   beforeUpdate() {
     this.cellSize.w = ((this.$refs.grid.clientWidth - this.margin) / this.columns) - this.margin;
@@ -38,6 +40,7 @@ export default {
   },
   watch: {
     layout(newLayout) {
+      this.localLayout = newLayout;
       this.refresh();
     },
     '$route'() {
@@ -48,6 +51,9 @@ export default {
   },
   data() {
     return {
+      localLayout: [],
+      isDragging: false,
+      isResizing: false,
       placeholder: {
         hidden: true,
         position: {
@@ -76,23 +82,38 @@ export default {
   },
   computed: {
     style() {
-      var layoutSize = this.getLayoutSize(this.layout);
+      var layoutSize = this.getLayoutSize(this.localLayout);
       return {
         minHeight: ((layoutSize.h * this.cellSize.h) + ((layoutSize.h - 1) * this.margin) + 2*this.margin) + 'px'
       };
     }
   },
+  mounted() {
+    if (this.localStorageKey) {
+      this.localLayout = JSON.parse(localStorage.getItem(this.localStorageKey));
+      if (!this.localLayout || this.localLayout && this.localLayout.length === 0) {
+        this.localLayout = this.layout;
+      }
+    } else {
+      this.localLayout = this.layout;
+    }
+
+    this.isMounted = true;
+    this.calculateCellSizeWidth();
+    let boxIds = this.$children.map(box => box.$props.boxId);
+    this.createBoxLayout(...boxIds);
+  },
   methods: {
     refresh() {
       let boxIds = this.$children.map(box => box.$props.boxId);
       this.createBoxLayout(...boxIds);
-      if (this.layoutHasCollisions(this.layout)) {
-        this.updateLayout(this.fixLayout(this.layout));
+      if (this.layoutHasCollisions(this.localLayout)) {
+        this.updateLayout(this.fixLayout(this.localLayout));
       }
     },
     resize() {
       this.calculateCellSizeWidth();
-      this.fixLayout(this.layout);
+      this.fixLayout(this.localLayout);
     },
     calculateCellSizeWidth() {
       this.cellSize.w = ((this.$refs.grid.clientWidth - this.margin) / this.columns) - this.margin;
@@ -101,7 +122,7 @@ export default {
       if (id === '::placeholder::') {
         return this.placeholder;
       }
-      for (let l of this.layout) {
+      for (let l of this.localLayout) {
         if (l.id === id) {
           return l;
         }
@@ -258,6 +279,12 @@ export default {
       };
     },
     updateLayout(layout) {
+      // save layout to local storage if a key was provided
+      if (this.localStorageKey) {
+        console.debug('saved layout to localStorage');
+        localStorage.setItem(this.localStorageKey, JSON.stringify(layout));
+      }
+      this.localLayout = layout;
       this.$emit('update:layout', layout);
     },
     doneMove() {
@@ -271,14 +298,11 @@ export default {
       this.enableDragging(box);
       if (this.isMounted) {
         this.createBoxLayout(box.$props.boxId);
-        this.updateLayout(this.fixLayout(this.layout));
+        this.updateLayout(this.fixLayout(this.localLayout));
       }
-    },
-    unregisterBox(box) {
     },
     enableDragging(box) {
       var initialLayout;
-      var isDragging = false;
 
       let validateTargetPosition = (targetX, targetY) => {
         if (targetX + this.dragging.boxLayout.position.w > this.maxColumnCount) {
@@ -301,7 +325,7 @@ export default {
 
       box.$on('dragStart', evt => {
         var boxLayout = this.getBoxLayoutById(box.boxId);
-        isDragging = true;
+        this.isDragging = true;
 
         // find box
         this.dragging.boxLayout = boxLayout;
@@ -310,11 +334,11 @@ export default {
         };
 
         // clone layout
-        initialLayout = this.sortLayout(this.layout);
+        initialLayout = this.sortLayout(this.localLayout);
       });
 
       box.$on('dragUpdate', evt => {
-        if (!isDragging) {
+        if (!this.isDragging) {
           return;
         }
         this.dragging.offset.x = evt.offset.x;
@@ -363,7 +387,7 @@ export default {
       });
 
       box.$on('dragEnd', evt => {
-        if (!isDragging) {
+        if (!this.isDragging) {
           return;
         }
         var moveBy = this.getPositionByPixel(evt.offset.x, evt.offset.y);
@@ -407,13 +431,12 @@ export default {
         this.dragging.offset.y = 0;
 
         this.placeholder.hidden = true;
-        isDragging = false;
+        this.isDragging = false;
         this.doneMove();
       });
     },
     enableResizing(box) {
       var initialLayout;
-      var isResizing = false;
 
       let validateTargetSize = (targetW, targetH) => {
         if (this.resizing.boxLayout.position.x + targetW > this.maxColumnCount) {
@@ -436,7 +459,7 @@ export default {
 
       box.$on('resizeStart', evt => {
         var boxLayout = this.getBoxLayoutById(box.boxId);
-        isResizing = true;
+        this.isResizing = true;
 
         // find box
         this.resizing.boxLayout = boxLayout;
@@ -445,11 +468,11 @@ export default {
         };
 
         // clone layout
-        initialLayout = this.sortLayout(this.layout);
+        initialLayout = this.sortLayout(this.localLayout);
       });
 
       box.$on('resizeUpdate', evt => {
-        if (!isResizing) {
+        if (!this.isResizing) {
           return;
         }
         this.resizing.offset.x = evt.offset.x;
@@ -498,7 +521,7 @@ export default {
       });
 
       box.$on('resizeEnd', evt => {
-        if (!isResizing) {
+        if (!this.isResizing) {
           return;
         }
         var resizeBy = this.getPositionByPixel(evt.offset.x, evt.offset.y);
@@ -567,7 +590,7 @@ export default {
       for (let boxId of boxIds) {
         let layout = this.getBoxLayoutById(boxId);
         if ((layout && !layout.position) || (layout && layout.position.y < 0)) {
-          layout.position = this.moveBoxToFreePlace(this.layout, {
+          layout.position = this.moveBoxToFreePlace(this.localLayout, {
             x: 0,
             y: 0,
             ...this.defaultSize
@@ -575,18 +598,12 @@ export default {
           placedNew = true;
         }
       }
-      this.updateLayout(this.layout);
+      this.updateLayout(this.localLayout);
       if (placedNew) {
         this.$emit('placed');
       }
     }
   },
-  mounted() {
-    this.isMounted = true;
-    this.calculateCellSizeWidth();
-    let boxIds = this.$children.map(box => box.$props.boxId);
-    this.createBoxLayout(...boxIds);
-   }
 };
 </script>
 

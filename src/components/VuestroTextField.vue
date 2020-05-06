@@ -58,7 +58,7 @@
 export default {
   name: 'VuestroTextField',
   props: {
-    value: { type: String, required: true },
+    value: { type: null, required: true },
     placeholder: { type: String, default: null },
     variant: { type: String, default: 'regular' },
     type: { type: String, default: 'text' },

@@ -1,5 +1,5 @@
 <template>
-  <vuestro-grid :layout.sync="layout">
+  <vuestro-grid :default-layout="layout" local-storage-key="dashboard">
     <template #default="{ item }">
       <component :is="item.component" :data="item.data" :options="item.options"></component>
     </template>
@@ -18,8 +18,10 @@ export default {
       layout: [],
     };
   },
-  mounted() {
+  created() {
     this.loadDefaultLayout();
+  },
+  mounted() {
     setInterval(() => {
       this.exampleData.push({
         stat: this.exampleData[this.exampleData.length-1].stat++
