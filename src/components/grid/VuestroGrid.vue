@@ -281,7 +281,6 @@ export default {
     updateLayout(layout) {
       // save layout to local storage if a key was provided
       if (this.localStorageKey) {
-        console.debug('saved layout to localStorage');
         localStorage.setItem(this.localStorageKey, JSON.stringify(layout));
       }
       this.localLayout = layout;
