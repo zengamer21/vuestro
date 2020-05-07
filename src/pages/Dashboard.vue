@@ -1,5 +1,5 @@
 <template>
-  <vuestro-grid :default-layout="layout" local-storage-key="dashboard">
+  <vuestro-grid :layout="layout" local-storage-key="dashboard">
     <template #default="{ item }">
       <component :is="item.component" :data="item.data" :options="item.options"></component>
     </template>
