@@ -2,23 +2,30 @@
   <vuestro-container>
     <vuestro-card color="var(--vuestro-purple)" overflow-hidden>
       <template #heading><span class="drag">Area Chart</span></template>
-      <template #description>The Vuestro Line Chart is flexible enough to be used with a categorical x axis as well as a time scale.</template>
+      <template #description><span>The Vuestro Line Chart is flexible enough to be used with a categorical x axis as well as a time scale. Since time series are so common, that is the default behavior and can be disabled with the <em>timeSeries: false</em> option.</span></template>
       <div class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options1"></vuestro-area-chart>
       </div>
     </vuestro-card>
 
     <vuestro-card overflow-hidden>
-      <template #subheading>Set the notFilled: true option for a line chart</template>
+      <template #subheading><span>Set the <em>notFilled: true</em> option for a line chart</span></template>
       <div class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options2"></vuestro-area-chart>
       </div>
     </vuestro-card>
 
     <vuestro-card overflow-hidden>
-      <template #subheading>Set the stacked: true option to render as stacked areas</template>
+      <template #subheading><span>Set the <em>stacked: true</em> option to render as stacked areas</span></template>
       <div class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options5"></vuestro-area-chart>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card overflow-hidden>
+      <template #subheading><span>Set the <em>granularity</em> option to apply aggregation by date units. Usable values are <em>{ 'year' 'month', 'quarter', 'week', 'isoWeek', 'day', 'date', 'hour', 'minute', 'second' }</em></span></template>
+      <div class="chart-wrapper">
+        <vuestro-area-chart :data="data" :options="options6"></vuestro-area-chart>
       </div>
     </vuestro-card>
 
@@ -73,6 +80,12 @@ export default {
         },
         {
           key: '2019-10-01T04:00:00Z',
+          value1: 1,
+          value2: 13,
+          value3: 2,
+        },
+        {
+          key: '2019-10-01T04:30:00Z',
           value1: 1,
           value2: 13,
           value3: 2,
@@ -151,6 +164,23 @@ export default {
       },
       options5: {
         stacked: true,
+        series: [
+          {
+            title: 'Series 1',
+            field: 'value1',
+          },
+          {
+            title: 'Series 2',
+            field: 'value2',
+          },
+          {
+            title: 'Series 3',
+            field: 'value3',
+          },
+        ],
+      },
+      options6: {
+        granularity: 'hour',
         series: [
           {
             title: 'Series 1',

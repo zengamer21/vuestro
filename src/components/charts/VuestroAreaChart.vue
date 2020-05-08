@@ -35,6 +35,7 @@
 
 /* globals window, _ */
 import * as d3 from 'd3';
+import moment from 'moment';
 
 export default {
   name: 'VuestroAreaChart',
@@ -45,6 +46,8 @@ export default {
   data() {
     return {
       timeSeries: true,
+      granularity: null, // { 'year' 'month', 'quarter', 'week', 'isoWeek', 'day', 'date', 'hour', 'minute', 'second' }
+      count: false,
       width: 0,
       height: 0,
       localData: [],
@@ -60,7 +63,8 @@ export default {
       },
       categoryKey: 'key',
       series: [{
-        field: 'value'
+        field: 'value',
+        title: 'Count',
       }],
       valueAxis: {
         // render() {}
@@ -117,7 +121,7 @@ export default {
       let area = d3.area().x(d => d.x).y0(d => d[`${v}_y0`]).y1(d => d[`${v}_y1`]);
       if (this.smooth) {
         area.curve(d3.curveNatural);
-      }
+      }      
       return area(this.localData);
     },
     getLine(v) {
@@ -129,7 +133,32 @@ export default {
     },
     redraw() {
       let scale;
-      this.localData = _.cloneDeep(this.data);
+
+      if (this.timeSeries && this.granularity) {
+        // nest data based on granularity
+        let nested = d3.nest().key((d) => {
+          return moment(d[this.categoryKey]).startOf(this.granularity).toDate();
+        }).rollup((d) => {
+          let ret = {};
+          for (let s of this.series) {
+            if (this.count) {
+              ret[s.field] = d.length;
+            } else {
+              ret[s.field] = d3.sum(d, function(g) { return g[s.field]; });
+            }
+          }
+          return ret;
+        }).entries(this.data);
+        // promote aggregated values in .value out to top level
+        this.localData = nested.map(function(d) {
+          return {
+            ...d,
+            ...d.value,
+          };
+        });
+      } else { // clone data
+        this.localData = _.cloneDeep(this.data);
+      }
 
       if (this.timeSeries) {
         // use d3 time scale
@@ -173,7 +202,9 @@ export default {
         });
       } else {
         extents = this.series.map((series) => {
-          return d3.extent(this.localData, function(d) { return d[series.field]; });
+          return d3.extent(this.localData, function(d) { 
+            return d[series.field]; 
+          });
         });
       }
       scaleY.domain([d3.min(extents, function(d) { return d[0]; }),
