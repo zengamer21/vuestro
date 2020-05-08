@@ -1,5 +1,5 @@
 <template>
-  <vuestro-table :options="tableOptions" :data="data">
+  <vuestro-table ref="theTable" :options="tableOptions" :data="data">
     <template #thead>
       <draggable tag="thead"
                  draggable=".vuestro-dynamic-table-header"
@@ -13,6 +13,12 @@
                   {{ item.field }}
                 </template>
                 <template #title-buttons>
+                  <vuestro-button round no-border variant="white"
+                                  class="vuestro-table-header-sort"
+                                  :class="{ active: $refs.theTable.isSortActive(item), desc: $refs.theTable.isSortDescending(item) }"
+                                  @click="$refs.theTable.onSort(item)">
+                    <vuestro-icon name="arrow-up"></vuestro-icon>
+                  </vuestro-button>
                   <vuestro-button round no-border variant="white" @click="removeColumn(item)">
                     <vuestro-icon name="times"></vuestro-icon>
                   </vuestro-button>
@@ -26,7 +32,14 @@
     </template>
     <template #row="{ item }">
       <template v-for="c of checkColumn(item)">
-        <td>{{ c }}</td>
+        <draggable tag="td"
+                   draggable="span"
+                   :value="[c]"
+                   :group="{ put: false, name: 'vuestro-dynamic-table-value' }"
+                   @start="draggingValue = true"
+                   @end = "draggingValue = false">
+          <span>{{ c }}</span>
+        </draggable>
       </template>
     </template>
     <template #detail="{ item }">
@@ -69,6 +82,7 @@ export default {
   },
   data() {
     return {
+      draggingValue: false,
       columns: [],
       tableOptions: {
         transparentHeader: true,
@@ -155,5 +169,24 @@ export default {
 .vuestro-table thead > .sortable-ghost >>> .vuestro-pill-value {
   display: none;
 }
+
+.vuestro-table-header-sort {
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.vuestro-table-header-sort >>> svg {
+  transition: transform 0.4s;
+}
+.vuestro-dynamic-table-pill-wrapper:hover .vuestro-table-header-sort {
+  opacity: 0.7;
+}
+.vuestro-table-header-sort.active {
+  opacity: 1;
+  color: var(--vuestro-table-header-fg-active);
+}
+.vuestro-table-header-sort.desc >>> svg {
+  transform: rotate(180deg);
+}
+
 
 </style>

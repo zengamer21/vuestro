@@ -123,6 +123,10 @@ export default {
 .vuestro-pill-title-no-right {
   padding-right: 0;
 }
+/* add slight overlap for multiple buttons so they don't take up as much space */
+.vuestro-pill-title > .vuestro-button:not(:first-child) {
+  margin-left: -5px;
+}
 
 .vuestro-pill-value {
   padding-left: calc(var(--size)/6);
