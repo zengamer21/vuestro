@@ -103,6 +103,7 @@ export default {
           value3: 2,
         },
       ],
+      
       options1: {
         series: [
           {

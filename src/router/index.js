@@ -15,6 +15,7 @@ import Inputs from '../pages/Inputs.vue';
 import InputsSpinner from '../pages/InputsSpinner.vue';
 import InputsText from '../pages/InputsText.vue';
 import InputsSearch from '../pages/InputsSearch.vue';
+import InputsMulti from '../pages/InputsMulti.vue';
 import Containers from '../pages/Containers.vue';
 import ContainersBreadcrumb from '../pages/ContainersBreadcrumb.vue';
 import ContainersContainer from '../pages/ContainersContainer.vue';
@@ -310,6 +311,15 @@ export default new Router({
           name: 'inputs-search',
           path: 'inputs-search',
           component: InputsSearch,
+        },
+        {
+          meta: {
+            title: 'Multi',
+            sidebar: true,
+          },
+          name: 'inputs-multi',
+          path: 'inputs-multi',
+          component: InputsMulti,
         },
         {
           meta: {

@@ -24,10 +24,26 @@
                   </vuestro-button>
                 </template>
               </vuestro-pill>
+              <vuestro-multi-select v-if="showFilters"
+                                    placeholder="Include"
+                                    stretch
+                                    @add="addFilter(item.field, ...arguments, 'include')"
+                                    @remove="removeFilter(item.field, ...arguments, 'include')">
+              </vuestro-multi-select>
+              <vuestro-multi-select v-if="showFilters"
+                                    placeholder="Exclude"
+                                    stretch
+                                    @add="addFilter(item.field, ...arguments, 'exclude')"
+                                    @remove="removeFilter(item.field, ...arguments, 'exclude')">
+              </vuestro-multi-select>
             </div>
           </th>
-          <!--spacer for detail toggler caret-->
-          <th slot="header"></th>
+          <!--spacer for detail toggler caret: uses the 'header' slot of <draggable>-->
+          <th slot="header" class="vuestro-dynamic-table-header">
+            <vuestro-button stretch no-border no-margin :value="showFilters" @click="showFilters = !showFilters">
+              <vuestro-icon name="filter"></vuestro-icon>
+            </vuestro-button>
+          </th>
       </draggable>
     </template>
     <template #row="{ item }">
@@ -35,7 +51,7 @@
         <draggable tag="td"
                    draggable="span"
                    :value="[c]"
-                   :group="{ put: false, name: 'vuestro-dynamic-table-value' }"
+                   :group="{ put: false, name: 'vuestro-multi-select' }"
                    @start="draggingValue = true"
                    @end = "draggingValue = false">
           <span>{{ c }}</span>
@@ -82,6 +98,7 @@ export default {
   },
   data() {
     return {
+      showFilters: false,
       draggingValue: false,
       columns: [],
       tableOptions: {
@@ -143,6 +160,12 @@ export default {
     onSort() {
       this.$emit('change', _.flatMap(this.columns, 'field'));
     },
+    addFilter(field, str, op) {
+      this.$refs.theTable.addFilter(...arguments);
+    },
+    removeFilter(field, str, op) {
+      this.$refs.theTable.removeFilter(...arguments);
+    },
   },
 };
 
@@ -188,5 +211,22 @@ export default {
   transform: rotate(180deg);
 }
 
+.vuestro-table thead {
+  height: 1px;
+}
+.vuestro-dynamic-table-header {
+  height: inherit;
+}
+.vuestro-dynamic-table-header > .vuestro-dynamic-table-pill-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.vuestro-dynamic-table-header > .vuestro-button {
+  height: 100%;
+  transition: all 0.2s;
+  margin-right: 2px;
+}
 
 </style>

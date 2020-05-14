@@ -42,8 +42,8 @@
         </tr>
         <template v-for="(row, idx) in sortedFilteredData">
           <tr class="vuestro-table-row">
-            <!-- detail expander caret -->
-            <td v-if="$scopedSlots.detail">
+            <!-- detail expander caret, always give it minimum width -->
+            <td v-if="$scopedSlots.detail" style="width:1px">
               <vuestro-caret :collapsed="!isExpanded(idx)" @click="toggleDetail(idx)"></vuestro-caret>
             </td>
             <slot v-if="$scopedSlots.row" name="row" :item="row"></slot>
@@ -134,7 +134,26 @@ export default {
       if (this.sort.length === 0 && this.filter.length === 0) {
         return this.data;
       } else {
-        return _.orderBy(this.data, _.flatMap(this.sort, 'field'), _.flatMap(this.sort, 'direction'));
+        // filter data
+        let filteredData = this.data;
+        if (this.filter.length > 0) {
+          for (let f of this.filter) {
+            switch (f.op) {
+              case 'include':
+                filteredData = _.filter(filteredData, function(d) {
+                  return d[f.field].indexOf(f.value) > -1;
+                });
+                break;
+              case 'exclude':
+                filteredData = _.reject(filteredData, function(d) {
+                  return d[f.field].indexOf(f.value) > -1;
+                });
+                break;
+            }
+          }
+        }
+        // return sorted results
+        return _.orderBy(filteredData, _.flatMap(this.sort, 'field'), _.flatMap(this.sort, 'direction'));
       }
     },
   },
@@ -176,6 +195,21 @@ export default {
         this.expandedRows.push(idx);
       }
     },
+    addFilter(field, value, op='include') {
+      if (!_.find(this.filter, { field, value })) {
+        this.filter.push({
+          field,
+          value,
+          op,
+        });
+      }
+    },
+    removeFilter(field, value) {
+      let idx = _.findIndex(this.filter, { field, value });
+      if (idx > -1) {
+        this.filter.splice(idx, 1);
+      }
+    }
   },
   filters: {
     cellFilterProxy(value, renderer, row) {

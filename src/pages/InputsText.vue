@@ -2,16 +2,22 @@
   <vuestro-container>
     <vuestro-card cols="12" color="#f47633">
       <template #heading>Text Inputs</template>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>VuestroTextField</template>
       <template #description>
+        VuestroTextField is a very versatile component. It can function as a simple text field as well as an advanced multi-select by setting the appropriate properties.
       </template>
     </vuestro-card>
 
     <vuestro-card>
       <template #subheading>
-        Regular Text Fields
+        Simple Text Fields
       </template>
       <vuestro-text-field placeholder="Regular Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field variant="outline" placeholder="Outline Text Field" v-model="exampleText"></vuestro-text-field>
+      <vuestro-text-field variant="shaded" placeholder="Shaded Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field placeholder="Existing Value" v-model="exampleEditableText"></vuestro-text-field>
 			<vuestro-text-field placeholder="Responsive Value" v-model="delayedText"></vuestro-text-field>
       <vuestro-text-field placeholder="With Hint" hint="go on, type something..." v-model="exampleText"></vuestro-text-field>
@@ -45,6 +51,7 @@
       </template>
       <div class="example-flexbox"  >
         <vuestro-text-field variant="outline" v-model="exampleText" editing-buttons @save="onSaveButton" @cancel="onCancelButton"></vuestro-text-field>
+        <vuestro-text-field variant="shaded" hint="filename" v-model="exampleText" editing-buttons @save="onSaveButton" @cancel="onCancelButton"></vuestro-text-field>
       </div>
     </vuestro-card>
 
@@ -72,6 +79,8 @@
       </template>
       <div class="example-container dark">
         <vuestro-text-field dark placeholder="Regular Text Field" v-model="exampleText" clearable></vuestro-text-field>
+        <vuestro-text-field dark variant="outline" placeholder="Outline Text Field" hint="with hint" v-model="exampleText" clearable></vuestro-text-field>
+        <vuestro-text-field dark variant="shaded" placeholder="Shaded Text Field" hint="with hint" v-model="exampleText" clearable></vuestro-text-field>
       </div>
     </vuestro-card>
 
@@ -136,6 +145,7 @@ export default {
 .example-container {
   display: flex;
   align-items: flex-start;
+  justify-content: space-evenly;
 }
 .example-container.dark {
   padding: 40px;

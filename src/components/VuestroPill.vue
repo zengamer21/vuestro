@@ -64,10 +64,13 @@ export default {
     titleComputed() {
       if (this.title) {
         return this.title;
-      } else if (this.value) {
-        return this.value.slice(0, 1).toUpperCase();
       } else {
-        return '';
+        let v = this.value || this.$slots.value[0].text;
+        if (v) {
+          return v.slice(0, 1).toUpperCase();
+        } else {
+          return '';
+        }
       }
     },
   },
@@ -147,6 +150,7 @@ export default {
 .vuestro-pill-slot {
   display: flex;
   align-items: center;
+  flex-grow: 1;
 }
 
 .vuestro-pill.geopattern .vuestro-pill-title {

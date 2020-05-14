@@ -1,7 +1,5 @@
-<!-- Be sure to define CSS variable: --vuestro-text-field-bg -->
-<!-- to define bg color for proper overlap of outline mode -->
 <template>
-  <div class="vuestro-text-field" :class="[ `vuestro-text-field-${variant}`, size, { dark, focused, center, noMargin, readonly, invalid }]">
+  <div class="vuestro-text-field" :class="[ `vuestro-text-field-${variant}`, size, { dark, focused, center, noMargin, readonly, invalid, noPlaceholder: !placeholder }]">
     <div class="input-el-wrapper">
       <input ref="inputEl"
              class="input-el"
@@ -55,12 +53,17 @@
 <script>
 
 /* global _ */
+import draggable from 'vuedraggable';
+
 export default {
   name: 'VuestroTextField',
+  components: {
+    draggable,
+  },
   props: {
     value: { type: null, required: true },
     placeholder: { type: String, default: null },
-    variant: { type: String, default: 'regular' },
+    variant: { type: String, default: 'regular' }, // { 'regular', 'outline', 'shaded' }
     type: { type: String, default: 'text' },
     dark: { type: Boolean, default: false },
     hint: { type: String, default: null },
@@ -136,7 +139,7 @@ export default {
     onFocusOut() {
       this.focused = false;
       // only lower placeholder if no text in value
-      if (this.value.length == 0) {
+      if (!this.value || this.value.length == 0) {
         this.raisedPlaceholder = false;
       }
     },
@@ -171,10 +174,6 @@ export default {
 
 <style>
 
-.vuestro-app {
-  --vuestro-text-field-bg: var(--vuestro-content-bg);
-}
-
 </style>
 
 <style scoped>
@@ -186,12 +185,21 @@ export default {
   display: flex;
 }
 .vuestro-text-field.sm {
+  padding: 5px 2px 2px 2px;
+}
+.vuestro-text-field.sm.noPlaceholder {
   padding: 2px;
 }
 .vuestro-text-field.md {
+  padding: 7px 5px 2px 5px;
+}
+.vuestro-text-field.md.noPlaceholder {
   padding: 5px;
 }
 .vuestro-text-field.lg {
+  padding: 10px 8px 2px 8px;
+}
+.vuestro-text-field.lg.noPlaceholder {
   padding: 8px;
 }
 .vuestro-text-field.noMargin {
@@ -218,9 +226,20 @@ export default {
   border-bottom: 1px solid var(--vuestro-outline);
 }
 
+.vuestro-text-field-shaded {
+  border: none;
+  background-color: var(--vuestro-light-med);
+}
+.vuestro-text-field-shaded.dark {
+  background-color: var(--vuestro-darker);
+}
+.vuestro-text-field-shaded.md {
+  padding: 14px 5px 5px 5px;
+}
+
 .placeholder {
   top: 50%;
-  left: 8px;
+  left: 0px;
   transform: translate(0, -50%);
   transition: all 0.15s;
   font-size: 15px;
@@ -232,17 +251,35 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.vuestro-text-field-outline .placeholder {
+  left: 6px;
+}
 .vuestro-text-field-outline .placeholder.active {
   /* only for outline mode */
-  background-color: var(--vuestro-text-field-bg);
+  background-color: var(--vuestro-outline);
+  color: var(--vuestro-text-color-inverse);
+  border-radius: 999px;
+  font-size: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.vuestro-text-field-outline.focused .placeholder.active {
+  background-color: var(--vuestro-primary);
 }
 
 .placeholder.active {
-  top: -2px;
+  top: 0px;
   transform: translate(0, -50%);
   font-size: 12px;
   padding-left: 3px;
   padding-right: 3px;
+}
+
+.vuestro-text-field-shaded .placeholder {
+  left: 8px;
+}
+.vuestro-text-field-shaded .placeholder.active {
+  top: 8px;
 }
 
 .input-el-wrapper {
@@ -282,11 +319,11 @@ export default {
 .hint {
   position: absolute;
   top: 50%;
-  left: 14px;
+  left: 10px;
   transform: translate(0, -50%);
   pointer-events: none;
   font-size: 12px;
-  filter: brightness(140%);
+  filter: invert(50%);
 }
 .vuestro-text-field.center .hint {
   left: 50%;
