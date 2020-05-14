@@ -33,12 +33,11 @@ export default {
   display: flex;
   position: relative;
   padding: 2px;
-  border: 1px solid var(--vuestro-outline);
-  border-radius: 4px;
   margin-bottom: 2px;
 }
 
 .vuestro-tray-outline {
+  border-radius: 4px;
   border: 1px solid var(--vuestro-outline);
   border-radius: 4px;
 }

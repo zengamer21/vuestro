@@ -58,7 +58,7 @@
       <template #description>
         Use a VuestroTray to keep pills together!
       </template>
-  		<vuestro-tray title="Pill Tray">
+  		<vuestro-tray title="Pill Tray" variant="outline">
   			<vuestro-pill value="Pill Value"></vuestro-pill>
   			<vuestro-pill title="Pill" value="Pill Value"></vuestro-pill>
   		</vuestro-tray>
