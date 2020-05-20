@@ -188,6 +188,7 @@ export default {
 }
 
 .vuestro-dropdown-button {
+  align-self: center;
   position: relative;
 }
 
