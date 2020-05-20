@@ -135,6 +135,7 @@ export default {
   display: flex;
 }
 .vuestro-dropdown-inner {
+  display: flex;
   height: 100%;
   /* ensure dropdown is always visible, also make sure z-index of parent is set high enough for overlap */
   overflow: visible !important;
@@ -176,7 +177,7 @@ export default {
   color: var(--vuestro-dropdown-title-fg);
 }
 
-.vuestro-dropdown-title >>> svg:not(:only-child) {
+.vuestro-dropdown-title >>> .vuestro-icon:not(:only-child) {
   margin-right: 4px;
 }
 .vuestro-dropdown-inner.clickToOpen .vuestro-dropdown-title {
