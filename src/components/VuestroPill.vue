@@ -150,6 +150,8 @@ export default {
 .vuestro-pill-slot {
   display: flex;
   align-items: center;
+}
+.vuestro-pill-value.vuestro-pill-slot {
   flex-grow: 1;
 }
 

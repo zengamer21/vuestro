@@ -75,16 +75,22 @@ export default {
     };
   },
   watch: {
-    data(newVal) {
-      _.merge(this.nodes, newVal.nodes);
-      _.merge(this.links, newVal.links);
-      this.graph.nodes(this.nodes)
-      .force('link', d3.forceLink(this.links).distance([this.distance]))
-      .alpha(1).restart();
+    data: {
+      handler(newVal) {
+        _.merge(this.nodes, newVal.nodes);
+        _.merge(this.links, newVal.links);
+        this.graph.nodes(this.nodes)
+        .force('link', d3.forceLink(this.links).distance([this.distance]))
+        .alpha(1).restart();
+        this.resize();
+      },
+      deep: true,
     },
   },
   beforeMount() {
     _.merge(this, this.options);
+    // initialize empty
+    this.graph = this.forceGraph([], []);
   },
   mounted() {
     window.addEventListener('resize', this.resize);

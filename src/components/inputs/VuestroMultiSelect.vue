@@ -31,7 +31,7 @@ export default {
   },
   props: {
     value: { type: Array, default: () => []},
-    variant: { type: String },
+    variant: { type: String, default: 'outline' },
     minHeight: { type: String, default: '25px' },
     placeholder: { type: String },
     stretch: { type: Boolean, default: false },
