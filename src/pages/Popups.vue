@@ -131,6 +131,17 @@
 
     <vuestro-card>
       <template #description>
+        <span>Disable the dropdown function by setting the <em>disabled</em> property</span>
+      </template>
+      <div class="example-container">
+        <vuestro-dropdown disabled>
+          <template #title>Disabled Dropdown</template>
+        </vuestro-dropdown>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description>
         <span>Speaking of buttons...add buttons to the bottom of a dropdown by adding spans to the <em>buttons</em> slot</span>
       </template>
       <div class="example-container">

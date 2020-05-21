@@ -1,5 +1,7 @@
 <template>
-  <div class="vuestro-dropdown" v-vuestro-blur="onBlur"
+  <div class="vuestro-dropdown" 
+       :class="{ disabled }"
+       v-vuestro-blur="onBlur"
     :style="{ 'z-index': active ? 200:100 }">
     <div class="vuestro-dropdown-inner" @mouseleave="onLeave" :class="{ dark, active, noSpacing, noScroll, rounded, bottom, clickToOpen, stretch }">
       <div v-if="$slots.title" class="vuestro-dropdown-title" @mouseover="onHover" @click="onClick">
@@ -37,6 +39,7 @@ export default {
     noScroll: { type: Boolean, default: false },
     closeOnContentClick: { type: Boolean, default: false },
     stretch: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -135,6 +138,9 @@ export default {
   cursor: default;
   display: flex;
 }
+.vuestro-dropdown.disabled {
+  pointer-events: none;
+}
 .vuestro-dropdown-inner {
   display: flex;
   height: 100%;
@@ -176,7 +182,7 @@ export default {
 .vuestro-dropdown-inner.stretch .vuestro-dropdown-title {
   flex-grow: 1;
 }
-  
+
 .vuestro-dropdown-inner.active .vuestro-dropdown-title {
   background-color: var(--vuestro-dropdown-title-bg);
   border-color: var(--vuestro-dropdown-outline);
