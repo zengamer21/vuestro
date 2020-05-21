@@ -82,10 +82,10 @@
 
     <vuestro-card>
       <template #description>
-        VuestroDropdown automatically stretches to fill its container
+        <span>Set the <em>stretch</em> property to fill container</span>
       </template>
       <div class="example-stretchy-container">
-        <vuestro-dropdown>
+        <vuestro-dropdown stretch>
           <template #title>Stretchy</template>
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
