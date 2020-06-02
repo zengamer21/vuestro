@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="example-wrapper">
     <vuestro-button size="lg" v-model="outlines">Toggle Outlines</vuestro-button>
     <vuestro-container :class="{ outlines }">
 
@@ -65,6 +65,10 @@ export default {
 </script>
 
 <style scoped>
+
+.example-wrapper {
+  flex-grow: 1;
+}
 
 .vuestro-container.outlines {
   border: 1px dashed black;

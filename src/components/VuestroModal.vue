@@ -79,6 +79,7 @@ export default {
   z-index: 2000;
   background-color: var(--vuestro-modal-active-bg);
   overflow: auto;
+  backdrop-filter: blur(5px);
 }
 
 .vuestro-modal-inner {
@@ -91,6 +92,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-content: start;
+  filter: drop-shadow(0px 0px 10px);
+  z-index: 2001;
 }
 
 .vuestro-modal-titlebar {
