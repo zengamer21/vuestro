@@ -301,10 +301,10 @@ export default {
   font-size: 12px;
 }
 .vuestro-text-field.md .input-el {
-  font-size: 16px;
+  font-size: 14px;
 }
 .vuestro-text-field.lg .input-el {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .show-password {
