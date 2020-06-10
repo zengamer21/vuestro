@@ -49,7 +49,7 @@
             <slot v-if="$scopedSlots.row" name="row" :item="row"></slot>
             <td v-else v-for="column in headers"
                 class="vuestro-table-cell"
-                :class="[ `vuestro-table-align-${column.align}`, column.classes]"
+                :class="[ `vuestro-table-align-${column.align}`, getClasses(column.classes, column.field, row)]"
                 :style="`padding: ${column.padding}px`">
               <slot v-if="$scopedSlots.cell" name="cell" :item="{ column, row }"></slot>
               <component v-else-if="column.component" :is="column.component" v-model="row[column.field]"></component>
@@ -211,6 +211,12 @@ export default {
       }
     },
     getField: _.get, // alias lodash function
+    getClasses(classes, field, row) {
+      if (_.isFunction(classes)) {
+        return classes(field, row);
+      }
+      return classes;
+    },
   },
   filters: {
     cellFilterProxy(value, renderer, row) {

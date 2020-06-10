@@ -147,6 +147,12 @@ export default {
             title: 'Phone No. (centered, render fn)',
             align: 'center',
             render: Vue.filter('vuestroPhoneUS'),
+            classes: (field, row) => {
+              console.log(field, row)
+              if (row[field] === '5553728112') {
+                return 'test-column-class';
+              }
+            }
           },
           {
             field: 'email',
