@@ -190,7 +190,7 @@ export default {
   padding: 2px;
 }
 .vuestro-text-field.md {
-  padding: 7px 5px 3px 5px;
+  padding: 8px 5px 3px 5px;
 }
 .vuestro-text-field.md.noPlaceholder {
   padding: 5px;
