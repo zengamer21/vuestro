@@ -262,6 +262,7 @@
       </template>
       <vuestro-button stretch>Button</vuestro-button>
       <vuestro-button pill stretch>Button</vuestro-button>
+      <vuestro-button stretch justify="flex-start">flex-start justified</vuestro-button>
     </vuestro-card>
 
 

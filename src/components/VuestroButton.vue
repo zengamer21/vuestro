@@ -14,11 +14,11 @@
           </div>
         </template>
         <template v-else>
-          <div class="vuestro-button-content"></div>
+          <div class="vuestro-button-content" :style="{ 'justify-content': justify }"></div>
         </template>
       </template>
       <template v-else>
-        <div class="vuestro-button-content">
+        <div class="vuestro-button-content" :style="{ 'justify-content': justify }">
           &#8203;<slot></slot>&#8203; <!-- magic zero-width chars to make icon-only buttons size like icon+text -->
         </div>
       </template>
@@ -48,6 +48,7 @@ export default {
     size: { type: String, default: 'md' },
     dark: { type: Boolean, default: false },
     shadow: { type: Boolean, default: false },
+    justify: { type: String, default: 'space-evenly' },
   },
   methods: {
     onClick(e) {
@@ -187,8 +188,8 @@ export default {
 .vuestro-button-content {
   flex: 1 1 auto;
   display: flex;
-  justify-content: space-evenly;
   line-height: 1em;
+  justify-content: center;
 }
 .vuestro-button-inner.tall .vuestro-button-content {
   flex-direction: column;
