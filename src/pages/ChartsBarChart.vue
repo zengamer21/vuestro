@@ -22,7 +22,7 @@ export default {
       data: [
         {
           key: '2019-10-01T00:00:00Z',
-          value1: 2,
+          value1: 12,
           value2: 12,
           value3: 8,
         },
@@ -58,7 +58,25 @@ export default {
         },
         {
           key: '2019-10-01T06:00:00Z',
-          value1: 32,
+          value1: 22,
+          value2: 13,
+          value3: 2,
+        },
+        {
+          key: '2019-10-01T07:00:00Z',
+          value1: 8,
+          value2: 13,
+          value3: 2,
+        },
+        {
+          key: '2019-10-01T08:00:00Z',
+          value1: 12,
+          value2: 12,
+          value3: 2,
+        },
+        {
+          key: '2019-10-01T09:00:00Z',
+          value1: 23,
           value2: 13,
           value3: 2,
         },
@@ -82,90 +100,9 @@ export default {
           },
         ],
       },
-      options2: {
-        notFilled: true,
-        series: [
-          {
-            title: 'Series 1',
-            field: 'value1',
-          },
-          {
-            title: 'Series 2',
-            field: 'value2',
-            render: Vue.filter('vuestroBytes'),
-          },
-          {
-            title: 'Series 3',
-            field: 'value3',
-          },
-        ],
-      },
-      options3: {
-        showAxes: true,
-        valueAxis: {
-          render(d) {
-            return `${d.toFixed(2)} kb`;
-          },
-        },
-        series: [
-          {
-            title: 'Series 1',
-            field: 'value1',
-          },
-          {
-            title: 'Series 2',
-            field: 'value2',
-          },
-          {
-            title: 'Series 3',
-            field: 'value3',
-          },
-        ],
-      },
-      options5: {
-        stacked: true,
-        series: [
-          {
-            title: 'Series 1',
-            field: 'value1',
-          },
-          {
-            title: 'Series 2',
-            field: 'value2',
-          },
-          {
-            title: 'Series 3',
-            field: 'value3',
-          },
-        ],
-      },
-      dynamicData: [],
-      options4: {
-        utc: true,
-        series: [
-          {
-            title: 'CPU1',
-            field: 'cpu1',
-          },
-          {
-            title: 'CPU2',
-            field: 'cpu2',
-          },
-        ],
-      },
     };
   },
   mounted() {
-    setInterval(() => {
-      this.dynamicData.push({
-        key: new Date(),
-        cpu1: Math.floor(Math.random()*(100+1)),
-        cpu2: Math.floor(Math.random()*(100+1)),
-      });
-      if (this.dynamicData.length > 100) {
-        this.dynamicData.shift();
-      }
-    }, 1000);
   }
 };
 

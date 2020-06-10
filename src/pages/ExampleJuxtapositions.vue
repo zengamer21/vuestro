@@ -72,6 +72,17 @@
         </vuestro-dropdown>
       </vuestro-container>
 
+      <vuestro-container>
+        <vuestro-text-field variant="outline" placeholder="outline box"></vuestro-text-field>
+        <vuestro-button size="xl" rounded>xl button</vuestro-button>
+        <vuestro-dropdown>
+          <template #button>
+            <vuestro-button size="xl" rounded>Dropdown with xl button</vuestro-button>
+          </template>
+
+        </vuestro-dropdown>
+      </vuestro-container>
+
     </vuestro-card>
 
   </vuestro-container>

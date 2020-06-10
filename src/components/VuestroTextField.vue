@@ -180,8 +180,7 @@ export default {
 
 .vuestro-text-field {
   position: relative;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin: 8px 2px 8px 2px;
   display: flex;
 }
 .vuestro-text-field.sm {
@@ -191,7 +190,7 @@ export default {
   padding: 2px;
 }
 .vuestro-text-field.md {
-  padding: 7px 5px 2px 5px;
+  padding: 7px 5px 3px 5px;
 }
 .vuestro-text-field.md.noPlaceholder {
   padding: 5px;
@@ -219,7 +218,7 @@ export default {
 }
 
 .vuestro-text-field-outline {
-  border: 1px solid var(--vuestro-outline);
+  border: 1px solid var(--vuestro-secondary);
   border-radius: 4px;
 }
 .vuestro-text-field-regular {
@@ -242,9 +241,9 @@ export default {
   left: 0px;
   transform: translate(0, -50%);
   transition: all 0.15s;
-  font-size: 15px;
+  font-size: 16px;
   position: absolute;
-  color: var(--vuestro-text-color-muted);
+  color: var(--vuestro-secondary);
   pointer-events: none;
 }
 .vuestro-text-field.center .placeholder {
@@ -256,7 +255,7 @@ export default {
 }
 .vuestro-text-field-outline .placeholder.active {
   /* only for outline mode */
-  background-color: var(--vuestro-outline);
+  background-color: var(--vuestro-secondary);
   color: var(--vuestro-text-color-inverse);
   border-radius: 999px;
   font-size: 10px;
@@ -302,7 +301,7 @@ export default {
   font-size: 12px;
 }
 .vuestro-text-field.md .input-el {
-  font-size: 15px;
+  font-size: 16px;
 }
 .vuestro-text-field.lg .input-el {
   font-size: 18px;

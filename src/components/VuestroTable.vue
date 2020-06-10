@@ -54,7 +54,7 @@
               <slot v-if="$scopedSlots.cell" name="cell" :item="{ column, row }"></slot>
               <component v-else-if="column.component" :is="column.component" v-model="row[column.field]"></component>
               <template v-else>
-                {{ row[column.field] | cellFilterProxy(column.render, row) }}
+                {{ getField(row, column.field) | cellFilterProxy(column.render, row) }}
               </template>
             </td>
             <td v-if="$scopedSlots['row-buttons']">
@@ -209,7 +209,8 @@ export default {
       if (idx > -1) {
         this.filter.splice(idx, 1);
       }
-    }
+    },
+    getField: _.get, // alias lodash function
   },
   filters: {
     cellFilterProxy(value, renderer, row) {
@@ -295,7 +296,7 @@ export default {
 }
 
 .vuestro-table-row {
-  height: 30px;
+  height: 24px;
   border-bottom: 1px solid rgba(0,0,0,0.12);
   background-color: var(--vuestro-table-alternate-bg);
 }
@@ -313,7 +314,7 @@ export default {
 }
 
 .vuestro-table-cell {
-  padding: 16px;
+  padding: 5px 10px;
 }
 .vuestro-table-cell.vuestro-table-align-right {
   text-align: right;

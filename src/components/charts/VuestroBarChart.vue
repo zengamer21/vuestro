@@ -3,33 +3,31 @@
     <svg :width="width"
          :height="height"
          :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
-         >
+         @mousemove="onMouseover">
       <!--BARS-->
-      <!--<g v-for="s in processedSeries" :key="s.field">-->
-      <!--  <rect class="vuestro-bar-chart-bar" -->
-      <!--        :fill="s.color"-->
-      <!--        :x="/>-->
-      <!--</g>-->
       <g v-for="d in localData">
-        <rect class="vuestro-bar-chart-bar"
-              :x="d.x"
-              :y="d.y"
+        <rect v-for="s in processedSeries" :key="s.field"
+              class="vuestro-bar-chart-bar"
+              :x="d[`${s.field}_x`]"
+              :y="d[`${s.field}_y`]"
               :width="d.width"
-              :height="d.height"
-              :fill="color(d[categoryKey])">
+              :height="d[`${s.field}_height`]"
+              :fill="s.color"
+              fill-opacity="0.7"
+              :stroke="s.color">
         </rect>
       </g>
       <!--TOOLTIP-->
-      <!--<template v-if="!hideTooltip && cursorLine.length > 0">-->
-      <!--  <path class="vuestro-bar-chart-cursor" :d="cursorLine" />-->
-      <!--  <vuestro-svg-tooltip :x="lastHoverPoint.x"-->
-      <!--                       :x-max="width"-->
-      <!--                       :categoryKey="categoryKey"-->
-      <!--                       :utc="utc"-->
-      <!--                       :series="processedSeries"-->
-      <!--                       :values="localData[lastHoverPoint.index]">-->
-      <!--  </vuestro-svg-tooltip>-->
-      <!--</template>-->
+      <template v-if="!hideTooltip && cursorLine.length > 0">
+        <path class="vuestro-bar-chart-cursor" :d="cursorLine" />
+        <vuestro-svg-tooltip :x="lastHoverPoint.x"
+                             :x-max="width"
+                             :categoryKey="categoryKey"
+                             :utc="utc"
+                             :series="processedSeries"
+                             :values="localData[lastHoverPoint.index]">
+        </vuestro-svg-tooltip>
+      </template>
     </svg>
   </div>
 </template>
@@ -50,6 +48,8 @@ export default {
       width: 0,
       height: 0,
       localData: [],
+      lastHoverPoint: {},
+      cursorLine: '',
       colors: d3.schemeCategory10,
       margin: {
         left: 0,
@@ -62,6 +62,9 @@ export default {
         field: 'value'
       }],
       stacked: false,
+      padding: 0.1,
+      hideTooltip: false,
+      utc: false,
     };
   },
   computed: {
@@ -76,6 +79,9 @@ export default {
         }
         return s;
       });
+    },
+    getCursor() {
+      return d3.area().x(d => d.center).y0(this.height).y1(0);
     },
   },
   watch: {
@@ -109,7 +115,7 @@ export default {
       let scaleX = d3.scaleBand()
                      .domain(this.data.map((d) => { return d[this.categoryKey]; }))
                      .rangeRound([this.margin.left, this.width - this.margin.right])
-                     .padding(0.08);
+                     .padding(this.padding);
 
       let scaleY = d3.scaleLinear().range([this.height, 0]);
 
@@ -130,20 +136,43 @@ export default {
 
       // set the bar descriptions
       for (let [di, d] of this.localData.entries()) {
-        d.x = scaleX(d[this.categoryKey]);
-        d.width = scaleX.bandwidth();
-        d.y = scaleY(d.value1);
-        d.height = this.height - scaleY(d.value1);
         for (const [si, s] of this.series.entries()) {
           if (stackedData) {
-            d[`${s.field}_y0`] = scaleY(stackedData[si][di][0]);
-            d[`${s.field}_y1`] = scaleY(stackedData[si][di][1]);
+            d[`${s.field}_y`] = scaleY(stackedData[si][di][0]);
+            d[`${s.field}_height`] = scaleY(stackedData[si][di][1]);
           } else {
-            d[`${s.field}_y0`] = this.height;
-            d[`${s.field}_y1`] = scaleY(d[s.field]);
+            d.width = scaleX.bandwidth() / this.series.length;
+            d[`${s.field}_x`] = scaleX(d[this.categoryKey]) + si*(d.width + 1);
+            d[`${s.field}_y`] = scaleY(d[s.field]) - 1;
+            d[`${s.field}_height`] = this.height - scaleY(d[s.field]);
+            d.center = scaleX(d[this.categoryKey]) + scaleX.bandwidth() / 2;
           }
         }
       }
+    },
+    onMouseover({ offsetX }) {
+      if (this.localData.length > 0) {
+        const x = offsetX;
+        const closestPoint = this.getClosestPoint(x);
+        if (this.lastHoverPoint.index !== closestPoint.index) {
+          const point = this.localData[closestPoint.index];
+          this.cursorLine = this.getCursor([point]);
+          this.$emit('select', this.data[closestPoint.index]);
+          this.lastHoverPoint = closestPoint;
+        }
+      }
+    },
+    getClosestPoint(x) {
+      return this.localData
+        .map((point, index) => ({
+          x: point[`${this.series[this.series.length-1].field}_x`],
+          diff: Math.abs(point[`${this.series[this.series.length-1].field}_x`] - x),
+          index,
+        }))
+        .reduce((memo, val) => (memo.diff < val.diff ? memo : val));
+    },
+    onMouseleave() {
+      this.cursorLine = '';
     },
   },
 };
@@ -160,6 +189,12 @@ export default {
 
 .vuestro-bar-chart-bar {
   transition: all 0.4s ease-in-out;
+}
+
+.vuestro-bar-chart-cursor {
+  stroke: var(--vuestro-outline);
+  stroke-width: 1px;
+  fill: none;
 }
 
 </style>
