@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-dropdown" 
+  <div class="vuestro-dropdown"
        :class="{ disabled }"
        v-vuestro-blur="onBlur"
     :style="{ 'z-index': active ? 200:100 }">
@@ -202,6 +202,7 @@ export default {
 .vuestro-dropdown-button {
   align-self: center;
   position: relative;
+  flex-grow: 1;
 }
 
 .vuestro-dropdown-menu {
