@@ -149,10 +149,12 @@ export default {
   display: flex;
   flex-direction: column;
   font-weight: var(--vuestro-sidebar-font-weight);
+  position: relative;
 }
 
 /* .vuestro-mini-sidebar is added to body */
 .vuestro-mini-sidebar .vuestro-sidebar {
+  max-width: var(--vuestro-sidebar-mini-width);
   width: var(--vuestro-sidebar-mini-width);
 }
 

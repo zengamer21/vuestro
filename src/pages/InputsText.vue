@@ -21,7 +21,7 @@
       <vuestro-text-field placeholder="Existing Value" v-model="exampleEditableText"></vuestro-text-field>
 			<vuestro-text-field placeholder="Responsive Value" v-model="delayedText"></vuestro-text-field>
       <vuestro-text-field placeholder="With Hint" hint="go on, type something..." v-model="exampleText"></vuestro-text-field>
-      <vuestro-text-field placeholder="With Clear Button" hint="go on, type something..." v-model="exampleText" clearable></vuestro-text-field>
+      <vuestro-text-field placeholder="With Clear Button" hint="type something and the clear button will appear!" v-model="exampleText" clearable></vuestro-text-field>
       <vuestro-text-field placeholder="Centered Cursor" hint="centered hint, too!" center v-model="exampleText"></vuestro-text-field>
     </vuestro-card>
 

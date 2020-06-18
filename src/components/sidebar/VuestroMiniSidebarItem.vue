@@ -12,10 +12,11 @@
       <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
     </div>
 
-    <div class="vuestro-mini-sidebar-popup"
+    <div ref="popup"
+         class="vuestro-mini-sidebar-popup"
+         :class="{ top }"
          :style="{ visibility: active ? 'visible':'hidden',
-                   opacity: active ? '1':'0',
-                   height: active ? 'auto':'0' }">
+                   opacity: active ? '1':'0' }">
       <div class="vuestro-mini-sidebar-popup-title">
         <span class="no-select">{{ route.meta.title }}</span>
         <template v-if="route.meta.badgeComponent">
@@ -46,6 +47,7 @@ export default {
   data() {
     return {
       active: this.isParentRoute,
+      top: false,
     };
   },
   computed: {
@@ -61,6 +63,11 @@ export default {
         children: this.$store.getters[this.route.meta.vuex],
       };
     },
+  },
+  mounted() {
+    if (this.$refs.popup.getBoundingClientRect().bottom > window.innerHeight) {
+      this.top = true;
+    }
   },
   methods: {
     onHover() {
@@ -125,8 +132,13 @@ export default {
   left: 100%;
   border-top-right-radius: var(--vuestro-sidebar-radius);
   border-bottom-right-radius: var(--vuestro-sidebar-radius);
-  z-index: 1000;
+  z-index: 2000;
   padding-right: var(--vuestro-sidebar-radius);
+}
+
+.vuestro-mini-sidebar-popup.top {
+  top: initial;
+  bottom: 0;
 }
 
 .vuestro-mini-sidebar-popup > .vuestro-mini-sidebar-popup-title {

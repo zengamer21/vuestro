@@ -2,7 +2,7 @@
   <div class="vuestro-search-box">
     <!--HISTORY-->
     <div v-if="history" class="history-dropdown">
-      <vuestro-dropdown left rounded no-spacing>
+      <vuestro-dropdown left rounded no-spacing click-to-open>
         <template #title>
           <vuestro-icon name="search"></vuestro-icon>
           <vuestro-icon class="down-caret" name="caret-down"></vuestro-icon>
@@ -107,7 +107,7 @@ export default {
   margin: 5px;
   padding: 4px 8px 4px 8px;
   overflow: visible !important; /* so dropdown menu will show */
-  z-index: 100;
+  z-index: 1000;
   display: flex;
   flex: 1 1 auto;
 }

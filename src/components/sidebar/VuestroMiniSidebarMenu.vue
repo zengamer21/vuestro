@@ -1,10 +1,12 @@
 <template>
   <div class="vuestro-mini-sidebar-menu" @click.self="$emit('click')">
-    <vuestro-mini-sidebar-item v-for="(route, ridx) in routes"
-                        :key="route.path"
-                        v-if="route.meta && (route.meta.sidebar || route.meta.sidebarBottom) && (route.meta.role ? (route.meta.role === role):true)"
-                        :route="route">
-    </vuestro-mini-sidebar-item>
+    <div class="vuestro-mini-sidebar-menu-inner">
+      <vuestro-mini-sidebar-item v-for="(route, ridx) in routes"
+                          :key="route.path"
+                          v-if="route.meta && (route.meta.sidebar || route.meta.sidebarBottom) && (route.meta.role ? (route.meta.role === role):true)"
+                          :route="route">
+      </vuestro-mini-sidebar-item>
+    </div>
   </div>
 </template>
 
@@ -28,11 +30,21 @@ export default {
 <style scoped>
 
 .vuestro-mini-sidebar-menu {
-  flex-grow: 1;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
+  position: relative;
+}
+
+.vuestro-mini-sidebar-menu-inner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   padding-right: var(--vuestro-sidebar-item-padding-right);
 }
 
 </style>
 
+ 

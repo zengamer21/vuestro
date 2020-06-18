@@ -60,11 +60,11 @@ export default {
         });
       }
     });
-    // see if menu would go offscreen so we can flip it to right justified
+    // see if menu would go offscreen so we can flip it horizontally
     if (this.$refs.content.getBoundingClientRect().right > window.innerWidth) {
       this.left = false;
     }
-    // see if menu would go offscreen so we can flip it to right justified
+    // see if menu would go offscreen so we can flip it vertically
     if (this.$refs.content.getBoundingClientRect().bottom > window.innerHeight) {
       this.bottom = false;
     }

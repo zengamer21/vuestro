@@ -1,5 +1,8 @@
 <template>
-  <div class="vuestro-text-field" :class="[ `vuestro-text-field-${variant}`, size, { dark, focused, center, noMargin, readonly, invalid, noPlaceholder: !placeholder }]">
+  <div class="vuestro-text-field"
+       :class="[ `vuestro-text-field-${variant}`, size, { dark, focused, center, noMargin, readonly, invalid, noPlaceholder: !placeholder }]"
+       :style="style">
+    <!--the main input-->
     <div class="input-el-wrapper">
       <input ref="inputEl"
              class="input-el"
@@ -11,6 +14,7 @@
              @keyup="onKeyUp">
       </input>
     </div>
+    <!--validation-->
     <div v-if="invalid" class="vuestro-text-field-invalid-msg">
       <vuestro-icon name="angle-left"></vuestro-icon>
       <span>&nbsp;{{ invalid }}</span>
@@ -23,6 +27,7 @@
         <vuestro-icon name="times"></vuestro-icon>
       </vuestro-button>
     </div>
+    <!--presets dropdown menu-->
     <div v-if="presets.length > 0">
       <vuestro-dropdown right click-to-open close-on-content-click>
         <template #button>
@@ -33,17 +38,21 @@
         <vuestro-list-button v-for="p in presets" :key="p" @click="onPreset(p)">{{ p }}</vuestro-list-button>
       </vuestro-dropdown>
     </div>
+    <!--clear button-->
     <vuestro-button v-if="clearable && value" no-border round @click.stop="onClear">
       <vuestro-icon name="times"></vuestro-icon>
     </vuestro-button>
+    <!--show password button-->
     <span class="show-password" v-if="type === 'password'" @click="showPassword = !showPassword">
       <vuestro-icon v-if="!showPassword" name="eye-slash"></vuestro-icon>
       <vuestro-icon v-if="showPassword" name="eye"></vuestro-icon>
     </span>
+    <!--placeholder-->
     <div class="placeholder"
          :class="{ active: raisedPlaceholder }">
       {{ placeholder }}
     </div>
+    <!--hint-->
     <div v-if="hint && raisedPlaceholder && value.length === 0" class="hint">
       {{ hint }}
     </div>
@@ -64,6 +73,7 @@ export default {
     value: { type: null, required: true },
     placeholder: { type: String, default: null },
     variant: { type: String, default: 'regular' }, // { 'regular', 'outline', 'shaded' }
+    radius: { type: String, default: '4px' },
     type: { type: String, default: 'text' },
     dark: { type: Boolean, default: false },
     hint: { type: String, default: null },
@@ -84,6 +94,13 @@ export default {
       showPassword: false,
       editingButtonsBuffer: this.value,
     };
+  },
+  computed: {
+    style() {
+      return {
+        'border-radius': this.radius,
+      }; 
+    },
   },
   watch: {
     value(newVal) {
@@ -180,17 +197,17 @@ export default {
 
 .vuestro-text-field {
   position: relative;
-  margin: 8px 2px 8px 2px;
+  margin: 7px 2px 7px 2px;
   display: flex;
 }
 .vuestro-text-field.sm {
-  padding: 5px 2px 2px 2px;
+  padding: 3px 2px 1px 2px;
 }
 .vuestro-text-field.sm.noPlaceholder {
   padding: 2px;
 }
 .vuestro-text-field.md {
-  padding: 8px 5px 3px 5px;
+  padding: 8px 5px 4px 5px;
 }
 .vuestro-text-field.md.noPlaceholder {
   padding: 5px;
@@ -246,6 +263,9 @@ export default {
   color: var(--vuestro-secondary);
   pointer-events: none;
 }
+.vuestro-text-field.sm .placeholder {
+  font-size: 14px;
+}
 .vuestro-text-field.center .placeholder {
   left: 50%;
   transform: translate(-50%, -50%);
@@ -293,6 +313,7 @@ export default {
   border: none;
   outline: none;
   color: var(--vuestro-text-color);
+  padding: 0;
 }
 .vuestro-text-field.center .input-el {
   text-align: center;

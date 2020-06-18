@@ -121,7 +121,7 @@ export default {
       let area = d3.area().x(d => d.x).y0(d => d[`${v}_y0`]).y1(d => d[`${v}_y1`]);
       if (this.smooth) {
         area.curve(d3.curveNatural);
-      }      
+      }
       return area(this.localData);
     },
     getLine(v) {
@@ -183,7 +183,12 @@ export default {
 
       // use value axis render function if provided
       if (this.valueAxis.render && typeof(this.valueAxis.render) === 'function') {
-        this.scale.y.tickFormat(this.valueAxis.render);
+        this.scale.y.tickFormat((d) => {
+          if (d) {
+            return this.valueAxis.render(d);
+          }
+          return '';
+        });
       }
 
       if (this.timeSeries) {
@@ -202,8 +207,8 @@ export default {
         });
       } else {
         extents = this.series.map((series) => {
-          return d3.extent(this.localData, function(d) { 
-            return d[series.field]; 
+          return d3.extent(this.localData, function(d) {
+            return d[series.field];
           });
         });
       }
@@ -223,11 +228,11 @@ export default {
         d.x = scaleX(d[this.categoryKey]);
         for (const [si, s] of this.series.entries()) {
           if (stackedData) {
-            d[`${s.field}_y0`] = scaleY(stackedData[si][di][0]);
-            d[`${s.field}_y1`] = scaleY(stackedData[si][di][1]);
+            d[`${s.field}_y0`] = scaleY(stackedData[si][di][0] || 0);
+            d[`${s.field}_y1`] = scaleY(stackedData[si][di][1] || 0);
           } else {
             d[`${s.field}_y0`] = this.height;
-            d[`${s.field}_y1`] = scaleY(d[s.field]);
+            d[`${s.field}_y1`] = scaleY(d[s.field] || 0);
           }
         }
       }

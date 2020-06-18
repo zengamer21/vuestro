@@ -2,7 +2,7 @@
   <vuestro-container>
     <vuestro-card color="var(--vuestro-indigo)">
       <template #heading>Juxtapositions</template>
-      <template #description>Common control juxtapositions to check sizing</template>
+      <template #description>Common control juxtapositions to check fit and sizing</template>
 
       <vuestro-container>
         <vuestro-button size="sm" variant="info" value round>
@@ -79,7 +79,27 @@
           <template #button>
             <vuestro-button size="xl" rounded>Dropdown with xl button</vuestro-button>
           </template>
+        </vuestro-dropdown>
+      </vuestro-container>
 
+      <vuestro-container>
+        <vuestro-text-field variant="outline" size="sm" placeholder="outline box"></vuestro-text-field>
+        <vuestro-button size="lg" rounded>lg button</vuestro-button>
+        <vuestro-dropdown>
+          <template #button>
+            <vuestro-button size="lg" rounded>Dropdown with lg button</vuestro-button>
+          </template>
+        </vuestro-dropdown>
+      </vuestro-container>
+
+      <vuestro-container>
+        <vuestro-text-field variant="outline" radius="0" size="sm" no-margin placeholder="outline box"></vuestro-text-field>
+        <vuestro-button size="lg" no-margin variant="primary" value>lg button</vuestro-button>
+        <vuestro-dropdown>
+          <template #button>
+            <vuestro-button size="lg" variant="info" value no-margin>Dropdown with lg button</vuestro-button>
+          </template>
+          <vuestro-list-button>test</vuestro-list-button>
         </vuestro-dropdown>
       </vuestro-container>
 
