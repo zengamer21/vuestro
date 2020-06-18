@@ -98,6 +98,12 @@ export default {
     data(newVal) {
       this.redraw();
     },
+    options: {
+      handler() {
+        this.redraw();
+      },
+      deep: true,
+    }
   },
   beforeMount() {
     _.merge(this, this.options);
