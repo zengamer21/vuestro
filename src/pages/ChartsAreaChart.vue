@@ -43,6 +43,38 @@
       </div>
     </vuestro-card>
 
+    <vuestro-card overflow-hidden>
+      <template #subheading>Change the options property and the chart will update</template>
+      <vuestro-panel collapsible>
+        <template #title>Series</template>
+        <vuestro-container>
+          <vuestro-button @click="dynamicOptions.series.push({field:'value1', title:'Series 1'})">Add Series 1</vuestro-button>
+          <vuestro-button @click="dynamicOptions.series.push({field:'value2', title:'Series 2'})">Add Series 2</vuestro-button>
+          <vuestro-button @click="dynamicOptions.series.push({field:'value3', title:'Series 3'})">Add Series 3</vuestro-button>
+          <vuestro-button @click="dynamicOptions.series = []" variant="danger">Clear Series</vuestro-button>
+        </vuestro-container>
+      </vuestro-panel>
+      <vuestro-panel collapsible>
+        <template #title>Misc Options</template>
+        <vuestro-container>
+          <vuestro-button checkbox v-model="dynamicOptions.smooth">Smooth</vuestro-button>
+          <vuestro-button checkbox v-model="dynamicOptions.showAxes">Axes</vuestro-button>
+          <vuestro-button checkbox v-model="dynamicOptions.showGrid">Grid</vuestro-button>
+          <vuestro-button checkbox v-model="dynamicOptions.hideTooltip">Hide Tooltip</vuestro-button>
+          <vuestro-button checkbox v-model="dynamicOptions.notFilled">No Fill</vuestro-button>
+        </vuestro-container>
+      </vuestro-panel>
+      <vuestro-panel collapsible>
+        <template #title>Options Object</template>
+        <vuestro-object-browser :data="dynamicOptions"></vuestro-object-browser>
+      </vuestro-panel>
+      <vuestro-panel>
+        <div class="chart-wrapper">
+          <vuestro-area-chart :data="data" :options="dynamicOptions"></vuestro-area-chart>
+        </div>
+      </vuestro-panel>
+    </vuestro-card>
+
   </vuestro-container>
 </template>
 
@@ -103,7 +135,7 @@ export default {
           value3: 2,
         },
       ],
-      
+
       options1: {
         series: [
           {
@@ -210,6 +242,17 @@ export default {
             field: 'cpu2',
           },
         ],
+      },
+      dynamicOptions: {
+        smooth: true,
+        showAxes: false,
+        showGrid: false,
+        notFilled: false,
+        hideTooltip: false,
+        series: [{
+            title: 'Series 1',
+            field: 'value1',
+        }],
       },
     };
   },

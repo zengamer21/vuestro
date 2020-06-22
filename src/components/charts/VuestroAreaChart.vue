@@ -10,11 +10,9 @@
         <path class="vuestro-area-chart-line" :d="getLine(s.field)" :stroke="s.color"/>
       </g>
       <!--AXES-->
-      <template v-if="showAxes">
-        <g v-axis:x="scale" class="vuestro-area-chart-x-axis"
-           :style="{ transform: `translate(0, ${height}px)` }">
-        </g>
-        <g v-axis:y="scale" class="vuestro-area-chart-y-axis"></g>
+      <template v-if="showAxes || showGrid">
+        <g v-axis:x="scale" class="vuestro-area-chart-x-axis" :class="{ showAxes, showGrid }"></g>
+        <g v-axis:y="scale" class="vuestro-area-chart-y-axis" :class="{ showAxes, showGrid }"></g>
       </template>
       <!--TOOLTIP-->
       <template v-if="!hideTooltip && cursorLine.length > 0">
@@ -62,15 +60,13 @@ export default {
         bottom: 0,
       },
       categoryKey: 'key',
-      series: [{
-        field: 'value',
-        title: 'Count',
-      }],
+      series: [],
       valueAxis: {
         // render() {}
       },
       colors: d3.schemeCategory10,
       showAxes: false,
+      showGrid: false,
       hideTooltip: false,
       notFilled: false,
       utc: false,
@@ -100,7 +96,12 @@ export default {
     },
     options: {
       handler() {
-        this.redraw();
+        _.merge(this, this.options);
+        // overwrite series separately
+        this.series = _.cloneDeep(this.options.series);
+        this.$nextTick(() => {
+          this.redraw();
+        });
       },
       deep: true,
     }
@@ -183,8 +184,8 @@ export default {
       let scaleY = d3.scaleLinear().range([this.height, 0]);
 
       this.scale = {
-        x: d3.axisTop(scaleX),
-        y: d3.axisRight(scaleY),
+        x: d3.axisBottom(scaleX).tickSize(this.height),
+        y: d3.axisLeft(scaleY).tickSize(-this.width),
       };
 
       // use value axis render function if provided
@@ -299,7 +300,7 @@ export default {
 
 .vuestro-area-chart-cursor {
   stroke: var(--vuestro-outline);
-  stroke-width: 1px;
+  stroke-width: 2px;
   fill: none;
 }
 
@@ -307,11 +308,45 @@ export default {
 	fill: var(--vuestro-light);
 }
 
+/* always hide axes lines */
 .vuestro-area-chart-x-axis >>> path {
   display: none;
 }
 .vuestro-area-chart-y-axis >>> path {
   display: none;
+}
+
+/* toggle x grid */
+.vuestro-area-chart-x-axis >>> line {
+  display: none;
+  stroke: var(--vuestro-outline);
+}
+.vuestro-area-chart-x-axis.showGrid >>> line {
+  display: inline;
+}
+/* toggle x axes labels */
+.vuestro-area-chart-x-axis >>> text {
+  display: none;
+  transform: translateY(-15px);
+}
+.vuestro-area-chart-x-axis.showAxes >>> text {
+  display: inline;
+}
+/* toggle y grid */
+.vuestro-area-chart-y-axis >>> line {
+  display: none;
+  stroke: var(--vuestro-outline);
+}
+.vuestro-area-chart-y-axis.showGrid >>> line {
+  display: inline;
+}
+/* toggle y axes labels */
+.vuestro-area-chart-y-axis >>> text {
+  display: none;
+  transform: translateX(20px);
+}
+.vuestro-area-chart-y-axis.showAxes >>> text {
+  display: inline;
 }
 
 </style>

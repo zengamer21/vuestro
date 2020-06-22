@@ -1,12 +1,12 @@
 <template>
   <div class="vuestro-mini-sidebar-menu" @click.self="$emit('click')">
-    <div class="vuestro-mini-sidebar-menu-inner">
+    <!--<div class="vuestro-mini-sidebar-menu-inner">-->
       <vuestro-mini-sidebar-item v-for="(route, ridx) in routes"
                           :key="route.path"
                           v-if="route.meta && (route.meta.sidebar || route.meta.sidebarBottom) && (route.meta.role ? (route.meta.role === role):true)"
                           :route="route">
       </vuestro-mini-sidebar-item>
-    </div>
+    <!--</div>-->
   </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  position: relative;
+  padding-right: var(--vuestro-sidebar-item-padding-right);
 }
 
 .vuestro-mini-sidebar-menu-inner {
@@ -42,9 +42,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  padding-right: var(--vuestro-sidebar-item-padding-right);
 }
 
 </style>
 
- 

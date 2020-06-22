@@ -377,7 +377,7 @@ export default new Router({
     {
       meta: {
         title: 'Example UIs',
-        sidebar: true,
+        sidebarBottom: true,
         icon: 'puzzle-piece',
         bgColor: 'var(--vuestro-cyan)',
         fgColor: 'var(--vuestro-light)',

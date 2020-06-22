@@ -325,6 +325,7 @@ export default {
 /* styling for the separate text slot next to checkbox button */
 .vuestro-button-checkbox-text {
   margin-left: 4px;
+  margin-right: 10px;
   cursor: pointer;
 }
 .vuestro-button-checkbox-text.sm {
