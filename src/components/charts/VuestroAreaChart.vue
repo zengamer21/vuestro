@@ -1,36 +1,38 @@
 <template>
   <div class="vuestro-area-chart" @mouseleave="onMouseleave" :style="style">
-    <svg :width="width"
-         :height="height"
-         :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
-         @mousemove="onMouseover">
-      <!--GRID-->
-      <template v-if="showGrid">
-        <g v-axis:x="scale" class="vuestro-area-chart-x-axis" :class="{ showGrid }"></g>
-        <g v-axis:y="scale" class="vuestro-area-chart-y-axis" :class="{ showGrid }"></g>
-      </template>
-      <!--LINES-->
-      <g v-for="s in processedSeries" :key="s.field">
-        <path v-if="!notFilled" class="vuestro-area-chart-area" :d="getArea(s.field)" :fill="s.color" :opacity="fillOpacity"/>
-        <path class="vuestro-area-chart-line" :d="getLine(s.field)" :stroke="s.color"/>
-      </g>
-      <!--AXES-->
-      <template v-if="showAxes">
-        <g v-axis:x="scale" class="vuestro-area-chart-x-axis" :class="{ showAxes }"></g>
-        <g v-axis:y="scale" class="vuestro-area-chart-y-axis" :class="{ showAxes }"></g>
-      </template>
-      <!--TOOLTIP-->
-      <template v-if="!hideTooltip && cursorLine.length > 0">
-        <path class="vuestro-area-chart-cursor" :d="cursorLine" />
-        <vuestro-svg-tooltip :x="lastHoverPoint.x"
-                             :x-max="width"
-                             :categoryKey="categoryKey"
-                             :utc="utc"
-                             :series="processedSeries"
-                             :values="localData[lastHoverPoint.index]">
-        </vuestro-svg-tooltip>
-      </template>
-    </svg>
+    <div class="vuestro-area-chart-inner">
+      <svg :width="width"
+           :height="height"
+           :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
+           @mousemove="onMouseover">
+        <!--GRID-->
+        <template v-if="showGrid">
+          <g v-axis:x="scale" class="vuestro-area-chart-x-axis" :class="{ showGrid }"></g>
+          <g v-axis:y="scale" class="vuestro-area-chart-y-axis" :class="{ showGrid }"></g>
+        </template>
+        <!--LINES-->
+        <g v-for="s in processedSeries" :key="s.field">
+          <path v-if="!notFilled" class="vuestro-area-chart-area" :d="getArea(s.field)" :fill="s.color" :opacity="fillOpacity"/>
+          <path class="vuestro-area-chart-line" :d="getLine(s.field)" :stroke="s.color"/>
+        </g>
+        <!--AXES-->
+        <template v-if="showAxes">
+          <g v-axis:x="scale" class="vuestro-area-chart-x-axis" :class="{ showAxes }"></g>
+          <g v-axis:y="scale" class="vuestro-area-chart-y-axis" :class="{ showAxes }"></g>
+        </template>
+        <!--TOOLTIP-->
+        <template v-if="!hideTooltip && cursorLine.length > 0">
+          <path class="vuestro-area-chart-cursor" :d="cursorLine" />
+          <vuestro-svg-tooltip :x="lastHoverPoint.x"
+                               :x-max="width"
+                               :categoryKey="categoryKey"
+                               :utc="utc"
+                               :series="processedSeries"
+                               :values="localData[lastHoverPoint.index]">
+          </vuestro-svg-tooltip>
+        </template>
+      </svg>
+    </div>
   </div>
 </template>
 
@@ -301,6 +303,14 @@ export default {
   height: 100%;
 	flex-grow: 1;
   overflow: hidden;
+}
+
+.vuestro-area-chart-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .vuestro-area-chart-line {
