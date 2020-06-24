@@ -12,8 +12,10 @@
         </template>
         <!--LINES-->
         <g v-for="s in processedSeries" :key="s.field">
-          <path v-if="!notFilled" class="vuestro-area-chart-area" :d="getArea(s.field)" :fill="s.color" :opacity="fillOpacity"/>
-          <path class="vuestro-area-chart-line" :d="getLine(s.field)" :stroke="s.color"/>
+          <template v-if="!s.disabled">
+            <path v-if="!notFilled" class="vuestro-area-chart-area" :d="getArea(s.field)" :fill="s.color" :opacity="fillOpacity"/>
+            <path class="vuestro-area-chart-line" :d="getLine(s.field)" :stroke="s.color"/>
+          </template>
         </g>
         <!--AXES-->
         <template v-if="showAxes">
@@ -70,6 +72,7 @@ export default {
       showGrid: false, // show the grid
       hideTooltip: false, // disable tooltip
       notFilled: false, // disable area fill
+      gradientFill: false, // use gradient fill
       utc: false, // interpret dates as utc
       stacked: false, // stack the series
       fillOpacity: 0.6, // opacity for filled area

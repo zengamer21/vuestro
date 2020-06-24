@@ -51,6 +51,7 @@
           <vuestro-button @click="dynamicOptions.series.push({field:'value1', title:'Series 1'})">Add Series 1</vuestro-button>
           <vuestro-button @click="dynamicOptions.series.push({field:'value2', title:'Series 2'})">Add Series 2</vuestro-button>
           <vuestro-button @click="dynamicOptions.series.push({field:'value3', title:'Series 3'})">Add Series 3</vuestro-button>
+          <vuestro-button @click="dynamicOptions.series.push({field:'value3', title:'Disabled', disabled: true})">Add Disabled Series</vuestro-button>
           <vuestro-button @click="dynamicOptions.series = []" variant="danger">Clear Series</vuestro-button>
         </vuestro-container>
       </vuestro-panel>
