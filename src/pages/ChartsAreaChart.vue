@@ -64,6 +64,7 @@
           <vuestro-button checkbox v-model="dynamicOptions.showGrid">Grid</vuestro-button>
           <vuestro-button checkbox v-model="dynamicOptions.hideTooltip">Hide Tooltip</vuestro-button>
           <vuestro-button checkbox v-model="dynamicOptions.notFilled">No Fill</vuestro-button>
+          <vuestro-button checkbox v-model="dynamicOptions.gradientFill">Gradient</vuestro-button>
           <vuestro-button checkbox v-model="dynamicOptions.count">Count Agg</vuestro-button>
           <vuestro-text-field placeholder="Fill Opacity" v-model="dynamicOptions.fillOpacity"></vuestro-text-field>
           <vuestro-text-field placeholder="Grid DashArray" v-model="dynamicOptions.gridDashArray"></vuestro-text-field>

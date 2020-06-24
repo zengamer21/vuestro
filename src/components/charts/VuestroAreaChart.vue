@@ -5,6 +5,13 @@
            :height="height"
            :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
            @mousemove="onMouseover">
+        <defs>
+          <linearGradient v-for="s in processedSeries" :key="s.field"
+                          :id="`${s.field}-gradient`" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" :stop-color="s.color" stop-opacity="1"></stop>
+            <stop offset="100%" :stop-color="s.color" stop-opacity="0"></stop>
+          </linearGradient>
+        </defs>
         <!--GRID-->
         <template v-if="showGrid">
           <g v-axis:x="scale" class="vuestro-area-chart-x-axis" :class="{ showGrid }"></g>
@@ -13,7 +20,7 @@
         <!--LINES-->
         <g v-for="s in processedSeries" :key="s.field">
           <template v-if="!s.disabled">
-            <path v-if="!notFilled" class="vuestro-area-chart-area" :d="getArea(s.field)" :fill="s.color" :opacity="fillOpacity"/>
+            <path v-if="!notFilled" class="vuestro-area-chart-area" :d="getArea(s.field)" :fill="gradientFill ? `url(#${s.field}-gradient) ${s.color}`:s.color" :opacity="fillOpacity"/>
             <path class="vuestro-area-chart-line" :d="getLine(s.field)" :stroke="s.color"/>
           </template>
         </g>
@@ -247,7 +254,6 @@ export default {
                          return 1;
                        }
                      })]);
-
 
       // map the points the data
       for (let [di, d] of this.localData.entries()) {
