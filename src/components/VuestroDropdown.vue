@@ -65,7 +65,7 @@ export default {
       this.left = false;
     }
     // see if menu would go offscreen so we can flip it vertically
-    if (this.$refs.content.getBoundingClientRect().bottom > window.innerHeight) {
+    if (this.$refs.content.getBoundingClientRect().bottom > window.scrollHeight) {
       this.bottom = false;
     }
     // see if right-justify was specified
@@ -133,10 +133,10 @@ export default {
 <style scoped>
 
 .vuestro-dropdown {
-  height: 100%;
   position: relative;
   cursor: default;
   display: flex;
+  align-self: center;
 }
 .vuestro-dropdown.disabled {
   pointer-events: none;
@@ -208,7 +208,7 @@ export default {
 .vuestro-dropdown-menu {
   background: var(--vuestro-dropdown-content-bg);
   color: var(--vuestro-dropdown-content-fg);
-  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5); 
   position: absolute;
   bottom: calc(100% - 1px);
   right: 0px;

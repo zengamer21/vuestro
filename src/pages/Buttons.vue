@@ -18,7 +18,7 @@
 
     <vuestro-card>
       <template #description>
-        Basic button wrapping a VuestroIcon
+        Basic button with only a VuestroIcon
       </template>
       <div class="example-flexbox">
         <vuestro-button>
@@ -29,12 +29,34 @@
 
     <vuestro-card>
       <template #description>
-        Basic button with VuestroIcon and label (make sure the labels is wrapped in a span/div for spacing in between)
+        <span>Basic button with VuestroIcon in <em>#icon</em> template</span>
       </template>
       <div class="example-flexbox">
         <vuestro-button>
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>Label in span</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          Label in span
+        </vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description>
+        Basic button with placeholder
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button>
+          <template #placeholder>Placeholder</template>
+          Value
+        </vuestro-button>
+        <vuestro-button size="lg">
+          <template #placeholder>Placeholder</template>
+          Value
+        </vuestro-button>
+        <vuestro-button size="xl">
+          <template #placeholder>Placeholder</template>
+          Value
         </vuestro-button>
       </div>
     </vuestro-card>
@@ -49,8 +71,10 @@
         </vuestro-button>
         <vuestro-button rounded>Rounded Button</vuestro-button>
         <vuestro-button rounded>
-          <vuestro-icon name="fire"></vuestro-icon>
-          <span>Rounded Button</span>
+          <template #icon>
+            <vuestro-icon name="fire"></vuestro-icon>
+          </template>
+          Rounded Button
         </vuestro-button>
       </div>
     </vuestro-card>
@@ -65,8 +89,10 @@
         </vuestro-button>
         <vuestro-button pill>Pill-shaped Button</vuestro-button>
         <vuestro-button pill>
-          <vuestro-icon name="capsules"></vuestro-icon>
-          <span>Pill-shaped Button</span>
+          <template #icon>
+            <vuestro-icon name="capsules"></vuestro-icon>
+          </template>
+          Pill-shaped Button
         </vuestro-button>
       </div>
     </vuestro-card>
@@ -263,6 +289,10 @@
       <vuestro-button stretch>Button</vuestro-button>
       <vuestro-button pill stretch>Button</vuestro-button>
       <vuestro-button stretch justify="flex-start">flex-start justified</vuestro-button>
+      <vuestro-button stretch justify="flex-start">
+        <template #placeholder>Type</template>
+        flex-start justified with placeholder
+      </vuestro-button>
     </vuestro-card>
 
 
@@ -335,8 +365,16 @@
       </template>
       <div class="example-tall-button-container">
         <vuestro-button size="tall">
-          <vuestro-icon name="download"></vuestro-icon>
-          <span>Download</span>
+          <template #icon>
+            <vuestro-icon name="download"></vuestro-icon>
+          </template>
+          Download
+        </vuestro-button>
+        <vuestro-button size="tall" rounded>
+          <template #icon>
+            <vuestro-icon name="download"></vuestro-icon>
+          </template>
+          Download
         </vuestro-button>
       </div>
     </vuestro-card>

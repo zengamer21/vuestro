@@ -1,18 +1,23 @@
 <template>
-  <div class="vuestro-area-chart" @mouseleave="onMouseleave">
+  <div class="vuestro-area-chart" @mouseleave="onMouseleave" :style="style">
     <svg :width="width"
          :height="height"
          :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
          @mousemove="onMouseover">
+      <!--GRID-->
+      <template v-if="showGrid">
+        <g v-axis:x="scale" class="vuestro-area-chart-x-axis" :class="{ showGrid }"></g>
+        <g v-axis:y="scale" class="vuestro-area-chart-y-axis" :class="{ showGrid }"></g>
+      </template>
       <!--LINES-->
       <g v-for="s in processedSeries" :key="s.field">
-        <path v-if="!notFilled" class="vuestro-area-chart-area" :d="getArea(s.field)" :fill="s.color"/>
+        <path v-if="!notFilled" class="vuestro-area-chart-area" :d="getArea(s.field)" :fill="s.color" :opacity="fillOpacity"/>
         <path class="vuestro-area-chart-line" :d="getLine(s.field)" :stroke="s.color"/>
       </g>
       <!--AXES-->
-      <template v-if="showAxes || showGrid">
-        <g v-axis:x="scale" class="vuestro-area-chart-x-axis" :class="{ showAxes, showGrid }"></g>
-        <g v-axis:y="scale" class="vuestro-area-chart-y-axis" :class="{ showAxes, showGrid }"></g>
+      <template v-if="showAxes">
+        <g v-axis:x="scale" class="vuestro-area-chart-x-axis" :class="{ showAxes }"></g>
+        <g v-axis:y="scale" class="vuestro-area-chart-y-axis" :class="{ showAxes }"></g>
       </template>
       <!--TOOLTIP-->
       <template v-if="!hideTooltip && cursorLine.length > 0">
@@ -43,16 +48,10 @@ export default {
   },
   data() {
     return {
-      timeSeries: true,
+      timeSeries: true, // treat category as datetime
       granularity: null, // { 'year' 'month', 'quarter', 'week', 'isoWeek', 'day', 'date', 'hour', 'minute', 'second' }
-      count: false,
-      width: 0,
-      height: 0,
-      localData: [],
-      lastHoverPoint: {},
-      cursorLine: '',
-      scale: {},
-      smooth: true,
+      count: false, // enable count aggregation per granularity for time series
+      smooth: true, // smooth the lines
       margin: {
         left: 0,
         right: 0,
@@ -60,17 +59,26 @@ export default {
         bottom: 0,
       },
       categoryKey: 'key',
-      series: [],
+      colors: d3.schemeCategory10,
       valueAxis: {
         // render() {}
       },
-      colors: d3.schemeCategory10,
-      showAxes: false,
-      showGrid: false,
-      hideTooltip: false,
-      notFilled: false,
-      utc: false,
-      stacked: false,
+      series: [], // series object
+      showAxes: false, // show the axes
+      showGrid: false, // show the grid
+      hideTooltip: false, // disable tooltip
+      notFilled: false, // disable area fill
+      utc: false, // interpret dates as utc
+      stacked: false, // stack the series
+      fillOpacity: 0.6, // opacity for filled area
+      gridDashArray: 1, // svg grid dash array
+      strokeWidth: '2px', // svg stroke width
+      width: 0, // derived width
+      height: 0, // derived height
+      localData: [], // local copy of data
+      lastHoverPoint: {}, // tooltip last hover data point
+      cursorLine: '', // svg path for cursor line
+      scale: {}, // d3 axes renderers
     };
   },
   computed: {
@@ -88,6 +96,12 @@ export default {
         }
         return s;
       });
+    },
+    style() {
+      return {
+        '--vuestro-area-chart-grid-dasharray': this.gridDashArray,
+        '--vuestro-area-chart-stroke-width': this.strokeWidth,
+      };
     },
   },
   watch: {
@@ -289,12 +303,8 @@ export default {
   overflow: hidden;
 }
 
-.vuestro-area-chart-area {
-  opacity: 0.5;
-}
-
 .vuestro-area-chart-line {
-  stroke-width: 1px;
+  stroke-width: var(--vuestro-area-chart-stroke-width);
   fill: none;
 }
 
@@ -320,6 +330,7 @@ export default {
 .vuestro-area-chart-x-axis >>> line {
   display: none;
   stroke: var(--vuestro-outline);
+  stroke-dasharray: var(--vuestro-area-chart-grid-dasharray);
 }
 .vuestro-area-chart-x-axis.showGrid >>> line {
   display: inline;
@@ -328,6 +339,8 @@ export default {
 .vuestro-area-chart-x-axis >>> text {
   display: none;
   transform: translateY(-15px);
+  text-anchor: start;
+  alignment-baseline: baseline;
 }
 .vuestro-area-chart-x-axis.showAxes >>> text {
   display: inline;
@@ -336,6 +349,7 @@ export default {
 .vuestro-area-chart-y-axis >>> line {
   display: none;
   stroke: var(--vuestro-outline);
+  stroke-dasharray: var(--vuestro-area-chart-grid-dasharray);
 }
 .vuestro-area-chart-y-axis.showGrid >>> line {
   display: inline;
@@ -343,7 +357,8 @@ export default {
 /* toggle y axes labels */
 .vuestro-area-chart-y-axis >>> text {
   display: none;
-  transform: translateX(20px);
+  transform: translate(10px, -6px);
+  text-anchor: start;
 }
 .vuestro-area-chart-y-axis.showAxes >>> text {
   display: inline;

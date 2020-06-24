@@ -97,9 +97,12 @@ export default {
   },
   computed: {
     style() {
+      if (this.variant === 'regular') {
+        return {};
+      }
       return {
         'border-radius': this.radius,
-      }; 
+      };
     },
   },
   watch: {

@@ -57,11 +57,36 @@
       <vuestro-panel collapsible>
         <template #title>Misc Options</template>
         <vuestro-container>
+          <vuestro-button checkbox v-model="dynamicOptions.timeSeries">Time Series</vuestro-button>
           <vuestro-button checkbox v-model="dynamicOptions.smooth">Smooth</vuestro-button>
           <vuestro-button checkbox v-model="dynamicOptions.showAxes">Axes</vuestro-button>
           <vuestro-button checkbox v-model="dynamicOptions.showGrid">Grid</vuestro-button>
           <vuestro-button checkbox v-model="dynamicOptions.hideTooltip">Hide Tooltip</vuestro-button>
           <vuestro-button checkbox v-model="dynamicOptions.notFilled">No Fill</vuestro-button>
+          <vuestro-button checkbox v-model="dynamicOptions.count">Count Agg</vuestro-button>
+          <vuestro-text-field placeholder="Fill Opacity" v-model="dynamicOptions.fillOpacity"></vuestro-text-field>
+          <vuestro-text-field placeholder="Grid DashArray" v-model="dynamicOptions.gridDashArray"></vuestro-text-field>
+          <vuestro-text-field placeholder="Stroke Width" v-model="dynamicOptions.strokeWidth"></vuestro-text-field>
+          <vuestro-dropdown>
+            <template #button>
+              <vuestro-button rounded size="lg">
+                <template #placeholder>
+                  Granularity
+                </template>
+                {{ dynamicOptions.granularity }}
+                </vuestro-button>
+            </template>
+            <vuestro-list-button @click="dynamicOptions.granularity = 'year'">year</vuestro-list-button>
+            <vuestro-list-button @click="dynamicOptions.granularity = 'month'">month</vuestro-list-button>
+            <vuestro-list-button @click="dynamicOptions.granularity = 'quarter'">quarter</vuestro-list-button>
+            <vuestro-list-button @click="dynamicOptions.granularity = 'week'">week</vuestro-list-button>
+            <vuestro-list-button @click="dynamicOptions.granularity = 'isoWeek'">isoWeek</vuestro-list-button>
+            <vuestro-list-button @click="dynamicOptions.granularity = 'day'">day</vuestro-list-button>
+            <vuestro-list-button @click="dynamicOptions.granularity = 'date'">date</vuestro-list-button>
+            <vuestro-list-button @click="dynamicOptions.granularity = 'hour'">hour</vuestro-list-button>
+            <vuestro-list-button @click="dynamicOptions.granularity = 'minute'">minute</vuestro-list-button>
+            <vuestro-list-button @click="dynamicOptions.granularity = 'second'">second</vuestro-list-button>
+          </vuestro-dropdown>
         </vuestro-container>
       </vuestro-panel>
       <vuestro-panel collapsible>
@@ -244,15 +269,31 @@ export default {
         ],
       },
       dynamicOptions: {
+        timeSeries: true,
+        granularity: 'hour',
+        count: false,
         smooth: true,
-        showAxes: false,
-        showGrid: false,
+        showAxes: true,
+        showGrid: true,
         notFilled: false,
         hideTooltip: false,
-        series: [{
+        fillOpacity: 0.8,
+        gridDashArray: 5,
+        strokeWidth: 2,
+        series: [
+          {
             title: 'Series 1',
             field: 'value1',
-        }],
+          },
+          {
+            title: 'Series 2',
+            field: 'value2',
+          },
+          {
+            title: 'Series 3',
+            field: 'value3',
+          },
+        ],
       },
     };
   },

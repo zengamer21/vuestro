@@ -19,7 +19,13 @@
       </template>
       <template v-else>
         <div class="vuestro-button-content" :style="{ 'justify-content': justify }">
-          &#8203;<slot></slot>&#8203; <!-- magic zero-width chars to make icon-only buttons size like icon+text -->
+          <span v-if="$slots.placeholder" class="vuestro-button-placeholder">
+            <slot name="placeholder"></slot>
+          </span>
+          <span v-if="$slots.icon" class="vuestro-button-icon">
+            <slot name="icon"></slot>
+          </span>
+          <slot></slot>
         </div>
       </template>
     </div>
@@ -195,12 +201,13 @@ export default {
   flex-direction: column;
   padding-left: 8px;
   padding-right: 8px;
+  padding-bottom: 4px;
   align-items: center;
 }
 .vuestro-button-inner.tall >>> svg {
   width: 22px;
   height: 22px;
-  margin-bottom: 10px;
+  margin: 6px;
 }
 .vuestro-button-inner.value:not(.disabled),
 .vuestro-button-inner:hover {
@@ -344,6 +351,19 @@ export default {
 /* add a right margin when icon is paired anything else */
 .vuestro-button-content .vuestro-icon:not(:only-child) {
   margin-right: 4px;
+}
+
+.vuestro-button-placeholder {
+  text-transform: uppercase;
+  margin-left: -2px;
+  margin-right: 6px;
+  font-size: 0.7em;
+  font-weight: 500;
+}
+
+.vuestro-button-icon {
+  margin-right: 4px;
+  align-self: center;
 }
 
 </style>

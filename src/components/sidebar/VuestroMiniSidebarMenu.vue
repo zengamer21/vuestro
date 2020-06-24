@@ -23,6 +23,14 @@ export default {
     role: { type: String, default: '' }, // user role
     routes: { type: Array, required: true },
   },
+  data() {
+    return {
+    };
+  },
+  mounted() {
+  },
+  methods: {
+  },
 };
 
 </script>
@@ -37,11 +45,6 @@ export default {
 }
 
 .vuestro-mini-sidebar-menu-inner {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 </style>
