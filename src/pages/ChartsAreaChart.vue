@@ -279,7 +279,7 @@ export default {
         showGrid: true,
         notFilled: false,
         hideTooltip: false,
-        fillOpacity: 0.8,
+        fillOpacity: '0',
         gridDashArray: 5,
         strokeWidth: 2,
         series: [

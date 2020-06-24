@@ -8,8 +8,8 @@
         <defs>
           <linearGradient v-for="s in processedSeries" :key="s.field"
                           :id="`${s.field}-gradient`" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" :stop-color="s.color" stop-opacity="1"></stop>
-            <stop offset="100%" :stop-color="s.color" stop-opacity="0"></stop>
+            <stop offset="0%" :stop-color="s.color" stop-opacity="0.8"></stop>
+            <stop offset="100%" :stop-color="s.color" stop-opacity="0.2"></stop>
           </linearGradient>
         </defs>
         <!--GRID-->
@@ -20,7 +20,7 @@
         <!--LINES-->
         <g v-for="s in processedSeries" :key="s.field">
           <template v-if="!s.disabled">
-            <path v-if="!notFilled" class="vuestro-area-chart-area" :d="getArea(s.field)" :fill="gradientFill ? `url(#${s.field}-gradient) ${s.color}`:s.color" :opacity="fillOpacity"/>
+            <path v-if="!notFilled" class="vuestro-area-chart-area" :d="getArea(s.field)" :fill="gradientFill ? `url(#${s.field}-gradient) ${s.color}`:s.color" :opacity="gradientFill ? 1:fillOpacity"/>
             <path class="vuestro-area-chart-line" :d="getLine(s.field)" :stroke="s.color"/>
           </template>
         </g>

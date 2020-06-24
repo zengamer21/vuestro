@@ -116,7 +116,8 @@ export default {
   },
   mounted() {
     // move placeholder for initial value
-    if (this.value) {
+    // check for zero explicitly, since it's falsy
+    if (this.value || this.value === 0) {
       this.raisedPlaceholder = true;
     }
     // special sauce to see if browser autofilled in this text field, if so,
