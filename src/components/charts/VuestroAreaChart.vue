@@ -235,11 +235,11 @@ export default {
       if (this.stacked) {
         let keys = _.flatMap(this.series, 'field');
         stackedData = d3.stack().keys(keys)(this.localData);
-        extents = this.series.map((series, idx) => {
+        extents = _.reject(this.series, 'disabled').map((series, idx) => {
           return d3.extent(_.flatten(stackedData[idx]));
         });
       } else {
-        extents = this.series.map((series) => {
+        extents = _.reject(this.series, 'disabled').map((series) => {
           return d3.extent(this.localData, function(d) {
             return d[series.field];
           });

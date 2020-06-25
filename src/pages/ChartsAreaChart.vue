@@ -93,7 +93,7 @@
       </vuestro-panel>
       <vuestro-panel collapsible>
         <template #title>Options Object</template>
-        <vuestro-object-browser :data="dynamicOptions"></vuestro-object-browser>
+        <vuestro-object-browser :data="dynamicOptions" :options="{ editable: true }"></vuestro-object-browser>
       </vuestro-panel>
       <vuestro-panel>
         <div class="chart-wrapper">
@@ -279,7 +279,7 @@ export default {
         showGrid: true,
         notFilled: false,
         hideTooltip: false,
-        fillOpacity: '0',
+        fillOpacity: 0.6,
         gridDashArray: 5,
         strokeWidth: 2,
         series: [
