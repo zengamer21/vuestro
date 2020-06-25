@@ -92,7 +92,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-content: start;
-  filter: drop-shadow(0px 0px 10px);
+  filter: drop-shadow(0px 0px 10px var(--vuestro-dark));
   z-index: 2001;
 }
 
