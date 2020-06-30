@@ -5,6 +5,7 @@
                   no-border
                   stretch
                   no-margin
+                  no-padding
                   :variant="isToday ? 'info':'text'"
                   @click="onClick">
     {{ day }}
@@ -68,10 +69,6 @@ export default {
 .vuestro-date-picker-day.isToday {
   font-weight: 700;
 }
-.vuestro-date-picker-day.isToday >>> .vuestro-button-content {
-  color: var(--vuestro-info);
-}
-
 .vuestro-date-picker-day.isSelected {
   background-color: var(--vuestro-primary);
 }

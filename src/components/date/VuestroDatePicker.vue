@@ -1,33 +1,89 @@
 <template>
   <div class="vuestro-date-picker">
     <template v-for="m in monthOffsets">
-      <div class="vuestro-date-picker-month">
-        <div class="vuestro-date-picker-month-header">
-          <vuestro-button class="month-back" v-if="m == monthOffsets[0]" round no-border @click="backMonth">
-            <vuestro-icon name="angle-left"></vuestro-icon>
-          </vuestro-button>
-          <div class="month-name">{{ getMonthName(m) }}</div>
-          <vuestro-button class="month-forward" v-if="m == monthOffsets[monthOffsets.length - 1]" round no-border @click="forwardMonth">
-            <vuestro-icon name="angle-right"></vuestro-icon>
-          </vuestro-button>
+      <div class="vuestro-date-picker-block">
+        <div v-if="pickYear">
+          <div class="vuestro-date-picker-header">
+            <vuestro-button class="back" round no-border @click="backYears">
+              <vuestro-icon name="angle-left"></vuestro-icon>
+            </vuestro-button>
+            <div class="name">{{ getYear() - 5 }} - {{ getYear() + 6 }}</div>
+            <vuestro-button class="forward" round no-border @click="forwardYears">
+              <vuestro-icon name="angle-right"></vuestro-icon>
+            </vuestro-button>
+          </div>
+          <div class="vuestro-date-picker-body">
+            <table>
+              <tbody>
+                <tr v-for="r in 4">
+                  <td v-for="c in 3">
+                    <vuestro-date-picker-year :year="parseInt(getYear()) - 6 + 3*(r-1) + c" @click="onClickYear"/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="vuestro-date-picker-month-body">
-          <table>
-            <thead>
-              <th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th>
-            </thead>
-            <tbody>
-              <tr v-for="w in 6">
-                <td v-for="d in 7">
-                  <vuestro-date-picker-day :date="getDate(m, w, d)"
-                                           :value="value"
-                                           @click="onClickDay">
-                  </vuestro-date-picker-day>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div v-else-if="pickMonth">
+          <div class="vuestro-date-picker-header">
+            <div class="name single" @click="onSelectYear">{{ getYear() }}</div>
+          </div>
+          <div class="vuestro-date-picker-body">
+            <table>
+              <tbody>
+                <tr>
+                  <td><vuestro-date-picker-month :year="getYear()" month="Jan" @click="onClickMonth"/></td>
+                  <td><vuestro-date-picker-month :year="getYear()" month="Feb" @click="onClickMonth"/></td>
+                  <td><vuestro-date-picker-month :year="getYear()" month="Mar" @click="onClickMonth"/></td>
+                </tr>
+                <tr>
+                  <td><vuestro-date-picker-month :year="getYear()" month="Apr" @click="onClickMonth"/></td>
+                  <td><vuestro-date-picker-month :year="getYear()" month="May" @click="onClickMonth"/></td>
+                  <td><vuestro-date-picker-month :year="getYear()" month="Jun" @click="onClickMonth"/></td>
+                </tr>
+                <tr>
+                  <td><vuestro-date-picker-month :year="getYear()" month="Jul" @click="onClickMonth"/></td>
+                  <td><vuestro-date-picker-month :year="getYear()" month="Aug" @click="onClickMonth"/></td>
+                  <td><vuestro-date-picker-month :year="getYear()" month="Sep" @click="onClickMonth"/></td>
+                </tr>
+                <tr>
+                  <td><vuestro-date-picker-month :year="getYear()" month="Oct" @click="onClickMonth"/></td>
+                  <td><vuestro-date-picker-month :year="getYear()" month="Nov" @click="onClickMonth"/></td>
+                  <td><vuestro-date-picker-month :year="getYear()" month="Dec" @click="onClickMonth"/></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
+        <template v-else>
+          <div class="vuestro-date-picker-header">
+            <vuestro-button class="back" v-if="m == monthOffsets[0]" round no-border @click="backMonth">
+              <vuestro-icon name="angle-left"></vuestro-icon>
+            </vuestro-button>
+            <div class="name" :class="{ single: monthOffsets.length === 1 }" @click="onSelectMonth">{{ getMonthName(m) }}</div>
+            <vuestro-button class="forward" v-if="m == monthOffsets[monthOffsets.length - 1]" round no-border @click="forwardMonth">
+              <vuestro-icon name="angle-right"></vuestro-icon>
+            </vuestro-button>
+          </div>
+          <div class="vuestro-date-picker-body">
+            <table>
+              <thead>
+                <th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th>
+              </thead>
+              <tbody>
+                <tr v-for="w in 6">
+                  <td v-for="d in 7">
+                    <vuestro-date-picker-day :date="getDate(m, w, d)"
+                                             :value="value"
+                                             @click="onClickDay">
+                    </vuestro-date-picker-day>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </template>
       </div>
     </template>
   </div>
@@ -37,11 +93,15 @@
 
 import moment from 'moment';
 import VuestroDatePickerDay from './VuestroDatePickerDay';
+import VuestroDatePickerMonth from './VuestroDatePickerMonth';
+import VuestroDatePickerYear from './VuestroDatePickerYear';
 
 export default {
   name: 'VuestroDatePicker',
   components: {
     VuestroDatePickerDay,
+    VuestroDatePickerMonth,
+    VuestroDatePickerYear,
   },
   props: {
     value: { type: Array, required: true },
@@ -54,6 +114,8 @@ export default {
       dayRangeStart: null,
       dayRangeEnd: null,
       dayRangeState: 0, // 0=start date, 1=end date
+      pickMonth: false,
+      pickYear: false,
     };
   },
   computed: {
@@ -84,6 +146,9 @@ export default {
     },
     getMonthName(offset) {
       return this.getMonth(offset).format('MMMM YYYY');
+    },
+    getYear() {
+      return moment(this.displayedMoment).year();
     },
     getDate(n, w, d) {
       let m = this.getMonth(n);
@@ -130,6 +195,37 @@ export default {
       this.displayedMoment.add(1, 'month');
       this.$forceUpdate();
     },
+    onSelectMonth() {
+      if (!this.range) {
+        this.pickMonth = true;
+      }
+    },
+    onClickMonth(d) {
+      this.displayedMoment = d;
+      this.pickMonth = false;
+      this.$forceUpdate();
+    },
+    onSelectYear() {
+      this.pickMonth = false;
+      this.pickYear = true;
+    },
+    backYears() {
+      this.displayedMoment.subtract(12, 'years');
+      this.$forceUpdate();
+    },
+    forwardYears() {
+      this.displayedMoment.add(12, 'years');
+      this.$forceUpdate();
+    },
+    onClickYear(d) {
+      console.log(d);
+      this.displayedMoment = d;
+      this.$nextTick(() => {
+        this.pickYear = false;
+        this.pickMonth = true;
+        this.$forceUpdate();
+      });
+    },
   }
 };
 
@@ -142,34 +238,38 @@ export default {
   margin: 5px;
 }
 
-.vuestro-date-picker-month {
+.vuestro-date-picker-block {
+  width: 180px;
 }
-.vuestro-date-picker-month:not(:first-child) {
+.vuestro-date-picker-block:not(:first-child) {
   margin-left: 10px;
 }
-.vuestro-date-picker-month-header > .month-name {
+.vuestro-date-picker-header > .name {
   font-weight: 500
 }
-.vuestro-date-picker-month-header {
+.vuestro-date-picker-header > .name.single {
+  cursor: pointer;
+}
+.vuestro-date-picker-header {
   display: flex;
   justify-content: center;
   position: relative;
   margin-bottom: 2px;
 }
-.vuestro-date-picker-month-header > .month-back {
+.vuestro-date-picker-header > .back {
   position: absolute;
   left: 0;
 }
-.vuestro-date-picker-month-header > .month-forward {
+.vuestro-date-picker-header > .forward {
   position: absolute;
   right: 0;
 }
-.vuestro-date-picker-month-body > table {
+.vuestro-date-picker-body > table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
 }
-.vuestro-date-picker-month-body td {
+.vuestro-date-picker-body td {
   padding: 0;
 }
 

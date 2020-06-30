@@ -233,9 +233,8 @@ export default {
   color: var(--vuestro-white);
 }
 .vuestro-button-inner.vuestro-button-text:hover {
-  color: var(--variant-text-color);
-  filter: brightness(150%);
-  background-color: transparent;
+  background-color: var(--variant-text-color);
+  /*filter: invert(100%);*/
 }
 .vuestro-button-inner.vuestro-button-link {
   color: var(--vuestro-primary);
