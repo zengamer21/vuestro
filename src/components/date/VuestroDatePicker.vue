@@ -91,6 +91,7 @@
 
 <script>
 
+/* global _ */
 import moment from 'moment';
 import VuestroDatePickerDay from './VuestroDatePickerDay';
 import VuestroDatePickerMonth from './VuestroDatePickerMonth';
@@ -104,7 +105,7 @@ export default {
     VuestroDatePickerYear,
   },
   props: {
-    value: { type: Array, required: true },
+    value: { type: null, required: true },
     range: { type: Boolean, default: false },
     utc: { type: Boolean, default: false },
   },
@@ -131,8 +132,12 @@ export default {
   },
   methods: {
     updateDisplay() {
-      if (this.value && this.value.length > 0) {
-        this.displayedMoment = moment(this.value[this.value.length - 1]).startOf('month');
+      if (this.value) {
+        if (_.isArray(this.value) && this.value.length > 0) {
+          this.displayedMoment = moment(this.value[this.value.length - 1]).startOf('month');
+        } else if (_.isString(this.value)) {
+          this.displayedMoment = moment(this.value);
+        }
       } else {
         // use now
         this.displayedMoment = moment().startOf('month');
@@ -166,7 +171,11 @@ export default {
     },
     onClickDay(d) {
       if (this.range == false) {
-        this.$emit('input', [d]);
+        if (_.isString(this.value)) {
+          this.$emit('input', d.toISOString());
+        } else {
+          this.$emit('input', d);
+        }
       } else {
         if (this.dayRangeState == 0) {
           // for first click, false as 2nd param

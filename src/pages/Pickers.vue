@@ -54,10 +54,14 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template #description>Single date - value is array with selected date</template>
+      <template #description>Single date - value is selected date</template>
       <vuestro-container space-between>
         <vuestro-date-picker v-model="exampleDate"></vuestro-date-picker>
         <div>value: {{ exampleDate }}</div>
+      </vuestro-container>
+      <vuestro-container space-between>
+        <vuestro-date-picker v-model="exampleDateString"></vuestro-date-picker>
+        <div>value: {{ exampleDateString }}</div>
       </vuestro-container>
     </vuestro-card>
 
@@ -134,7 +138,8 @@ export default {
         '#ff9e80',
   		],
   		exampleTime: new Date(),
-  		exampleDate: [moment().subtract(1, 'day')],
+  		exampleDate: moment().subtract(1, 'day'),
+  		exampleDateString: moment().subtract(1, 'day').toISOString(),
   		exampleDateRange: [moment().subtract(7, 'days').toDate(), new Date()],
     };
   },

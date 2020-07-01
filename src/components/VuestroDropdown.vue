@@ -138,6 +138,10 @@ export default {
   display: flex;
   align-self: center;
 }
+.vuestro-dropdown.stretch {
+  flex-grow: 1;
+  align-self: stretch;
+}
 .vuestro-dropdown.disabled {
   pointer-events: none;
 }
