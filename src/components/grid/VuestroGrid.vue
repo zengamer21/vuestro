@@ -22,7 +22,6 @@ export default {
   },
   props: {
     layout: { type: Array },
-    columns: { type: Number, default: 12 },  // number of grid 'columns'
     margin: { type: Number, default: 14 },   // margin/gutter
     cellSize: { type: Object, default() { return { w: 100, h: 100 }; }}, // default cell size
     defaultSize: { type: Object, default() { return { w: 2, h: 2 }; }},  // default grid box size
@@ -51,6 +50,7 @@ export default {
   },
   data() {
     return {
+      columns: 12, // default, will be changed to adapt to mobile
       localLayout: [],
       isDragging: false,
       isResizing: false,
@@ -116,7 +116,15 @@ export default {
       this.fixLayout(this.localLayout);
     },
     calculateCellSizeWidth() {
-      this.cellSize.w = ((this.$refs.grid.clientWidth - this.margin) / this.columns) - this.margin;
+      if (this.$root.mobile) {
+        this.cellSize.w = ((this.$refs.grid.clientWidth - this.margin) / (this.columns / 2)) - this.margin;
+        let propHeight = this.$refs.grid.clientHeight / 8;
+        if (propHeight > this.cellSize.h) {
+          this.cellSize.h = propHeight;
+        }
+      } else {
+        this.cellSize.w = ((this.$refs.grid.clientWidth - this.margin) / this.columns) - this.margin;
+      }
     },
     getBoxLayoutById(id) {
       if (id === '::placeholder::') {

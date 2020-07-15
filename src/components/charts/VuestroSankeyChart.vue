@@ -56,7 +56,7 @@
         </g>
       </g>
     </svg>
-    <div class="sankey-toolbar" :style="{ height: `${toolbarHeight}px` }">
+    <div v-if="!$root.mobile" class="sankey-toolbar" :style="{ height: `${toolbarHeight}px` }">
       <vuestro-button round size="sm" @click="decreaseLinkThreshold" value>
         <vuestro-icon name="minus"></vuestro-icon>
       </vuestro-button>

@@ -1,11 +1,22 @@
 <template>
   <div class="vuestro-button"
        :class="{ stretch }"
-       @click="onClick">
+       @click="onClick"
+       @click.native="onClickNative">
     <div class="vuestro-button-inner"
          :class="[`vuestro-button-${variant}`,
-                  size,
-                  { dark, value, noBorder, noMargin, noPadding, round, pill, checkbox, disabled, rounded, shadow }]"
+                  { mobile: $root.mobile,
+                    dark,
+                    value,
+                    noBorder,
+                    noMargin,
+                    noPadding,
+                    round,
+                    pill,
+                    checkbox,
+                    disabled,
+                    rounded,
+                    shadow }, size]"
          @mouseover="onHover">
       <template v-if="checkbox">
         <template v-if="value">
@@ -25,7 +36,7 @@
           <span v-if="$slots.icon" class="vuestro-button-icon">
             <slot name="icon"></slot>
           </span>
-          <slot></slot>
+          &#8203;<slot></slot>&#8203;
         </div>
       </template>
     </div>
@@ -58,10 +69,14 @@ export default {
   },
   methods: {
     onClick(e) {
+      console.log('VuestroButton: onClick');
       if (this.disabled === false) {
         this.$emit('click', e);
         this.$emit('input', !this.value);
       }
+    },
+    onClickNative(e) {
+      this.$emit('click.native', e);
     },
     onHover(e) {
       this.$emit('hover', e);
@@ -70,6 +85,25 @@ export default {
 };
 
 </script>
+
+<style>
+
+.vuestro-app {
+  --vuestro-button-sm-height: 14px;
+  --vuestro-button-md-height: 18px;
+  --vuestro-button-lg-height: 24px;
+  --vuestro-button-xl-height: 32px;
+  --vuestro-buttom-margin: 2px;
+}
+.vuestro-app.mobile {
+  --vuestro-button-sm-height: 42px;
+  --vuestro-button-md-height: 50px;
+  --vuestro-button-lg-height: 64px;
+  --vuestro-button-xl-height: 74px;
+  --vuestro-buttom-margin: 4px;
+}
+
+</style>
 
 <style scoped>
 
@@ -107,31 +141,37 @@ export default {
 
 .vuestro-button {
   align-self: center;
+  position: relative;
   display: flex;
   align-items: center;
 }
+.vuestro-button.stretch {
+  align-self: stretch;
+  flex-grow: 1;
+}
 
 .vuestro-button-inner {
-  text-transform: none;
   border: 1px solid var(--variant-color);
-  margin: 2px;
+  margin: var(--vuestro-buttom-margin);
   color: var(--variant-color);
   cursor: pointer;
   display: flex;
   align-items: center;
-  position: relative;
   overflow: hidden;
-  transform: translate3d(0, 0, 0);
+  position: relative;
+}
+.vuestro-app.mobile .vuestro-button-inner {
+  border-width: 2px;
 }
 /* ripple effect */
 .vuestro-button-inner:after {
   content: "";
   display: block;
   position: absolute;
-  width: 100%;
-  height: 100%;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   pointer-events: none;
   background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
   background-repeat: no-repeat;
@@ -142,35 +182,36 @@ export default {
 }
 .vuestro-button-inner:active:after {
   transform: scale(0,0);
-  opacity: .2;
+  opacity: 0.2;
   transition: 0s;
-}
-.vuestro-button.stretch {
-  align-self: stretch;
-  flex-grow: 1;
-}
-.vuestro-button.stretch > .vuestro-button-inner {
-  align-self: stretch;
-  flex-grow: 1;
 }
 .vuestro-button-inner.rounded {
   border-radius: 3px;
 }
 .vuestro-button-inner.sm {
-  padding: 1px 4px;
-  font-size: 10px;
+  height: var(--vuestro-button-sm-height);
+  padding: 0 calc(var(--vuestro-button-sm-height) * 0.4);
+  font-size: calc(var(--vuestro-button-sm-height) * 0.5);
 }
 .vuestro-button-inner.md {
-  padding: 2px 6px;
-  font-size: 12px;
+  height: var(--vuestro-button-md-height);
+  padding: 0 calc(var(--vuestro-button-sm-height) * 0.4);
+  font-size: calc(var(--vuestro-button-md-height) * 0.7);
 }
 .vuestro-button-inner.lg {
-  padding: 4px 8px;
-  font-size: 14px;
+  height: var(--vuestro-button-lg-height);
+  padding: 0 calc(var(--vuestro-button-sm-height) * 0.4);
+  font-size: calc(var(--vuestro-button-lg-height) * 0.7);
 }
 .vuestro-button-inner.xl {
-  padding: 7px 10px;
-  font-size: 16px;
+  height: var(--vuestro-button-xl-height);
+  padding: 0 calc(var(--vuestro-button-sm-height) * 0.4);
+  font-size: calc(var(--vuestro-button-xl-height) * 0.7);
+}
+.vuestro-button.stretch > .vuestro-button-inner {
+  align-self: stretch;
+  flex-grow: 1;
+  height: auto;
 }
 .vuestro-button-inner.noBorder {
   border: none;
@@ -187,15 +228,12 @@ export default {
 .vuestro-button-inner.shadow {
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
 }
-.vuestro-button-inner >>> svg {
-  width: 14px;
-  height: 14px;
-}
 .vuestro-button-content {
   flex: 1 1 auto;
   display: flex;
-  line-height: 1em;
   justify-content: center;
+  align-items: center;
+  user-select: none;
 }
 .vuestro-button-inner.tall .vuestro-button-content {
   flex-direction: column;
@@ -234,7 +272,6 @@ export default {
 }
 .vuestro-button-inner.vuestro-button-text:hover {
   background-color: var(--variant-text-color);
-  /*filter: invert(100%);*/
 }
 .vuestro-button-inner.vuestro-button-link {
   color: var(--vuestro-primary);
@@ -247,60 +284,46 @@ export default {
 }
 
 /* round mode */
-.vuestro-button-inner.round {
+.vuestro-button-inner.round,
+.vuestro-button-inner.mobile.round {
   border-radius: 50%;
   padding: 0;
 }
-.vuestro-button-inner.round .vuestro-button-content {
-  overflow: hidden; /* make sure it centers properly */
-}
-.vuestro-button-inner.round.sm {
-  height: calc(1em + 4px);
-  width: calc(1em + 4px);
-}
-.vuestro-button-inner.noBorder.round.sm {
-  height: calc(1em + 2px);
-  width: calc(1em + 2px);
+.vuestro-button-inner.round.sm,
+.vuestro-button-inner.checkbox.sm {
+  height: var(--vuestro-button-sm-height);
+  width: var(--vuestro-button-sm-height);
 }
 .vuestro-button-inner.sm >>> svg { /* shrink svgs a little for size=sm */
-  width: 8px;
-  height: 8px;
+  width: calc(var(--vuestro-button-sm-height) * 0.6);
+  height: calc(var(--vuestro-button-sm-height) * 0.6);
 }
-.vuestro-button-inner.round.md {
-  height: calc(1em + 6px);
-  width: calc(1em + 6px);
-}
-.vuestro-button-inner.noBorder.round.md {
-  height: calc(1em + 4px);
-  width: calc(1em + 4px);
+.vuestro-button-inner.round.md,
+.vuestro-button-inner.checkbox.md {
+  height: var(--vuestro-button-md-height);
+  width: var(--vuestro-button-md-height);
 }
 .vuestro-button-inner.md >>> svg { /* shrink svgs a little for size=md */
-  width: 10px;
-  height: 10px;
+  width: calc(var(--vuestro-button-md-height) * 0.6);
+  height: calc(var(--vuestro-button-md-height) * 0.6);
 }
-.vuestro-button-inner.round.lg {
-  height: calc(1em + 10px);
-  width: calc(1em + 10px);
-}
-.vuestro-button-inner.noBorder.round.lg {
-  height: calc(1em + 8px);
-  width: calc(1em + 8px);
+.vuestro-button-inner.round.lg,
+.vuestro-button-inner.checkbox.lg {
+  height: var(--vuestro-button-lg-height);
+  width: var(--vuestro-button-lg-height);
 }
 .vuestro-button-inner.lg >>> svg { /* enlarge svgs a little for size=lg */
-  width: 12px;
-  height: 12px;
+  width: calc(var(--vuestro-button-lg-height) * 0.6);
+  height: calc(var(--vuestro-button-lg-height) * 0.6);
 }
-.vuestro-button-inner.round.xl {
-  height: calc(1em + 16px);
-  width: calc(1em + 16px);
-}
-.vuestro-button-inner.noBorder.round.xl {
-  height: calc(1em + 14px);
-  width: calc(1em + 14px);
+.vuestro-button-inner.round.xl,
+.vuestro-button-inner.checkbox.xl {
+  height: var(--vuestro-button-xl-height);
+  width: var(--vuestro-button-xl-height);
 }
 .vuestro-button-inner.xl >>> svg { /* enlarge svgs a little for size=xl */
-  width: 16px;
-  height: 16px;
+  width: calc(var(--vuestro-button-xl-height) * 0.6);
+  height: calc(var(--vuestro-button-xl-height) * 0.6);
 }
 
 /* pill mode */
@@ -310,10 +333,7 @@ export default {
 
 /* checkbox mode */
 .vuestro-button-inner.checkbox {
-  width: 17px;
-  height: 17px;
-  line-height: 17px;
-  padding: 0;
+  padding: 0; /* clear padding */
   border: 1px solid var(--vuestro-field-bg);
   background-color: var(--vuestro-field-bg);
   border-radius: 3px;
@@ -333,31 +353,21 @@ export default {
   margin-left: 4px;
   margin-right: 10px;
   cursor: pointer;
+  font-size: 0.7em;
 }
-.vuestro-button-checkbox-text.sm {
-  font-size: 10px;
-}
-.vuestro-button-checkbox-text.md {
-  font-size: 12px;
-}
-.vuestro-button-checkbox-text.lg {
-  font-size: 14px;
-}
-.vuestro-button-checkbox-text.xl {
-  font-size: 16px;
-}
-
 /* add a right margin when icon is paired anything else */
 .vuestro-button-content .vuestro-icon:not(:only-child) {
-  margin-right: 4px;
+  margin-right: 0.25em;
 }
 
 .vuestro-button-placeholder {
   text-transform: uppercase;
-  margin-left: -2px;
   margin-right: 6px;
   font-size: 0.7em;
   font-weight: 500;
+}
+.vuestro-button-inner.mobile .vuestro-button-placeholder {
+  margin-right: 10px;
 }
 
 .vuestro-button-icon {

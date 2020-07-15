@@ -37,4 +37,8 @@ export default {
   overflow-y: auto;
 }
 
+.vuestro-app.mobile .vuestro-sidebar-menu .vuestro-sidebar {
+  overflow-y: auto;
+}
+
 </style>

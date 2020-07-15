@@ -103,7 +103,7 @@ export default {
 .vuestro-search-box {
   background-color: var(--vuestro-field-bg);
   color: var(--vuestro-text-color);
-  border-radius: 20px;
+  border-radius: 999px;
   margin: 5px;
   padding: 4px 8px 4px 8px;
   overflow: visible !important; /* so dropdown menu will show */
@@ -130,7 +130,7 @@ export default {
 .input-el {
   width: 100%;
   background-color: transparent;
-  font-size: 13px;
+  font-size: 1em;
   border: none;
   outline: none;
   color: var(--vuestro-text-color);
@@ -139,6 +139,7 @@ export default {
 .input-el::placeholder {
   color: var(--vuestro-text-color);
   opacity: 0.5;
+  font-weight: 200;
 }
 
 .clickable {

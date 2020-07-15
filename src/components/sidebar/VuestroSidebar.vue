@@ -82,9 +82,16 @@ export default {
       localMini: this.mini,
     };
   },
+  created() {
+    window.addEventListener('resize', this.onResize);
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.onResize);
+  },
   beforeMount() {
     this.localMini = this.mini;
     this.checkSidebar();
+    this.onResize();
   },
   watch: {
     mini(newVal) {
@@ -93,8 +100,18 @@ export default {
     },
   },
   methods: {
-    toggleSidebar() {
-      this.localMini = !this.localMini;
+    onResize() {
+      console.log('new window size', window.innerWidth);
+      if (window.innerWidth <= 980) {
+        this.toggleSidebar(true);
+      }
+    },
+    toggleSidebar(newVal = !this.localMini) {
+      if (this.$root.mobile) {
+        this.localMini = false;
+      } else {
+        this.localMini = newVal;
+      }
       this.$emit('update:mini', this.localMini);
       this.checkSidebar();
     },
@@ -107,7 +124,9 @@ export default {
     },
     afterLeave() {
       this.$nextTick(() => {
-        window.dispatchEvent(new Event('resize'));
+        this.$nextTick(() => {
+          window.dispatchEvent(new Event('resize'));
+        });
       });
     }
   },
@@ -122,7 +141,7 @@ export default {
   --vuestro-sidebar-header-fg: var(--vuestro-black);
   --vuestro-sidebar-bg: var(--vuestro-content-bg);
   --vuestro-sidebar-fg: var(--vuestro-text-color);
-  --vuestro-sidebar-border: transparent;
+  --vuestro-sidebar-border: none;
   --vuestro-sidebar-item-height: 50px;
   --vuestro-sidebar-item-padding-right: 15px;
   --vuestro-sidebar-item-hover: var(--vuestro-hover);
@@ -134,6 +153,20 @@ export default {
   --vuestro-sidebar-subroute-active-border: 3px solid var(--vuestro-orange);
   --vuestro-sidebar-user-image-width: 40px;
   --vuestro-sidebar-font-weight: 400;
+  --vuestro-sidebar-item-font-size: 16px;
+  --vuestro-sidebar-sub-item-font-size: 14px;
+  --vuestro-sidebar-subroutes-padding-left: 40px;
+  --vuestro-sidebar-subroutes-item-height: 30px;
+}
+.vuestro-app.mobile {
+  --vuestro-sidebar-normal-width: 400px;
+  --vuestro-sidebar-item-height: 100px;
+  --vuestro-sidebar-item-font-size: 1.2em;
+  --vuestro-sidebar-sub-item-font-size: 1.2em;
+  --vuestro-sidebar-user-image-width: 70px;
+  --vuestro-sidebar-subroutes-spacing: 6px;
+  --vuestro-sidebar-subroutes-padding-left: 55px;
+  --vuestro-sidebar-subroutes-item-height: 80px;
 }
 </style>
 
@@ -141,8 +174,8 @@ export default {
 
 .vuestro-sidebar {
   color: var(--vuestro-sidebar-fg);
-  background-color: var(--vuestro-sidebar-bg);
-  border-right: 1px solid var(--vuestro-sidebar-border);
+  background: var(--vuestro-sidebar-bg);
+  border-right: var(--vuestro-sidebar-border);
   width: var(--vuestro-sidebar-normal-width);
   transition: all 0.4s;
   flex: none;
@@ -178,9 +211,8 @@ export default {
 .vuestro-user-block {
   display: flex;
   color: white;
-  height: 50px;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   padding-left: 10px;
   margin-right: calc(var(--vuestro-sidebar-item-padding-right) / 2);
   border-top-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
@@ -200,7 +232,7 @@ export default {
   align-self: center;
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  margin-left: 0.7em;
   overflow: hidden;
 }
 .vuestro-user-block-text > span {

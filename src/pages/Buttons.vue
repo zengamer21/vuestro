@@ -12,7 +12,7 @@
         Basic flat, blocky button
       </template>
       <div class="example-flexbox">
-        <vuestro-button>Button</vuestro-button>
+        <vuestro-button @click="onClick">Button</vuestro-button>
       </div>
     </vuestro-card>
 
@@ -21,7 +21,7 @@
         Basic button with only a VuestroIcon
       </template>
       <div class="example-flexbox">
-        <vuestro-button>
+        <vuestro-button @click="onClick">
           <vuestro-icon name="flag"></vuestro-icon>
         </vuestro-button>
       </div>
@@ -32,11 +32,11 @@
         <span>Basic button with VuestroIcon in <em>#icon</em> template</span>
       </template>
       <div class="example-flexbox">
-        <vuestro-button>
+        <vuestro-button @click="onClick">
           <template #icon>
             <vuestro-icon name="tractor"></vuestro-icon>
           </template>
-          Label in span
+          Default Slot
         </vuestro-button>
       </div>
     </vuestro-card>
@@ -46,17 +46,17 @@
         Basic button with placeholder
       </template>
       <div class="example-flexbox">
-        <vuestro-button>
+        <vuestro-button @click="onClick">
           <template #placeholder>Placeholder</template>
-          Value
+          <template>Value</template>
         </vuestro-button>
-        <vuestro-button size="lg">
+        <vuestro-button size="lg" @click="onClick">
           <template #placeholder>Placeholder</template>
-          Value
+          <template>Value</template>
         </vuestro-button>
-        <vuestro-button size="xl">
+        <vuestro-button size="xl" @click="onClick">
           <template #placeholder>Placeholder</template>
-          Value
+          <template>Value</template>
         </vuestro-button>
       </div>
     </vuestro-card>
@@ -66,11 +66,11 @@
         Make it less pointy by setting the rounded property
       </template>
       <div class="example-flexbox">
-        <vuestro-button rounded>
+        <vuestro-button rounded @click="onClick">
           <vuestro-icon name="snowflake"></vuestro-icon>
         </vuestro-button>
-        <vuestro-button rounded>Rounded Button</vuestro-button>
-        <vuestro-button rounded>
+        <vuestro-button rounded @click="onClick">Rounded Button</vuestro-button>
+        <vuestro-button rounded @click="onClick">
           <template #icon>
             <vuestro-icon name="fire"></vuestro-icon>
           </template>
@@ -84,11 +84,11 @@
         ...make pills by setting the pill property
       </template>
       <div class="example-flexbox">
-        <vuestro-button pill>
+        <vuestro-button pill @click="onClick">
           <vuestro-icon name="capsules"></vuestro-icon>
         </vuestro-button>
-        <vuestro-button pill>Pill-shaped Button</vuestro-button>
-        <vuestro-button pill>
+        <vuestro-button pill @click="onClick">Pill-shaped Button</vuestro-button>
+        <vuestro-button pill @click="onClick">
           <template #icon>
             <vuestro-icon name="capsules"></vuestro-icon>
           </template>
@@ -255,8 +255,11 @@
       <template #description>
         <span>Enable checkbox mode by setting the <em>checkbox</em> property</span>
       </template>
-      <div class="example-flexbox">
+      <div>
+        <vuestro-button variant="info" size="sm" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
         <vuestro-button variant="info" size="md" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
+        <vuestro-button variant="info" size="lg" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
+        <vuestro-button variant="info" size="xl" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
       </div>
     </vuestro-card>
 

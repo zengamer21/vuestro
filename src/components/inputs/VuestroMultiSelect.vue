@@ -4,7 +4,7 @@
                 :variant="variant"
                 :style="style">
     <draggable v-model="contents"
-               :options="{ group:'vuestro-multi-select' }"
+               group="vuestro-multi-select"
                @add="onDragAdd">
       <div class="vuestro-multi-select-pill-container">
         <vuestro-pill v-for="(c, idx) in contents" :key="c" closable @close="removeVal(idx)">
@@ -101,6 +101,7 @@ export default {
   border: none;
   outline: none;
   color: var(--vuestro-text-color);
+  font-size: 0.6em;
 }
 
 </style>

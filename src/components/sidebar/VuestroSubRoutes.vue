@@ -7,13 +7,13 @@
                        :to="{ path: route.path + '/' + subroute.path }"
                        exact-active-class="vuestro-router-link-exact-active"
                        active-class="vuestro-router-link-active">
-            <span>{{ subroute.meta.title }}</span>
+            {{ subroute.meta.title }}
           </router-link>
           <router-link v-else
                        :to="subroute"
                        exact-active-class="vuestro-router-link-exact-active"
                        active-class="vuestro-router-link-active">
-            <span>{{ subroute.meta.title }}</span>
+            {{ subroute.meta.title }}
           </router-link>
         </li>
       </template>
@@ -40,15 +40,19 @@ export default {
   list-style-type: none;
   padding-left: 0;
   margin: var(--vuestro-sidebar-subroutes-spacing) 0;
+  transition: all 0.2s;
 }
 
 /* all sub-menu item styling */
 .vuestro-sub-routes-item > a {
-  padding: 6px 25px 6px 40px;
+  display: flex;
+  height: var(--vuestro-sidebar-subroutes-item-height);
+  line-height: var(--vuestro-sidebar-subroutes-item-height);
+  align-items: center;
+  padding-left: var(--vuestro-sidebar-subroutes-padding-left);
   text-decoration: none;
   white-space: nowrap;
-  font-size: 14px;
-  text-align: left;
+  font-size: var(--vuestro-sidebar-sub-item-font-size);
   display: block;
   transition: all 0.4s;
   color: var(--vuestro-sidebar-fg);

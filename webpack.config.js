@@ -17,6 +17,17 @@ module.exports = {
     port: 8081,
     historyApiFallback: true,
     publicPath: '/',
+    before: function(app, server, compiler) {
+      app.use(require('body-parser').json());
+      app.post('/vuestro-dev-console/:level', function(req, res) {
+        if (req.body[0] === null | req.body[0] === undefined) {
+          console[req.params.level](`[${req.ip}] [${req.params.level}]`, 'null or undefined');
+        } else {
+          console[req.params.level](`[${req.ip}] [${req.params.level}]`, ...req.body);
+        }
+        res.json({});
+      });
+    }
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

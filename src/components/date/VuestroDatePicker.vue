@@ -61,7 +61,7 @@
             <vuestro-button class="back" v-if="m == monthOffsets[0]" round no-border @click="backMonth">
               <vuestro-icon name="angle-left"></vuestro-icon>
             </vuestro-button>
-            <div class="name" :class="{ single: monthOffsets.length === 1 }" @click="onSelectMonth">{{ getMonthName(m) }}</div>
+            <div class="name" :class="{ single: monthOffsets.length === 1 }" @click.stop="onSelectMonth">{{ getMonthName(m) }}</div>
             <vuestro-button class="forward" v-if="m == monthOffsets[monthOffsets.length - 1]" round no-border @click="forwardMonth">
               <vuestro-icon name="angle-right"></vuestro-icon>
             </vuestro-button>
@@ -227,7 +227,6 @@ export default {
       this.$forceUpdate();
     },
     onClickYear(d) {
-      console.log(d);
       this.displayedMoment = d;
       this.$nextTick(() => {
         this.pickYear = false;

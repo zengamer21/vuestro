@@ -65,4 +65,9 @@ export default {
   color: var(--vuestro-info);
 }
 
+.vuestro-app.mobile .vuestro-icon > svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 </style>

@@ -44,7 +44,7 @@
     </vuestro-card>
 
     <vuestro-card overflow-hidden>
-      <template #subheading>Change the options property and the chart will update</template>
+      <template #subheading>Change the options property and the chart will update (set transition = 0 to avoid weird animation effects)</template>
       <vuestro-panel collapsible>
         <template #title>Series</template>
         <vuestro-container>
@@ -259,6 +259,8 @@ export default {
       dynamicData: [],
       options4: {
         utc: true,
+        showAxes: true,
+        transition: 0,
         series: [
           {
             title: 'CPU1',

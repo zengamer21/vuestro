@@ -282,11 +282,6 @@ export default {
   opacity: 0;
   transition: opacity 0.4s;
 }
-.vuestro-table-header-sort >>> svg {
-  width: 10px;
-  height: 10px;
-  transition: transform 0.4s;
-}
 .vuestro-table-header:hover .vuestro-table-header-sort {
   opacity: 1;
 }
@@ -302,7 +297,7 @@ export default {
 }
 
 .vuestro-table-row {
-  height: 24px;
+  height: 1.7em;
   border-bottom: 1px solid rgba(0,0,0,0.12);
   background-color: var(--vuestro-table-alternate-bg);
 }

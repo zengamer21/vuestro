@@ -1,29 +1,45 @@
 <template>
-  <div class="vuestro-app" :class="{ 'vuestro-dark': dark }">
+  <div class="vuestro-app" :class="{ mobile: $root.mobile, 'vuestro-dark': dark }">
     <!--MAIN TEMPLATE-->
     <template v-if="authenticated && !loading">
 
       <!--SLOT WITH DEFAULT NAVBAR-->
       <slot name="navbar">
         <vuestro-navbar :title="title">
+          <template #mobile-sidebar>
+            <slot name="sidebar">
+              <vuestro-sidebar :user="user"
+                               :user-img="userImg"
+                               :role="role">
+                <template #logo>
+                  <slot name="sidebar-logo"></slot>
+                </template>
+                <template #footer>
+                  <slot name="sidebar-footer"></slot>
+                </template>
+              </vuestro-sidebar>
+            </slot>
+          </template>
           <slot name="navbar-slot"></slot>
         </vuestro-navbar>
       </slot>
 
       <div class="vuestro-content">
         <!--SLOT WITH DEFAULT SIDEBAR-->
-        <slot name="sidebar">
-          <vuestro-sidebar :user="user"
-                           :user-img="userImg"
-                           :role="role">
-            <template #logo>
-              <slot name="sidebar-logo"></slot>
-            </template>
-            <template #footer>
-              <slot name="sidebar-footer"></slot>
-            </template>
-          </vuestro-sidebar>
-        </slot>
+        <template v-if="!$root.mobile">
+          <slot name="sidebar">
+            <vuestro-sidebar :user="user"
+                             :user-img="userImg"
+                             :role="role">
+              <template #logo>
+                <slot name="sidebar-logo"></slot>
+              </template>
+              <template #footer>
+                <slot name="sidebar-footer"></slot>
+              </template>
+            </vuestro-sidebar>
+          </slot>
+        </template>
 
         <!--MAIN PAGE VIEW-->
         <div ref="routerView" class="vuestro-router-view" @scroll="onScroll">
@@ -47,7 +63,7 @@
 
 <script>
 
-/* global Event */
+/* global Event, navigator */
 import VuestroNavbar from './VuestroNavbar.vue';
 import VuestroSidebar from './sidebar/VuestroSidebar.vue';
 
@@ -81,6 +97,15 @@ export default {
       });
     }
   },
+  beforeMount() {
+    console.log('vuestro-app beforeMount');
+    console.log('window width', window.innerWidth)
+    console.log('ua', navigator.userAgent)
+    if (navigator.userAgent.match(/Mobile/)) {
+      console.log('vuestro-app going into MOBILE mode');
+      this.$root.mobile = true;
+    }
+  },
   methods: {
     onScroll(e) {
       // save content-container scroll position to this route's meta
@@ -95,6 +120,8 @@ export default {
 
 /* GLOBAL STYLE VARIABLES */
 .vuestro-app {
+  --vuestro-font-size: 14px;
+
   /* base palette */
   --vuestro-blue: #217ada;
   --vuestro-primary: #0c86d2;
@@ -171,6 +198,10 @@ export default {
   --vuestro-text-color-muted: #aaa;
 }
 
+.vuestro-app.mobile {
+  --vuestro-base-font-size: 32px;
+}
+
 </style>
 
 <style scoped>
@@ -206,7 +237,7 @@ export default {
 
 .vuestro-app {
   color: var(--vuestro-text-color);
-  font-size: 14px;
+  font-size: var(--vuestro-base-font-size);
   font-family: 'Quicksand', sans-serif;
   -webkit-font-smoothing: subpixel-antialiased;
   text-rendering: optimizeLegibility;

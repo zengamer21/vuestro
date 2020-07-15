@@ -77,6 +77,10 @@
       <template #description><span>In a popup</span></template>
       <vuestro-container space-between>
         <vuestro-dropdown click-to-open no-scroll>
+          <template #title>{{ exampleDateString }}</template>
+          <vuestro-date-picker v-model="exampleDateString"></vuestro-date-picker>
+        </vuestro-dropdown>
+        <vuestro-dropdown click-to-open no-scroll>
           <template #title>{{ formatRange(exampleDateRange) }}</template>
           <vuestro-date-picker v-model="exampleDateRange" range></vuestro-date-picker>
         </vuestro-dropdown>

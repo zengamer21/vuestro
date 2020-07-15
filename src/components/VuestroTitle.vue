@@ -34,6 +34,10 @@ export default {
   --vuestro-title-font-weight: 600;
   --vuestro-title-text-transform: uppercase;
 }
+
+.vuestro-app.mobile {
+  --vuestro-title-font-size: 32px;
+}
 </style>
 
 <style scoped>

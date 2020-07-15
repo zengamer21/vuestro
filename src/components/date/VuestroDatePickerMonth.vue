@@ -6,9 +6,7 @@
                   no-margin
                   no-padding
                   :variant="isThisMonth ? 'info':'text'"
-                  @click="onClick">
-    {{ month }}
-  </vuestro-button>
+                  @click.stop="onClick">{{ month }}</vuestro-button>
 </template>
 
 <script>

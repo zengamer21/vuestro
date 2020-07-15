@@ -7,7 +7,7 @@
     <template v-if="!resizing && !dragging">
       <slot></slot>
     </template>
-    <div v-show="!resizing && !dragging && !locked" class="resize-handle" ref="resizeHandle"></div>
+    <div v-show="!$root.mobile && !resizing && !dragging && !locked" class="resize-handle" ref="resizeHandle"></div>
   </div>
 </template>
 

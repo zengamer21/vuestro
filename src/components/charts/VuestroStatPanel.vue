@@ -55,6 +55,9 @@ export default {
   text-shadow: 1px 1px 0px rgba(0,0,0,.1);
   cursor: default;
 }
+.vuestro-app.mobile .vuestro-stat-panel-title {
+  font-size: 32px;
+}
 
 .vuestro-stat-panel-value {
   position: absolute;

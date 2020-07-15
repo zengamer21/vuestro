@@ -30,7 +30,7 @@
         </text>
       </g>
     </svg>
-    <div class="vuestro-chart-toolbar">
+    <div v-if="!$root.mobile" class="vuestro-chart-toolbar">
       <vuestro-button round size="sm" @click="decreaseDistance" :disabled="(distance + distanceOffset) <= 0" value>
         <vuestro-icon name="minus"></vuestro-icon>
       </vuestro-button>

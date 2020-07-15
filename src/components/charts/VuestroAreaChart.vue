@@ -5,6 +5,7 @@
            :height="height"
            :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
            @mousemove="onMouseover">
+        <!--GRADIENT DEFS-->
         <defs>
           <linearGradient v-for="s in processedSeries" :key="s.field"
                           :id="`${s.field}-gradient`" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -20,8 +21,14 @@
         <!--LINES-->
         <g v-for="s in processedSeries" :key="s.field">
           <template v-if="!s.disabled">
-            <path v-if="!notFilled" class="vuestro-area-chart-area" :d="getArea(s.field)" :fill="gradientFill ? `url(#${s.field}-gradient) ${s.color}`:s.color" :opacity="gradientFill ? 1:fillOpacity"/>
-            <path class="vuestro-area-chart-line" :d="getLine(s.field)" :stroke="s.color"/>
+            <path v-if="!notFilled"
+                  v-animate:getArea="s.field"
+                  class="vuestro-area-chart-area"
+                  :fill="gradientFill ? `url(#${s.field}-gradient) ${s.color}`:s.color"
+                  :opacity="gradientFill ? 1:fillOpacity"/>
+            <path class="vuestro-area-chart-line"
+                  v-animate:getLine="s.field"
+                  :stroke="s.color"/>
           </template>
         </g>
         <!--AXES-->
@@ -77,6 +84,7 @@ export default {
       series: [], // series object
       showAxes: false, // show the axes
       showGrid: false, // show the grid
+      transition: 1000, // animation transition period
       hideTooltip: false, // disable tooltip
       notFilled: false, // disable area fill
       gradientFill: false, // use gradient fill
@@ -135,30 +143,45 @@ export default {
   beforeMount() {
     _.merge(this, this.options);
   },
-  mounted() {
+  created() {
     window.addEventListener('resize', this.resize);
-    this.resize();
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resize);
   },
+  mounted() {
+    this.resize();
+  },
   methods: {
     resize() {
-      if (this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
-        this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
-        this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
-        this.redraw();
-      }
+      this.$nextTick(() => { // let $el size settle
+        if (this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
+          this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
+          this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
+          this.redraw();
+        }
+      });
     },
-    getArea(v) {
-      let area = d3.area().x(d => d.x).y0(d => d[`${v}_y0`]).y1(d => d[`${v}_y1`]);
+    getArea(v, zeroed=false) {
+      let area = d3.area().x(d => d.x).y0((d) => {
+        if (zeroed) return this.height;
+        return d[`${v}_y0`];
+      }).y1((d) => {
+        if (zeroed) return this.height;
+        return  d[`${v}_y1`];
+      });
       if (this.smooth) {
         area.curve(d3.curveNatural);
       }
       return area(this.localData);
     },
-    getLine(v) {
-      let line = d3.line().x(d => d.x).y(d => d[`${v}_y1`]);
+    getLine(v, zeroed=false) {
+      let line = d3.line().x(d => d.x).y((d) => {
+        if (zeroed) {
+          return this.height;
+        }
+        return d[`${v}_y1`];
+      });
       if (this.smooth) {
         line.curve(d3.curveNatural);
       }
@@ -296,10 +319,29 @@ export default {
   },
   directives: {
     axis: {
-      update(el, binding) {
-        d3.select(el).call(binding.value[binding.arg]);
+      update(el, binding, vnode) {
+        d3.select(el).transition().duration(vnode.context.transition).call(binding.value[binding.arg]);
       }
     },
+    animate: {
+      bind(el) {
+        el.dataset.oldD = '';
+      },
+      update(el, binding, vnode) {
+        let newD = vnode.context[binding.arg](binding.value);
+        if (el.dataset.oldD == '') {
+          // animated path update
+          d3.select(el)
+            .attr('d', vnode.context[binding.arg](binding.value, true))
+            .transition().duration(vnode.context.transition)
+            .attr('d', newD);
+        } else {
+          // standard path update
+          d3.select(el).transition().duration(vnode.context.transition).attr('d', newD);
+        }
+        el.dataset.oldD = newD; // clear animate flag
+      }
+    }
   }
 };
 </script>

@@ -7,9 +7,7 @@
                   no-margin
                   no-padding
                   :variant="isToday ? 'info':'text'"
-                  @click="onClick">
-    {{ day }}
-  </vuestro-button>
+                  @click="onClick">{{ day }}</vuestro-button>
   <div v-else class="vuestro-date-picker-day"></div>
 </template>
 

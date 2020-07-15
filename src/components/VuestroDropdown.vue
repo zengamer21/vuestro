@@ -2,7 +2,7 @@
   <div class="vuestro-dropdown"
        :class="{ disabled }"
        v-vuestro-blur="onBlur"
-    :style="{ 'z-index': active ? 200:100 }">
+       :style="{ 'z-index': active ? 200:100 }">
     <div class="vuestro-dropdown-inner" @mouseleave="onLeave" :class="{ dark, active, noSpacing, noScroll, rounded, bottom, clickToOpen, stretch }">
       <div v-if="$slots.title" class="vuestro-dropdown-title" @mouseover="onHover" @click="onClick">
         &#8203;<slot name="title"></slot>&#8203;
@@ -212,12 +212,11 @@ export default {
 .vuestro-dropdown-menu {
   background: var(--vuestro-dropdown-content-bg);
   color: var(--vuestro-dropdown-content-fg);
-  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5); 
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
   position: absolute;
   bottom: calc(100% - 1px);
   right: 0px;
   min-width: 160px;
-  max-height: 50vh;
   overflow: auto;
   border: 1px solid var(--vuestro-dropdown-outline);
   z-index: -1;

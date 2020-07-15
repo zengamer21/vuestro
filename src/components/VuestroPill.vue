@@ -33,7 +33,7 @@ export default {
     title: { type: null },
     value: { type: null },
     color: { type: String, default: null },
-    size: { type: String, default: '24px' },
+    size: { type: String, default: '1.7em' },
     radius: { type: String, default: '999px' },
     closable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },

@@ -6,7 +6,7 @@
                   no-margin
                   no-padding
                   :variant="isThisYear ? 'info':'text'"
-                  @click="onClick">
+                  @click.stop="onClick">
     {{ year }}
   </vuestro-button>
 </template>

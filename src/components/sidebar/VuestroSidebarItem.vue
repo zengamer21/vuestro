@@ -98,13 +98,13 @@ export default {
   padding-left: 5px;
   align-items: center;
   color: var(--vuestro-sidebar-fg);
-  font-size: 15px;
+  font-size: var(--vuestro-sidebar-item-font-size);
   text-decoration: none;
-  transition: all 0.4s;
   cursor: pointer;
   white-space: nowrap;
   border-top-right-radius: var(--vuestro-sidebar-radius);
   border-bottom-right-radius: var(--vuestro-sidebar-radius);
+  transition: all 0.4s;
 }
 
 .vuestro-sidebar-item > a:hover,
@@ -118,13 +118,9 @@ export default {
   color: var(--vuestro-sidebar-item-active-fg);
 }
 
-.vuestro-sidebar-item .fa-icon {
-  width: 35px;
-}
-
-.vuestro-sidebar-item a >>> svg {
-  width: 35px;
-  float: left;
+.vuestro-sidebar-item a >>> .vuestro-icon {
+  padding-left: 0.7em;
+  padding-right: 0.7em;
 }
 
 .vuestro-sidebar-item-title {

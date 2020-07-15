@@ -41,23 +41,23 @@ export default {
   height: var(--size);
   align-self: center;
   cursor: pointer;
-  transition: transform 0.2s;
-  position: relative;
+  display: flex;
+  align-items: center;
 }
-.vuestro-caret.collapsed {
+.vuestro-caret.collapsed >>> svg {
   transform: rotate(-90deg);
 }
-.vuestro-caret.collapsed.left {
+.vuestro-caret.collapsed.left >>> svg {
   transform: rotate(90deg);
 }
 .vuestro-caret >>> svg {
   width: var(--size);
   height: var(--size);
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  transition: transform 0.2s;
 }
 
+.vuestro-app.mobile .vuestro-caret >>> .vuestro-icon > svg {
+  width: calc(var(--size) * 2);
+  height: calc(var(--size) * 2);
+}
 </style>

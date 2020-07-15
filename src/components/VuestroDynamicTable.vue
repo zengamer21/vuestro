@@ -4,7 +4,7 @@
       <draggable tag="thead"
                  draggable=".vuestro-dynamic-table-header"
                  v-model="columns"
-                 :options="{ group:'vuestro-dynamic-table' }"
+                 group="vuestro-dynamic-table"
                  @sort="onSort">
           <th v-for="item in columns" :key="item.id" class="vuestro-dynamic-table-header">
             <div class="vuestro-dynamic-table-pill-wrapper">
@@ -40,7 +40,7 @@
           </th>
           <!--spacer for detail toggler caret: uses the 'header' slot of <draggable>-->
           <th slot="header" class="vuestro-dynamic-table-header">
-            <vuestro-button stretch no-border no-margin :value="showFilters" @click="showFilters = !showFilters">
+            <vuestro-button stretch no-border no-margin :value="showFilters" @click="onToggleFilterBar">
               <vuestro-icon name="filter"></vuestro-icon>
             </vuestro-button>
           </th>
@@ -61,12 +61,11 @@
     <template #detail="{ item }">
       <draggable class="vuestro-dynamic-table-pill-tray"
                  :value="Object.keys(item)"
-                 :options="{ group: {
-                               name: 'vuestro-dynamic-table',
-                               pull: 'clone',
-                               put: false
-                             }
-                           }"
+                 :group="{
+                           name: 'vuestro-dynamic-table',
+                           pull: 'clone',
+                           put: false
+                         }"
                  :sort="false"
                  :clone="getHeader">
         <div class="vuestro-dynamic-table-pill-wrapper" v-for="(v, k) of item" :key="k+v">
@@ -165,6 +164,10 @@ export default {
     },
     removeFilter(field, str, op) {
       this.$refs.theTable.removeFilter(...arguments);
+    },
+    onToggleFilterBar() {
+      this.showFilters = !this.showFilters;
+      console.log('click')
     },
   },
 };

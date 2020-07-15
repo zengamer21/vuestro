@@ -32,10 +32,14 @@ export default {
   },
   computed: {
     colorBarStyle() {
+      let borderWidth = '2px';
+      if (this.$root.mobile) {
+        borderWidth = '4px';
+      }
       if (this.color) {
         return {
-          'border-left': `2px solid ${this.color}`,
-          'padding-left': '6px',
+          'border-left': `${borderWidth} solid ${this.color}`,
+          'padding-left': this.$root.mobile ? '14px':'6px',
         };
       }
     },
@@ -51,11 +55,11 @@ export default {
 
 <style>
 .vuestro-app {
-  --vuestro-card-heading-font-size: 24px;
+  --vuestro-card-heading-font-size: 1.7em;
   --vuestro-card-heading-font-weight: 300;
-  --vuestro-card-subheading-font-size: 20px;
+  --vuestro-card-subheading-font-size: 1.5em;
   --vuestro-card-subheading-font-weight: 300;
-  --vuestro-card-description-font-size: 18px;
+  --vuestro-card-description-font-size: 1.3em;
   --vuestro-card-description-font-weight: 300;
 }
 </style>
@@ -76,7 +80,6 @@ export default {
 
 .vuestro-card-heading {
   font-size: var(--vuestro-card-heading-font-size);
-  line-height: var(--vuestro-card-heading-font-size);
   font-weight: var(--vuestro-card-heading-font-weight);
   padding: 0px;
   margin-bottom: 5px;
