@@ -12,7 +12,7 @@
                 <template #title>
                   {{ item.field }}
                 </template>
-                <template #title-buttons>
+                <template #title-buttons v-if="!$root.mobile">
                   <vuestro-button round no-border variant="white"
                                   class="vuestro-table-header-sort"
                                   :class="{ active: $refs.theTable.isSortActive(item), desc: $refs.theTable.isSortDescending(item) }"
@@ -38,12 +38,14 @@
               </vuestro-multi-select>
             </div>
           </th>
-          <!--spacer for detail toggler caret: uses the 'header' slot of <draggable>-->
-          <th slot="header" class="vuestro-dynamic-table-header">
-            <vuestro-button stretch no-border no-margin :value="showFilters" @click="onToggleFilterBar">
-              <vuestro-icon name="filter"></vuestro-icon>
-            </vuestro-button>
-          </th>
+          <template #header>
+            <!--spacer for detail toggler caret: uses the 'header' slot of <draggable>-->
+            <th class="vuestro-dynamic-table-filter-column">
+              <vuestro-button stretch no-border no-margin :value="showFilters" @click="onToggleFilterBar">
+                <vuestro-icon name="filter"></vuestro-icon>
+              </vuestro-button>
+            </th>
+          </template>
       </draggable>
     </template>
     <template #row="{ item }">
@@ -167,7 +169,9 @@ export default {
     },
     onToggleFilterBar() {
       this.showFilters = !this.showFilters;
-      console.log('click')
+    },
+    onPillClick() {
+      console.log('onPillClick')
     },
   },
 };
@@ -226,7 +230,10 @@ export default {
   flex-direction: column;
   align-items: flex-start;
 }
-.vuestro-dynamic-table-header > .vuestro-button {
+.vuestro-dynamic-table-filter-column {
+  height: inherit;
+}
+.vuestro-dynamic-table-filter-column > .vuestro-button {
   height: 100%;
   transition: all 0.2s;
   margin-right: 2px;

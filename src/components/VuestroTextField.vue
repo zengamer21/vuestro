@@ -195,6 +195,21 @@ export default {
 
 <style>
 
+.vuestro-app {
+  --vuestro-text-field-sm-height: 14px;
+  --vuestro-text-field-md-height: 18px;
+  --vuestro-text-field-lg-height: 24px;
+  --vuestro-text-field-xl-height: 32px;
+  --vuestro-text-field-margin: 2px;
+}
+.vuestro-app.mobile {
+  --vuestro-text-field-sm-height: 42px;
+  --vuestro-text-field-md-height: 50px;
+  --vuestro-text-field-lg-height: 64px;
+  --vuestro-text-field-xl-height: 74px;
+  --vuestro-text-field-margin: 4px;
+}
+
 </style>
 
 <style scoped>
@@ -221,6 +236,9 @@ export default {
 }
 .vuestro-text-field.lg.noPlaceholder {
   padding: 8px;
+}
+.vuestro-text-field.xl {
+  height: var(--vuestro-text-field-xl-height);
 }
 .vuestro-text-field.noMargin {
   margin: 0;
