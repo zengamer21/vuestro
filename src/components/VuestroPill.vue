@@ -1,7 +1,6 @@
 <template>
   <span class="vuestro-pill"
-       :class="{ clickable, shadow, draggable, geopattern }"
-       :style="style"
+       :class="[ size, { clickable, closable, shadow, draggable, geopattern }]"
        @click="onClick">
     <div v-if="!$slots.title" class="vuestro-pill-title"
          :style="titleStyle">
@@ -19,22 +18,26 @@
          class="vuestro-pill-value vuestro-pill-slot">
       <slot name="value"></slot>
     </div>
-    <div v-if="closable" class="vuestro-pill-closer" @click="onClose">&times;</div>
+    <div v-if="closable" class="vuestro-pill-closer">
+      <vuestro-button no-margin :size="size" round no-border @click="onClose">
+        <vuestro-icon name="times"></vuestro-icon>
+      </vuestro-button>
+    </div>
   </span>
 </template>
 
 <script>
 
+/* global _ */
 import GeoPattern from 'geopattern/geopattern.js';
 
 export default {
   name: 'VuestroPill',
   props: {
+    size: { type: String, default: 'lg' },
     title: { type: null },
     value: { type: null },
     color: { type: String, default: null },
-    size: { type: String, default: '1.7em' },
-    radius: { type: String, default: '999px' },
     closable: { type: Boolean, default: false },
     clickable: { type: Boolean, default: false },
     draggable: { type: Boolean, default: false },
@@ -42,12 +45,6 @@ export default {
     geopattern: { type: Boolean, default: false },
   },
   computed: {
-    style() {
-      return {
-        '--size': this.size,
-        '--radius': this.radius,
-      };
-    },
     titleStyle() {
       if (this.geopattern) {
         let text = this.$slots.title[0].text || this.title;
@@ -66,8 +63,8 @@ export default {
         return this.title;
       } else {
         let v = this.value || this.$slots.value[0].text;
-        if (v) {
-          return v.slice(0, 1).toUpperCase();
+        if (v && _.isString(v)) {
+          return v.trim().slice(0, 1).toUpperCase();
         } else {
           return '';
         }
@@ -88,16 +85,48 @@ export default {
 
 </script>
 
+<style>
+
+.vuestro-app {
+  --vuestro-pill-sm-height: 14px;
+  --vuestro-pill-md-height: 18px;
+  --vuestro-pill-lg-height: 24px;
+  --vuestro-pill-xl-height: 32px;
+  --vuestro-pill-radius: 999px;
+}
+.vuestro-app.mobile {
+  --vuestro-pill-sm-height: 42px;
+  --vuestro-pill-md-height: 50px;
+  --vuestro-pill-lg-height: 64px;
+  --vuestro-pill-xl-height: 74px;
+}
+
+</style>
+
 <style scoped>
 
 .vuestro-pill {
   background-color: var(--vuestro-widget-light-bg);
-  line-height: var(--size);
-  border-radius: var(--radius);
+  border-radius: var(--vuestro-pill-radius);
   flex: 0 1 auto;
   display: flex;
   margin: 2px;
-  font-size: calc(var(--size)/2);
+}
+.vuestro-pill.sm {
+  line-height: var(--vuestro-pill-sm-height);
+  font-size: calc(var(--vuestro-pill-sm-height)/2);
+}
+.vuestro-pill.md {
+  line-height: var(--vuestro-pill-md-height);
+  font-size: calc(var(--vuestro-pill-md-height)/2);
+}
+.vuestro-pill.lg {
+  line-height: var(--vuestro-pill-lg-height);
+  font-size: calc(var(--vuestro-pill-lg-height)/2);
+}
+.vuestro-pill.xl {
+  line-height: var(--vuestro-pill-xl-height);
+  font-size: calc(var(--vuestro-pill-xl-height)/2);
 }
 
 .vuestro-pill.clickable {
@@ -109,15 +138,25 @@ export default {
 .vuestro-pill.shadow {
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
 }
-
+.vuestro-pill.sm .vuestro-pill-title {
+  min-width: var(--vuestro-pill-sm-height);
+}
+.vuestro-pill.md .vuestro-pill-title {
+  min-width: var(--vuestro-pill-md-height);
+}
+.vuestro-pill.lg .vuestro-pill-title {
+  min-width: var(--vuestro-pill-lg-height);
+}
+.vuestro-pill.xl .vuestro-pill-title {
+  min-width: var(--vuestro-pill-xl-height);
+}
 .vuestro-pill-title {
-  min-width: var(--size);
   text-align: center;
   background-color: var(--vuestro-primary);
   color: var(--vuestro-light);
-  border-radius: var(--radius);
-  padding-left: calc(var(--size)/3);
-  padding-right: calc(var(--size)/3);
+  border-radius: var(--vuestro-pill-radius);
+  padding-left: calc(1em/3);
+  padding-right: calc(1em/3);
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -132,24 +171,24 @@ export default {
 }
 
 .vuestro-pill-value {
-  padding-left: calc(var(--size)/6);
-  padding-right: calc(var(--size)/3);
+  padding-left: calc(1em/3);
+  padding-right: calc(1em/2);
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 	color: var(--vuestro-text-color);
 }
-
-.vuestro-pill-closer {
-  margin-left: calc(var(--size)/-6);
-  padding-right: calc(var(--size)/3);
-  cursor: pointer;
+.vuestro-pill.closable .vuestro-pill-value {
+  padding-right: calc(1em/3);
 }
 
 .vuestro-pill-slot {
   display: flex;
   align-items: center;
+}
+.vuestro-pill-title.vuestro-pill-slot {
+  justify-content: center;
 }
 .vuestro-pill-value.vuestro-pill-slot {
   flex-grow: 1;

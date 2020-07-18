@@ -9,8 +9,8 @@
           <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
         <vuestro-button size="sm" pill>sm button</vuestro-button>
-        <vuestro-pill size="14px">
-          <template #value>14px pill</template>
+        <vuestro-pill size="sm">
+          <template #value>sm pill</template>
         </vuestro-pill>
         <vuestro-dropdown>
           <template #button>
@@ -26,8 +26,8 @@
           <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
         <vuestro-button size="md" pill>md button</vuestro-button>
-        <vuestro-pill size="18px">
-          <template #value>18px pill</template>
+        <vuestro-pill size="md">
+          <template #value>md pill</template>
         </vuestro-pill>
         <vuestro-dropdown>
           <template #button>
@@ -43,8 +43,8 @@
           <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
         <vuestro-button size="lg" pill>lg button</vuestro-button>
-        <vuestro-pill size="24px">
-          <template #value>24px pill</template>
+        <vuestro-pill size="lg">
+          <template #value>lg pill</template>
         </vuestro-pill>
         <vuestro-dropdown>
           <template #button>
@@ -60,8 +60,8 @@
           <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
         <vuestro-button size="xl" pill>xl button</vuestro-button>
-        <vuestro-pill size="32px">
-          <template #value>32px pill</template>
+        <vuestro-pill size="xl">
+          <template #value>xl pill</template>
         </vuestro-pill>
         <vuestro-dropdown>
           <template #button>
@@ -83,7 +83,7 @@
       </vuestro-container>
 
       <vuestro-container>
-        <vuestro-text-field variant="outline" size="sm" placeholder="outline box"></vuestro-text-field>
+        <vuestro-text-field size="lg" variant="outline" placeholder="lg outline box"></vuestro-text-field>
         <vuestro-button size="lg" rounded>lg button</vuestro-button>
         <vuestro-dropdown>
           <template #button>
@@ -93,7 +93,17 @@
       </vuestro-container>
 
       <vuestro-container>
-        <vuestro-text-field variant="outline" radius="0" size="sm" no-margin placeholder="outline box"></vuestro-text-field>
+        <vuestro-text-field size="md" variant="outline" placeholder="md outline box"></vuestro-text-field>
+        <vuestro-button size="md" rounded>md button</vuestro-button>
+        <vuestro-dropdown>
+          <template #button>
+            <vuestro-button size="md" rounded>Dropdown with md button</vuestro-button>
+          </template>
+        </vuestro-dropdown>
+      </vuestro-container>
+
+      <vuestro-container>
+        <vuestro-text-field variant="outline" radius="0" size="lg" no-margin placeholder="outline box"></vuestro-text-field>
         <vuestro-button size="lg" no-margin variant="primary" value>lg button</vuestro-button>
         <vuestro-dropdown>
           <template #button>

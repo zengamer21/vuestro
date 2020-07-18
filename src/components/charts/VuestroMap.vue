@@ -355,7 +355,7 @@ export default {
 .vuestro-map >>> .leaflet-bar > a,
 .vuestro-map >>> .leaflet-buttons-control-button {
   border-radius: 0;
-  border: 1px solid var(--vuestro-outline);
+  border: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
 }
 
 .vuestro-map-popup-title {

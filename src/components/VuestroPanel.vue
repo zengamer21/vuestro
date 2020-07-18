@@ -9,7 +9,7 @@
                      @click="toggleCollapse">
       </vuestro-caret>
       <vuestro-title class="vuestro-panel-title"
-                     :spinner="spinner" 
+                     :spinner="spinner"
                      :clickable="collapsible"
                      :draggable="draggable"
                      @click="toggleCollapse">
@@ -142,7 +142,7 @@ export default {
 .vuestro-dark .vuestro-panel {
   background-color: var(--vuestro-panel-dark-bg);
   color: var(--vuestro-text-color-inverse);
-  border: 1px solid var(--vuestro-outline);
+  border: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
 }
 .vuestro-panel.noBorder {
   box-shadow: none;
@@ -150,7 +150,7 @@ export default {
 }
 
 .vuestro-panel .vuestro-tray:not(:last-child) {
-  border-bottom: 1px solid var(--vuestro-outline);
+  border-bottom: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }

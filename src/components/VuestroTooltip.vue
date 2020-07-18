@@ -94,7 +94,7 @@ export default {
   position: absolute;
   background: var(--vuestro-dropdown-content-bg);
   color: var(--vuestro-dropdown-content-fg);
-  border: 1px solid var(--vuestro-dropdown-outline);
+  border: var(--vuestro-rounded-border-width) solid var(--vuestro-dropdown-outline);
   padding: 2px;
   z-index: 999;
 }

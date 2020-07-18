@@ -158,7 +158,7 @@ export default {
 }
 
 .vuestro-dropdown-title {
-  border: 1px solid transparent;
+  border: var(--vuestro-rounded-border-width) solid transparent;
   border-top: none;
   position: relative;
   padding: 2px 6px;
@@ -172,7 +172,7 @@ export default {
   user-select: none;
 }
 .vuestro-dropdown-inner.bottom .vuestro-dropdown-title {
-  border-top: 1px solid transparent;
+  border-top: var(--vuestro-rounded-border-width) solid transparent;
   border-bottom: none;
 }
 .vuestro-dropdown-inner.noSpacing .vuestro-dropdown-title {
@@ -218,7 +218,7 @@ export default {
   right: 0px;
   min-width: 160px;
   overflow: auto;
-  border: 1px solid var(--vuestro-dropdown-outline);
+  border: var(--vuestro-rounded-border-width) solid var(--vuestro-dropdown-outline);
   z-index: -1;
 }
 .vuestro-dropdown-inner.noScroll .vuestro-dropdown-menu {

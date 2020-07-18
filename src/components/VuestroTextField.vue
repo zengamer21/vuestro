@@ -1,11 +1,19 @@
 <template>
   <div class="vuestro-text-field"
-       :class="[ `vuestro-text-field-${variant}`, size, { dark, focused, center, noMargin, readonly, invalid, noPlaceholder: !placeholder }]"
-       :style="style">
-    <!--the main input-->
-    <div class="input-el-wrapper">
+       :class="[ `vuestro-text-field-${variant}`,
+                 size,
+                 { dark,
+                   focused,
+                   center,
+                   noMargin,
+                   readonly,
+                   invalid,
+                  }
+               ]">
+    <!--the main input, input-el-wrapper provides border for outline variant-->
+    <div class="vuestro-text-field-input-el-wrapper" :style="style">
       <input ref="inputEl"
-             class="input-el"
+             class="vuestro-text-field-input-el"
              :value="value"
              :type="showPassword ? 'text':type"
              @focus="onFocus"
@@ -43,17 +51,17 @@
       <vuestro-icon name="times"></vuestro-icon>
     </vuestro-button>
     <!--show password button-->
-    <span class="show-password" v-if="type === 'password'" @click="showPassword = !showPassword">
+    <span class="vuestro-text-field-show-password" v-if="type === 'password'" @click="showPassword = !showPassword">
       <vuestro-icon v-if="!showPassword" name="eye-slash"></vuestro-icon>
       <vuestro-icon v-if="showPassword" name="eye"></vuestro-icon>
     </span>
     <!--placeholder-->
-    <div class="placeholder"
+    <div ref="placeholder" class="vuestro-text-field-placeholder"
          :class="{ active: raisedPlaceholder }">
       {{ placeholder }}
     </div>
     <!--hint-->
-    <div v-if="hint && raisedPlaceholder && value.length === 0" class="hint">
+    <div v-if="hint && raisedPlaceholder && value.length === 0" class="vuestro-text-field-hint">
       {{ hint }}
     </div>
   </div>
@@ -73,7 +81,7 @@ export default {
     value: { type: null, required: true },
     placeholder: { type: String, default: null },
     variant: { type: String, default: 'regular' }, // { 'regular', 'outline', 'shaded' }
-    radius: { type: String, default: '4px' },
+    radius: { type: String, default: 'var(--vuestro-rounded-border-radius)' },
     type: { type: String, default: 'text' },
     dark: { type: Boolean, default: false },
     hint: { type: String, default: null },
@@ -81,7 +89,7 @@ export default {
     noMargin: { type: Boolean, default: false },
     presets: { type: Array, default: () => [] },
     clearable: { type: Boolean, default: false },
-    size: { type: String, default: 'md' },
+    size: { type: String, default: 'lg' },
     editingButtons: { type: Boolean, default: false },
     selected: { type: Boolean, default: false },      // true for all text selected by default
     readonly: { type: Boolean, default: false },      // true for readonly
@@ -100,9 +108,15 @@ export default {
       if (this.variant === 'regular') {
         return {};
       }
-      return {
+      let ret = {
         'border-radius': this.radius,
       };
+      if (this.raisedPlaceholder) {
+        let placeholderWidth = this.$refs.placeholder.offsetWidth * (this.$root.mobile ? 0.75:0.78);
+        ret['clip-path'] = `polygon(0 -10%, 0px 100%, 100% 100%, 100% -10%, calc(0.3em + ${placeholderWidth}px) -10%, calc(0.3em + ${placeholderWidth}px) 2px, calc(0.3em + 2px) 2px, calc(0.3em + 2px) -10%)`;
+        ret['border-color'] = 'var(--vuestro-primary)';
+      }
+      return ret;
     },
   },
   watch: {
@@ -156,6 +170,7 @@ export default {
     onFocus() {
       this.focused = true;
       this.raisedPlaceholder = true;
+      this.$forceUpdate();
     },
     onFocusOut() {
       this.focused = false;
@@ -220,22 +235,16 @@ export default {
   display: flex;
 }
 .vuestro-text-field.sm {
-  padding: 3px 2px 1px 2px;
-}
-.vuestro-text-field.sm.noPlaceholder {
-  padding: 2px;
+  font-size: calc(var(--vuestro-button-sm-height) * 0.5);
+  height: var(--vuestro-text-field-sm-height);
 }
 .vuestro-text-field.md {
-  padding: 8px 5px 4px 5px;
-}
-.vuestro-text-field.md.noPlaceholder {
-  padding: 5px;
+  font-size: calc(var(--vuestro-button-md-height) * 0.5);
+  height: var(--vuestro-text-field-md-height);
 }
 .vuestro-text-field.lg {
-  padding: 10px 8px 2px 8px;
-}
-.vuestro-text-field.lg.noPlaceholder {
-  padding: 8px;
+  font-size: calc(var(--vuestro-button-lg-height) * 0.5);
+  height: var(--vuestro-text-field-lg-height);
 }
 .vuestro-text-field.xl {
   height: var(--vuestro-text-field-xl-height);
@@ -243,7 +252,7 @@ export default {
 .vuestro-text-field.noMargin {
   margin: 0;
 }
-.vuestro-text-field.dark .input-el {
+.vuestro-text-field.dark .vuestro-text-field-input-el {
   color: var(--vuestro-text-color-inverse);
 }
 .vuestro-text-field.focused {
@@ -256,12 +265,11 @@ export default {
   border-color: var(--vuestro-danger);
 }
 
-.vuestro-text-field-outline {
-  border: 1px solid var(--vuestro-secondary);
-  border-radius: 4px;
+.vuestro-text-field-outline .vuestro-text-field-input-el-wrapper {
+  border: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
 }
 .vuestro-text-field-regular {
-  border-bottom: 1px solid var(--vuestro-outline);
+  border-bottom: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
 }
 
 .vuestro-text-field-shaded {
@@ -271,65 +279,53 @@ export default {
 .vuestro-text-field-shaded.dark {
   background-color: var(--vuestro-darker);
 }
-.vuestro-text-field-shaded.md {
-  padding: 14px 5px 5px 5px;
-}
 
-.placeholder {
+.vuestro-text-field-placeholder {
+  font-size: 1em;
   top: 50%;
   left: 0px;
   transform: translate(0, -50%);
   transition: all 0.15s;
-  font-size: 16px;
   position: absolute;
   color: var(--vuestro-secondary);
   pointer-events: none;
 }
-.vuestro-text-field.sm .placeholder {
-  font-size: 14px;
-}
-.vuestro-text-field.center .placeholder {
+.vuestro-text-field.center .vuestro-text-field-placeholder {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.vuestro-text-field-outline .placeholder {
-  left: 6px;
-}
-.vuestro-text-field-outline .placeholder.active {
-  /* only for outline mode */
-  background-color: var(--vuestro-secondary);
-  color: var(--vuestro-text-color-inverse);
-  border-radius: 999px;
-  font-size: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-.vuestro-text-field-outline.focused .placeholder.active {
-  background-color: var(--vuestro-primary);
+.vuestro-text-field-outline .vuestro-text-field-placeholder {
+  left: calc(0.4em + 2px);
 }
 
-.placeholder.active {
+.vuestro-text-field-placeholder.active {
   top: 0px;
-  transform: translate(0, -50%);
-  font-size: 12px;
+  transform: translate(0, -60%);
+  font-size: 0.7em;
+  line-height: 0.7em;
   padding-left: 3px;
   padding-right: 3px;
 }
 
-.vuestro-text-field-shaded .placeholder {
-  left: 8px;
+.vuestro-text-field-shaded .vuestro-text-field-placeholder {
+  left: 5px;
 }
-.vuestro-text-field-shaded .placeholder.active {
-  top: 8px;
+.vuestro-text-field-shaded .vuestro-text-field-placeholder.active {
+  top: 5px;
+  font-size: 0.6em;
 }
 
-.input-el-wrapper {
+.vuestro-text-field-input-el-wrapper {
   flex: 1 1 auto;
+  display: flex;
   overflow: hidden;
-  margin-left: 2px;
+  padding-left: 0.4em;
+  padding-right: 0.4em;
 }
 
-.input-el {
+.vuestro-text-field-input-el {
+  font-size: calc(var(--vuestro-button-sm-height) * 0.7);
+  align-self: center;
   width: 100%;
   background-color: transparent;
   border: none;
@@ -337,20 +333,11 @@ export default {
   color: var(--vuestro-text-color);
   padding: 0;
 }
-.vuestro-text-field.center .input-el {
+.vuestro-text-field.center .vuestro-text-field-input-el {
   text-align: center;
 }
-.vuestro-text-field.sm .input-el {
-  font-size: 12px;
-}
-.vuestro-text-field.md .input-el {
-  font-size: 14px;
-}
-.vuestro-text-field.lg .input-el {
-  font-size: 16px;
-}
 
-.show-password {
+.vuestro-text-field-show-password {
   margin-left: 4px;
   color: var(--vuestro-outline);
   cursor: pointer;
@@ -358,7 +345,7 @@ export default {
   align-items: center;
 }
 
-.hint {
+.vuestro-text-field-hint {
   position: absolute;
   top: 50%;
   left: 10px;
@@ -367,15 +354,15 @@ export default {
   font-size: 12px;
   filter: invert(50%);
 }
-.vuestro-text-field.center .hint {
+.vuestro-text-field.center .vuestro-text-field-hint {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.input-el-wrapper > input:-webkit-autofill,
-.input-el-wrapper > input:-webkit-autofill:hover,
-.input-el-wrapper > input:-webkit-autofill:focus {
+.vuestro-text-field-input-el-wrapper > input:-webkit-autofill,
+.vuestro-text-field-input-el-wrapper > input:-webkit-autofill:hover,
+.vuestro-text-field-input-el-wrapper > input:-webkit-autofill:focus {
   content: "\feff"; /* magic value to detect browser autofill */
-  border: 1px solid var(--vuestro-gray);
+  border: var(--vuestro-rounded-border-width) solid var(--vuestro-gray);
   -webkit-text-fill-color: var(--vuestro-black);
   -webkit-box-shadow: 0 0 0px 1000px var(--vuestro-gray) inset;
 }

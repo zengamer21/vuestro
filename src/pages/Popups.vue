@@ -234,6 +234,26 @@
           </vuestro-button>
         </template>
         <template #buttons>
+          <vuestro-dropdown click-to-open close-on-content-click>
+            <template #button>
+              <vuestro-button variant="info">
+                <template #icon>
+                  <vuestro-icon name="list"></vuestro-icon>
+                </template>
+                Dropdown Button
+              </vuestro-button>
+            </template>
+            <vuestro-list-button>Item 1</vuestro-list-button>
+            <vuestro-list-button>Item 2</vuestro-list-button>
+          </vuestro-dropdown>
+          <vuestro-button variant="primary">
+            <vuestro-icon name="download"></vuestro-icon>
+            <span>Download</span>
+          </vuestro-button>
+          <vuestro-button variant="warning">
+            <vuestro-icon name="times"></vuestro-icon>
+            <span>Cancel</span>
+          </vuestro-button>
           <vuestro-button variant="success">
             <vuestro-icon name="save"></vuestro-icon>
             <span>Save</span>

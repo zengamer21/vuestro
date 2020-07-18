@@ -91,7 +91,7 @@ export default {
 }
 
 .vuestro-multi-select-pill-container >>> span.sortable-ghost {
-  border: 1px dashed var(--vuestro-outline);
+  border: var(--vuestro-rounded-border-width) dashed var(--vuestro-outline);
 }
 
 .input-el {

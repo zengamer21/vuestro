@@ -151,7 +151,7 @@ export default {
 }
 
 .vuestro-button-inner {
-  border: 1px solid var(--variant-color);
+  border: var(--vuestro-rounded-border-width) solid var(--variant-color);
   margin: var(--vuestro-buttom-margin);
   color: var(--variant-color);
   cursor: pointer;
@@ -159,9 +159,6 @@ export default {
   align-items: center;
   overflow: hidden;
   position: relative;
-}
-.vuestro-app.mobile .vuestro-button-inner {
-  border-width: 2px;
 }
 /* ripple effect */
 .vuestro-button-inner:after {
@@ -186,7 +183,7 @@ export default {
   transition: 0s;
 }
 .vuestro-button-inner.rounded {
-  border-radius: 3px;
+  border-radius: var(--vuestro-rounded-border-radius);
 }
 .vuestro-button-inner.sm {
   height: var(--vuestro-button-sm-height);
@@ -196,17 +193,17 @@ export default {
 .vuestro-button-inner.md {
   height: var(--vuestro-button-md-height);
   padding: 0 calc(var(--vuestro-button-sm-height) * 0.4);
-  font-size: calc(var(--vuestro-button-md-height) * 0.7);
+  font-size: calc(var(--vuestro-button-md-height) * 0.6);
 }
 .vuestro-button-inner.lg {
   height: var(--vuestro-button-lg-height);
   padding: 0 calc(var(--vuestro-button-sm-height) * 0.4);
-  font-size: calc(var(--vuestro-button-lg-height) * 0.7);
+  font-size: calc(var(--vuestro-button-lg-height) * 0.6);
 }
 .vuestro-button-inner.xl {
   height: var(--vuestro-button-xl-height);
   padding: 0 calc(var(--vuestro-button-sm-height) * 0.4);
-  font-size: calc(var(--vuestro-button-xl-height) * 0.7);
+  font-size: calc(var(--vuestro-button-xl-height) * 0.6);
 }
 .vuestro-button.stretch > .vuestro-button-inner {
   align-self: stretch;
@@ -334,9 +331,9 @@ export default {
 /* checkbox mode */
 .vuestro-button-inner.checkbox {
   padding: 0; /* clear padding */
-  border: 1px solid var(--vuestro-field-bg);
+  border: var(--vuestro-rounded-border-width) solid var(--vuestro-field-bg);
   background-color: var(--vuestro-field-bg);
-  border-radius: 3px;
+  border-radius: var(--vuestro-rounded-border-radius);
 }
 .vuestro-button-inner.checkbox:hover {
   border-color: var(--variant-color);

@@ -32,17 +32,14 @@ export default {
 .vuestro-tray {
   display: flex;
   position: relative;
-  padding: 2px;
-  margin-bottom: 2px;
 }
 
 .vuestro-tray-outline {
-  border-radius: 4px;
-  border: 1px solid var(--vuestro-outline);
-  border-radius: 4px;
+  border-radius: var(--vuestro-rounded-border-radius);
+  border: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
 }
 .vuestro-tray-regular {
-  border-bottom: 1px solid var(--vuestro-outline);
+  border-bottom: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
 }
 
 .vuestro-tray-shaded {
@@ -54,7 +51,8 @@ export default {
 }
 
 .vuestro-tray-title {
-  margin-right: 10px;
+  margin-left: 0.3em;
+  margin-right: 0.5em;
   align-self: center;
 }
 

@@ -25,6 +25,9 @@
         </template>
         <template #value>value slot</template>
       </vuestro-pill>
+      <vuestro-pill>
+        <template #value>value slot</template>
+      </vuestro-pill>
     </vuestro-card>
 
     <vuestro-card>
@@ -42,6 +45,13 @@
       </template>
       <div class="example-align-items-start">
         <vuestro-pill title="Pill Title"></vuestro-pill>
+        <vuestro-pill title="M"></vuestro-pill>
+        <vuestro-pill>
+          <template #title>Slot Title</template>
+        </vuestro-pill>
+        <vuestro-pill>
+          <template #title>M</template>
+        </vuestro-pill>
       </div>
     </vuestro-card>
 
@@ -79,47 +89,64 @@
 
     <vuestro-card>
       <template #description>
-        ...or a different size by specifying a size property (with units). The font size will automatically scale!
+        ...or a different size by specifying a size property {'sm', 'md', 'lg', 'xl'}
       </template>
       <div class="example-align-items-start">
-        <vuestro-pill value="Orange" color="var(--vuestro-orange" size="12px"></vuestro-pill>
-        <vuestro-pill value="Green" color="var(--vuestro-green" size="24px"></vuestro-pill>
-        <vuestro-pill value="Red" color="var(--vuestro-red" size="36px"></vuestro-pill>
-        <vuestro-pill value="Blue" color="var(--vuestro-blue" size="48px"></vuestro-pill>
-        <vuestro-pill value="Purple" color="var(--vuestro-purple" size="64px"></vuestro-pill>
+        <vuestro-pill value="Orange" color="var(--vuestro-orange" size="sm"></vuestro-pill>
+        <vuestro-pill value="Green" color="var(--vuestro-green" size="md"></vuestro-pill>
+        <vuestro-pill value="Red" color="var(--vuestro-red" size="lg"></vuestro-pill>
+        <vuestro-pill value="Blue" color="var(--vuestro-blue" size="xl"></vuestro-pill>
       </div>
     </vuestro-card>
 
     <vuestro-card>
       <template #description>
-        ...or a different radius by specifying a radius property (with units).
+        <span>...or a different radius by defining the <em>--vuestro-pill-radius</em> CSS var (with units)</span>
       </template>
       <div class="example-align-items-start">
-        <vuestro-pill title="Default" value="Radius" size="40px"></vuestro-pill>
-        <vuestro-pill title="Small" value="Radius" size="40px" radius="4px"></vuestro-pill>
-        <vuestro-pill title="No" value="Radius" size="40px" radius="0"></vuestro-pill>
+        <vuestro-pill title="Default" value="Radius"></vuestro-pill>
+        <vuestro-pill title="4px" value="Radius" style="--vuestro-pill-radius:4px"></vuestro-pill>
+        <vuestro-pill title="0.5em" value="Radius" style="--vuestro-pill-radius:0.5em"></vuestro-pill>
+        <vuestro-pill title="0" value="Radius" style="--vuestro-pill-radius:0"></vuestro-pill>
       </div>
     </vuestro-card>
 
     <vuestro-card>
       <template #description>
-        Set the clickable property to make the pill a button which emits a 'click' event.
+        <span>Set the <em>clickable</em> property to make the pill a button which emits a 'click' event.</span>
       </template>
       <div class="example-align-items-start">
-        <vuestro-pill value="Clickable" clickable size="30px" @click="exampleClicked = !exampleClicked"></vuestro-pill>
+        <vuestro-pill value="Clickable" clickable @click="exampleClicked = !exampleClicked"></vuestro-pill>
         <span class="example-action-text" v-if="exampleClicked">Pill clicked!</span>
       </div>
     </vuestro-card>
 
     <vuestro-card>
       <template #description>
-        A pill will show a close button and emit a 'close' event when the closable property is set.
+        <span>A pill will show a close button and emit a <em>close</em> event when the closable property is set.</span>
       </template>
       <div class="example-align-items-start">
-        <vuestro-pill v-if="!exampleClosed" value="Closable" closable size="40px" @close="exampleClosed = true"></vuestro-pill>
+        <vuestro-pill v-if="!exampleClosed" value="Closable" closable @close="exampleClosed = true"></vuestro-pill>
         <span class="example-action-text" v-if="exampleClosed">
           Pill closed! <vuestro-button variant="link" @click="exampleClosed = false">Click</vuestro-button> to reopen.
         </span>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description>
+        <span>Combining <em>clickable</em> and <em>closable</em> will yield expected results.</span>
+      </template>
+      <div class="example-align-items-start">
+        <vuestro-pill v-if="!exampleClosed" clickable closable @close="exampleClosed = true" @click="exampleClicked = !exampleClicked">
+          <template #value>
+            Click or close
+          </template>
+        </vuestro-pill>
+        <span class="example-action-text" v-if="exampleClosed">
+          Pill closed! <vuestro-button variant="link" @click="exampleClosed = false">Click</vuestro-button> to reopen.
+        </span>
+        <span class="example-action-text" v-if="exampleClicked">Pill clicked!</span>
       </div>
     </vuestro-card>
 

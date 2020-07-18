@@ -121,6 +121,8 @@ export default {
 /* GLOBAL STYLE VARIABLES */
 .vuestro-app {
   --vuestro-font-size: 14px;
+  --vuestro-rounded-border-radius: 4px;
+  --vuestro-rounded-border-width: 1px;
 
   /* base palette */
   --vuestro-blue: #217ada;
@@ -200,6 +202,8 @@ export default {
 
 .vuestro-app.mobile {
   --vuestro-base-font-size: 32px;
+  --vuestro-rounded-border-radius: 10px;
+  --vuestro-rounded-border-width: 2px;
 }
 
 </style>
