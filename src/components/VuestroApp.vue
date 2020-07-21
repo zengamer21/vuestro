@@ -123,6 +123,11 @@ export default {
   --vuestro-font-size: 14px;
   --vuestro-rounded-border-radius: 4px;
   --vuestro-rounded-border-width: 1px;
+  --vuestro-control-sm-height: 18px;
+  --vuestro-control-md-height: 24px;
+  --vuestro-control-lg-height: 32px;
+  --vuestro-control-xl-height: 48px;
+  --vuestro-control-margin: 2px;
 
   /* base palette */
   --vuestro-blue: #217ada;
@@ -204,6 +209,11 @@ export default {
   --vuestro-base-font-size: 32px;
   --vuestro-rounded-border-radius: 10px;
   --vuestro-rounded-border-width: 2px;
+  --vuestro-control-sm-height: 42px;
+  --vuestro-control-md-height: 50px;
+  --vuestro-control-lg-height: 64px;
+  --vuestro-control-xl-height: 74px;
+  --vuestro-control-margin: 5px;
 }
 
 </style>

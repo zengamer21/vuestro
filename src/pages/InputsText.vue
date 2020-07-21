@@ -16,7 +16,10 @@
         Simple Text Fields
       </template>
       <vuestro-text-field placeholder="Regular Text Field" v-model="exampleText"></vuestro-text-field>
-      <vuestro-text-field variant="outline" placeholder="Outline Text Field" v-model="exampleText"></vuestro-text-field>
+      <vuestro-text-field variant="outline" size="sm" placeholder="sm Outline Text Field" v-model="exampleText"></vuestro-text-field>
+      <vuestro-text-field variant="outline" size="md" placeholder="md Outline Text Field" v-model="exampleText"></vuestro-text-field>
+      <vuestro-text-field variant="outline" size="lg" placeholder="lg Outline Text Field" v-model="exampleText"></vuestro-text-field>
+      <vuestro-text-field variant="outline" size="xl" placeholder="xl Outline Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field variant="shaded" placeholder="Shaded Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field placeholder="Existing Value" v-model="exampleEditableText"></vuestro-text-field>
 			<vuestro-text-field placeholder="Responsive Value" v-model="delayedText"></vuestro-text-field>

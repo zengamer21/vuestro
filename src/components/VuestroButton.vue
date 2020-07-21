@@ -86,25 +86,6 @@ export default {
 
 </script>
 
-<style>
-
-.vuestro-app {
-  --vuestro-button-sm-height: 14px;
-  --vuestro-button-md-height: 18px;
-  --vuestro-button-lg-height: 24px;
-  --vuestro-button-xl-height: 32px;
-  --vuestro-buttom-margin: 2px;
-}
-.vuestro-app.mobile {
-  --vuestro-button-sm-height: 42px;
-  --vuestro-button-md-height: 50px;
-  --vuestro-button-lg-height: 64px;
-  --vuestro-button-xl-height: 74px;
-  --vuestro-buttom-margin: 4px;
-}
-
-</style>
-
 <style scoped>
 
 /* VARIANTS */
@@ -152,7 +133,7 @@ export default {
 
 .vuestro-button-inner {
   border: var(--vuestro-rounded-border-width) solid var(--variant-color);
-  margin: var(--vuestro-buttom-margin);
+  margin: var(--vuestro-control-margin);
   color: var(--variant-color);
   cursor: pointer;
   display: flex;
@@ -186,24 +167,24 @@ export default {
   border-radius: var(--vuestro-rounded-border-radius);
 }
 .vuestro-button-inner.sm {
-  height: var(--vuestro-button-sm-height);
-  padding: 0 calc(var(--vuestro-button-sm-height) * 0.4);
-  font-size: calc(var(--vuestro-button-sm-height) * 0.5);
+  height: var(--vuestro-control-sm-height);
+  padding: 0 calc(var(--vuestro-control-sm-height) * 0.4);
+  font-size: calc(var(--vuestro-control-sm-height) * 0.5);
 }
 .vuestro-button-inner.md {
-  height: var(--vuestro-button-md-height);
-  padding: 0 calc(var(--vuestro-button-sm-height) * 0.4);
-  font-size: calc(var(--vuestro-button-md-height) * 0.6);
+  height: var(--vuestro-control-md-height);
+  padding: 0 calc(var(--vuestro-control-sm-height) * 0.4);
+  font-size: calc(var(--vuestro-control-md-height) * 0.6);
 }
 .vuestro-button-inner.lg {
-  height: var(--vuestro-button-lg-height);
-  padding: 0 calc(var(--vuestro-button-sm-height) * 0.4);
-  font-size: calc(var(--vuestro-button-lg-height) * 0.6);
+  height: var(--vuestro-control-lg-height);
+  padding: 0 calc(var(--vuestro-control-sm-height) * 0.4);
+  font-size: calc(var(--vuestro-control-lg-height) * 0.6);
 }
 .vuestro-button-inner.xl {
-  height: var(--vuestro-button-xl-height);
-  padding: 0 calc(var(--vuestro-button-sm-height) * 0.4);
-  font-size: calc(var(--vuestro-button-xl-height) * 0.6);
+  height: var(--vuestro-control-xl-height);
+  padding: 0 calc(var(--vuestro-control-sm-height) * 0.4);
+  font-size: calc(var(--vuestro-control-xl-height) * 0.6);
 }
 .vuestro-button.stretch > .vuestro-button-inner {
   align-self: stretch;
@@ -288,39 +269,39 @@ export default {
 }
 .vuestro-button-inner.round.sm,
 .vuestro-button-inner.checkbox.sm {
-  height: var(--vuestro-button-sm-height);
-  width: var(--vuestro-button-sm-height);
+  height: var(--vuestro-control-sm-height);
+  width: var(--vuestro-control-sm-height);
 }
 .vuestro-button-inner.sm >>> svg { /* shrink svgs a little for size=sm */
-  width: calc(var(--vuestro-button-sm-height) * 0.6);
-  height: calc(var(--vuestro-button-sm-height) * 0.6);
+  width: calc(var(--vuestro-control-sm-height) * 0.6);
+  height: calc(var(--vuestro-control-sm-height) * 0.6);
 }
 .vuestro-button-inner.round.md,
 .vuestro-button-inner.checkbox.md {
-  height: var(--vuestro-button-md-height);
-  width: var(--vuestro-button-md-height);
+  height: var(--vuestro-control-md-height);
+  width: var(--vuestro-control-md-height);
 }
 .vuestro-button-inner.md >>> svg { /* shrink svgs a little for size=md */
-  width: calc(var(--vuestro-button-md-height) * 0.6);
-  height: calc(var(--vuestro-button-md-height) * 0.6);
+  width: calc(var(--vuestro-control-md-height) * 0.6);
+  height: calc(var(--vuestro-control-md-height) * 0.6);
 }
 .vuestro-button-inner.round.lg,
 .vuestro-button-inner.checkbox.lg {
-  height: var(--vuestro-button-lg-height);
-  width: var(--vuestro-button-lg-height);
+  height: var(--vuestro-control-lg-height);
+  width: var(--vuestro-control-lg-height);
 }
 .vuestro-button-inner.lg >>> svg { /* enlarge svgs a little for size=lg */
-  width: calc(var(--vuestro-button-lg-height) * 0.6);
-  height: calc(var(--vuestro-button-lg-height) * 0.6);
+  width: calc(var(--vuestro-control-lg-height) * 0.6);
+  height: calc(var(--vuestro-control-lg-height) * 0.6);
 }
 .vuestro-button-inner.round.xl,
 .vuestro-button-inner.checkbox.xl {
-  height: var(--vuestro-button-xl-height);
-  width: var(--vuestro-button-xl-height);
+  height: var(--vuestro-control-xl-height);
+  width: var(--vuestro-control-xl-height);
 }
 .vuestro-button-inner.xl >>> svg { /* enlarge svgs a little for size=xl */
-  width: calc(var(--vuestro-button-xl-height) * 0.6);
-  height: calc(var(--vuestro-button-xl-height) * 0.6);
+  width: calc(var(--vuestro-control-xl-height) * 0.6);
+  height: calc(var(--vuestro-control-xl-height) * 0.6);
 }
 
 /* pill mode */

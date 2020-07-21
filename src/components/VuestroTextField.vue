@@ -21,42 +21,42 @@
              @input="updateValue"
              @keyup="onKeyUp">
       </input>
-    </div>
-    <!--validation-->
-    <div v-if="invalid" class="vuestro-text-field-invalid-msg">
-      <vuestro-icon name="angle-left"></vuestro-icon>
-      <span>&nbsp;{{ invalid }}</span>
-    </div>
-    <div v-if="editingButtons" class="vuestro-text-field-editing-buttons">
-      <vuestro-button v-if="!invalid" round no-border size="sm" variant="success" @click="onSaveButton">
-        <vuestro-icon name="save"></vuestro-icon>
-      </vuestro-button>
-      <vuestro-button round no-border size="sm" variant="danger" @click="onCancelButton">
+      <!--validation-->
+      <div v-if="invalid" class="vuestro-text-field-invalid-msg">
+        <vuestro-icon name="angle-left"></vuestro-icon>
+        <span>&nbsp;{{ invalid }}</span>
+      </div>
+      <div v-if="editingButtons" class="vuestro-text-field-editing-buttons">
+        <vuestro-button v-if="!invalid" round no-border size="sm" variant="success" @click="onSaveButton">
+          <vuestro-icon name="save"></vuestro-icon>
+        </vuestro-button>
+        <vuestro-button round no-border size="sm" variant="danger" @click="onCancelButton">
+          <vuestro-icon name="times"></vuestro-icon>
+        </vuestro-button>
+      </div>
+      <!--presets dropdown menu-->
+      <div v-if="presets.length > 0">
+        <vuestro-dropdown right click-to-open close-on-content-click>
+          <template #button>
+            <vuestro-button no-border round>
+              <vuestro-icon name="chevron-down"></vuestro-icon>
+            </vuestro-button>
+          </template>
+          <vuestro-list-button v-for="p in presets" :key="p" @click="onPreset(p)">{{ p }}</vuestro-list-button>
+        </vuestro-dropdown>
+      </div>
+      <!--clear button-->
+      <vuestro-button v-if="clearable && value" size="sm" round no-border @click.stop="onClear">
         <vuestro-icon name="times"></vuestro-icon>
       </vuestro-button>
+      <!--show password button-->
+      <span class="vuestro-text-field-show-password" v-if="type === 'password'" @click="showPassword = !showPassword">
+        <vuestro-icon v-if="!showPassword" name="eye-slash"></vuestro-icon>
+        <vuestro-icon v-if="showPassword" name="eye"></vuestro-icon>
+      </span>
     </div>
-    <!--presets dropdown menu-->
-    <div v-if="presets.length > 0">
-      <vuestro-dropdown right click-to-open close-on-content-click>
-        <template #button>
-          <vuestro-button no-border round>
-            <vuestro-icon name="chevron-down"></vuestro-icon>
-          </vuestro-button>
-        </template>
-        <vuestro-list-button v-for="p in presets" :key="p" @click="onPreset(p)">{{ p }}</vuestro-list-button>
-      </vuestro-dropdown>
-    </div>
-    <!--clear button-->
-    <vuestro-button v-if="clearable && value" no-border round @click.stop="onClear">
-      <vuestro-icon name="times"></vuestro-icon>
-    </vuestro-button>
-    <!--show password button-->
-    <span class="vuestro-text-field-show-password" v-if="type === 'password'" @click="showPassword = !showPassword">
-      <vuestro-icon v-if="!showPassword" name="eye-slash"></vuestro-icon>
-      <vuestro-icon v-if="showPassword" name="eye"></vuestro-icon>
-    </span>
     <!--placeholder-->
-    <div ref="placeholder" class="vuestro-text-field-placeholder"
+    <div v-if="placeholder" ref="placeholder" class="vuestro-text-field-placeholder"
          :class="{ active: raisedPlaceholder }">
       {{ placeholder }}
     </div>
@@ -89,7 +89,7 @@ export default {
     noMargin: { type: Boolean, default: false },
     presets: { type: Array, default: () => [] },
     clearable: { type: Boolean, default: false },
-    size: { type: String, default: 'lg' },
+    size: { type: String, default: 'md' },
     editingButtons: { type: Boolean, default: false },
     selected: { type: Boolean, default: false },      // true for all text selected by default
     readonly: { type: Boolean, default: false },      // true for readonly
@@ -101,23 +101,10 @@ export default {
       raisedPlaceholder: false,
       showPassword: false,
       editingButtonsBuffer: this.value,
+      style: {},
     };
   },
   computed: {
-    style() {
-      if (this.variant === 'regular') {
-        return {};
-      }
-      let ret = {
-        'border-radius': this.radius,
-      };
-      if (this.raisedPlaceholder) {
-        let placeholderWidth = this.$refs.placeholder.offsetWidth * (this.$root.mobile ? 0.75:0.78);
-        ret['clip-path'] = `polygon(0 -10%, 0px 100%, 100% 100%, 100% -10%, calc(0.3em + ${placeholderWidth}px) -10%, calc(0.3em + ${placeholderWidth}px) 2px, calc(0.3em + 2px) 2px, calc(0.3em + 2px) -10%)`;
-        ret['border-color'] = 'var(--vuestro-primary)';
-      }
-      return ret;
-    },
   },
   watch: {
     value(newVal) {
@@ -126,6 +113,7 @@ export default {
       } else {
         this.raisedPlaceholder = false;
       }
+      this.updateStyle();
     }
   },
   mounted() {
@@ -146,12 +134,32 @@ export default {
         this.$refs.inputEl.setSelectionRange(0, 999);
       });
     }
+    this.$nextTick(() => {
+      this.updateStyle();
+    });
   },
   methods: {
+    updateStyle() {
+      if (this.variant === 'regular') {
+        this.style = {};
+      }
+      this.$set(this.style, 'border-radius', this.radius);
+      setTimeout(() => {
+        if (this.placeholder && this.raisedPlaceholder) {
+          let placeholderWidth = window.getComputedStyle(this.$refs.placeholder, null).getPropertyValue('width');
+          this.$set(this.style, 'clip-path', `polygon(0 -10%, 0px 100%, 100% 100%, 100% -10%, calc(${placeholderWidth} - var(--vuestro-rounded-border-radius)*2) -10%, calc(${placeholderWidth} - var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) -10%)`);
+            this.$set(this.style, 'border-color', 'var(--vuestro-primary)');
+        } else {
+          this.$delete(this.style, 'clip-path');
+          this.$delete(this.style, 'border-color');
+        }
+      }, 100);
+    },
     checkPlaceholder() {
       if (this.$refs.inputEl && window.getComputedStyle(this.$refs.inputEl).content === `"${String.fromCharCode(0xFEFF)}"`) {
         this.raisedPlaceholder = true;
       }
+      this.updateStyle();
     },
     focus() { // proxy the focus() call
       this.$nextTick(() => {
@@ -171,8 +179,10 @@ export default {
       this.focused = true;
       this.raisedPlaceholder = true;
       this.$forceUpdate();
+      this.updateStyle();
     },
     onFocusOut() {
+      this.updateStyle();
       this.focused = false;
       // only lower placeholder if no text in value
       if (!this.value || this.value.length == 0) {
@@ -208,25 +218,6 @@ export default {
 
 </script>
 
-<style>
-
-.vuestro-app {
-  --vuestro-text-field-sm-height: 14px;
-  --vuestro-text-field-md-height: 18px;
-  --vuestro-text-field-lg-height: 24px;
-  --vuestro-text-field-xl-height: 32px;
-  --vuestro-text-field-margin: 2px;
-}
-.vuestro-app.mobile {
-  --vuestro-text-field-sm-height: 42px;
-  --vuestro-text-field-md-height: 50px;
-  --vuestro-text-field-lg-height: 64px;
-  --vuestro-text-field-xl-height: 74px;
-  --vuestro-text-field-margin: 4px;
-}
-
-</style>
-
 <style scoped>
 
 .vuestro-text-field {
@@ -235,19 +226,20 @@ export default {
   display: flex;
 }
 .vuestro-text-field.sm {
-  font-size: calc(var(--vuestro-button-sm-height) * 0.5);
-  height: var(--vuestro-text-field-sm-height);
+  font-size: calc(var(--vuestro-control-sm-height) * 0.5);
+  height: var(--vuestro-control-sm-height);
 }
 .vuestro-text-field.md {
-  font-size: calc(var(--vuestro-button-md-height) * 0.5);
-  height: var(--vuestro-text-field-md-height);
+  font-size: calc(var(--vuestro-control-md-height) * 0.5);
+  height: var(--vuestro-control-md-height);
 }
 .vuestro-text-field.lg {
-  font-size: calc(var(--vuestro-button-lg-height) * 0.5);
-  height: var(--vuestro-text-field-lg-height);
+  font-size: calc(var(--vuestro-control-lg-height) * 0.5);
+  height: var(--vuestro-control-lg-height);
 }
 .vuestro-text-field.xl {
-  height: var(--vuestro-text-field-xl-height);
+  font-size: calc(var(--vuestro-control-xl-height) * 0.5);
+  height: var(--vuestro-control-xl-height);
 }
 .vuestro-text-field.noMargin {
   margin: 0;
@@ -281,9 +273,14 @@ export default {
 }
 
 .vuestro-text-field-placeholder {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 1em;
+  font-weight: 300;
   top: 50%;
   left: 0px;
+  max-width: 100%;
   transform: translate(0, -50%);
   transition: all 0.15s;
   position: absolute;
@@ -294,21 +291,21 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.vuestro-text-field-outline .vuestro-text-field-placeholder {
-  left: calc(0.4em + 2px);
-}
-
 .vuestro-text-field-placeholder.active {
   top: 0px;
-  transform: translate(0, -60%);
-  font-size: 0.7em;
-  line-height: 0.7em;
+  font-size: 0.8em;
   padding-left: 3px;
   padding-right: 3px;
 }
+.vuestro-text-field-outline .vuestro-text-field-placeholder {
+  padding: 0 calc(var(--vuestro-rounded-border-radius)*2);
+}
+.vuestro-text-field-outline .vuestro-text-field-placeholder.active {
+  padding: 0 calc(var(--vuestro-rounded-border-radius)*3);
+}
 
 .vuestro-text-field-shaded .vuestro-text-field-placeholder {
-  left: 5px;
+  padding: 0 5px;
 }
 .vuestro-text-field-shaded .vuestro-text-field-placeholder.active {
   top: 5px;
@@ -321,10 +318,13 @@ export default {
   overflow: hidden;
   padding-left: 0.4em;
   padding-right: 0.4em;
+  transition: all 0.15s;
+  clip-path: polygon(0 -10%, 0px 100%, 100% 100%, 100% -10%, calc(var(--vuestro-rounded-border-radius)*2) -10%, calc(var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) -10%)
 }
 
 .vuestro-text-field-input-el {
-  font-size: calc(var(--vuestro-button-sm-height) * 0.7);
+  font-size: inherit;
+  font-weight: 300;
   align-self: center;
   width: 100%;
   background-color: transparent;
@@ -351,7 +351,6 @@ export default {
   left: 10px;
   transform: translate(0, -50%);
   pointer-events: none;
-  font-size: 12px;
   filter: invert(50%);
 }
 .vuestro-text-field.center .vuestro-text-field-hint {
@@ -375,6 +374,7 @@ export default {
   color: var(--vuestro-danger);
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 
 </style>

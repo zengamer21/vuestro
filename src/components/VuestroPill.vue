@@ -88,17 +88,7 @@ export default {
 <style>
 
 .vuestro-app {
-  --vuestro-pill-sm-height: 14px;
-  --vuestro-pill-md-height: 18px;
-  --vuestro-pill-lg-height: 24px;
-  --vuestro-pill-xl-height: 32px;
   --vuestro-pill-radius: 999px;
-}
-.vuestro-app.mobile {
-  --vuestro-pill-sm-height: 42px;
-  --vuestro-pill-md-height: 50px;
-  --vuestro-pill-lg-height: 64px;
-  --vuestro-pill-xl-height: 74px;
 }
 
 </style>
@@ -113,20 +103,20 @@ export default {
   margin: 2px;
 }
 .vuestro-pill.sm {
-  line-height: var(--vuestro-pill-sm-height);
-  font-size: calc(var(--vuestro-pill-sm-height)/2);
+  line-height: var(--vuestro-control-sm-height);
+  font-size: calc(var(--vuestro-control-sm-height)/2);
 }
 .vuestro-pill.md {
-  line-height: var(--vuestro-pill-md-height);
-  font-size: calc(var(--vuestro-pill-md-height)/2);
+  line-height: var(--vuestro-control-md-height);
+  font-size: calc(var(--vuestro-control-md-height)/2);
 }
 .vuestro-pill.lg {
-  line-height: var(--vuestro-pill-lg-height);
-  font-size: calc(var(--vuestro-pill-lg-height)/2);
+  line-height: var(--vuestro-control-lg-height);
+  font-size: calc(var(--vuestro-control-lg-height)/2);
 }
 .vuestro-pill.xl {
-  line-height: var(--vuestro-pill-xl-height);
-  font-size: calc(var(--vuestro-pill-xl-height)/2);
+  line-height: var(--vuestro-control-xl-height);
+  font-size: calc(var(--vuestro-control-xl-height)/2);
 }
 
 .vuestro-pill.clickable {
@@ -139,16 +129,16 @@ export default {
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
 }
 .vuestro-pill.sm .vuestro-pill-title {
-  min-width: var(--vuestro-pill-sm-height);
+  min-width: var(--vuestro-control-sm-height);
 }
 .vuestro-pill.md .vuestro-pill-title {
-  min-width: var(--vuestro-pill-md-height);
+  min-width: var(--vuestro-control-md-height);
 }
 .vuestro-pill.lg .vuestro-pill-title {
-  min-width: var(--vuestro-pill-lg-height);
+  min-width: var(--vuestro-control-lg-height);
 }
 .vuestro-pill.xl .vuestro-pill-title {
-  min-width: var(--vuestro-pill-xl-height);
+  min-width: var(--vuestro-control-xl-height);
 }
 .vuestro-pill-title {
   text-align: center;
