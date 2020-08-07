@@ -212,6 +212,7 @@ export default {
   justify-content: center;
   align-items: center;
   user-select: none;
+  white-space: nowrap;
 }
 .vuestro-button-inner.tall .vuestro-button-content {
   flex-direction: column;

@@ -171,7 +171,7 @@ export default {
         return  d[`${v}_y1`];
       });
       if (this.smooth) {
-        area.curve(d3.curveNatural);
+        area.curve(d3.curveMonotoneX);
       }
       return area(this.localData);
     },
@@ -183,7 +183,7 @@ export default {
         return d[`${v}_y1`];
       });
       if (this.smooth) {
-        line.curve(d3.curveNatural);
+        line.curve(d3.curveMonotoneX);
       }
       return line(this.localData);
     },
