@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-dropdown"
-       :class="{ disabled }"
+       :class="{ disabled, stretch }"
        v-vuestro-blur="onBlur"
        :style="{ 'z-index': active ? 200:100 }">
     <div class="vuestro-dropdown-inner" @mouseleave="onLeave" :class="{ dark, active, noSpacing, noScroll, rounded, bottom, clickToOpen, stretch }">
