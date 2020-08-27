@@ -34,8 +34,8 @@
       <vuestro-button round size="sm" @click="decreaseDistance" :disabled="(distance + distanceOffset) <= 0" value>
         <vuestro-icon name="minus"></vuestro-icon>
       </vuestro-button>
-      <vuestro-pill color="var(--vuestro-secondary)" clickable @click="resetLinkThreshold">
-        <template #title>{{ distance + distanceOffset }}</template>
+      <vuestro-pill size="sm" color="var(--vuestro-secondary)" clickable @click="resetLinkThreshold">
+        <template #title>&nbsp;{{ distance + distanceOffset }}&nbsp;</template>
       </vuestro-pill>
       <vuestro-button round size="sm" @click="increaseDistance" value>
         <vuestro-icon name="plus"></vuestro-icon>

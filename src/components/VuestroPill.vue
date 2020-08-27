@@ -2,7 +2,7 @@
   <span class="vuestro-pill"
        :class="[ size, { clickable, closable, shadow, draggable, geopattern }]"
        @click="onClick">
-    <div v-if="!$slots.title" class="vuestro-pill-title"
+    <div v-if="!$slots.title" class="vuestro-pill-title" :class="{ autoCapital }"
          :style="titleStyle">
       {{ titleComputed }}
     </div>
@@ -34,7 +34,7 @@ import GeoPattern from 'geopattern/geopattern.js';
 export default {
   name: 'VuestroPill',
   props: {
-    size: { type: String, default: 'lg' },
+    size: { type: String, default: 'md' },
     title: { type: null },
     value: { type: null },
     color: { type: String, default: null },
@@ -43,6 +43,11 @@ export default {
     draggable: { type: Boolean, default: false },
     shadow: { type: Boolean, default: false },
     geopattern: { type: Boolean, default: false },
+  },
+  data() {
+    return {
+      autoCapital: false,
+    };
   },
   computed: {
     titleStyle() {
@@ -62,6 +67,7 @@ export default {
       if (this.title) {
         return this.title;
       } else {
+        this.autoCapital = true;
         let v = this.value || this.$slots.value[0].text;
         if (v && _.isString(v)) {
           return v.trim().slice(0, 1).toUpperCase();
@@ -104,15 +110,15 @@ export default {
 }
 .vuestro-pill.sm {
   line-height: var(--vuestro-control-sm-height);
-  font-size: calc(var(--vuestro-control-sm-height)/2);
+  font-size: calc(var(--vuestro-control-sm-height)/1.7);
 }
 .vuestro-pill.md {
   line-height: var(--vuestro-control-md-height);
-  font-size: calc(var(--vuestro-control-md-height)/2);
+  font-size: calc(var(--vuestro-control-md-height)/1.8);
 }
 .vuestro-pill.lg {
   line-height: var(--vuestro-control-lg-height);
-  font-size: calc(var(--vuestro-control-lg-height)/2);
+  font-size: calc(var(--vuestro-control-lg-height)/1.9);
 }
 .vuestro-pill.xl {
   line-height: var(--vuestro-control-xl-height);
@@ -145,12 +151,15 @@ export default {
   background-color: var(--vuestro-primary);
   color: var(--vuestro-light);
   border-radius: var(--vuestro-pill-radius);
-  padding-left: calc(1em/3);
-  padding-right: calc(1em/3);
+  padding-left: calc(1em/2);
+  padding-right: calc(1em/2);
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+.vuestro-pill-title.autoCapital {
+  padding: 0;
 }
 .vuestro-pill-title-no-right {
   padding-right: 0;

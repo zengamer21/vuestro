@@ -260,7 +260,6 @@ export default {
       options4: {
         utc: true,
         showAxes: true,
-        transition: 0,
         series: [
           {
             title: 'CPU1',

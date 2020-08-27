@@ -148,7 +148,7 @@
         <vuestro-button size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="sm">
           <vuestro-icon name="tractor"></vuestro-icon>
-          <span>sm Button</span>
+          <span>SM Button</span>
         </vuestro-button>
         <vuestro-button size="md"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="md">
@@ -170,7 +170,7 @@
         <vuestro-button round size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button pill size="sm">
           <vuestro-icon name="tractor"></vuestro-icon>
-          <span>sm Button</span>
+          <span>SM Button</span>
         </vuestro-button>
         <vuestro-button round size="md"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button pill size="md">

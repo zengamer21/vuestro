@@ -169,7 +169,7 @@ export default {
 .vuestro-button-inner.sm {
   height: var(--vuestro-control-sm-height);
   padding: 0 calc(var(--vuestro-control-sm-height) * 0.4);
-  font-size: calc(var(--vuestro-control-sm-height) * 0.5);
+  font-size: calc(var(--vuestro-control-sm-height) * 0.8);
 }
 .vuestro-button-inner.md {
   height: var(--vuestro-control-md-height);

@@ -192,7 +192,7 @@ export default {
 }
 
 .example-constrained-width {
-  width: 100px;
+  width: 10vh;
 }
 
 </style>

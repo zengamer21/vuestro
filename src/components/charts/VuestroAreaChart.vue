@@ -123,6 +123,12 @@ export default {
         '--vuestro-area-chart-stroke-width': this.strokeWidth,
       };
     },
+    resolvedData() {
+      if (_.isFunction(this.data)) {
+        return this.data();
+      }
+      return this.data;
+    }
   },
   watch: {
     data(newVal) {
@@ -204,7 +210,7 @@ export default {
             }
           }
           return ret;
-        }).entries(this.data);
+        }).entries(this.resolvedData);
         // promote aggregated values in .value out to top level
         this.localData = nested.map(function(d) {
           return {
@@ -213,7 +219,7 @@ export default {
           };
         });
       } else { // clone data
-        this.localData = _.cloneDeep(this.data);
+        this.localData = _.cloneDeep(this.resolvedData);
       }
 
       if (this.timeSeries) {
@@ -299,7 +305,7 @@ export default {
         if (this.lastHoverPoint.index !== closestPoint.index) {
           const point = this.localData[closestPoint.index];
           this.cursorLine = this.getCursor([point]);
-          this.$emit('select', this.data[closestPoint.index]);
+          this.$emit('select', this.resolvedData[closestPoint.index]);
           this.lastHoverPoint = closestPoint;
         }
       }
