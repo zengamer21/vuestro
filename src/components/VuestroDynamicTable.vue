@@ -167,7 +167,6 @@ export default {
     },
     onToggleFilterBar() {
       this.showFilters = !this.showFilters;
-      console.log('click')
     },
   },
 };

@@ -17,11 +17,14 @@
 
     <vuestro-card>
       <template #description>
-        <span>Use VuestroPill with <em>title</em> and <em>value</em> slots to embed components</span>
+        <span>Use VuestroPill with <em>icon</em>, <em>title</em>, and <em>value</em> slots to embed components</span>
       </template>
       <vuestro-pill>
-        <template #title>
+        <template #icon>
           <vuestro-icon name="pills"></vuestro-icon>
+        </template>
+        <template #title>
+          title
         </template>
         <template #value>value slot</template>
       </vuestro-pill>
@@ -41,7 +44,7 @@
 
     <vuestro-card>
       <template #description>
-        Get a color pill by only setting the title property
+        <span>Get a color pill by only setting the <em>title</em> slot (or <em>icon</em> and <em>title</em>)</span>
       </template>
       <div class="example-align-items-start">
         <vuestro-pill title="Pill Title"></vuestro-pill>
@@ -50,6 +53,9 @@
           <template #title>Slot Title</template>
         </vuestro-pill>
         <vuestro-pill>
+          <template #icon>
+            <vuestro-icon name="tractor" scale="0.8"></vuestro-icon>
+          </template>
           <template #title>M</template>
         </vuestro-pill>
       </div>
@@ -158,6 +164,20 @@
         <vuestro-pill title="Long Title" value="Long Value"></vuestro-pill>
       </div>
     </vuestro-card>
+
+    <vuestro-card>
+      <template #description>
+        <span>Set the <em>geopattern</em> property for a generated geometric background based on the <em>title</em> string.</span>
+      </template>
+      <div class="example-align-items-start">
+        <vuestro-pill geopattern>
+          <template #title>
+            This string generated the background!!!
+          </template>
+        </vuestro-pill>
+      </div>
+    </vuestro-card>
+
 
   </vuestro-container>
 </template>

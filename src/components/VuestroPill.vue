@@ -10,6 +10,9 @@
          class="vuestro-pill-title vuestro-pill-slot"
          :class="$slots['title-buttons'] ? ['vuestro-pill-title-no-right']:[]"
          :style="titleStyle">
+      <div v-if="$slots.icon" class="vuestro-pill-icon-slot">
+        <slot name="icon"></slot>
+      </div>
       <slot name="title"></slot>
       <slot name="title-buttons"></slot>
     </div>
@@ -18,7 +21,7 @@
          class="vuestro-pill-value vuestro-pill-slot">
       <slot name="value"></slot>
     </div>
-    <div v-if="closable" class="vuestro-pill-closer">
+    <div v-if="closable">
       <vuestro-button no-margin :size="size" round no-border @click="onClose">
         <vuestro-icon name="times"></vuestro-icon>
       </vuestro-button>
@@ -151,8 +154,8 @@ export default {
   background-color: var(--vuestro-primary);
   color: var(--vuestro-light);
   border-radius: var(--vuestro-pill-radius);
-  padding-left: calc(1em/2);
-  padding-right: calc(1em/2);
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -166,12 +169,12 @@ export default {
 }
 /* add slight overlap for multiple buttons so they don't take up as much space */
 .vuestro-pill-title > .vuestro-button:not(:first-child) {
-  margin-left: -5px;
+  margin-left: -0.3em;
 }
 
 .vuestro-pill-value {
-  padding-left: calc(1em/3);
-  padding-right: calc(1em/2);
+  padding-left: 0.33em;
+  padding-right: 0.5em;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -179,7 +182,7 @@ export default {
 	color: var(--vuestro-text-color);
 }
 .vuestro-pill.closable .vuestro-pill-value {
-  padding-right: calc(1em/3);
+  padding-right: 0.33em;
 }
 
 .vuestro-pill-slot {
@@ -189,6 +192,10 @@ export default {
 .vuestro-pill-title.vuestro-pill-slot {
   justify-content: center;
 }
+.vuestro-pill-icon-slot {
+  margin-right: 0.3em;
+}
+
 .vuestro-pill-value.vuestro-pill-slot {
   flex-grow: 1;
 }
