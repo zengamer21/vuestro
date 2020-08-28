@@ -332,8 +332,20 @@ export default {
   margin-left: 4px;
   margin-right: 10px;
   cursor: pointer;
-  font-size: 0.7em;
 }
+.vuestro-button-checkbox-text.sm {
+  font-size: calc(var(--vuestro-control-sm-height) * 0.8);
+}
+.vuestro-button-checkbox-text.md {
+  font-size: calc(var(--vuestro-control-md-height) * 0.6);
+}
+.vuestro-button-checkbox-text.lg {
+  font-size: calc(var(--vuestro-control-lg-height) * 0.6);
+}
+.vuestro-button-checkbox-text.xl {
+  font-size: calc(var(--vuestro-control-xl-height) * 0.6);
+}
+
 /* add a right margin when icon is paired anything else */
 .vuestro-button-content .vuestro-icon:not(:only-child) {
   margin-right: 0.25em;
