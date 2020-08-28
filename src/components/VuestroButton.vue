@@ -334,16 +334,16 @@ export default {
   cursor: pointer;
 }
 .vuestro-button-checkbox-text.sm {
-  font-size: calc(var(--vuestro-control-sm-height) * 0.8);
+  font-size: calc(var(--vuestro-control-sm-height) * 0.7);
 }
 .vuestro-button-checkbox-text.md {
-  font-size: calc(var(--vuestro-control-md-height) * 0.6);
+  font-size: calc(var(--vuestro-control-md-height) * 0.5);
 }
 .vuestro-button-checkbox-text.lg {
-  font-size: calc(var(--vuestro-control-lg-height) * 0.6);
+  font-size: calc(var(--vuestro-control-lg-height) * 0.5);
 }
 .vuestro-button-checkbox-text.xl {
-  font-size: calc(var(--vuestro-control-xl-height) * 0.6);
+  font-size: calc(var(--vuestro-control-xl-height) * 0.5);
 }
 
 /* add a right margin when icon is paired anything else */
