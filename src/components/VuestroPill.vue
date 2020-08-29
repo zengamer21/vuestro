@@ -14,7 +14,9 @@
         <slot name="icon"></slot>
       </div>
       <slot name="title"></slot>
-      <slot name="title-buttons"></slot>
+      <div v-if="$slots['title-buttons']" class="vuestro-pill-button-slot">
+        <slot name="title-buttons"></slot>
+      </div>
     </div>
     <div v-if="value" ref="theText" class="vuestro-pill-value">{{ value }}</div>
     <div v-if="$slots.value"
@@ -154,8 +156,8 @@ export default {
   background-color: var(--vuestro-primary);
   color: var(--vuestro-light);
   border-radius: var(--vuestro-pill-radius);
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -168,8 +170,11 @@ export default {
   padding-right: 0;
 }
 /* add slight overlap for multiple buttons so they don't take up as much space */
-.vuestro-pill-title > .vuestro-button:not(:first-child) {
-  margin-left: -0.3em;
+.vuestro-pill-button-slot {
+  display: flex;
+}
+.vuestro-pill-button-slot > .vuestro-button:not(:first-child) {
+  margin-left: -0.4em;
 }
 
 .vuestro-pill-value {

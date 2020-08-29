@@ -51,12 +51,31 @@
         <vuestro-pill title="M"></vuestro-pill>
         <vuestro-pill>
           <template #title>Slot Title</template>
+          <template #title-buttons>
+            <vuestro-button round no-border variant="white" size="sm">
+              <vuestro-icon name="times"></vuestro-icon>
+            </vuestro-button>
+          </template>
         </vuestro-pill>
         <vuestro-pill>
           <template #icon>
             <vuestro-icon name="tractor" scale="0.8"></vuestro-icon>
           </template>
-          <template #title>M</template>
+          <template #title>Tractor</template>
+        </vuestro-pill>
+        <vuestro-pill>
+          <template #icon>
+            <vuestro-icon name="tractor" scale="0.8"></vuestro-icon>
+          </template>
+          <template #title>Tractor</template>
+          <template #title-buttons>
+            <vuestro-button round no-border variant="white" size="sm">
+              <vuestro-icon name="save"></vuestro-icon>
+            </vuestro-button>
+            <vuestro-button round no-border variant="white" size="sm">
+              <vuestro-icon name="times"></vuestro-icon>
+            </vuestro-button>
+          </template>
         </vuestro-pill>
       </div>
     </vuestro-card>
