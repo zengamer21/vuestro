@@ -257,9 +257,9 @@
       </template>
       <div>
         <vuestro-button variant="info" size="sm" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
-        <vuestro-button variant="info" size="md" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
-        <vuestro-button variant="info" size="lg" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
-        <vuestro-button variant="info" size="xl" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
+        <vuestro-button variant="secondary" size="md" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
+        <vuestro-button variant="warning" size="lg" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
+        <vuestro-button variant="success" size="xl" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
       </div>
     </vuestro-card>
 

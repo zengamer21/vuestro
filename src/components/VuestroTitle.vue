@@ -4,7 +4,7 @@
                   'vuestro-title-draggable': draggable }"
         @click="onClick">
     <slot></slot>
-    <vuestro-icon name="spinner" pulse v-if="spinner"></vuestro-icon>
+    <vuestro-icon scale="0.7" name="spinner" pulse v-if="spinner"></vuestro-icon>
   </span>
 </template>
 
@@ -60,9 +60,7 @@ export default {
   cursor: move;
 }
 
-.vuestro-title svg {
-  width: 12px;
-  height: 12px;
+.vuestro-icon {
   margin-left: 5px;
   margin-right: 5px;
 }
