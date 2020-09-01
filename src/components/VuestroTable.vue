@@ -19,6 +19,7 @@
               <vuestro-button v-if="column.sortable"
                     no-border
                     round
+                    size="sm"
                     class="vuestro-table-header-sort"
                     :class="{ active: isSortActive(column), desc: isSortDescending(column) }"
                     @click="onSort(column)">
@@ -288,6 +289,9 @@ export default {
 .vuestro-table-header-sort.active {
   opacity: 1;
   color: var(--vuestro-table-header-fg-active);
+}
+.vuestro-table-header-sort >>> svg {
+  transition: transform 0.4s;
 }
 .vuestro-table-header-sort.desc >>> svg {
   transform: rotate(180deg);
