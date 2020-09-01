@@ -15,7 +15,7 @@
           <slot v-if="$scopedSlots['header-cell']" name="header-cell" :item="column"></slot>
           <template v-else>
             <vuestro-container gutter="none">
-              {{ column.title }}
+              <span>{{ column.title }}</span>
               <vuestro-button v-if="column.sortable"
                     no-border
                     round
@@ -265,7 +265,7 @@ export default {
 
 .vuestro-table-header {
   text-align: left;
-  padding: 12px;
+  padding: 10px;
   color: var(--vuestro-table-header-fg);
   font-weight: 500;
   border-bottom: 1px solid rgba(0,0,0,0.12);
