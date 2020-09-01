@@ -14,7 +14,7 @@
             :style="column.padding !== undefined && `padding: ${column.padding}px`">
           <slot v-if="$scopedSlots['header-cell']" name="header-cell" :item="column"></slot>
           <template v-else>
-            <vuestro-container gutter="none">
+            <div class="vuestro-table-header-cell">
               <span>{{ column.title }}</span>
               <vuestro-button v-if="column.sortable"
                     no-border
@@ -25,7 +25,7 @@
                     @click="onSort(column)">
                 <vuestro-icon name="arrow-up"></vuestro-icon>
               </vuestro-button>
-            </vuestro-container>
+            </div>
           </template>
         </th>
         <th v-if="$scopedSlots['header-buttons']" class="vuestro-table-header">
@@ -278,6 +278,10 @@ export default {
 }
 .vuestro-table-header.vuestro-table-align-center {
   text-align: center;
+}
+.vuestro-table-header-cell {
+  display: flex;
+  align-items: center;
 }
 .vuestro-table-header-sort {
   opacity: 0;
