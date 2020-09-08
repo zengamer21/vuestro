@@ -1,3 +1,8 @@
+//
+// This file is only used for the standalone test instance
+// this file is not used when Vuestro is used as a Vue plugin
+//
+
 /* global Vue */
 
 import Vuestro from './plugin';
@@ -6,6 +11,7 @@ Vue.use(Vuestro);
 import App from './App.vue';
 import router from './router';
 import axios from 'axios';
+import store from './store';
 
 // disable production tip
 Vue.config.productionTip = false;
@@ -37,6 +43,7 @@ console.log('-> testing browser-side dev console forwarding');
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   data() {
     return {

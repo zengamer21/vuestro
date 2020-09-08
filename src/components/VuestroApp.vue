@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-app" :class="{ mobile: $root.mobile, 'vuestro-dark': dark }">
+  <div class="vuestro-app" :class="{ mobile: $root.mobile, 'vuestro-dark': isDark }">
     <!--MAIN TEMPLATE-->
     <template v-if="authenticated && !loading">
 
@@ -83,6 +83,16 @@ export default {
     role: { type: String, default: '' },      // user role
     dark: { type: Boolean, default: false },  // dark mode
   },
+  computed: {
+    isDark() {
+      // if store is setup to provide isDarkUI, use it
+      if (this.$store && this.$store.getters.isDarkUI) {
+        return this.$store.getters.isDarkUI;
+      }
+      // default to prop
+      return this.dark;
+    },
+  },
   watch: {
     '$route'(to, from) {
       if (to.meta.scrollTop) {
@@ -99,8 +109,8 @@ export default {
   },
   beforeMount() {
     console.log('vuestro-app beforeMount');
-    console.log('window width', window.innerWidth)
-    console.log('ua', navigator.userAgent)
+    console.log('window width', window.innerWidth);
+    console.log('ua', navigator.userAgent);
     if (navigator.userAgent.match(/Mobile/)) {
       console.log('vuestro-app going into MOBILE mode');
       this.$root.mobile = true;

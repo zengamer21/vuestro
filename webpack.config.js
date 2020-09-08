@@ -80,6 +80,7 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       Vue: ['vue/dist/vue.esm.js', 'default'],
+      Vuex: ['vuex/dist/vuex.esm.js', 'default'],
       _: 'lodash',
     })
   ],

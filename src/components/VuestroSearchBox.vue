@@ -107,7 +107,6 @@ export default {
   margin: 5px;
   padding: 4px 8px 4px 8px;
   overflow: visible !important; /* so dropdown menu will show */
-  z-index: 1000;
   display: flex;
   flex: 1 1 auto;
 }

@@ -94,6 +94,7 @@ export default {
 }
 
 .vuestro-title-text {
+  color: var(--vuestro-text-color);
   font-size: var(--vuestro-navbar-title-font-size);
   line-height: 1;
   padding: 0px 15px;

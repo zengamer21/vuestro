@@ -32,7 +32,6 @@ export default {
   display: flex;
   flex-direction: column;
   padding-right: var(--vuestro-sidebar-item-padding-right);
-  padding-bottom: 10px;
   overflow-x: visible;
   overflow-y: auto;
 }

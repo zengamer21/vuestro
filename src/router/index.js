@@ -38,6 +38,7 @@ import InputsEditor from '../pages/InputsEditor.vue';
 import Example from '../pages/Example.vue';
 import ExampleDark from '../pages/ExampleDark.vue';
 import ExampleJuxtapositions from '../pages/ExampleJuxtapositions.vue';
+import Settings from '../pages/Settings.vue';
 
 
 Vue.use(Router);
@@ -335,6 +336,36 @@ export default new Router({
     },
     {
       meta: {
+        title: 'Example UIs',
+        sidebar: true,
+        icon: 'puzzle-piece',
+      },
+      name: 'example',
+      path: '/example',
+      component: Example,
+      children: [
+        {
+          meta: {
+            title: 'Dark',
+            sidebar: true,
+          },
+          name: 'example-dark',
+          path: 'example-dark',
+          component: ExampleDark,
+        },
+        {
+          meta: {
+            title: 'Juxtapositions',
+            sidebar: true,
+          },
+          name: 'example-juxtapositions',
+          path: 'example-juxtapositions',
+          component: ExampleJuxtapositions,
+        },
+      ]
+    },
+    {
+      meta: {
         title: 'Plugin',
         sidebar: true,
         icon: 'puzzle-piece',
@@ -376,35 +407,15 @@ export default new Router({
     },
     {
       meta: {
-        title: 'Example UIs',
+        title: 'Settings',
         sidebarBottom: true,
-        icon: 'puzzle-piece',
+        icon: 'cogs',
         bgColor: 'var(--vuestro-cyan)',
         fgColor: 'var(--vuestro-light)',
       },
-      name: 'example',
-      path: '/example',
-      component: Example,
-      children: [
-        {
-          meta: {
-            title: 'Dark',
-            sidebar: true,
-          },
-          name: 'example-dark',
-          path: 'example-dark',
-          component: ExampleDark,
-        },
-        {
-          meta: {
-            title: 'Juxtapositions',
-            sidebar: true,
-          },
-          name: 'example-juxtapositions',
-          path: 'example-juxtapositions',
-          component: ExampleJuxtapositions,
-        },
-      ]
+      name: 'settings',
+      path: '/settings',
+      component: Settings,
     },
     { path: '/*', redirect: '/dashboard' } // redirect to dashboard
   ],
