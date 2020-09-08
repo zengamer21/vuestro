@@ -118,7 +118,7 @@ export default {
   color: var(--vuestro-sidebar-item-active-fg);
 }
 
-.vuestro-sidebar-item a >>> .vuestro-icon {
+.vuestro-sidebar-item a > .vuestro-icon {
   padding-left: 0.7em;
   padding-right: 0.7em;
 }
