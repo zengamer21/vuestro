@@ -38,7 +38,7 @@
       <div v-if="presets.length > 0">
         <vuestro-dropdown right click-to-open close-on-content-click>
           <template #button>
-            <vuestro-button no-border round>
+            <vuestro-button no-border round :size="size">
               <vuestro-icon name="chevron-down"></vuestro-icon>
             </vuestro-button>
           </template>
@@ -315,11 +315,9 @@ export default {
 .vuestro-text-field-input-el-wrapper {
   flex: 1 1 auto;
   display: flex;
-  overflow: hidden;
   padding-left: 0.4em;
   padding-right: 0.4em;
   transition: all 0.15s;
-  clip-path: polygon(0 -10%, 0px 100%, 100% 100%, 100% -10%, calc(var(--vuestro-rounded-border-radius)*2) -10%, calc(var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) -10%)
 }
 
 .vuestro-text-field-input-el {
