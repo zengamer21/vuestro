@@ -121,7 +121,6 @@ export default {
 }
 
 .vuestro-button {
-  align-self: center;
   position: relative;
   display: flex;
   align-items: center;

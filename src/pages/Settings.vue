@@ -4,7 +4,7 @@
       <template #heading>Settings</template>
       <vuestro-panel stretch>
         <template #title>UI</template>
-        <vuestro-container>
+        <vuestro-container items-start>
           <vuestro-button checkbox :value="isDarkUI" @click="toggleIsDarkUI">
             Dark UI
           </vuestro-button>

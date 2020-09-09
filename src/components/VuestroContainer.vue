@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-container" :class="{ noWrap, noGrow }">
-    <div class="vuestro-container-inner" :class="[gutter, { column, noWrap, noShrink, spaceBetween, spaceEvenly, center, middle }]">
+    <div class="vuestro-container-inner" :class="[gutter, { column, noWrap, noShrink, spaceBetween, spaceEvenly, center, middle, itemsStart }]">
       <slot></slot>
     </div>
   </div>
@@ -18,6 +18,7 @@ export default {
     noShrink: { type: Boolean, default: false }, // for compatibility
     spaceBetween: { type: Boolean, default: false },
     spaceEvenly: { type: Boolean, default: false },
+    itemsStart: { type: Boolean, default: false },
     center: { type: Boolean, default: false },
     middle: { type: Boolean, default: false },
   },
@@ -47,6 +48,9 @@ export default {
 .vuestro-container-inner.none {
   --vuestro-gutter: 0px;
 }
+.vuestro-container-inner.itemsStart {
+  align-items: flex-start;
+}
 
 .vuestro-container-inner {
   display: flex;
@@ -55,7 +59,6 @@ export default {
   flex-direction: row;
   padding: var(--vuestro-gutter);
   align-content: flex-start;
-  align-items: flex-start;
   justify-content: flex-start;
 }
 .vuestro-container-inner.column {
