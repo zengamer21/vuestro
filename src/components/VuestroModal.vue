@@ -96,6 +96,10 @@ export default {
   z-index: 2001;
 }
 
+.vuestro-dark .vuestro-modal-inner {
+  border: 1px solid var(--vuestro-outline);
+}
+
 .vuestro-modal-titlebar {
   padding: 0 2px 0 10px;
   background-color: var(--vuestro-modal-title-bg);

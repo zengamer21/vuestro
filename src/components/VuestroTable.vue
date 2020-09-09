@@ -240,6 +240,10 @@ export default {
   --vuestro-table-header-fg-active: var(--vuestro-text-color);
   --vuestro-table-alternate-bg: rgba(10,9,8,0.02);
   --vuestro-table-hover-bg: rgba(10,9,8,0.06);
+  --vuestro-table-border-color: rgba(0,0,0,0.12);
+}
+.vuestro-dark {
+  --vuestro-table-border-color: #222324;
 }
 
 </style>
@@ -268,7 +272,7 @@ export default {
   padding: 10px;
   color: var(--vuestro-table-header-fg);
   font-weight: 500;
-  border-bottom: 1px solid rgba(0,0,0,0.12);
+  border-bottom: 1px solid var(--vuestro-table-border-color);
 }
 .vuestro-table-header:hover {
   color: var(--vuestro-table-header-fg-active);
@@ -306,7 +310,7 @@ export default {
 
 .vuestro-table-row {
   height: 1.7em;
-  border-bottom: 1px solid rgba(0,0,0,0.12);
+  border-bottom: 1px solid var(--vuestro-table-border-color);
   background-color: var(--vuestro-table-alternate-bg);
 }
 .vuestro-table-row:nth-child(even) {
@@ -319,7 +323,7 @@ export default {
   background-color: var(--vuestro-table-hover-bg);
 }
 .vuestro-table-detail-row {
-  border-bottom: 1px solid rgba(0,0,0,0.12);
+  border-bottom: 1px solid var(--vuestro-table-border-color);
 }
 
 .vuestro-table-cell {

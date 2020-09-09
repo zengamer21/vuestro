@@ -6,7 +6,7 @@
     <slot></slot>
     <div ref="content"
          class="vuestro-tooltip-content"
-         :class="{ noWrap }"
+         :class="{ noWrap, noPadding }"
          :style="[style, { 'min-width': `${minWidth}px`, visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }]">
       <slot name="content"></slot>
     </div>
@@ -22,6 +22,7 @@ export default {
     rounded: { type: Boolean, default: false },
     minWidth: { type: null, default: 10 },
     noWrap: { type: Boolean, default: false },
+    noPadding: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -95,14 +96,17 @@ export default {
   background: var(--vuestro-dropdown-content-bg);
   color: var(--vuestro-dropdown-content-fg);
   border: var(--vuestro-rounded-border-width) solid var(--vuestro-dropdown-outline);
-  padding: 2px;
+  padding: 0.5em;
   z-index: 999;
 }
-.vuestro-tooltip.rounded .vuestro-tooltip-content {
-  border-radius: 4px;
+.vuestro-tooltip-content.noPadding {
+  padding: 0;
 }
 .vuestro-tooltip-content.noWrap {
   white-space: nowrap;
+}
+.vuestro-tooltip.rounded .vuestro-tooltip-content {
+  border-radius: 4px;
 }
 
 /* render arrow */
@@ -115,6 +119,9 @@ export default {
   border-right: 10px solid transparent;
   border-top: 10px solid var(--vuestro-dropdown-content-bg);
 }
+.vuestro-dark .vuestro-tooltip.active.top::after {
+  border-top: 10px solid var(--vuestro-outline);
+}
 
 .vuestro-tooltip.active.left::after {
   content: " ";
@@ -124,6 +131,9 @@ export default {
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
   border-left: 10px solid var(--vuestro-dropdown-content-bg);
+}
+.vuestro-dark .vuestro-tooltip.active.left::after {
+  border-left: 10px solid var(--vuestro-outline);
 }
 
 .vuestro-tooltip.active.bottom::after {
@@ -135,6 +145,9 @@ export default {
   border-right: 10px solid transparent;
   border-bottom: 10px solid var(--vuestro-dropdown-content-bg);
 }
+.vuestro-dark .vuestro-tooltip.active.bottom::after {
+  border-bottom: 10px solid var(--vuestro-outline);
+}
 
 .vuestro-tooltip.active.right::after {
   content: " ";
@@ -145,5 +158,9 @@ export default {
   border-bottom: 10px solid transparent;
   border-right: 10px solid var(--vuestro-dropdown-content-bg);
 }
+.vuestro-dark .vuestro-tooltip.active.right::after {
+  border-right: 10px solid var(--vuestro-outline);
+}
+
 
 </style>

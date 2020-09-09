@@ -55,6 +55,7 @@ export default {
   flex-direction: row;
   padding: var(--vuestro-gutter);
   align-content: flex-start;
+  align-items: flex-start;
   justify-content: flex-start;
 }
 .vuestro-container-inner.column {
