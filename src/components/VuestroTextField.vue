@@ -38,7 +38,7 @@
       <div v-if="presets.length > 0">
         <vuestro-dropdown right click-to-open close-on-content-click>
           <template #button>
-            <vuestro-button no-border round :size="size">
+            <vuestro-button no-border round size="sm">
               <vuestro-icon name="chevron-down"></vuestro-icon>
             </vuestro-button>
           </template>
