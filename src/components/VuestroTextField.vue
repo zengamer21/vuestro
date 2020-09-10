@@ -229,17 +229,29 @@ export default {
   font-size: calc(var(--vuestro-control-sm-height) * 0.5);
   height: var(--vuestro-control-sm-height);
 }
+.vuestro-text-field-shaded.sm {
+  height: calc(var(--vuestro-control-sm-height)*1.2);
+}
 .vuestro-text-field.md {
   font-size: calc(var(--vuestro-control-md-height) * 0.5);
   height: var(--vuestro-control-md-height);
+}
+.vuestro-text-field-shaded.md {
+  height: calc(var(--vuestro-control-md-height)*1.2);
 }
 .vuestro-text-field.lg {
   font-size: calc(var(--vuestro-control-lg-height) * 0.5);
   height: var(--vuestro-control-lg-height);
 }
+.vuestro-text-field-shaded.lg {
+  height: calc(var(--vuestro-control-lg-height)*1.2);
+}
 .vuestro-text-field.xl {
   font-size: calc(var(--vuestro-control-xl-height) * 0.5);
   height: var(--vuestro-control-xl-height);
+}
+.vuestro-text-field-shaded.xl {
+  height: calc(var(--vuestro-control-xl-height)*1.2);
 }
 .vuestro-text-field.noMargin {
   margin: 0;
@@ -268,6 +280,7 @@ export default {
   border: none;
   background-color: var(--vuestro-light-med);
 }
+.vuestro-dark .vuestro-text-field-shaded,
 .vuestro-text-field-shaded.dark {
   background-color: var(--vuestro-darker);
 }
@@ -292,7 +305,7 @@ export default {
   transform: translate(-50%, -50%);
 }
 .vuestro-text-field-placeholder.active {
-  top: 0px;
+  top: -1px;
   font-size: 0.8em;
   padding-left: 3px;
   padding-right: 3px;
@@ -305,11 +318,10 @@ export default {
 }
 
 .vuestro-text-field-shaded .vuestro-text-field-placeholder {
-  padding: 0 5px;
+  padding: 0 8px;
 }
 .vuestro-text-field-shaded .vuestro-text-field-placeholder.active {
   top: 5px;
-  font-size: 0.6em;
 }
 
 .vuestro-text-field-input-el-wrapper {
@@ -331,6 +343,11 @@ export default {
   color: var(--vuestro-text-color);
   padding: 0;
 }
+.vuestro-text-field-shaded .vuestro-text-field-input-el {
+  align-self: flex-end;
+  padding-left: 0.4em;
+  padding-bottom: 0.4em;
+}
 .vuestro-text-field.center .vuestro-text-field-input-el {
   text-align: center;
 }
@@ -346,7 +363,7 @@ export default {
 .vuestro-text-field-hint {
   position: absolute;
   top: 50%;
-  left: 10px;
+  left: 1em;
   transform: translate(0, -50%);
   pointer-events: none;
   filter: invert(50%);
