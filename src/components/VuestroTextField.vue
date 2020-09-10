@@ -35,7 +35,7 @@
         </vuestro-button>
       </div>
       <!--presets dropdown menu-->
-      <div v-if="presets.length > 0">
+      <div v-if="presets.length > 0" class="vuestro-text-field-preset-dropdown-wrapper">
         <vuestro-dropdown right click-to-open close-on-content-click>
           <template #button>
             <vuestro-button no-border round size="sm">
@@ -373,6 +373,11 @@ export default {
   display: flex;
   align-items: center;
   white-space: nowrap;
+}
+
+.vuestro-text-field-preset-dropdown-wrapper {
+  display: flex;
+  align-items: center;
 }
 
 </style>
