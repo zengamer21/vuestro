@@ -70,6 +70,7 @@ export default {
       granularity: null, // { 'year' 'month', 'quarter', 'week', 'isoWeek', 'day', 'date', 'hour', 'minute', 'second' }
       count: false, // enable count aggregation per granularity for time series
       smooth: true, // smooth the lines
+      slide: false, // option to slide time-series for animated charts
       margin: {
         left: 0,
         right: 0,
@@ -157,6 +158,7 @@ export default {
   },
   mounted() {
     this.resize();
+    console.log(this.data)
   },
   methods: {
     resize() {
@@ -326,26 +328,42 @@ export default {
   directives: {
     axis: {
       update(el, binding, vnode) {
-        d3.select(el).transition().duration(vnode.context.transition).call(binding.value[binding.arg]);
+        d3.select(el).transition().duration(vnode.context.transition).ease(d3.easeLinear).call(binding.value[binding.arg]);
       }
     },
     animate: {
       bind(el) {
         el.dataset.oldD = '';
+        el.dataset.shift = 0;
       },
       update(el, binding, vnode) {
         let newD = vnode.context[binding.arg](binding.value);
-        if (el.dataset.oldD == '') {
+
+        let data = vnode.context.data;
+        if (vnode.context.slide && data[data.length-1] && data[data.length-2]) {
+          let scale = vnode.context.scale.x.scale();
+          let catKey = vnode.context.categoryKey;
+          el.dataset.shift = scale(data[data.length-1][catKey]) - scale(data[data.length-2][catKey]);
           // animated path update
           d3.select(el)
-            .attr('d', vnode.context[binding.arg](binding.value, true))
-            .transition().duration(vnode.context.transition)
-            .attr('d', newD);
+            .attr('d', newD)
+            .transition().duration(vnode.context.transition).ease(d3.easeLinear)
+            .attr("transform", "translate(" + -el.dataset.shift + ")");
+          d3.select(el)
+            .transition().delay(vnode.context.transition)
+            .attr('transform', null);
         } else {
-          // standard path update
-          d3.select(el).transition().duration(vnode.context.transition).attr('d', newD);
+          if (el.dataset.oldD == '') {
+            d3.select(el)
+              .attr('d', vnode.context[binding.arg](binding.value, true))
+              .transition().duration(vnode.context.transition)
+              .attr('d', newD);
+          } else {
+            // standard path update
+            d3.select(el).transition().duration(vnode.context.transition).attr('d', newD);
+          }
+          el.dataset.oldD = newD;
         }
-        el.dataset.oldD = newD; // clear animate flag
       }
     }
   }

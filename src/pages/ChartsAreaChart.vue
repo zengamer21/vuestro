@@ -260,6 +260,7 @@ export default {
       options4: {
         utc: true,
         showAxes: true,
+        slide: true,
         series: [
           {
             title: 'CPU1',
@@ -300,17 +301,25 @@ export default {
       },
     };
   },
+  beforeMount() {
+    for (let i=100; i>0; i--) {
+      this.dynamicData.push(this.getPoint(i));
+    }
+  },
   mounted() {
     setInterval(() => {
-      this.dynamicData.push({
-        key: new Date(),
+      this.dynamicData.push(this.getPoint());
+      this.dynamicData.shift();
+    }, 1000);
+  },
+  methods: {
+    getPoint(i=0) {
+      return {
+        key: new Date(Date.now() - 1000*i),
         cpu1: Math.floor(Math.random()*(100+1)),
         cpu2: Math.floor(Math.random()*(100+1)),
-      });
-      if (this.dynamicData.length > 100) {
-        this.dynamicData.shift();
-      }
-    }, 1000);
+      };
+    }
   }
 };
 

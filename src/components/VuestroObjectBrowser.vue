@@ -1,17 +1,22 @@
 <template>
   <div class="vuestro-object-browser-item" :class="{ root: parent === 'root' }">
+    <!--ISEMPTY MESSAGE-->
     <div v-if="empty" class="vuestro-object-browser-empty">{{ emptyMessage }}</div>
+    <!--MAIN LOOP-->
     <div v-for="(v, k) in data">
       <div class="vuestro-object-browser-item">
         <div class="vuestro-object-browser-item-kv">
           <div class="vuestro-object-browser-item-gutter">
             <vuestro-caret v-if="isObject(v) || isArray(v)" :collapsed="isCollapsed(k)" @click="toggleCollapse(k)"></vuestro-caret>
           </div>
+          <!--KEY TITLE-->
           <span class="vuestro-object-browser-item-key-title">{{ k }}:</span>
+          <!--EDITING CONTROLS-->
           <template v-if="k === editKeyActive">
-            <vuestro-text-field :value="v" variant="outline" no-margin size="sm" selected editing-buttons @save="onSave(k, v, ...arguments)" @cancel="editKeyActive = ''"></vuestro-text-field>
+            <vuestro-text-field :value="v" variant="outline" no-margin selected editing-buttons @save="onSave(k, v, ...arguments)" @cancel="editKeyActive = ''"></vuestro-text-field>
           </template>
           <template v-else>
+            <!--TYPE-DEPENDENT RENDERING-->
             <span v-if="isString(v)" class="vuestro-object-browser-item-string" title="String">{{ JSON.stringify(v) }}</span>
             <span v-if="isBoolean(v)" class="vuestro-object-browser-item-bool" title="Boolean">{{ v }}</span>
             <span v-if="isDate(v)" class="vuestro-object-browser-item-date" title="Date">{{ v.toISOString() }}</span>
@@ -26,6 +31,7 @@
               </vuestro-button>
             </span>
           </template>
+          <!--SLOT TO ADD COMPONENTS AFTER VALUE-->
           <span class="vuestro-object-browser-item-slot">
             <slot name="post-value" :k="k" :v="v" :parent="parent"></slot>
           </span>
@@ -47,15 +53,16 @@
         </div>
       </div>
     </div>
+    <!--EXTEND OBJECT-->
     <div v-if="isExtendable()" class="vuestro-object-add-member">
       <vuestro-button v-if="!addingMember" round no-border @click="onAddMember">
         <vuestro-icon name="plus"></vuestro-icon>
       </vuestro-button>
+      <!--ADD FIELD CONTROLS-->
       <template v-else>
-        <vuestro-text-field variant="outline" no-margin size="sm" v-model="newMemberKey" selected></vuestro-text-field>:
+        <vuestro-text-field variant="outline" no-margin v-model="newMemberKey" selected></vuestro-text-field>&nbsp;:&nbsp;
         <vuestro-text-field variant="outline"
                             no-margin
-                            size="sm"
                             v-model="newMemberVal"
                             editing-buttons
                             @save="onSaveAddedMember"
@@ -252,12 +259,12 @@ export default {
 <style scoped>
 
 .vuestro-object-browser-item {
-  padding: 0px 4px;
+  padding: 0 0.2em;
 }
 
 .vuestro-object-browser-item.root {
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
 }
 
 .vuestro-object-browser-item > div {
@@ -265,8 +272,7 @@ export default {
 }
 
 .vuestro-object-browser-item-gutter {
-  width: 20px;
-  padding-top: 2px;
+  width: 1.2em;
   flex: none;
 }
 
@@ -279,8 +285,8 @@ export default {
   font-weight: 500;
   text-align: right;
   display: inline-block;
-  min-width: 10px;
-  margin-right: 5px;
+  min-width: 1em;
+  margin-right: 0.4em;
   color: var(--vuestro-object-browser-key-fg);
   flex: none;
 }
@@ -296,35 +302,38 @@ export default {
 
 .vuestro-object-browser-item-date {
   color: var(--vuestro-object-browser-date-fg);
+  font-weight: 500;
 }
 
 .vuestro-object-browser-item-number {
   color: var(--vuestro-object-browser-number-fg);
+  font-weight: 500;
 }
 
 .vuestro-object-browser-item-null {
   color: var(--vuestro-object-browser-null-fg);
+  font-weight: 500;
 }
 
 .vuestro-object-browser-item-slot {
-  margin-left: 5px;
+  margin-left: 0.4em;
 }
 
 .vuestro-object-browser-empty {
-  padding: 2px 24px;
+  padding: 0.1em 2em;
 }
 /* decrease padding for empty root */
 .vuestro-object-browser-item.root > .vuestro-object-browser-empty {
-  padding-left: 6px;
+  padding-left: 0.5em;
 }
 
 .vuestro-object-editing-buttons {
-  margin-left: 2px;
-  margin-right: 2px;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
 }
 
 .vuestro-object-add-member {
-  padding: 0px 18px;
+  padding: 0 1em;
 }
 
 </style>
