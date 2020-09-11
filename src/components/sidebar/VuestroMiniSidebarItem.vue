@@ -91,6 +91,7 @@ export default {
 .vuestro-mini-sidebar-item {
   position: relative;
   height: var(--vuestro-sidebar-item-height);
+  transition: none !important;
 }
 
 .vuestro-mini-sidebar-item.bottom {
