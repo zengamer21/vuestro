@@ -45,6 +45,8 @@
       </template>
       <div class="example-flexbox">
         <vuestro-text-field placeholder="With Presets Dropdown" :presets="examplePresets" v-model="exampleText"></vuestro-text-field>
+        <vuestro-text-field variant="outline" placeholder="With Presets Dropdown" :presets="examplePresets" v-model="exampleText"></vuestro-text-field>
+        <vuestro-text-field variant="shaded" placeholder="With Presets Dropdown" :presets="examplePresets" v-model="exampleText"></vuestro-text-field>
       </div>
     </vuestro-card>
 
@@ -54,7 +56,7 @@
       </template>
       <div class="example-flexbox"  >
         <vuestro-text-field variant="outline" v-model="exampleText" editing-buttons @save="onSaveButton" @cancel="onCancelButton"></vuestro-text-field>
-        <vuestro-text-field variant="shaded" hint="filename" v-model="exampleText" editing-buttons @save="onSaveButton" @cancel="onCancelButton"></vuestro-text-field>
+        <vuestro-text-field variant="shaded" clearable hint="filename" v-model="exampleText" editing-buttons @save="onSaveButton" @cancel="onCancelButton"></vuestro-text-field>
       </div>
     </vuestro-card>
 

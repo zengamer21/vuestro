@@ -215,6 +215,8 @@ export default {
   --vuestro-gray: #656565;
   --vuestro-gray-med: #4a4a4a;
   --vuestro-gray-dark: #3a3a3a;
+  --vuestro-light: #878585;
+  --vuestro-light-med: #7f7f7f;
 
   --vuestro-text-color: #ccc;
   --vuestro-text-color-secondary: #696969;

@@ -158,7 +158,7 @@ export default {
 .vuestro-pill-title {
   text-align: center;
   background-color: var(--vuestro-primary);
-  color: var(--vuestro-light);
+  color: var(--vuestro-text-color-inverse);
   border-radius: var(--vuestro-pill-radius);
   padding-left: 0.6em;
   padding-right: 0.6em;

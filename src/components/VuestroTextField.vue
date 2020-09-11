@@ -26,34 +26,35 @@
         <vuestro-icon name="angle-left"></vuestro-icon>
         <span>&nbsp;{{ invalid }}</span>
       </div>
+      <!--clear button-->
+      <vuestro-button v-if="clearable && value" size="sm" round no-border @click.stop="onClear">
+        <vuestro-icon name="times"></vuestro-icon>
+      </vuestro-button>
+      <!--editing buttons-->
       <div v-if="editingButtons" class="vuestro-text-field-editing-buttons">
         <vuestro-button v-if="!invalid" round no-border size="sm" variant="success" @click="onSaveButton">
           <vuestro-icon name="save"></vuestro-icon>
         </vuestro-button>
         <vuestro-button round no-border size="sm" variant="danger" @click="onCancelButton">
-          <vuestro-icon name="times"></vuestro-icon>
+          <vuestro-icon name="trash"></vuestro-icon>
         </vuestro-button>
       </div>
-      <!--presets dropdown menu-->
-      <div v-if="presets.length > 0" class="vuestro-text-field-preset-dropdown-wrapper">
-        <vuestro-dropdown right click-to-open close-on-content-click>
-          <template #button>
-            <vuestro-button no-border round size="sm">
-              <vuestro-icon name="chevron-down"></vuestro-icon>
-            </vuestro-button>
-          </template>
-          <vuestro-list-button v-for="p in presets" :key="p" @click="onPreset(p)">{{ p }}</vuestro-list-button>
-        </vuestro-dropdown>
-      </div>
-      <!--clear button-->
-      <vuestro-button v-if="clearable && value" size="sm" round no-border @click.stop="onClear">
-        <vuestro-icon name="times"></vuestro-icon>
-      </vuestro-button>
       <!--show password button-->
       <span class="vuestro-text-field-show-password" v-if="type === 'password'" @click="showPassword = !showPassword">
         <vuestro-icon v-if="!showPassword" name="eye-slash"></vuestro-icon>
         <vuestro-icon v-if="showPassword" name="eye"></vuestro-icon>
       </span>
+    </div>
+    <!--presets dropdown menu-->
+    <div v-if="presets.length > 0" class="vuestro-text-field-preset-dropdown-wrapper">
+      <vuestro-dropdown right click-to-open close-on-content-click>
+        <template #button>
+          <vuestro-button no-border round size="sm">
+            <vuestro-icon name="chevron-down"></vuestro-icon>
+          </vuestro-button>
+        </template>
+        <vuestro-list-button v-for="p in presets" :key="p" @click="onPreset(p)">{{ p }}</vuestro-list-button>
+      </vuestro-dropdown>
     </div>
     <!--placeholder-->
     <div v-if="placeholder" ref="placeholder" class="vuestro-text-field-placeholder"
