@@ -5,7 +5,6 @@
         <vuestro-button class="vuestro-hamburger"
                         no-border rounded
                         size="xl"
-                        variant="text"
                         :value="showSidebar"
                         @click="showSidebar = !showSidebar">
           <vuestro-icon name="bars"></vuestro-icon>
@@ -51,6 +50,11 @@ export default {
   },
   props: {
     title: { type: String, default: '' }, // app title
+  },
+  watch: {
+    '$route'() {
+      this.showSidebar = false;
+    }
   },
   data() {
     return {
