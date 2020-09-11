@@ -158,4 +158,8 @@ export default {
   min-height: 28px;
 }
 
+.vuestro-editor >>> * {
+  transition: none;
+}
+
 </style>
