@@ -263,6 +263,7 @@ export default {
 
 .vuestro-app >>> *, :after, :before {
   box-sizing: border-box;
+  transition: background-color 0.4s;
 }
 
 .vuestro-app {
@@ -275,6 +276,7 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: var(--vuestro-content-bg);
+  transition: background-color 0.4s;
 }
 
 .vuestro-content {

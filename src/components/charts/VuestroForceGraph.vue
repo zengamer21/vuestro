@@ -193,7 +193,8 @@ export default {
 }
 
 .vuestro-force-graph-labels {
-  pointer-events: none
+  pointer-events: none;
+  fill: var(--vuestro-text-color);
 }
 
 </style>

@@ -46,6 +46,7 @@
         <g>
           <text v-for="n in graph.nodes"
                 v-if="n.x0 !== undefined && n.x1 !== undefined"
+                class="vuestro-sankey-text"
                 :x="n.x0 < width / 2 ? n.x1 + 6 : n.x0 - 6"
                 :key="n.name"
                 :y="(n.y1 + n.y0) / 2 + 1"
@@ -304,6 +305,10 @@ export default {
 .sankey-toolbar-selected-node-value {
   margin-right: 5px;
   font-weight: 500;
+}
+
+.vuestro-sankey-text {
+  fill: var(--vuestro-text-color);
 }
 
 </style>
