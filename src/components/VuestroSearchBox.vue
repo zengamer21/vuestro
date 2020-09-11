@@ -21,9 +21,9 @@
       <input class="input-el" ref="editBox" :placeholder="placeholder" :value="value" @input="updateValue" @keyup.enter="onChange" @keyup="onKeyUp"></input>
     </div>
     <!--CLEAR-->
-    <span class="clear-button" @click="clearValue()">
+    <vuestro-button round no-margin no-border @click="clearValue()">
       <vuestro-icon name="times"></vuestro-icon>
-    </span>
+    </vuestro-button>
   </div>
 </template>
 
@@ -105,7 +105,7 @@ export default {
   color: var(--vuestro-text-color);
   border-radius: 999px;
   margin: 5px;
-  padding: 4px 8px 4px 8px;
+  padding-left: 0.4em;
   overflow: visible !important; /* so dropdown menu will show */
   display: flex;
   flex: 1 1 auto;
@@ -138,7 +138,7 @@ export default {
 .input-el::placeholder {
   color: var(--vuestro-text-color);
   opacity: 0.5;
-  font-weight: 200;
+  font-weight: 300;
 }
 
 .clickable {

@@ -178,7 +178,7 @@ export default {
   display: flex;
 }
 .vuestro-pill-button-slot > .vuestro-button:not(:first-child) {
-  margin-left: -0.4em;
+  margin-left: -0.3em;
 }
 
 .vuestro-pill-value {
