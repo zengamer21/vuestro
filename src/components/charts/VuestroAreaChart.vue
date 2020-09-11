@@ -158,7 +158,6 @@ export default {
   },
   mounted() {
     this.resize();
-    console.log(this.data)
   },
   methods: {
     resize() {
@@ -339,7 +338,7 @@ export default {
       update(el, binding, vnode) {
         let newD = vnode.context[binding.arg](binding.value);
 
-        let data = vnode.context.data;
+        let data = vnode.context.localData;
         if (vnode.context.slide && data[data.length-1] && data[data.length-2]) {
           let scale = vnode.context.scale.x.scale();
           let catKey = vnode.context.categoryKey;
