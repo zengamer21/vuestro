@@ -328,6 +328,9 @@ export default {
   flex-direction: column;
   height: 300px;
 }
+.vuestro-dark .chart-wrapper {
+  background-color: var(--vuestro-gray-dark);
+}
 
 .vuestro-dark .frame {
   border: 1px solid var(--vuestro-outline);

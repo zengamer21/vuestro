@@ -99,9 +99,9 @@ export default {
     _.merge(this, this.options);
   },
   mounted() {
-    if (this.columns) {
+    if (this.options.columns) {
       // add any columns with default sort to sort array, only on mount
-      this.columns.forEach((k) => {
+      this.options.columns.forEach((k) => {
         if (k.sort) {
           this.sort.push({
             field: k.field,

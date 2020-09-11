@@ -36,7 +36,6 @@ import PluginMixins from '../pages/PluginMixins.vue';
 import PluginFilters from '../pages/PluginFilters.vue';
 import InputsEditor from '../pages/InputsEditor.vue';
 import Example from '../pages/Example.vue';
-import ExampleDark from '../pages/ExampleDark.vue';
 import ExampleJuxtapositions from '../pages/ExampleJuxtapositions.vue';
 import Settings from '../pages/Settings.vue';
 
@@ -344,15 +343,6 @@ export default new Router({
       path: '/example',
       component: Example,
       children: [
-        {
-          meta: {
-            title: 'Dark',
-            sidebar: true,
-          },
-          name: 'example-dark',
-          path: 'example-dark',
-          component: ExampleDark,
-        },
         {
           meta: {
             title: 'Juxtapositions',

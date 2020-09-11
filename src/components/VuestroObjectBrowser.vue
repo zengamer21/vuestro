@@ -237,7 +237,8 @@ export default {
 
 <style>
 
-.vuestro-app {
+.vuestro-app,
+.vuestro-dark {
   --vuestro-object-browser-key-fg: var(--vuestro-purple);
   --vuestro-object-browser-string-fg: var(--vuestro-orange);
   --vuestro-object-browser-bool-fg: var(--vuestro-blue);

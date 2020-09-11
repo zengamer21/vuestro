@@ -24,26 +24,34 @@
                   </vuestro-button>
                 </template>
               </vuestro-pill>
-              <vuestro-multi-select v-if="showFilters"
-                                    placeholder="Include"
-                                    stretch
-                                    @add="addFilter(item.field, ...arguments, 'include')"
-                                    @remove="removeFilter(item.field, ...arguments, 'include')">
-              </vuestro-multi-select>
-              <vuestro-multi-select v-if="showFilters"
-                                    placeholder="Exclude"
-                                    stretch
-                                    @add="addFilter(item.field, ...arguments, 'exclude')"
-                                    @remove="removeFilter(item.field, ...arguments, 'exclude')">
-              </vuestro-multi-select>
+              <template v-if="showFilters">
+                <vuestro-multi-select placeholder="Include"
+                                      stretch
+                                      @add="addFilter(item.field, ...arguments, 'include')"
+                                      @remove="removeFilter(item.field, ...arguments, 'include')">
+                </vuestro-multi-select>
+                <vuestro-multi-select placeholder="Exclude"
+                                      stretch
+                                      @add="addFilter(item.field, ...arguments, 'exclude')"
+                                      @remove="removeFilter(item.field, ...arguments, 'exclude')">
+                </vuestro-multi-select>
+              </template>
             </div>
           </th>
+          <th v-if="columns.length == 0" class="vuestro-dynamic-table-header"></th>
           <!--spacer for detail toggler caret: uses the 'header' slot of <draggable>-->
-          <th slot="header" class="vuestro-dynamic-table-header">
-            <vuestro-button stretch no-border no-margin :value="showFilters" @click="onToggleFilterBar">
-              <vuestro-icon name="filter"></vuestro-icon>
-            </vuestro-button>
-          </th>
+          <template slot="header">
+            <th class="vuestro-dynamic-table-filter-header">
+              <div class="vuestro-dynamic-table-filter-button-wrapper">
+                <vuestro-button class="vuestro-dynamic-table-filter-button" stretch no-border no-margin :value="showFilters" @click="onToggleFilterBar">
+                  <vuestro-icon name="filter"></vuestro-icon>
+                </vuestro-button>
+              </div>
+              <div v-if="columns.length == 0" class="vuestro-dynamic-table-no-columns">
+                Drag field here
+              </div>
+            </th>
+          </template>
       </draggable>
     </template>
     <template #row="{ item }">
@@ -57,6 +65,7 @@
           <span>{{ c }}</span>
         </draggable>
       </template>
+      <td v-if="columns.length == 0"></td>
     </template>
     <template #detail="{ item }">
       <draggable class="vuestro-dynamic-table-pill-tray"
@@ -102,6 +111,7 @@ export default {
       columns: [],
       tableOptions: {
         transparentHeader: true,
+        columns: [],
       },
       numDefaultColumns: 5,
     };
@@ -109,6 +119,9 @@ export default {
   watch: {
     data(newVal) {
       this.checkDefaultColumns();
+    },
+    columns(newVal) {
+      this.tableOptions.columns = new Array(newVal.length);
     },
   },
   mounted() {
@@ -219,16 +232,31 @@ export default {
 .vuestro-dynamic-table-header {
   height: inherit;
 }
-.vuestro-dynamic-table-header > .vuestro-dynamic-table-pill-wrapper {
+.vuestro-dynamic-table-header > .vuestro-dynamic-table-pill-wrapper,
+.vuestro-dynamic-table-filter-button-wrapper {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-.vuestro-dynamic-table-header > .vuestro-button {
-  height: 100%;
+.vuestro-dynamic-table-filter-button {
   transition: all 0.2s;
   margin-right: 2px;
+  height: 100%;
+  min-height: 34px;
 }
 
+.vuestro-dynamic-table-filter-header {
+  position: relative;
+  height: inherit;
+  padding: 0;
+}
+.vuestro-dynamic-table-no-columns {
+  font-weight: 300;
+  position: absolute;
+  left: 120%;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
 </style>

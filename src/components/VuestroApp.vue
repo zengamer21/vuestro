@@ -210,6 +210,8 @@ export default {
   --vuestro-hover: #535456;
   --vuestro-popup-bg: #323334;
 
+  --vuestro-purple: #bc77fb;
+  --vuestro-indigo: #9b37ff;
   --vuestro-gray: #656565;
   --vuestro-gray-med: #4a4a4a;
   --vuestro-gray-dark: #3a3a3a;

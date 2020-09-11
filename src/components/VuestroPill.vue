@@ -100,6 +100,10 @@ export default {
 
 .vuestro-app {
   --vuestro-pill-radius: 999px;
+  --vuestro-pill-value-background: var(--vuestro-widget-light-bg);
+}
+.vuestro-dark {
+  --vuestro-pill-value-background: var(--vuestro-gray-med);
 }
 
 </style>
@@ -107,7 +111,7 @@ export default {
 <style scoped>
 
 .vuestro-pill {
-  background-color: var(--vuestro-widget-light-bg);
+  background-color: var(--vuestro-pill-value-background);
   border-radius: var(--vuestro-pill-radius);
   flex: 0 1 auto;
   display: flex;

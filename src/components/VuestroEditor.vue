@@ -75,7 +75,20 @@ export default {
       editor: null,
     };
   },
+  computed: {
+    isDark() {
+      // if store is setup to provide isDarkUI, use it
+      if (this.$store && this.$store.getters.isDarkUI) {
+        return this.$store.getters.isDarkUI;
+      }
+      // default to prop
+      return this.dark;
+    },
+  },
   watch: {
+    isDark() {
+      this.setColorTheme();
+    },
     value(val) {
       if(this.contentBackup !== val){
         this.editor.setValue(val,1);
@@ -89,9 +102,6 @@ export default {
         sess.setTabSize(2);
       }
     },
-    colorTheme() {
-      this.setColorTheme();
-    },
     options(newOptions) {
       this.editor.setOptions(newOptions);
     },
@@ -103,7 +113,7 @@ export default {
     let sess = vm.editor.getSession();
     sess.setMode('ace/mode/' + vm.lang);
 
-    vm.setColorTheme();
+    this.setColorTheme();
 
     if (this.$slots.default) {
       vm.editor.setValue(this.$slots.default[0].text, 1);
@@ -127,7 +137,7 @@ export default {
   },
   methods: {
     setColorTheme() {
-      if (this.dark) {
+      if (this.isDark) {
         this.editor.setTheme('ace/theme/twilight');
       } else {
         this.editor.setTheme('ace/theme/chrome');

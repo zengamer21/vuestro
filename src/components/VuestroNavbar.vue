@@ -70,6 +70,7 @@ export default {
   --vuestro-navbar-bg: var(--vuestro-content-bg);
   --vuestro-navbar-fg: #323334;
   --vuestro-navbar-border: transparent;
+  --vuestro-navbar-separator: 1px solid var(--vuestro-outline);
 }
 .vuestro-app.mobile {
   --vuestro-navbar-title-font-size: 2em;
@@ -104,7 +105,7 @@ export default {
 }
 
 .vuestro-v-separator {
-  border-right: 1px solid var(--vuestro-outline);
+  border-right: var(--vuestro-navbar-separator);
   height: calc(var(--vuestro-navbar-height) / 2);
   margin-right: 10px;
 }

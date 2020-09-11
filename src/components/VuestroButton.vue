@@ -1,8 +1,7 @@
 <template>
   <div class="vuestro-button"
        :class="{ stretch }"
-       @click="onClick"
-       @click.native="onClickNative">
+       @click="onClick">
     <div class="vuestro-button-inner"
          :class="[`vuestro-button-${variant}`,
                   { mobile: $root.mobile,
@@ -69,14 +68,10 @@ export default {
   },
   methods: {
     onClick(e) {
-      console.log('VuestroButton: onClick');
       if (this.disabled === false) {
         this.$emit('click', e);
         this.$emit('input', !this.value);
       }
-    },
-    onClickNative(e) {
-      this.$emit('click.native', e);
     },
     onHover(e) {
       this.$emit('hover', e);
