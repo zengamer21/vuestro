@@ -34,7 +34,7 @@
     </template>
 
     <!--MENU-->
-    <transition name="vuestro-sidebar" mode="out-in" @after-leave="afterLeave">
+    <transition name="vuestro-sidebar" mode="out-in">
       <vuestro-sidebar-menu v-if="!localMini"
                             :role="role"
                             :routes="$router.options.routes"
@@ -55,7 +55,7 @@
 
 <script>
 
-/* global _, window, Event */
+/* global _, window */
 import VuestroGeoPattern from '../VuestroGeoPattern.vue';
 import VuestroSidebarMenu from './VuestroSidebarMenu.vue';
 import VuestroMiniSidebarMenu from './VuestroMiniSidebarMenu.vue';
@@ -122,13 +122,6 @@ export default {
         document.body.classList.remove('vuestro-mini-sidebar');
       }
     },
-    afterLeave() {
-      this.$nextTick(() => {
-        this.$nextTick(() => {
-          window.dispatchEvent(new Event('resize'));
-        });
-      });
-    }
   },
 };
 </script>
