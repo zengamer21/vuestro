@@ -94,6 +94,16 @@
 
     <vuestro-card>
       <template #subheading>
+        <span>Set the <em>async: true</em> column option to render a spinner while the value is null</span>
+      </template>
+      <vuestro-panel>
+        <vuestro-table :options="exampleOptions4" :data="exampleData">
+        </vuestro-table>
+      </vuestro-panel>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>
         <span>Set the <em>header-buttons</em> or <em>row-buttons</em> slot to provide buttons at the end of the header or row</span>
       </template>
       <vuestro-panel>
@@ -194,6 +204,37 @@ export default {
       },
       exampleOptions3: {
         noHeader: true,
+      },
+      exampleOptions4: {
+        columns: [
+          {
+            field: 'firstName',
+            title: 'First Name',
+            sortable: true,
+          },
+          {
+            field: 'lastName',
+            title: 'Last Name',
+            sortable: true,
+          },
+          {
+            field: 'phone',
+            title: 'Phone No. (centered, render fn)',
+            align: 'center',
+            render: Vue.filter('vuestroPhoneUS'),
+          },
+          {
+            field: 'email',
+            title: 'Email (VuestroEditableText component)',
+            align: 'right',
+            component: 'VuestroEditableText',
+          },
+          {
+            field: 'asyncField',
+            title: 'Async Field',
+            async: true,
+          }
+        ],
       },
       exampleData: [
         {

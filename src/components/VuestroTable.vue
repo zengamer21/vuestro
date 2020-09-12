@@ -55,7 +55,12 @@
               <slot v-if="$scopedSlots.cell" name="cell" :item="{ column, row }"></slot>
               <component v-else-if="column.component" :is="column.component" v-model="row[column.field]"></component>
               <template v-else>
-                {{ getField(row, column.field) | cellFilterProxy(column.render, row) }}
+                <template v-if="column.async && getField(row, column.field) == null">
+                  <vuestro-icon scale="0.7" name="spinner" pulse></vuestro-icon>
+                </template>
+                <template v-else>
+                  {{ getField(row, column.field) | cellFilterProxy(column.render, row) }}
+                </template>
               </template>
             </td>
             <td v-if="$scopedSlots['row-buttons']">
