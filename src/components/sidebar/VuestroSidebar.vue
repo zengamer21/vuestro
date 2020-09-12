@@ -34,7 +34,7 @@
     </template>
 
     <!--MENU-->
-    <transition name="vuestro-sidebar" mode="out-in">
+    <transition name="vuestro-sidebar" mode="out-in" @after-leave="afterLeave">
       <vuestro-sidebar-menu v-if="!localMini"
                             :role="role"
                             :routes="$router.options.routes"
@@ -55,7 +55,7 @@
 
 <script>
 
-/* global _, window */
+/* global _, window, Event */
 import VuestroGeoPattern from '../VuestroGeoPattern.vue';
 import VuestroSidebarMenu from './VuestroSidebarMenu.vue';
 import VuestroMiniSidebarMenu from './VuestroMiniSidebarMenu.vue';
@@ -80,6 +80,7 @@ export default {
       routes: _.cloneDeep(this.$router.options.routes),
       geoColor: '',
       localMini: this.mini,
+      debounceAuto: false,
     };
   },
   created() {
@@ -102,11 +103,12 @@ export default {
   methods: {
     onResize() {
       console.log('new window size', window.innerWidth);
-      if (window.innerWidth <= 980) {
+      if (!this.debounceAuto && window.innerWidth <= 980) {
         this.toggleSidebar(true);
       }
     },
     toggleSidebar(newVal = !this.localMini) {
+      this.debounceAuto = true;
       if (this.$root.mobile) {
         this.localMini = false;
       } else {
@@ -121,6 +123,16 @@ export default {
       } else {
         document.body.classList.remove('vuestro-mini-sidebar');
       }
+    },
+    afterLeave() {
+      this.$nextTick(() => {
+        this.$nextTick(() => {
+          window.dispatchEvent(new Event('resize'));
+          setTimeout(() => {
+            this.debounceAuto = false;
+          }, 1000);
+        });
+      });
     },
   },
 };
