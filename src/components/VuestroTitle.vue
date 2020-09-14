@@ -36,7 +36,7 @@ export default {
 }
 
 .vuestro-app.mobile {
-  --vuestro-title-font-size: 32px;
+  --vuestro-title-font-size: 28px;
 }
 </style>
 

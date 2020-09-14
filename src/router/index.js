@@ -36,7 +36,7 @@ import PluginMixins from '../pages/PluginMixins.vue';
 import PluginFilters from '../pages/PluginFilters.vue';
 import InputsEditor from '../pages/InputsEditor.vue';
 import Example from '../pages/Example.vue';
-import ExampleJuxtapositions from '../pages/ExampleJuxtapositions.vue';
+import ExampleForms from '../pages/ExampleForms.vue';
 import Settings from '../pages/Settings.vue';
 
 
@@ -345,12 +345,12 @@ export default new Router({
       children: [
         {
           meta: {
-            title: 'Juxtapositions',
+            title: 'Forms',
             sidebar: true,
           },
-          name: 'example-juxtapositions',
-          path: 'example-juxtapositions',
-          component: ExampleJuxtapositions,
+          name: 'example-forms',
+          path: 'example-forms',
+          component: ExampleForms,
         },
       ]
     },

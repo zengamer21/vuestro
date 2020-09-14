@@ -148,7 +148,7 @@ export default {
       setTimeout(() => {
         if (this.placeholder && this.raisedPlaceholder) {
           let placeholderWidth = window.getComputedStyle(this.$refs.placeholder, null).getPropertyValue('width');
-          this.$set(this.style, 'clip-path', `polygon(0 -10%, 0px 100%, 100% 100%, 100% -10%, calc(${placeholderWidth} - var(--vuestro-rounded-border-radius)*2) -10%, calc(${placeholderWidth} - var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) -10%)`);
+          this.$set(this.style, 'clip-path', `polygon(0 -10%, 0px 110%, 110% 110%, 110% -10%, calc(${placeholderWidth} - var(--vuestro-rounded-border-radius)*2) -10%, calc(${placeholderWidth} - var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) -10%)`);
             this.$set(this.style, 'border-color', 'var(--vuestro-primary)');
         } else {
           this.$delete(this.style, 'clip-path');
@@ -223,7 +223,7 @@ export default {
 
 .vuestro-text-field {
   position: relative;
-  margin: 7px 2px 7px 2px;
+  margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
   display: flex;
 }
 .vuestro-text-field.sm {

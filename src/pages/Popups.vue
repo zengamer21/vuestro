@@ -1,6 +1,6 @@
 <template>
   <vuestro-container>
-    <vuestro-card>
+    <vuestro-card color="var(--vuestro-green)">
       <template #heading>Popups</template>
       <template #description>Vuestro popups include drop-downs, tag selectors, and modals.</template>
     </vuestro-card>
@@ -281,7 +281,7 @@
           <vuestro-button ref="buttonWithTooltip">top</vuestro-button>
         </vuestro-tooltip>
 
-        <vuestro-tooltip position="left" rounded min-width="200" no-wrap>
+        <vuestro-tooltip position="left" rounded min-width="200">
           <template #content>
             hello this is a tooltip with components inside
             <vuestro-button>test</vuestro-button>
@@ -331,7 +331,7 @@
     <vuestro-card cols="12">
       <template #description>Tooltip on icon</template>
       <div class="example-container">
-        <vuestro-tooltip position="bottom" no-wrap rounded>
+        <vuestro-tooltip position="bottom" no-wrap>
           <template #content>Download entire log as JSON</template>
           <vuestro-button round no-border>
             <vuestro-icon name="download"></vuestro-icon>

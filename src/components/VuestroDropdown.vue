@@ -208,6 +208,9 @@ export default {
   position: relative;
   flex-grow: 1;
 }
+.vuestro-dropdown-button >>> .vuestro-button-inner {
+  flex-grow: 1;
+}
 
 .vuestro-dropdown-menu {
   background: var(--vuestro-dropdown-content-bg);

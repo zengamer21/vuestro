@@ -156,14 +156,14 @@ export default {
 }
 
 .vuestro-panel-title-toolbar {
-  min-height: 30px;
-  padding: 4px 4px 4px 8px;
+  min-height: 1.8em;
   display: flex;
   align-items: center;
   border-bottom: var(--vuestro-panel-toolbar-border);
   background-color: var(--vuestro-panel-toolbar-bg);
 }
 .vuestro-panel-title {
+  padding: 0.2em 0.4em;
   color: var(--vuestro-panel-toolbar-fg);
 }
 .vuestro-panel.dark .vuestro-panel-title {
@@ -173,7 +173,9 @@ export default {
   display: flex;
   align-items: center;
   margin-left: auto;
+  justify-content: flex-end;
   color: var(--vuestro-panel-toolbar-fg);
+  flex-wrap: wrap;
 }
 
 .vuestro-panel-contents-wrapper {
@@ -187,13 +189,13 @@ export default {
   flex-grow: 1;
 }
 .vuestro-panel-contents-wrapper.sm {
-  margin: 2px;
+  margin: 0.1em;
 }
 .vuestro-panel-contents-wrapper.md {
-  margin: 5px;
+  margin: 0.4em;
 }
 .vuestro-panel-contents-wrapper.lg {
-  margin: 10px;
+  margin: 0.7em;
 }
 .vuestro-panel.hasTitlebar .vuestro-panel-contents-wrapper {
   margin-top: 0px;

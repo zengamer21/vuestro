@@ -199,7 +199,7 @@ export default {
 }
 
 .vuestro-table thead > .sortable-ghost {
-  margin: 2px;
+  margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
 }
 .vuestro-table thead > .sortable-ghost >>> .vuestro-pill-title {
   background-color: var(--vuestro-orange);

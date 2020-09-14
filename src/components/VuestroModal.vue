@@ -61,6 +61,13 @@ export default {
   --vuestro-modal-title-fg: var(--vuestro-text-color-inverse);
   --vuestro-modal-content-bg: var(--vuestro-content-bg);
   --vuestro-modal-active-bg: rgba(0,0,0,0.5);
+  --vuestro-modal-header-footer-border: 1px solid rgba(0,0,0,0.2);
+  --vuestro-modal-width: 60vw;
+}
+
+.vuestro-app.mobile {
+  --vuestro-modal-header-footer-border: 1px solid var(--vuestro-outline);
+  --vuestro-modal-width: 90vw;
 }
 
 </style>
@@ -79,20 +86,20 @@ export default {
   z-index: 2000;
   background-color: var(--vuestro-modal-active-bg);
   overflow: auto;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(0.4em);
 }
 
 .vuestro-modal-inner {
   background-color: var(--vuestro-modal-content-bg);
-  width: 600px;
-  min-height: 200px;
+  width: var(--vuestro-modal-width);
+  min-height: 15vh;
   margin-top: 10vh;
   margin-bottom: 10vh;
   position: relative;
   display: flex;
   flex-direction: column;
   align-content: start;
-  filter: drop-shadow(0px 0px 10px var(--vuestro-dark));
+  filter: drop-shadow(0px 0px 1em var(--vuestro-dark));
   z-index: 2001;
 }
 
@@ -101,15 +108,18 @@ export default {
 }
 
 .vuestro-modal-titlebar {
-  padding: 0 2px 0 10px;
+  padding: 0 0.1em 0 0.6em;
   background-color: var(--vuestro-modal-title-bg);
   color: var(--vuestro-modal-title-fg);
-  height: 32px;
   flex: none;
-  font-size: 16px;
+  font-size: 1.2em;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+}
+.vuestro-dark .vuestro-modal-titlebar {
+  border-bottom: var(--vuestro-modal-header-footer-border);
 }
 
 .vuestro-modal-title {
@@ -119,8 +129,6 @@ export default {
 .vuestro-modal-toolbar-buttons {
   display: flex;
   margin-left: auto;
-  font-size: 12px;
-  margin-right: 5px;
 }
 .vuestro-modal-default-slot {
   flex-grow: 1;
@@ -130,10 +138,11 @@ export default {
 }
 
 .vuestro-modal-buttons {
-  border-top: 1px solid rgba(0,0,0,0.2);
+  border-top: var(--vuestro-modal-header-footer-border);
   display: flex;
   justify-content: flex-end;
-  padding: 2px;
+  flex-wrap: wrap;
+  padding: 0 0.2em;
 }
 
 @media screen and (max-width: 768px) {

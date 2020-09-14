@@ -115,7 +115,7 @@ export default {
   border-radius: var(--vuestro-pill-radius);
   flex: 0 1 auto;
   display: flex;
-  margin: 2px;
+  margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
 }
 .vuestro-pill.sm {
   line-height: var(--vuestro-control-sm-height);

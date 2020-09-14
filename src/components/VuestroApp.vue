@@ -137,7 +137,8 @@ export default {
   --vuestro-control-md-height: 24px;
   --vuestro-control-lg-height: 32px;
   --vuestro-control-xl-height: 48px;
-  --vuestro-control-margin: 2px;
+  --vuestro-control-margin-v: 5px;
+  --vuestro-control-margin-h: 2px;
 
   /* base palette */
   --vuestro-blue: #217ada;
@@ -231,7 +232,8 @@ export default {
   --vuestro-control-md-height: 50px;
   --vuestro-control-lg-height: 64px;
   --vuestro-control-xl-height: 74px;
-  --vuestro-control-margin: 5px;
+  --vuestro-control-margin-v: 7px;
+  --vuestro-control-margin-h: 5px;
 }
 
 </style>

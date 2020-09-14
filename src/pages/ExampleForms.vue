@@ -2,9 +2,44 @@
   <vuestro-container>
     <vuestro-card color="var(--vuestro-indigo)">
       <template #heading>Juxtapositions</template>
-      <template #description>Common control juxtapositions to check fit and sizing</template>
+      <template #description>Common control form juxtapositions to check fit and sizing</template>
 
       <vuestro-container>
+        <vuestro-card>
+          <template #description>50/50 split between text field and dropdown</template>
+        </vuestro-card>
+        <vuestro-card cols="6">
+          <vuestro-text-field size="md" variant="outline" placeholder="md outline box" v-model="exampleString"></vuestro-text-field>
+        </vuestro-card>
+        <vuestro-card cols="6">
+          <vuestro-dropdown stretch click-to-open>
+            <template #button>
+              <vuestro-button size="md" rounded justify="flex-start">Dropdown with md button</vuestro-button>
+            </template>
+          </vuestro-dropdown>
+        </vuestro-card>
+      </vuestro-container>
+
+      <vuestro-container>
+        <vuestro-card>
+          <template #description>50/50 split between dropdown and button</template>
+        </vuestro-card>
+        <vuestro-card cols="6">
+          <vuestro-dropdown stretch>
+            <template #button>
+              <vuestro-button size="md" rounded justify="flex-start">Dropdown with md button</vuestro-button>
+            </template>
+          </vuestro-dropdown>
+        </vuestro-card>
+        <vuestro-card cols="6">
+          <vuestro-button size="md" stretch rounded>md button</vuestro-button>
+        </vuestro-card>
+      </vuestro-container>
+
+      <vuestro-container>
+        <vuestro-card>
+          <template #description>Dense arrangement of equal-sized controls</template>
+        </vuestro-card>
         <vuestro-button size="sm" variant="info" value round>
           <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
@@ -19,6 +54,7 @@
           <vuestro-list-button>item 1</vuestro-list-button>
           <vuestro-list-button>item 2</vuestro-list-button>
         </vuestro-dropdown>
+        <vuestro-button size="sm" checkbox>Checkbox</vuestro-button>
       </vuestro-container>
 
       <vuestro-container>
@@ -36,6 +72,7 @@
           <vuestro-list-button>item 1</vuestro-list-button>
           <vuestro-list-button>item 2</vuestro-list-button>
         </vuestro-dropdown>
+        <vuestro-button size="md" checkbox>Checkbox</vuestro-button>
       </vuestro-container>
 
       <vuestro-container>
@@ -53,6 +90,7 @@
           <vuestro-list-button>item 1</vuestro-list-button>
           <vuestro-list-button>item 2</vuestro-list-button>
         </vuestro-dropdown>
+        <vuestro-button size="lg" checkbox>Checkbox</vuestro-button>
       </vuestro-container>
 
       <vuestro-container>
@@ -70,6 +108,7 @@
           <vuestro-list-button>item 1</vuestro-list-button>
           <vuestro-list-button>item 2</vuestro-list-button>
         </vuestro-dropdown>
+        <vuestro-button size="xl" checkbox>Checkbox</vuestro-button>
       </vuestro-container>
 
       <vuestro-container>
@@ -122,6 +161,11 @@
 
 export default {
   name: 'ExampleJuxtapositions',
+  data() {
+    return {
+      exampleString: '',
+    };
+  },
 };
 
 </script>

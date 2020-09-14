@@ -127,7 +127,7 @@ export default {
 
 .vuestro-button-inner {
   border: var(--vuestro-rounded-border-width) solid var(--variant-color);
-  margin: var(--vuestro-control-margin);
+  margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
   color: var(--variant-color);
   cursor: pointer;
   display: flex;
@@ -183,7 +183,6 @@ export default {
 .vuestro-button.stretch > .vuestro-button-inner {
   align-self: stretch;
   flex-grow: 1;
-  height: auto;
 }
 .vuestro-button-inner.noBorder {
   border: none;
