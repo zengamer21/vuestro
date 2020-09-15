@@ -134,6 +134,7 @@ export default {
   align-items: center;
   overflow: hidden;
   position: relative;
+  transition: background-color 0.4s;
 }
 /* ripple effect */
 .vuestro-button-inner:after {

@@ -267,7 +267,6 @@ export default {
 
 .vuestro-app >>> *, :after, :before {
   box-sizing: border-box;
-  transition: background-color 0.4s;
 }
 
 .vuestro-app {

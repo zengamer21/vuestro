@@ -91,6 +91,7 @@ export default {
 
 .vuestro-modal-inner {
   background-color: var(--vuestro-modal-content-bg);
+  transition: background-color 0.4s;
   width: var(--vuestro-modal-width);
   min-height: 15vh;
   margin-top: 10vh;

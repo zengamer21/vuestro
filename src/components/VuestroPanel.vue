@@ -124,6 +124,7 @@ export default {
 
 .vuestro-panel {
   background-color: var(--vuestro-panel-bg);
+  transition: background-color 0.4s;
   border-radius: 2px;
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
   display: flex;

@@ -112,6 +112,7 @@ export default {
 
 .vuestro-pill {
   background-color: var(--vuestro-pill-value-background);
+  transition: background-color 0.4s;
   border-radius: var(--vuestro-pill-radius);
   flex: 0 1 auto;
   display: flex;

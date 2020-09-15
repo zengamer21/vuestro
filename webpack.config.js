@@ -14,7 +14,7 @@ module.exports = {
   },
   devServer: {
     host: '0.0.0.0',
-    port: 8081,
+    port: 8088,
     historyApiFallback: true,
     publicPath: '/',
     before: function(app, server, compiler) {
