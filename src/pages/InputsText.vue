@@ -74,7 +74,9 @@
         <span>Set the <em>invalid</em> property to true or a string to provide validation feedback.</span>
       </template>
       <div class="example-flexbox">
-        <vuestro-text-field variant="outline" v-model="exampleEditableText" editing-buttons :invalid="isBooleanString(exampleEditableText)"></vuestro-text-field>
+        <vuestro-text-field variant="outline" v-model="exampleBoolean" editing-buttons clearable :validate="isBooleanString"></vuestro-text-field>
+        <vuestro-text-field variant="outline" placeholder="Age" v-model="validateNumber" editing-buttons clearable :validate="isNumber"></vuestro-text-field>
+        <vuestro-text-field variant="outline" placeholder="Email" size="lg" v-model="validateEmail" editing-buttons clearable :validate="isEmail"></vuestro-text-field>
       </div>
     </vuestro-card>
 
@@ -118,7 +120,9 @@ export default {
         'preset2',
         'preset3',
         'preset4',
-      ]
+      ],
+      validateNumber: '',
+      validateEmail: '',
     };
   },
 	mounted() {
@@ -135,11 +139,14 @@ export default {
       console.log('cancelled');
     },
     isBooleanString(str) {
-      if (str === 'true' || str === 'false') {
-        return false;
-      }
-      return 'should be a boolean';
+      return (str === 'true' || str === 'false') || 'should be a boolean';
     },
+    isNumber(str) {
+      return str.length > 0 && _.isFinite(_.toNumber(str)) || 'should be number';
+    },
+    isEmail(str) {
+      return str.match(/\w+@\w+.\w+/) || 'should be valid email';
+    }
   }
 };
 
@@ -156,6 +163,10 @@ export default {
   padding: 40px;
   background-color: var(--vuestro-popup-bg);
   position: relative;
+}
+
+.example-flexbox > div {
+  margin-top: 10px;
 }
 
 </style>

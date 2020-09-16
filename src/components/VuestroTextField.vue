@@ -21,17 +21,14 @@
              @input="updateValue"
              @keyup="onKeyUp">
       </input>
-      <!--validation-->
-      <div v-if="invalid" class="vuestro-text-field-invalid-msg">
-        <vuestro-icon name="angle-left"></vuestro-icon>
-        <span>&nbsp;{{ invalid }}</span>
-      </div>
       <!--clear button-->
-      <vuestro-button v-if="clearable && value" size="sm" round no-border @click.stop="onClear">
+      <vuestro-button v-if="!invalid && clearable && value" size="sm" round no-border @click.stop="onClear">
         <vuestro-icon name="times"></vuestro-icon>
       </vuestro-button>
+      <!--validation-->
+      <div v-if="invalid" class="vuestro-text-field-invalid-msg">{{ invalid }}</div>
       <!--editing buttons-->
-      <div v-if="editingButtons" class="vuestro-text-field-editing-buttons">
+      <div v-else-if="editingButtons" class="vuestro-text-field-editing-buttons">
         <vuestro-button v-if="!invalid" round no-border size="sm" variant="success" @click="onSaveButton">
           <vuestro-icon name="save"></vuestro-icon>
         </vuestro-button>
@@ -47,7 +44,7 @@
     </div>
     <!--presets dropdown menu-->
     <div v-if="presets.length > 0" class="vuestro-text-field-preset-dropdown-wrapper">
-      <vuestro-dropdown right click-to-open close-on-content-click>
+      <vuestro-dropdown right click-to-open clos e-on-content-click>
         <template #button>
           <vuestro-button no-border round size="sm">
             <vuestro-icon name="chevron-down"></vuestro-icon>
@@ -94,7 +91,7 @@ export default {
     editingButtons: { type: Boolean, default: false },
     selected: { type: Boolean, default: false },      // true for all text selected by default
     readonly: { type: Boolean, default: false },      // true for readonly
-    invalid: { type: null, default: false },           // true or string to set invalid state
+    validate: { type: Function, default: () => { return false; } }, // return true or string to set invalid state
   },
   data() {
     return {
@@ -103,9 +100,19 @@ export default {
       showPassword: false,
       editingButtonsBuffer: this.value,
       style: {},
+      beginValidation: false,
     };
   },
   computed: {
+    invalid() {
+      if (this.beginValidation) {
+        let validation = this.validate(this.value);
+        if (_.isString(validation)) {
+          return validation;
+        }
+      }
+      return false;
+    },
   },
   watch: {
     value(newVal) {
@@ -174,6 +181,7 @@ export default {
       this.editingButtonsBuffer = this.$refs.inputEl.value;
     },
     onKeyUp(e) { // passthrough for 'keyup.enter'-type binding
+      this.beginValidation = true; // begin validation
       this.$emit('keyup', e);
     },
     onFocus() {
@@ -221,38 +229,39 @@ export default {
 
 <style scoped>
 
+.vuestro-text-field.sm {
+  font-size: calc(var(--vuestro-control-sm-height) * 0.5);
+  --vuestro-text-field-local-height: var(--vuestro-control-sm-height);
+}
+.vuestro-text-field-shaded.sm {
+  --vuestro-text-field-local-height: calc(var(--vuestro-control-sm-height)*1.2);
+}
+.vuestro-text-field.md {
+  font-size: calc(var(--vuestro-control-md-height) * 0.5);
+  --vuestro-text-field-local-height: var(--vuestro-control-md-height);
+}
+.vuestro-text-field-shaded.md {
+  --vuestro-text-field-local-height: calc(var(--vuestro-control-md-height)*1.2);
+}
+.vuestro-text-field.lg {
+  font-size: calc(var(--vuestro-control-lg-height) * 0.5);
+  --vuestro-text-field-local-height: var(--vuestro-control-lg-height);
+}
+.vuestro-text-field-shaded.lg {
+  --vuestro-text-field-local-height: calc(var(--vuestro-control-lg-height)*1.2);
+}
+.vuestro-text-field.xl {
+  font-size: calc(var(--vuestro-control-xl-height) * 0.5);
+  --vuestro-text-field-local-height: var(--vuestro-control-xl-height);
+}
+.vuestro-text-field-shaded.xl {
+  --vuestro-text-field-local-height: calc(var(--vuestro-control-xl-height)*1.2);
+}
 .vuestro-text-field {
   position: relative;
   margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
   display: flex;
-}
-.vuestro-text-field.sm {
-  font-size: calc(var(--vuestro-control-sm-height) * 0.5);
-  height: var(--vuestro-control-sm-height);
-}
-.vuestro-text-field-shaded.sm {
-  height: calc(var(--vuestro-control-sm-height)*1.2);
-}
-.vuestro-text-field.md {
-  font-size: calc(var(--vuestro-control-md-height) * 0.5);
-  height: var(--vuestro-control-md-height);
-}
-.vuestro-text-field-shaded.md {
-  height: calc(var(--vuestro-control-md-height)*1.2);
-}
-.vuestro-text-field.lg {
-  font-size: calc(var(--vuestro-control-lg-height) * 0.5);
-  height: var(--vuestro-control-lg-height);
-}
-.vuestro-text-field-shaded.lg {
-  height: calc(var(--vuestro-control-lg-height)*1.2);
-}
-.vuestro-text-field.xl {
-  font-size: calc(var(--vuestro-control-xl-height) * 0.5);
-  height: var(--vuestro-control-xl-height);
-}
-.vuestro-text-field-shaded.xl {
-  height: calc(var(--vuestro-control-xl-height)*1.2);
+  height: var(--vuestro-text-field-local-height);
 }
 .vuestro-text-field.noMargin {
   margin: 0;
@@ -387,10 +396,30 @@ export default {
 }
 
 .vuestro-text-field-invalid-msg {
-  color: var(--vuestro-danger);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--vuestro-danger);
   display: flex;
   align-items: center;
   white-space: nowrap;
+  padding-left: 2px;
+  padding-right: 5px;
+  border-top-right-radius: var(--vuestro-rounded-border-radius);
+  border-bottom-right-radius: var(--vuestro-rounded-border-radius);
+}
+/* render the left-pointing angle on the invalid msg */
+.vuestro-text-field-invalid-msg:before {
+  content: '';
+  position: absolute;
+	right: calc(100%);
+  width: 0;
+  height: 0;
+  --vuestro-text-field-invalid-msg-px: calc(var(--vuestro-text-field-local-height) / 2);
+  border-top: var(--vuestro-text-field-invalid-msg-px) solid transparent;
+	border-right: calc(var(--vuestro-text-field-invalid-msg-px)*0.7) solid var(--vuestro-danger);
+	border-bottom: var(--vuestro-text-field-invalid-msg-px) solid transparent;
 }
 
 .vuestro-text-field-preset-dropdown-wrapper {
