@@ -78,7 +78,7 @@ export default {
     },
     tryPush() {
       if (!this.route.children) {
-        this.$router.push(this.route);
+        this.$router.push(this.route).catch(err => {});
       }
     },
   },
