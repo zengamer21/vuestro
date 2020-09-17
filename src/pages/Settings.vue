@@ -4,10 +4,9 @@
       <template #heading>Settings</template>
       <vuestro-panel stretch>
         <template #title>UI</template>
-        <vuestro-container items-start>
-          <vuestro-button checkbox :value="isDarkUI" @click="toggleIsDarkUI">
-            Dark UI
-          </vuestro-button>
+        <vuestro-container items-start column>
+          <vuestro-button checkbox :value="isDarkUI" @click="toggleIsDarkUI">Dark UI</vuestro-button>
+          <vuestro-button checkbox :value="isSidebarMini" @click="setSidebarMini(!isSidebarMini)">Mini Sidebar</vuestro-button>
         </vuestro-container>
       </vuestro-panel>
     </vuestro-card>
@@ -21,10 +20,10 @@
 export default {
   name: 'Settings',
   computed: {
-    ...Vuex.mapGetters(['isDarkUI']),
+    ...Vuex.mapGetters(['isDarkUI', 'isSidebarMini']),
   },
   methods: {
-    ...Vuex.mapActions(['toggleIsDarkUI']),
+    ...Vuex.mapActions(['toggleIsDarkUI', 'setSidebarMini']),
   }
 };
 

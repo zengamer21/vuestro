@@ -1,13 +1,17 @@
 <template>
-  <vuestro-app title="vuestro"
-               :user="user"
-               :user-img="userImg"
-               :role="role">
+  <vuestro-app title="vuestro">
     <template #logo>
     </template>
 
     <template #navbar></template>
-    <template #sidebar></template>
+    <template #sidebar>
+      <vuestro-sidebar :user="user"
+                       :user-img="userImg"
+                       :role="role"
+                       :mini="isSidebarMini"
+                       @update:mini="onSetSidebar">
+      </vuestro-sidebar>
+    </template>
     <template #sidebar-footer></template>
 
     <template #footer>
@@ -19,7 +23,7 @@
 
 <script>
 
-/* global __VERSION__ */
+/* global __VERSION__, Vuex*/
 
 export default {
   name: 'app',
@@ -31,6 +35,14 @@ export default {
       role: 'Admin',
     };
   },
+  computed: {
+    ...Vuex.mapGetters(['isSidebarMini']),
+  },
+  methods: {
+    onSetSidebar(d) {
+      this.$store.dispatch('setSidebarMini', d);
+    },
+  }
 };
 </script>
 
