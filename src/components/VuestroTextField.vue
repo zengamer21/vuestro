@@ -16,6 +16,7 @@
              class="vuestro-text-field-input-el"
              :value="value"
              :type="showPassword ? 'text':type"
+             :autocomplete="autocomplete"
              @focus="onFocus"
              @focusout="onFocusOut"
              @input="updateValue"
@@ -37,7 +38,9 @@
         </vuestro-button>
       </div>
       <!--show password button-->
-      <span class="vuestro-text-field-show-password" v-if="type === 'password'" @click="showPassword = !showPassword">
+      <span class="vuestro-text-field-show-password" 
+            v-if="type === 'password' || type === 'hidden'"
+            @click="showPassword = !showPassword">
         <vuestro-icon v-if="!showPassword" name="eye-slash"></vuestro-icon>
         <vuestro-icon v-if="showPassword" name="eye"></vuestro-icon>
       </span>
@@ -92,6 +95,7 @@ export default {
     selected: { type: Boolean, default: false },      // true for all text selected by default
     readonly: { type: Boolean, default: false },      // true for readonly
     validate: { type: Function, default: () => { return false; } }, // return true or string to set invalid state
+    autocomplete: { type: String, default: null },
   },
   data() {
     return {

@@ -93,12 +93,26 @@
 
     <vuestro-card>
       <template #subheading>
+        Autocompletes
+      </template>
+      <div class="example-flexbox">
+        <form>
+          <vuestro-text-field type="password" v-model="exampleText" autocomplete="new-password"></vuestro-text-field>
+          <vuestro-text-field type="email" v-model="exampleText" autocomplete="email"></vuestro-text-field>
+        </form>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>
         Editable Text
       </template>
       <div class="example-flexbox">
         <vuestro-editable-text v-model="exampleEditableText"></vuestro-editable-text>
       </div>
     </vuestro-card>
+
+
 
   </vuestro-container>
 </template>
