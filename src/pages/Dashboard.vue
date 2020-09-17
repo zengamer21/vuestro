@@ -3,6 +3,9 @@
     <template #default="{ item }">
       <component :is="item.component" :data="item.data" :options="item.options"></component>
     </template>
+    <template #footer>
+      hello
+    </template>
   </vuestro-grid>
 </template>
 

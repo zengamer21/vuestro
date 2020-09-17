@@ -8,7 +8,7 @@
     </vuestro-grid-box>
     <vuestro-grid-box class="vuestro-grid-placeholder" boxId="::placeholder::"></vuestro-grid-box>
     <!--default slot for any extras-->
-    <slot></slot>
+    <slot name="extra"></slot>
   </div>
 </template>
 
