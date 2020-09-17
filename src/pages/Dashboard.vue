@@ -4,7 +4,11 @@
       <component :is="item.component" :data="item.data" :options="item.options"></component>
     </template>
     <template #footer>
-      hello
+      <div class="grid-footer">
+        <vuestro-button pill>
+          <vuestro-icon name="plus"></vuestro-icon>
+        </vuestro-button>
+      </div>
     </template>
   </vuestro-grid>
 </template>
@@ -329,6 +333,10 @@ export default {
 
 .drag {
   cursor: move;
+}
+
+.grid-footer {
+  margin-left: 20px;
 }
 
 </style>

@@ -1,14 +1,17 @@
 <template>
-  <div ref="grid" class="vuestro-grid" :style="style">
-    <vuestro-grid-box v-for="item in localLayout"
-                      :key="item.id"
-                      :boxId="item.id"
-                      :locked="lock">
-      <slot :item="item"></slot>
-    </vuestro-grid-box>
-    <vuestro-grid-box class="vuestro-grid-placeholder" boxId="::placeholder::"></vuestro-grid-box>
-    <!--default slot for any extras-->
-    <slot name="extra"></slot>
+  <div class="vuestro-grid">
+    <slot name="header"></slot>
+    <div ref="grid" class="vuestro-grid-inner" :style="style">
+      <vuestro-grid-box v-for="item in localLayout"
+                        :key="item.id"
+                        :boxId="item.id"
+                        :locked="lock">
+        <slot :item="item"></slot>
+      </vuestro-grid-box>
+      <vuestro-grid-box class="vuestro-grid-placeholder" boxId="::placeholder::"></vuestro-grid-box>
+      <!--default slot for any extras-->
+    </div>
+    <slot name="footer"></slot>
   </div>
 </template>
 
