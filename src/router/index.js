@@ -357,7 +357,8 @@ export default new Router({
     {
       meta: {
         title: 'Plugin',
-        sidebar: true,
+        // sidebar: true,
+        sidebarBottom: true,
         icon: 'puzzle-piece',
         bgColor: 'var(--vuestro-purple)',
         fgColor: 'var(--vuestro-text-color-inverse)',
@@ -398,7 +399,7 @@ export default new Router({
     {
       meta: {
         title: 'Settings',
-        sidebarBottom: true,
+        sidebar: true,
         icon: 'cogs',
         bgColor: 'var(--vuestro-cyan)',
         fgColor: 'var(--vuestro-text-color-inverse)',
