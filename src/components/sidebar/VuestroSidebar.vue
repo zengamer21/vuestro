@@ -181,6 +181,7 @@ export default {
   color: var(--vuestro-sidebar-fg);
   background: var(--vuestro-sidebar-bg);
   border-right: var(--vuestro-sidebar-border);
+  max-width: var(--vuestro-sidebar-normal-width);
   width: var(--vuestro-sidebar-normal-width);
   transition: all 0.4s;
   flex: none;
@@ -202,8 +203,8 @@ export default {
 }
 
 .vuestro-sidebar-logo {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   transition: all 0.4s;
   display: flex;
   justify-content: center;
@@ -215,6 +216,7 @@ export default {
 
 .vuestro-user-block {
   display: flex;
+  justify-content: flex-start;
   color: white;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -227,10 +229,6 @@ export default {
   align-self: center;
   width: var(--vuestro-sidebar-user-image-width);
   border-radius: 50%;
-}
-.vuestro-mini-sidebar .vuestro-user-block {
-  padding-left: 0px;
-  justify-content: center;
 }
 
 .vuestro-user-block-text {

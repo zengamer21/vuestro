@@ -1,12 +1,33 @@
 <template>
   <div class="vuestro-app" :class="{ mobile: $root.mobile, 'vuestro-dark': isDark }">
-    <!--MAIN TEMPLATE-->
-    <template v-if="authenticated && !loading">
+    <transition name="vuestro-app-modes" mode="out-in">
+      <!--MAIN TEMPLATE-->
+      <div v-if="authenticated && !loading" key="main">
 
-      <!--SLOT WITH DEFAULT NAVBAR-->
-      <slot name="navbar">
-        <vuestro-navbar :title="title">
-          <template #mobile-sidebar>
+        <!--SLOT WITH DEFAULT NAVBAR-->
+        <slot name="navbar">
+          <vuestro-navbar :title="title">
+            <template #mobile-sidebar>
+              <slot name="sidebar">
+                <vuestro-sidebar :user="user"
+                                 :user-img="userImg"
+                                 :role="role">
+                  <template #logo>
+                    <slot name="sidebar-logo"></slot>
+                  </template>
+                  <template #footer>
+                    <slot name="sidebar-footer"></slot>
+                  </template>
+                </vuestro-sidebar>
+              </slot>
+            </template>
+            <slot name="navbar-slot"></slot>
+          </vuestro-navbar>
+        </slot>
+
+        <div class="vuestro-content">
+          <!--SLOT WITH DEFAULT SIDEBAR-->
+          <template v-if="!$root.mobile">
             <slot name="sidebar">
               <vuestro-sidebar :user="user"
                                :user-img="userImg"
@@ -20,44 +41,30 @@
               </vuestro-sidebar>
             </slot>
           </template>
-          <slot name="navbar-slot"></slot>
-        </vuestro-navbar>
-      </slot>
 
-      <div class="vuestro-content">
-        <!--SLOT WITH DEFAULT SIDEBAR-->
-        <template v-if="!$root.mobile">
-          <slot name="sidebar">
-            <vuestro-sidebar :user="user"
-                             :user-img="userImg"
-                             :role="role">
-              <template #logo>
-                <slot name="sidebar-logo"></slot>
-              </template>
-              <template #footer>
-                <slot name="sidebar-footer"></slot>
-              </template>
-            </vuestro-sidebar>
-          </slot>
-        </template>
-
-        <!--MAIN PAGE VIEW-->
-        <div ref="routerView" class="vuestro-router-view" @scroll="onScroll">
-          <slot name="pre-content"></slot>
-          <keep-alive> <!-- vue router option for persistent state -->
-            <router-view/>
-          </keep-alive>
-
-          <slot name="footer"></slot>
+          <!--MAIN PAGE VIEW-->
+          <div ref="routerView" class="vuestro-router-view" @scroll="onScroll">
+            <slot name="pre-content"></slot>
+            <transition name="vuestro-app-pages" mode="out-in" @after-leave="onRouterTransitionDone">
+              <keep-alive> <!-- vue router option for persistent state -->
+                <router-view/>
+              </keep-alive>
+            </transition>
+            <slot name="footer"></slot>
+          </div>
         </div>
       </div>
-    </template>
 
-    <!--SLOT FOR CUSTOM LOADING PAGE-->
-    <slot v-else-if="authenticated && loading" name="loading"></slot>
+      <!--SLOT FOR CUSTOM LOADING PAGE-->
+      <div v-else-if="authenticated && loading" key="loading">
+        <slot name="loading"></slot>
+      </div>
 
-    <!--SLOT FOR CUSTOM LOGIN PAGE-->
-    <slot v-else name="login"></slot>
+      <!--SLOT FOR CUSTOM LOGIN PAGE-->
+      <div v-else key="login">
+        <slot name="login"></slot>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -93,19 +100,19 @@ export default {
       return this.dark;
     },
   },
+  data() {
+    return {
+      toRoute: null,
+    };
+  },
   watch: {
     '$route'(to, from) {
-      if (to.meta.scrollTop) {
-        // restore scroll on routerView for this route
-        this.$nextTick(() => {
-          this.$refs.routerView.scrollTop = to.meta.scrollTop;
-        });
-      }
-      // emit a global resize event so widgets/charts can resize
-      this.$nextTick(() => {
-        window.dispatchEvent(new Event('resize'));
-      });
+      this.toRoute = to;
     }
+  },
+  created() {
+    window.addEventListener('resize', () => {
+    });
   },
   beforeMount() {
     console.log('vuestro-app beforeMount');
@@ -120,6 +127,16 @@ export default {
     onScroll(e) {
       // save content-container scroll position to this route's meta
       this.$route.meta.scrollTop = this.$refs.routerView.scrollTop;
+    },
+    onRouterTransitionDone() {
+      // only works if we delay 2 ticks
+      this.$nextTick(() => {
+        this.$nextTick(() => {
+          this.$refs.routerView.scrollTop = this.toRoute.meta.scrollTop;
+        });
+      });
+      // emit a global resize event so widgets/charts can resize
+      window.dispatchEvent(new Event('resize'));
     },
   }
 };
@@ -139,6 +156,8 @@ export default {
   --vuestro-control-xl-height: 48px;
   --vuestro-control-margin-v: 5px;
   --vuestro-control-margin-h: 2px;
+  --vuestro-primary-transition-time: 0.4s;
+  --vuestro-secondary-transition-time: 0.2s;
 
   /* base palette */
   --vuestro-blue: #217ada;
@@ -276,16 +295,39 @@ export default {
   -webkit-font-smoothing: subpixel-antialiased;
   text-rendering: optimizeLegibility;
   min-height: 100%; /* stretches app down to bottom edge of body */
-  display: flex;
-  flex-direction: column;
   background-color: var(--vuestro-content-bg);
   transition: background-color 0.4s;
+}
+/* wrapper div to allow transitions to work between login, loading, main states */
+.vuestro-app > div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.vuestro-app-modes-enter-active, .vuestro-app-modes-leave-active {
+  transition: opacity var(--vuestro-primary-transition-time);
+}
+.vuestro-app-modes-enter, .vuestro-app-modes-leave-to {
+  opacity: 0;
+}
+
+.vuestro-app-pages-enter-active, .vuestro-app-pages-leave-active {
+  transition: opacity var(--vuestro-secondary-transition-time);
+}
+.vuestro-app-pages-enter, .vuestro-app-pages-leave-to {
+  opacity: 0;
 }
 
 .vuestro-content {
   flex: 1 1 auto; /* make the content stretch to bottom of .vuestro-app */
   display: flex;
   overflow: hidden; /* lets .vuestro-router-view do the scrolling */
+  transition: all var(--vuestro-primary-transition-time);
 }
 
 .vuestro-router-view {

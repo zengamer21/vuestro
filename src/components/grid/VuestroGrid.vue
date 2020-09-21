@@ -47,11 +47,6 @@ export default {
       this.localLayout = newLayout;
       this.refresh();
     },
-    '$route'() {
-      this.$nextTick(() => {
-        this.resize();
-      });
-    },
   },
   data() {
     return {
