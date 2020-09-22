@@ -1,7 +1,7 @@
 <template>
   <vuestro-container>
     <vuestro-card color="var(--vuestro-indigo)">
-      <template #heading>Juxtapositions</template>
+      <template #heading>Forms</template>
       <template #description>Common control form juxtapositions to check fit and sizing</template>
 
       <vuestro-container>
@@ -33,6 +33,18 @@
         </vuestro-card>
         <vuestro-card cols="6">
           <vuestro-button size="md" stretch rounded>md button</vuestro-button>
+        </vuestro-card>
+      </vuestro-container>
+
+      <vuestro-container>
+        <vuestro-card>
+          <template #description>Text Field next to color picker</template>
+        </vuestro-card>
+        <vuestro-card>
+          <vuestro-container>
+            <vuestro-text-field size="lg" variant="outline" placeholder="lg outline box" v-model="exampleString"></vuestro-text-field>
+            <vuestro-color-picker v-model="color" :colors="colorOptions"></vuestro-color-picker>
+          </vuestro-container>
         </vuestro-card>
       </vuestro-container>
 
@@ -164,6 +176,25 @@ export default {
   data() {
     return {
       exampleString: '',
+      color: '#ff80ab',
+      colorOptions: [
+        '#ff8a80',
+        '#ff80ab',
+        '#ea80fc',
+        '#b388ff',
+        '#8c9eff',
+        '#82b1ff',
+        '#80d8ff',
+        '#84ffff',
+        '#a7ffeb',
+        '#b9f6ca',
+        '#ccff90',
+        '#f4ff81',
+        '#ffff8d',
+        '#ffe57f',
+        '#ffd180',
+        '#ff9e80',
+  		],
     };
   },
 };

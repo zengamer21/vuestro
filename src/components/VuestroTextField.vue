@@ -8,6 +8,7 @@
                    noMargin,
                    readonly,
                    invalid,
+                   stretch,
                   }
                ]">
     <!--the main input, input-el-wrapper provides border for outline variant-->
@@ -96,6 +97,7 @@ export default {
     readonly: { type: Boolean, default: false },      // true for readonly
     validate: { type: Function, default: () => { return false; } }, // return true or string to set invalid state
     autocomplete: { type: String, default: null },
+    stretch: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -269,6 +271,9 @@ export default {
 }
 .vuestro-text-field.noMargin {
   margin: 0;
+}
+.vuestro-text-field.stretch {
+  flex-grow: 1;
 }
 .vuestro-text-field.dark .vuestro-text-field-input-el {
   color: var(--vuestro-text-color-inverse);

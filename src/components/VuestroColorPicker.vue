@@ -50,6 +50,7 @@ export default {
 .vuestro-color-picker {
   width: 28px;
   height: 28px;
+  margin: var(--vuestro-control-margin-v);
 	display: flex;
 	flex-direction: column;
 	position: relative;
@@ -60,7 +61,7 @@ export default {
   height: 100%;
 	display: flex;
 	justify-content: center;
-	z-index: 100;
+	z-index: 999;
 	padding: 2px;
 	border-radius: 50%;
 	border-top-left-radius: 4px;
@@ -90,7 +91,7 @@ export default {
 	border-bottom-left-radius: 4px;
 	border-bottom-right-radius: 4px;
   transform-origin: top;
-  z-index: 99;
+  z-index: 998;
 }
 
 .vuestro-color-picker-option {
