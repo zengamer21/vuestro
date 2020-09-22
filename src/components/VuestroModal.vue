@@ -60,6 +60,7 @@ export default {
   --vuestro-modal-title-bg: var(--vuestro-dark);
   --vuestro-modal-title-fg: var(--vuestro-text-color-inverse);
   --vuestro-modal-content-bg: var(--vuestro-content-bg);
+  --vuestro-modal-footer-bg: var(--vuestro-content-bg);
   --vuestro-modal-active-bg: rgba(0,0,0,0.5);
   --vuestro-modal-header-footer-border: 1px solid rgba(0,0,0,0.2);
   --vuestro-modal-width: 60vw;
@@ -68,6 +69,12 @@ export default {
 .vuestro-app.mobile {
   --vuestro-modal-header-footer-border: 1px solid var(--vuestro-outline);
   --vuestro-modal-width: 90vw;
+}
+
+.vuestro-dark {
+  --vuestro-modal-title-bg: var(--vuestro-darker);
+  --vuestro-modal-footer-bg: var(--vuestro-darker);
+  --vuestro-modal-header-footer-border: 1px solid var(--vuestro-outline);
 }
 
 </style>
@@ -144,6 +151,7 @@ export default {
   justify-content: flex-end;
   flex-wrap: wrap;
   padding: 0 0.2em;
+  background-color: var(--vuestro-modal-footer-bg);
 }
 
 @media screen and (max-width: 768px) {
