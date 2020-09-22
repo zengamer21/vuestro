@@ -39,7 +39,7 @@
         </vuestro-button>
       </div>
       <!--show password button-->
-      <span class="vuestro-text-field-show-password" 
+      <span class="vuestro-text-field-show-password"
             v-if="type === 'password' || type === 'hidden'"
             @click="showPassword = !showPassword">
         <vuestro-icon v-if="!showPassword" name="eye-slash"></vuestro-icon>
@@ -162,10 +162,8 @@ export default {
         if (this.placeholder && this.raisedPlaceholder) {
           let placeholderWidth = window.getComputedStyle(this.$refs.placeholder, null).getPropertyValue('width');
           this.$set(this.style, 'clip-path', `polygon(0 -10%, 0px 110%, 110% 110%, 110% -10%, calc(${placeholderWidth} - var(--vuestro-rounded-border-radius)*2) -10%, calc(${placeholderWidth} - var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) -10%)`);
-            this.$set(this.style, 'border-color', 'var(--vuestro-primary)');
         } else {
           this.$delete(this.style, 'clip-path');
-          this.$delete(this.style, 'border-color');
         }
       }, 100);
     },
@@ -278,7 +276,8 @@ export default {
 .vuestro-text-field.dark .vuestro-text-field-input-el {
   color: var(--vuestro-text-color-inverse);
 }
-.vuestro-text-field.focused {
+.vuestro-text-field.focused,
+.vuestro-text-field.focused .vuestro-text-field-input-el-wrapper {
   border-color: var(--vuestro-primary);
 }
 .vuestro-text-field.readonly {
