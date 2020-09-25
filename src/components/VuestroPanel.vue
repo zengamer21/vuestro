@@ -162,9 +162,8 @@ export default {
   align-items: center;
   border-bottom: var(--vuestro-panel-toolbar-border);
   background-color: var(--vuestro-panel-toolbar-bg);
-}
-.vuestro-panel-title-toolbar > .vuestro-caret {
   margin-left: 0.2em;
+  margin-right: 0.2em;
 }
 .vuestro-panel-title {
   padding: 0.2em 0.4em;
