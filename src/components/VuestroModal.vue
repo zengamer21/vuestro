@@ -52,10 +52,10 @@ export default {
       return false;
     },
     onAfterOpen() {
-      this.$emit('afterOpen');
+      this.$emit('after-open');
     },
     onAfterClose() {
-      this.$emit('afterClose');
+      this.$emit('after-close');
     }
   },
 };

@@ -225,7 +225,7 @@
         VuestroModal has a "toolbar" slot for adding VuestroButtons to the top right, and a "buttons" slot for adding VuestroButtons to the bottom right.
       </template>
       <vuestro-button @click="modalOpen3 = true">Open Modal</vuestro-button>
-      <vuestro-modal :active.sync="modalOpen3" close-on-blur close-text="Done">
+      <vuestro-modal :active.sync="modalOpen3" close-on-blur close-text="Done" @after-open="onAfterOpen">
         <template #title>VuestroModal</template>
         <template #toolbar>
           <vuestro-button pill no-border variant="info">
@@ -363,6 +363,9 @@ export default {
 	methods: {
 		onClick() {
 			console.log('click');
+		},
+		onAfterOpen() {
+		  console.log('opened');
 		},
 	}
 };
