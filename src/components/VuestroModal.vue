@@ -1,5 +1,7 @@
 <template>
-  <transition name="vuestro-modal" mode="out-in">
+  <transition name="vuestro-modal" mode="out-in"
+              @after-enter="onAfterOpen"
+              @after-leave="onAfterClose">
     <div class="vuestro-modal-outer" v-if="active" @click.exact="onBlur">
       <div class="vuestro-modal-inner">
         <div class="vuestro-modal-titlebar">
@@ -48,6 +50,12 @@ export default {
         this.onClose();
       }
       return false;
+    },
+    onAfterOpen() {
+      this.$emit('afterOpen');
+    },
+    onAfterClose() {
+      this.$emit('afterClose');
     }
   },
 };
@@ -62,7 +70,8 @@ export default {
   --vuestro-modal-content-bg: var(--vuestro-content-bg);
   --vuestro-modal-footer-bg: var(--vuestro-content-bg);
   --vuestro-modal-active-bg: rgba(0,0,0,0.5);
-  --vuestro-modal-header-footer-border: 1px solid rgba(0,0,0,0.2);
+  --vuestro-modal-header-border: 1px solid rgba(0,0,0,0.2);
+  --vuestro-modal-footer-border: 1px solid rgba(0,0,0,0.2);
   --vuestro-modal-width: 60vw;
 }
 
@@ -73,8 +82,9 @@ export default {
 
 .vuestro-dark {
   --vuestro-modal-title-bg: var(--vuestro-darker);
-  --vuestro-modal-footer-bg: var(--vuestro-darker);
-  --vuestro-modal-header-footer-border: 1px solid var(--vuestro-outline);
+  --vuestro-modal-footer-bg: var(--vuestro-content-bg);
+  --vuestro-modal-header-border: 1px solid var(--vuestro-outline);
+  --vuestro-modal-footer-border: none;
 }
 
 </style>
@@ -127,7 +137,7 @@ export default {
   flex-wrap: wrap;
 }
 .vuestro-dark .vuestro-modal-titlebar {
-  border-bottom: var(--vuestro-modal-header-footer-border);
+  border-bottom: var(--vuestro-modal-header-border);
 }
 
 .vuestro-modal-title {
@@ -146,7 +156,7 @@ export default {
 }
 
 .vuestro-modal-buttons {
-  border-top: var(--vuestro-modal-header-footer-border);
+  border-top: var(--vuestro-modal-footer-border);
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
