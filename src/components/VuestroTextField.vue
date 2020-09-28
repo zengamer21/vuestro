@@ -185,9 +185,11 @@ export default {
       this.updateStyle();
     },
     focus() { // proxy the focus() call
-      this.$nextTick(() => {
-        this.$refs.inputEl.focus();
-      });
+      if (!this.readonly) {
+        this.$nextTick(() => {
+          this.$refs.inputEl.focus();
+        });
+      }
     },
     updateValue() {
       // fine-grained, called with every keystroke so parent

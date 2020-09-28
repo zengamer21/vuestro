@@ -220,7 +220,7 @@ export default {
 /* DARK UI OVERRIDES */
 .vuestro-dark {
   --vuestro-content-bg: #1b1c21;
-  --vuestro-panel-dark-bg: #383a3c; /* panel will use this in global dark mode */
+  --vuestro-panel-dark-bg: #2e2f34; /* panel will use this in global dark mode */
 
   --vuestro-widget-dark-bg: #383b3f;
   --vuestro-widget-light-bg: var(--vuestro-widget-dark-bg);
