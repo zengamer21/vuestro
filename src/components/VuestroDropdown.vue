@@ -49,7 +49,7 @@ export default {
     };
   },
   mounted() {
-    // if VuestroButton was used as activator, wire up it's events
+    // if VuestroButton was used as activator, wire up its events
     this.$nextTick(() => {
       if (this.$slots.button) {
         this.$children[0].$on('click', () => {
@@ -122,7 +122,7 @@ export default {
   --vuestro-dropdown-content-bg: var(--vuestro-popup-bg);
   --vuestro-dropdown-content-fg: var(--vuestro-popup-fg);
   --vuestro-dropdown-buttons-bg: var(--vuestro-primary);
-  --vuestro-dropdown-buttons-fg: var(--vuestro-light);
+  --vuestro-dropdown-buttons-fg: var(--vuestro-text-color-inverse);
 }
 .vuestro-dark {
   --vuestro-dropdown-outline: var(--vuestro-outline);

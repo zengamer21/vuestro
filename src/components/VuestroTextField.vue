@@ -48,13 +48,24 @@
     </div>
     <!--presets dropdown menu-->
     <div v-if="presets.length > 0" class="vuestro-text-field-preset-dropdown-wrapper">
-      <vuestro-dropdown right click-to-open clos e-on-content-click>
+      <vuestro-dropdown right click-to-open close-on-content-click>
         <template #button>
           <vuestro-button no-border round size="sm">
             <vuestro-icon name="chevron-down"></vuestro-icon>
           </vuestro-button>
         </template>
         <vuestro-list-button v-for="p in presets" :key="p" @click="onPreset(p)">{{ p }}</vuestro-list-button>
+      </vuestro-dropdown>
+    </div>
+    <!--templatized dropdown menu-->
+    <div v-if="$slots.dropdown" class="vuestro-text-field-preset-dropdown-wrapper">
+      <vuestro-dropdown right click-to-open close-on-content-click>
+        <template #button>
+          <vuestro-button no-border round size="sm">
+            <vuestro-icon name="chevron-down"></vuestro-icon>
+          </vuestro-button>
+        </template>
+        <slot name="dropdown"></slot>
       </vuestro-dropdown>
     </div>
     <!--placeholder-->

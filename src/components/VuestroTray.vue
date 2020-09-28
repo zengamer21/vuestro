@@ -1,7 +1,7 @@
 <template>
   <div class="vuestro-tray"
-       :class="[`vuestro-tray-${variant}`, { noBorder }]">
-    <div v-if="$slots.title">
+       :class="[`vuestro-tray-${variant}`, size, { noBorder }]">
+    <div v-if="$slots.title" class="vuestro-tray-title flex-align-self-center">
       <slot name="title"></slot>
     </div>
     <vuestro-title v-else-if="title" class="vuestro-tray-title flex-align-self-center">{{ title }}</vuestro-title>
@@ -22,6 +22,7 @@ export default {
     title: { type: String, required: false },
     noBorder: { type: Boolean, default: false },
     variant: { type: String, default: 'regular' },
+    size: { type: String, default: 'md' },
   },
 };
 
@@ -32,6 +33,19 @@ export default {
 .vuestro-tray {
   display: flex;
   position: relative;
+  margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
+}
+.vuestro-tray.sm {
+  min-height: var(--vuestro-control-sm-height);
+}
+.vuestro-tray.md {
+  min-height: var(--vuestro-control-md-height);
+}
+.vuestro-tray.lg {
+  min-height: var(--vuestro-control-lg-height);
+}
+.vuestro-tray.xl {
+  min-height: var(--vuestro-control-xl-height);
 }
 
 .vuestro-tray-outline {
@@ -51,7 +65,10 @@ export default {
 }
 
 .vuestro-tray-title {
-  margin-left: 0.3em;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  font-weight: 500;
+  margin-left: 0.4em;
   margin-right: 0.5em;
   align-self: center;
 }

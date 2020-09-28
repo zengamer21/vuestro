@@ -2,8 +2,12 @@
   <vuestro-tray class="vuestro-multi-select"
                 :class="{ stretch }"
                 :variant="variant"
-                :style="style">
+                :size="size">
+    <template #title>
+      <slot name="title"></slot>
+    </template>
     <draggable v-model="contents"
+               draggable=".vuestro-pill"
                group="vuestro-multi-select"
                @add="onDragAdd">
       <div class="vuestro-multi-select-pill-container">
@@ -31,8 +35,8 @@ export default {
   },
   props: {
     value: { type: Array, default: () => []},
+    size: { type: String, default: 'md' },
     variant: { type: String, default: 'outline' },
-    minHeight: { type: String, default: '25px' },
     placeholder: { type: String },
     stretch: { type: Boolean, default: false },
   },
@@ -43,11 +47,6 @@ export default {
     };
   },
   computed: {
-    style() {
-      return {
-        'min-height': this.minHeight,
-      };
-    },
   },
   methods: {
     onManualAdd(e) {
@@ -69,8 +68,6 @@ export default {
 <style scoped>
 
 .vuestro-multi-select {
-  flex-direction: column;
-  display: flex;
 }
 
 .vuestro-multi-select.stretch {

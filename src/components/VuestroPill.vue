@@ -138,6 +138,9 @@ export default {
 .vuestro-pill.clickable {
   cursor: pointer;
 }
+.vuestro-pill.clickable:hover {
+  filter: brightness(110%);
+}
 .vuestro-pill.draggable {
   cursor: move;
 }

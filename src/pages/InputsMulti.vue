@@ -10,7 +10,7 @@
       <template #subheading>
 
       </template>
-      <vuestro-multi-select>
+      <vuestro-multi-select placeholder="Select...">
         <template #title>Choices</template>
       </vuestro-multi-select>
     </vuestro-card>

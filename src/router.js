@@ -1,43 +1,46 @@
 /* global Vue */
 import Router from 'vue-router';
 
-import Dashboard from '../pages/Dashboard.vue';
-import Charts from '../pages/Charts.vue';
-import ChartsAreaChart from '../pages/ChartsAreaChart.vue';
-import ChartsBarChart from '../pages/ChartsBarChart.vue';
-import ChartsMap from '../pages/ChartsMap.vue';
-import ChartsSankey from '../pages/ChartsSankey.vue';
-import ChartsForceGraph from '../pages/ChartsForceGraph.vue';
-import Buttons from '../pages/Buttons.vue';
-import Pickers from '../pages/Pickers.vue';
-import Pills from '../pages/Pills.vue';
-import Inputs from '../pages/Inputs.vue';
-import InputsSpinner from '../pages/InputsSpinner.vue';
-import InputsText from '../pages/InputsText.vue';
-import InputsSearch from '../pages/InputsSearch.vue';
-import InputsMulti from '../pages/InputsMulti.vue';
-import Containers from '../pages/Containers.vue';
-import ContainersBreadcrumb from '../pages/ContainersBreadcrumb.vue';
-import ContainersContainer from '../pages/ContainersContainer.vue';
-import ContainersCard from '../pages/ContainersCard.vue';
-import ContainersColumn from '../pages/ContainersColumn.vue';
-import ContainersRow from '../pages/ContainersRow.vue';
-import ContainersPanel from '../pages/ContainersPanel.vue';
-import ContainersPanelScroll from '../pages/ContainersPanelScroll.vue';
-import Popups from '../pages/Popups.vue';
-import Data from '../pages/Data.vue';
-import DataTable from '../pages/DataTable.vue';
-import DynamicTable from '../pages/DynamicTable.vue';
-import DataObjectBrowser from '../pages/DataObjectBrowser.vue';
-import Typography from '../pages/Typography.vue';
-import Plugin from '../pages/Plugin.vue';
-import PluginDirectives from '../pages/PluginDirectives.vue';
-import PluginMixins from '../pages/PluginMixins.vue';
-import PluginFilters from '../pages/PluginFilters.vue';
-import InputsEditor from '../pages/InputsEditor.vue';
-import Example from '../pages/Example.vue';
-import ExampleForms from '../pages/ExampleForms.vue';
-import Settings from '../pages/Settings.vue';
+import Dashboard from './pages/Dashboard.vue';
+import Charts from './pages/Charts.vue';
+import ChartsAreaChart from './pages/ChartsAreaChart.vue';
+import ChartsBarChart from './pages/ChartsBarChart.vue';
+import ChartsMap from './pages/ChartsMap.vue';
+import ChartsSankey from './pages/ChartsSankey.vue';
+import ChartsForceGraph from './pages/ChartsForceGraph.vue';
+import Buttons from './pages/Buttons.vue';
+import Pickers from './pages/Pickers.vue';
+import Pills from './pages/Pills.vue';
+import Inputs from './pages/Inputs.vue';
+import InputsSpinner from './pages/InputsSpinner.vue';
+import InputsText from './pages/InputsText.vue';
+import InputsSearch from './pages/InputsSearch.vue';
+import InputsMulti from './pages/InputsMulti.vue';
+import Containers from './pages/Containers.vue';
+import ContainersBreadcrumb from './pages/ContainersBreadcrumb.vue';
+import ContainersContainer from './pages/ContainersContainer.vue';
+import ContainersCard from './pages/ContainersCard.vue';
+import ContainersColumn from './pages/ContainersColumn.vue';
+import ContainersRow from './pages/ContainersRow.vue';
+import ContainersPanel from './pages/ContainersPanel.vue';
+import ContainersPanelScroll from './pages/ContainersPanelScroll.vue';
+import Popups from './pages/Popups.vue';
+import PopupsDropdown from './pages/PopupsDropdown.vue';
+import PopupsModal from './pages/PopupsModal.vue';
+import PopupsTooltip from './pages/PopupsTooltip.vue';
+import Data from './pages/Data.vue';
+import DataTable from './pages/DataTable.vue';
+import DynamicTable from './pages/DynamicTable.vue';
+import DataObjectBrowser from './pages/DataObjectBrowser.vue';
+import Typography from './pages/Typography.vue';
+import Plugin from './pages/Plugin.vue';
+import PluginDirectives from './pages/PluginDirectives.vue';
+import PluginMixins from './pages/PluginMixins.vue';
+import PluginFilters from './pages/PluginFilters.vue';
+import InputsEditor from './pages/InputsEditor.vue';
+import Example from './pages/Example.vue';
+import ExampleForms from './pages/ExampleForms.vue';
+import Settings from './pages/Settings.vue';
 
 
 Vue.use(Router);
@@ -218,6 +221,35 @@ export default new Router({
       name: 'popups',
       path: '/popups',
       component: Popups,
+      children: [
+        {
+          meta: {
+            title: 'Dropdown',
+            sidebar: true,
+          },
+          name: 'dropdown',
+          path: 'dropdown',
+          component: PopupsDropdown,
+        },
+        {
+          meta: {
+            title: 'Modal',
+            sidebar: true,
+          },
+          name: 'modal',
+          path: 'modal',
+          component: PopupsModal,
+        },
+        {
+          meta: {
+            title: 'Tooltips',
+            sidebar: true,
+          },
+          name: 'tooltip',
+          path: 'tooltip',
+          component: PopupsTooltip,
+        },
+      ]
     },
     {
       meta: {

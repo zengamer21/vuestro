@@ -243,7 +243,6 @@ export default {
   transition: all 0.2s;
   margin-right: 2px;
   height: 100%;
-  min-height: 34px;
 }
 
 .vuestro-dynamic-table-filter-header {

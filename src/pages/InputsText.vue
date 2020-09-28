@@ -41,12 +41,25 @@
 
     <vuestro-card>
       <template #subheading>
-        Text Field with presets
+        Text Field with array of presets
       </template>
       <div class="example-flexbox">
         <vuestro-text-field placeholder="With Presets Dropdown" :presets="examplePresets" v-model="exampleText"></vuestro-text-field>
         <vuestro-text-field variant="outline" placeholder="With Presets Dropdown" :presets="examplePresets" v-model="exampleText"></vuestro-text-field>
         <vuestro-text-field variant="shaded" placeholder="With Presets Dropdown" :presets="examplePresets" v-model="exampleText"></vuestro-text-field>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>
+        Text Field providing dropdown template for options, useful for handling values by id
+      </template>
+      <div class="example-flexbox">
+        <vuestro-text-field placeholder="With Templated Dropdown" :value="getValue(selectedId, 'val')">
+          <template #dropdown>
+            <vuestro-list-button v-for="d in exampleDatasetWithIds" @click="selectedId = d.id">{{ d.val }}</vuestro-list-button>
+          </template>
+        </vuestro-text-field>
       </div>
     </vuestro-card>
 
@@ -135,6 +148,21 @@ export default {
         'preset3',
         'preset4',
       ],
+      selectedId: null,
+      exampleDatasetWithIds: [
+        {
+          id: 'id0',
+          val: 'Value for id0',
+        },
+        {
+          id: 'id1',
+          val: 'Value for id1',
+        },
+        {
+          id: 'id2',
+          val: 'Value for id2',
+        },
+      ],
       validateNumber: '',
       validateEmail: '',
     };
@@ -160,7 +188,11 @@ export default {
     },
     isEmail(str) {
       return str.match(/\w+@\w+.\w+/) || 'should be valid email';
-    }
+    },
+    getValue(id, field) {
+      let doc = _.find(this.exampleDatasetWithIds, { id });
+      return doc && doc[field];
+    },
   }
 };
 
