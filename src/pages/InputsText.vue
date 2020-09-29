@@ -55,7 +55,7 @@
         Text Field providing dropdown template for options, useful for handling values by id
       </template>
       <div class="example-flexbox">
-        <vuestro-text-field placeholder="With Templated Dropdown" :value="getValue(selectedId, 'val')">
+        <vuestro-text-field placeholder="With Templated Dropdown" :value="vuestroGetValueById({data: exampleDatasetWithIds, idField: 'id', idValue: selectedId, field: 'val', backupText: 'Select...'})">
           <template #dropdown>
             <vuestro-list-button v-for="d in exampleDatasetWithIds" @click="selectedId = d.id">{{ d.val }}</vuestro-list-button>
           </template>
@@ -188,10 +188,6 @@ export default {
     },
     isEmail(str) {
       return str.match(/\w+@\w+.\w+/) || 'should be valid email';
-    },
-    getValue(id, field) {
-      let doc = _.find(this.exampleDatasetWithIds, { id });
-      return doc && doc[field];
     },
   }
 };

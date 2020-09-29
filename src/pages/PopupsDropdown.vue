@@ -129,7 +129,14 @@
           <template #button>
             <vuestro-button variant="info" size="lg">
               <template #placeholder>PLACEHOLDER</template>
-              {{ getValue(selectedId, 'val') || 'Click to Select' }}
+              {{ vuestroGetValueById({
+                  data: exampleDatasetWithIds,
+                  idField: 'id',
+                  idValue: selectedId,
+                  field: 'val',
+                  backupText: 'Click to Select'
+                })
+              }}
             </vuestro-button>
           </template>
           <vuestro-list-button v-for="d in exampleDatasetWithIds" @click="selectedId = d.id">{{ d.val }}</vuestro-list-button>
@@ -195,10 +202,6 @@ export default {
 		onAfterOpen() {
 		  console.log('opened');
 		},
-    getValue(id, field) {
-      let doc = _.find(this.exampleDatasetWithIds, { id });
-      return doc && doc[field];
-    },
 	}
 };
 

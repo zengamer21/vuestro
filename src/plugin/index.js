@@ -1,3 +1,4 @@
+/* global _ */
 import VuestroApp from '../components/VuestroApp.vue';
 import VuestroAreaChart from '../components/charts/VuestroAreaChart.vue';
 import VuestroBarChart from '../components/charts/VuestroBarChart.vue';
@@ -160,6 +161,16 @@ export default {
     	    document.body.appendChild(downloadAnchorNode); // required for firefox
     	    downloadAnchorNode.click();
     	    downloadAnchorNode.remove();
+        },
+        vuestroGetValueById({ data, idField, idValue, field, backupText }) {
+          let q = {};
+          q[idField] = idValue;
+          let doc = _.find(data, q);
+          if (doc && doc[field]) {
+            return doc[field];
+          } else {
+            return backupText;
+          }
         },
       }
     });
