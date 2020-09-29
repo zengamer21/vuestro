@@ -347,7 +347,7 @@ export default {
 
 .vuestro-button-placeholder {
   text-transform: uppercase;
-  margin-right: 0.3em;
+  margin-right: 0.6em;
   font-size: 0.7em;
   font-weight: 500;
 }

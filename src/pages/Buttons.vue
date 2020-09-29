@@ -48,15 +48,15 @@
       <div class="example-flexbox">
         <vuestro-button @click="onClick">
           <template #placeholder>Placeholder</template>
-          <template>Value</template>
+          Value
         </vuestro-button>
         <vuestro-button size="lg" @click="onClick">
           <template #placeholder>Placeholder</template>
-          <template>Value</template>
+          Value
         </vuestro-button>
         <vuestro-button size="xl" @click="onClick">
           <template #placeholder>Placeholder</template>
-          <template>Value</template>
+          Value
         </vuestro-button>
       </div>
     </vuestro-card>
