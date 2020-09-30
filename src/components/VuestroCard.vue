@@ -55,11 +55,11 @@ export default {
 
 <style>
 .vuestro-app {
-  --vuestro-card-heading-font-size: 1.7em;
+  --vuestro-card-heading-font-size: 1.6em;
   --vuestro-card-heading-font-weight: 300;
-  --vuestro-card-subheading-font-size: 1.5em;
+  --vuestro-card-subheading-font-size: 1.4em;
   --vuestro-card-subheading-font-weight: 300;
-  --vuestro-card-description-font-size: 1.3em;
+  --vuestro-card-description-font-size: 1.1em;
   --vuestro-card-description-font-weight: 300;
 }
 </style>

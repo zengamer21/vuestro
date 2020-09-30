@@ -23,7 +23,7 @@ export default {
     VuestroMiniSidebarItem,
   },
   props: {
-    role: { type: [String, Array], default: '' }, // user role
+    role: { type: [String, Array], default: () => [] }, // user role
     routes: { type: Array, required: true },
   },
 };
