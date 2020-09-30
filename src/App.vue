@@ -32,7 +32,7 @@ export default {
       version: __VERSION__,
       user: 'A Vue User',
       userImg: require('@/assets/default-user.jpg'),
-      role: 'Admin',
+      role: ['Admin', 'Admin2'],
     };
   },
   computed: {

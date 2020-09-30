@@ -4,7 +4,7 @@
                           :key="route.path"
                           v-if="route.meta &&
                                 (route.meta.sidebar || route.meta.sidebarBottom) &&
-                                (route.meta.role ? (route.meta.role === role):true) &&
+                                (route.meta.role ? (route.meta.role === role || role.indexOf(route.meta.role) > -1):true) &&
                                 (!route.meta.showFunc || route.meta.showFunc())"
                           :route="route">
     </vuestro-sidebar-item>
