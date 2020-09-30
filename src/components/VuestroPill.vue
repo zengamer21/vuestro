@@ -57,7 +57,7 @@ export default {
   computed: {
     titleStyle() {
       if (this.geopattern) {
-        let text = this.$slots.title[0].text || this.title;
+        let text = this.$slots.title[0].text || this.title || '';
         return {
           'background-image': GeoPattern.generate(text.trim()).toDataUrl(),
         };
