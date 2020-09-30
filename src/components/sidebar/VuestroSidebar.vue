@@ -71,7 +71,7 @@ export default {
     title: { type: String, default: '' }, // app title
     user: { type: String, default: '' }, // username
     userImg: { type: String, default: null }, // user image
-    role: { type: String, default: '' }, // user role
+    role: { type: [String, Array], default: '' }, // user role
     link: { type: String, default: '' }, // user link
     mini: { type: Boolean, default: false }, // mini sidebar
   },
