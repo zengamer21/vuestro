@@ -217,6 +217,9 @@ export default new Router({
         title: 'Popups',
         sidebar: true,
         icon: 'layer-group',
+        showFunc: function() {
+          return true;
+        },
       },
       name: 'popups',
       path: '/popups',
