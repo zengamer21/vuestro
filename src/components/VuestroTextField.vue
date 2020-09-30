@@ -194,8 +194,10 @@ export default {
     updateValue() {
       // fine-grained, called with every keystroke so parent
       // can update value prop according to v-model convention
-      this.$emit('input', this.$refs.inputEl.value);
-      this.editingButtonsBuffer = this.$refs.inputEl.value;
+      if ( this.$refs.inputEl) {
+        this.$emit('input', this.$refs.inputEl.value);
+        this.editingButtonsBuffer = this.$refs.inputEl.value;
+      }
     },
     onKeyUp(e) { // passthrough for 'keyup.enter'-type binding
       this.beginValidation = true; // begin validation
