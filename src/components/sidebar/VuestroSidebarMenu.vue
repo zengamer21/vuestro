@@ -21,7 +21,7 @@ export default {
     VuestroSidebarItem,
   },
   props: {
-    role: { type: String, default: '' }, // user role
+    role: { type: [String, Array], default: '' }, // user role
     routes: { type: Array, required: true },
   },
 };

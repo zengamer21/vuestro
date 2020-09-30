@@ -3,7 +3,10 @@
     <!--<div class="vuestro-mini-sidebar-menu-inner">-->
       <vuestro-mini-sidebar-item v-for="(route, ridx) in routes"
                           :key="route.path"
-                          v-if="route.meta && (route.meta.sidebar || route.meta.sidebarBottom) && (route.meta.role ? (route.meta.role === role):true)"
+                          v-if="route.meta &&
+                                (route.meta.sidebar || route.meta.sidebarBottom) &&
+                                (route.meta.role ? (route.meta.role === role || role.indexOf(route.meta.role) > -1):true) &&
+                                (!route.meta.showFunc || route.meta.showFunc())"
                           :route="route">
       </vuestro-mini-sidebar-item>
     <!--</div>-->
@@ -20,16 +23,8 @@ export default {
     VuestroMiniSidebarItem,
   },
   props: {
-    role: { type: String, default: '' }, // user role
+    role: { type: [String, Array], default: '' }, // user role
     routes: { type: Array, required: true },
-  },
-  data() {
-    return {
-    };
-  },
-  mounted() {
-  },
-  methods: {
   },
 };
 
@@ -42,9 +37,6 @@ export default {
   flex-grow: 1;
   flex-direction: column;
   padding-right: var(--vuestro-sidebar-item-padding-right);
-}
-
-.vuestro-mini-sidebar-menu-inner {
 }
 
 </style>
