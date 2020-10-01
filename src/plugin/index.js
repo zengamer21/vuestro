@@ -110,14 +110,23 @@ export default {
     });
 
     Vue.filter('vuestroHMS', (d) => {
+      if (_.isString(d)) {
+        d = new Date(d);
+      }
       return `${('0' + d.getHours()).slice(-2)}:${('0' + d.getMinutes()).slice(-2)}:${('0' + d.getSeconds()).slice(-2)}`;
     });
 
     Vue.filter('vuestroIsoDate', (d) => {
+      if (_.isString(d)) {
+        d = new Date(d);
+      }
       return d.toISOString();
     });
 
     Vue.filter('vuestroDate', (d) => {
+      if (_.isString(d)) {
+        d = new Date(d);
+      }
       return d.toLocaleString();
     });
 
