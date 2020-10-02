@@ -103,6 +103,9 @@ export default {
   --vuestro-panel-toolbar-bg: inherit;
   --vuestro-panel-toolbar-fg: inherit;
   --vuestro-panel-toolbar-border: none;
+  --vuestro-panel-box-shadow: 1px 3px 5px 0px rgba(0,0,0,0.1);
+  --vuestro-panel-border-radius: 0.1em;
+  --vuestro-panel-titlebar-min-height: 1.8em;
 }
 
 </style>
@@ -125,8 +128,8 @@ export default {
 .vuestro-panel {
   background-color: var(--vuestro-panel-bg);
   transition: background-color 0.4s;
-  border-radius: 2px;
-  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
+  border-radius: var(--vuestro-panel-border-radius);
+  box-shadow: var(--vuestro-panel-box-shadow);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -157,7 +160,7 @@ export default {
 }
 
 .vuestro-panel-title-toolbar {
-  min-height: 1.8em;
+  min-height: var(--vuestro-panel-titlebar-min-height);
   display: flex;
   align-items: center;
   border-bottom: var(--vuestro-panel-toolbar-border);
@@ -229,8 +232,8 @@ export default {
 .vuestro-panel-scroll-arrow {
   color: var(--vuestro-text-color-muted);
   position: absolute;
-  right: 8px;
-  bottom: 6px;
+  right: 0.4em;
+  bottom: 0.4em;
 }
 
 </style>

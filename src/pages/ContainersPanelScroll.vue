@@ -6,8 +6,8 @@
         <template #toolbar>
           <vuestro-tooltip position="bottom">
             <template #content>Tooltip works properly</template>
-            <vuestro-button round no-border>
-              <vuestro-icon name="sync"></vuestro-icon>
+            <vuestro-button round no-border size="sm">
+              <vuestro-icon name="sync-alt"></vuestro-icon>
             </vuestro-button>
           </vuestro-tooltip>
         </template>

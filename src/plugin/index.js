@@ -90,6 +90,9 @@ export default {
     Vue.component(VuestroTray.name, VuestroTray);
 
     Vue.filter('vuestroCommas', (d) => {
+      if (d === null || d === undefined) {
+        return '';
+      }
       if (typeof(d) === 'number') {
         return Number(d).toLocaleString('en');
       }
@@ -103,6 +106,9 @@ export default {
     });
 
     Vue.filter('vuestroPhoneUS', (d) => {
+      if (d === null || d === undefined) {
+        return '';
+      }
       if (typeof(d) === 'number') {
         d = `${d}`;
       }
@@ -110,6 +116,9 @@ export default {
     });
 
     Vue.filter('vuestroHMS', (d) => {
+      if (d === null || d === undefined) {
+        return '';
+      }
       if (_.isString(d)) {
         d = new Date(d);
       }
@@ -117,6 +126,9 @@ export default {
     });
 
     Vue.filter('vuestroIsoDate', (d) => {
+      if (d === null || d === undefined) {
+        return '';
+      }
       if (_.isString(d)) {
         d = new Date(d);
       }
@@ -124,6 +136,9 @@ export default {
     });
 
     Vue.filter('vuestroDate', (d) => {
+      if (d === null || d === undefined) {
+        return '';
+      }
       if (_.isString(d)) {
         d = new Date(d);
       }
@@ -131,7 +146,7 @@ export default {
     });
 
     Vue.filter('vuestroBytes', (intNum) => {
-      if (intNum == null) {
+      if (intNum === null || intNum === undefined) {
         return '';
       }
       const suffixes = ['B', 'kB', 'MB', 'GB', 'TB', 'PB'];
