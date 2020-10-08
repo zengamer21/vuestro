@@ -16,6 +16,8 @@
             <template #button>
               <vuestro-button size="md" rounded justify="flex-start">Dropdown with md button</vuestro-button>
             </template>
+            <vuestro-list-button>Option 1</vuestro-list-button>
+            <vuestro-list-button>Option 2</vuestro-list-button>
           </vuestro-dropdown>
         </vuestro-card>
       </vuestro-container>
@@ -29,6 +31,8 @@
             <template #button>
               <vuestro-button size="md" rounded justify="flex-start">Dropdown with md button</vuestro-button>
             </template>
+            <vuestro-list-button>Option 1</vuestro-list-button>
+            <vuestro-list-button>Option 2</vuestro-list-button>
           </vuestro-dropdown>
         </vuestro-card>
         <vuestro-card cols="6">

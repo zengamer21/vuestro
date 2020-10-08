@@ -139,7 +139,7 @@
               }}
             </vuestro-button>
           </template>
-          <vuestro-list-button v-for="d in exampleDatasetWithIds" @click="selectedId = d.id">{{ d.val }}</vuestro-list-button>
+          <vuestro-list-button v-for="d in exampleDatasetWithIds" :key="d.id" @click="selectedId = d.id">{{ d.val }}</vuestro-list-button>
         </vuestro-dropdown>
       </div>
     </vuestro-card>

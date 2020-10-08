@@ -57,7 +57,7 @@
       <div class="example-flexbox">
         <vuestro-text-field placeholder="With Templated Dropdown" :value="vuestroGetValueById({data: exampleDatasetWithIds, idField: 'id', idValue: selectedId, field: 'val', backupText: 'Select...'})">
           <template #dropdown>
-            <vuestro-list-button v-for="d in exampleDatasetWithIds" @click="selectedId = d.id">{{ d.val }}</vuestro-list-button>
+            <vuestro-list-button v-for="d in exampleDatasetWithIds" :key="d.id" @click="selectedId = d.id">{{ d.val }}</vuestro-list-button>
           </template>
         </vuestro-text-field>
       </div>

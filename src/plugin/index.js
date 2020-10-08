@@ -157,6 +157,12 @@ export default {
       return (intNum / Math.pow(1000, i)).toFixed(1) + suffixes[i];
     });
 
+    Vue.filter('vuestroTitleCase', (str) => {
+      return str.toLowerCase().split(' ').map(function(word) {
+        return word.replace(word[0], word[0].toUpperCase());
+      }).join(' ');
+    });
+
     Vue.directive('vuestro-blur', {
       bind: function (el, binding, vnode) {
         el.clickOutsideEvent = function(event) {
