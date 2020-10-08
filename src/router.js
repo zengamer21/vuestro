@@ -217,7 +217,6 @@ export default new Router({
         title: 'Popups',
         sidebar: true,
         icon: 'layer-group',
-        role: 'Admin2',
       },
       name: 'popups',
       path: '/popups',

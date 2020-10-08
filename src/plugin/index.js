@@ -158,8 +158,11 @@ export default {
     });
 
     Vue.filter('vuestroTitleCase', (str) => {
-      return str.toLowerCase().split(' ').map(function(word) {
-        return word.replace(word[0], word[0].toUpperCase());
+      return str.split(' ').map(function(word) {
+        if (word[0] !== 'i') {
+          return word.replace(word[0], word[0].toUpperCase());
+        }
+        return word;
       }).join(' ');
     });
 

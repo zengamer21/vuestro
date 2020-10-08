@@ -159,7 +159,7 @@ export default {
   --vuestro-sidebar-user-image-width: 40px;
   --vuestro-sidebar-font-weight: 400;
   --vuestro-sidebar-item-font-size: 16px;
-  --vuestro-sidebar-sub-item-font-size: 14px;
+  --vuestro-sidebar-sub-item-font-size: 15px;
   --vuestro-sidebar-subroutes-padding-left: 40px;
   --vuestro-sidebar-subroutes-item-height: 30px;
 }
