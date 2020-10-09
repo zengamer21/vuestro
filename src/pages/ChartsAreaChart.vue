@@ -37,6 +37,15 @@
     </vuestro-card>
 
     <vuestro-card overflow-hidden>
+      <template #subheading><span>Set the <em>title</em> slot to add a title</span></template>
+      <div class="chart-wrapper">
+        <vuestro-area-chart :data="data" :options="options3">
+          <template #title>The Title</template>
+        </vuestro-area-chart>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card overflow-hidden>
       <template #subheading>Change the data property and the chart will update</template>
       <div class="chart-wrapper">
         <vuestro-area-chart :data="dynamicData" :options="options4"></vuestro-area-chart>

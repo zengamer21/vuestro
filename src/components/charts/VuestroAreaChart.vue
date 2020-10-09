@@ -1,6 +1,9 @@
 <template>
   <div class="vuestro-area-chart" @mouseleave="onMouseleave" :style="style">
     <div class="vuestro-area-chart-inner">
+      <vuestro-title>
+        <slot name="title"></slot>
+      </vuestro-title>
       <svg :width="width"
            :height="height"
            :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
@@ -447,5 +450,8 @@ export default {
 .vuestro-area-chart-y-axis.showAxes >>> text {
   display: inline;
 }
-
+.vuestro-title {
+  margin: 0.5em;
+  position: absolute;
+}
 </style>
