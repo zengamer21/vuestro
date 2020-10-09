@@ -1,9 +1,6 @@
 <template>
   <div class="vuestro-area-chart" @mouseleave="onMouseleave" :style="style">
     <div class="vuestro-area-chart-inner">
-      <vuestro-title>
-        <slot name="title"></slot>
-      </vuestro-title>
       <svg :width="width"
            :height="height"
            :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
@@ -51,6 +48,9 @@
           </vuestro-svg-tooltip>
         </template>
       </svg>
+      <vuestro-title>
+        <slot name="title"></slot>
+      </vuestro-title>
     </div>
   </div>
 </template>
@@ -453,5 +453,7 @@ export default {
 .vuestro-title {
   margin: 0.5em;
   position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>

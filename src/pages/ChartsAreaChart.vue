@@ -124,7 +124,7 @@ export default {
       data: [
         {
           key: '2019-10-01T00:00:00Z',
-          value1: 2,
+          value1: 40,
           value2: 12,
           value3: 8,
         },
