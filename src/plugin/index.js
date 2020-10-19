@@ -205,6 +205,14 @@ export default {
             return backupText;
           }
         },
+        vuestroGenerateId(length) {
+          function dec2hex (dec) {
+            return dec < 10 ? '0' + String(dec):dec.toString(16);
+          }
+          var arr = new Uint8Array((length || 40) / 2);
+          window.crypto.getRandomValues(arr);
+          return Array.from(arr, dec2hex).join('');
+        }
       }
     });
   }

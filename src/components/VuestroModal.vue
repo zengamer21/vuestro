@@ -2,7 +2,7 @@
   <transition name="vuestro-modal" mode="out-in"
               @after-enter="onAfterOpen"
               @after-leave="onAfterClose">
-    <div class="vuestro-modal-outer" v-if="active" @click.exact="onBlur">
+    <div class="vuestro-modal" v-if="active" @click.exact="onBlur">
       <div class="vuestro-modal-inner">
         <div class="vuestro-modal-titlebar">
           <div class="vuestro-modal-title">
@@ -46,7 +46,7 @@ export default {
       this.$emit('close');
     },
     onBlur(e) {
-      if (this.closeOnBlur && e.target.classList.contains('vuestro-modal-outer')) {
+      if (this.closeOnBlur && e.target.classList.contains('vuestro-modal')) {
         this.onClose();
       }
       return false;
@@ -91,7 +91,7 @@ export default {
 
 <style scoped>
 
-.vuestro-modal-outer {
+.vuestro-modal {
   position: fixed;
   top: 0px;
   left: 0px;

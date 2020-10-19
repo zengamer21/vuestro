@@ -10,7 +10,7 @@
       </template>
     </vuestro-card>
     <vuestro-card cols="9">
-      <template #description>The layout will stretch to contain the content while keeping full height with small content.</template>
+      <template #description>(cols="9") The layout will stretch to contain the content while keeping full height with small content.</template>
     </vuestro-card>
 
   </vuestro-container>
