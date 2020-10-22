@@ -197,6 +197,9 @@ export default {
     	    downloadAnchorNode.click();
     	    downloadAnchorNode.remove();
         },
+        vuestroGet(object, path, defaultVal) {
+          return _.get(object, path, defaultVal);
+        },
         vuestroGetValueById({ data, idField, idValue, field, backupText }) {
           let q = {};
           q[idField] = idValue;
