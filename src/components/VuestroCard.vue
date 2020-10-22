@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-card" :class="[`basis-${cols}`, { overflowHidden, stretch }]">
+  <div class="vuestro-card" :class="[`basis-${cols}`, { overflowHidden, stretch, row }]">
     <!--SLOT FOR HEADER TEXT (only show if "heading" slot was provided)-->
     <div v-if="$slots.heading"
          class="vuestro-card-heading"
@@ -29,6 +29,7 @@ export default {
     color: { type: String, default: null },
     overflowHidden: { type: Boolean, default: null },
     stretch: { type: Boolean, default: false },
+    row: { type: Boolean, default: false },
   },
   computed: {
     colorBarStyle() {
@@ -73,7 +74,12 @@ export default {
   flex-direction: column;
   padding: var(--vuestro-gutter); /* inherit from vuestro-container */
 }
-
+.vuestro-card.stretch {
+  flex-grow: 1;
+}
+.vuestro-card.row {
+  flex-direction: row;
+}
 .vuestro-card.overflowHidden {
   overflow: hidden;
 }
@@ -151,8 +157,5 @@ export default {
   flex-basis: 100%;
 }
 
-.vuestro-card.stretch {
-  flex-grow: 1;
-}
 
 </style>
