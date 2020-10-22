@@ -60,7 +60,7 @@ export default {
 }
 .vuestro-stat-panel-title {
   color: var(--vuestro-white);
-  font-size: --vuestro-stat-panel-font-size;
+  font-size: var(--vuestro-stat-panel-font-size);
   padding-top: 5px;
   padding-left: 8px;
   font-weight: var(--vuestro-stat-panel-font-weight);
