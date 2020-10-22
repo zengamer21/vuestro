@@ -45,6 +45,8 @@ export default {
 
 .vuestro-app {
   --vuestro-stat-panel-font-size: 24px;
+  --vuestro-stat-panel-font-weight: 300;
+  --vuestro-stat-panel-value-font-size: 36px;
 }
 .vuestro-app.mobile {
   --vuestro-stat-panel-font-size: 32px;
@@ -61,7 +63,7 @@ export default {
   font-size: --vuestro-stat-panel-font-size;
   padding-top: 5px;
   padding-left: 8px;
-  font-weight: 300;
+  font-weight: var(--vuestro-stat-panel-font-weight);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -75,7 +77,7 @@ export default {
   max-width: 100%;
   color: var(--vuestro-white);
   padding-right: 15px;
-  font-size: 36px;
+  font-size: var(--vuestro-stat-panel-value-font-size);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
