@@ -41,11 +41,24 @@ export default {
 
 </script>
 
+<style>
+
+.vuestro-app {
+  --vuestro-stat-panel-font-size: 24px;
+}
+.vuestro-app.mobile {
+  --vuestro-stat-panel-font-size: 32px;
+}
+
+</style>
 <style scoped>
 
+.vuestro-stat-panel {
+  overflow: hidden;
+}
 .vuestro-stat-panel-title {
   color: var(--vuestro-white);
-  font-size: 24px;
+  font-size: --vuestro-stat-panel-font-size;
   padding-top: 5px;
   padding-left: 8px;
   font-weight: 300;
@@ -55,17 +68,17 @@ export default {
   text-shadow: 1px 1px 0px rgba(0,0,0,.1);
   cursor: default;
 }
-.vuestro-app.mobile .vuestro-stat-panel-title {
-  font-size: 32px;
-}
-
 .vuestro-stat-panel-value {
   position: absolute;
   right: 0px;
   bottom: 4px;
+  max-width: 100%;
   color: var(--vuestro-white);
   padding-right: 15px;
   font-size: 36px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   text-shadow: 1px 1px 0px rgba(0,0,0,.1);
   cursor: default;
 }
