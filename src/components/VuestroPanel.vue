@@ -19,7 +19,7 @@
         <slot name="toolbar"></slot>
       </div>
     </div>
-    <div class="vuestro-panel-contents-wrapper" :class="[contentPadding, { isCollapsed, scroll, frame, overflowHidden }]">
+    <div class="vuestro-panel-contents-wrapper" :class="[contentPadding, { isCollapsed, scroll, frame, overflowHidden, row }]">
       <template v-if="!deferContent">
         <div ref="contents" v-show="!isCollapsed" class="vuestro-panel-contents" @scroll="updateScroll">
           <slot></slot>
@@ -56,6 +56,7 @@ export default {
     stretch: { type: Boolean, default: true },
     overflowHidden: { type: Boolean, default: false },
     draggable: { type: Boolean, default: false },
+    row: { type: Boolean, default: false },
   },
   computed: {
     hasTitlebar() {
@@ -193,6 +194,9 @@ export default {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+.vuestro-panel-contents-wrapper.row > .vuestro-panel-contents {
+  flex-direction: row;
 }
 .vuestro-panel-contents-wrapper.sm {
   margin: 0.1em;
