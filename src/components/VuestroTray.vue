@@ -11,13 +11,9 @@
 
 <script>
 
-import VuestroTitle from './VuestroTitle.vue';
 
 export default {
   name: 'VuestroTray',
-  components: {
-    VuestroTitle,
-  },
   props: {
     title: { type: String, required: false },
     noBorder: { type: Boolean, default: false },

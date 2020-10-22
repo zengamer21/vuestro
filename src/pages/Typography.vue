@@ -22,7 +22,17 @@
         </vuestro-clean-kvp>
       </vuestro-container>
     </vuestro-card>
-    
+
+    <vuestro-card>
+      <template #subheading>Async Text</template>
+      <template #description>
+        <span>Simple spinner that shows for a text field that evaluates to null or undefined.</span>
+      </template>
+      <vuestro-container>
+        <vuestro-async-text :value="asyncText"></vuestro-async-text>
+      </vuestro-container>
+    </vuestro-card>
+
     <vuestro-card>
       <template #subheading>Icons</template>
       <vuestro-icon variant="danger" name="tractor"></vuestro-icon>
@@ -34,7 +44,16 @@
 
 export default {
   name: 'Typography',
-
+  data() {
+    return {
+      asyncText: null,
+    };
+  },
+  mounted() {
+    setTimeout(() => {
+      this.asyncText = 'I was loaded asynchronously!';
+    }, 2000);
+  }
 };
 
 </script>
