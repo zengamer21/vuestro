@@ -2,7 +2,7 @@
   <div class="vuestro-tooltip"
        :class="[ position, { active, rounded }]"
        @mouseover="onMouseOver"
-       @mouseleave="active=false">
+       @mouseleave="onMouseLeave">
     <slot></slot>
     <div ref="content"
          class="vuestro-tooltip-content"
@@ -75,7 +75,12 @@ export default {
   methods: {
     onMouseOver() {
       this.active = true;
+      this.$emit('enter');
       return true;
+    },
+    onMouseLeave() {
+      this.active = false;
+      this.$emit('leave');
     }
   },
 };
