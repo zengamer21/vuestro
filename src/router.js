@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard.vue';
 import Charts from './pages/Charts.vue';
 import ChartsAreaChart from './pages/ChartsAreaChart.vue';
 import ChartsBarChart from './pages/ChartsBarChart.vue';
+import ChartsPieChart from './pages/ChartsPieChart.vue';
 import ChartsMap from './pages/ChartsMap.vue';
 import ChartsSankey from './pages/ChartsSankey.vue';
 import ChartsForceGraph from './pages/ChartsForceGraph.vue';
@@ -160,6 +161,15 @@ export default new Router({
           name: 'bar-chart',
           path: 'bar-chart',
           component: ChartsBarChart,
+        },
+        {
+          meta: {
+            title: 'Pie Chart',
+            sidebar: true,
+          },
+          name: 'pie-chart',
+          path: 'pie-chart',
+          component: ChartsPieChart,
         },
         {
           meta: {
