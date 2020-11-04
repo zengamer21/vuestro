@@ -1,53 +1,55 @@
 /* global _ */
-import VuestroApp from '../components/VuestroApp.vue';
-import VuestroAreaChart from '../components/charts/VuestroAreaChart.vue';
-import VuestroBarChart from '../components/charts/VuestroBarChart.vue';
-import VuestroPieChart from '../components/charts/VuestroPieChart.vue';
-import VuestroBreadcrumb from '../components/VuestroBreadcrumb.vue';
-import VuestroButton from '../components/VuestroButton.vue';
-import VuestroCaret from '../components/VuestroCaret.vue';
-import VuestroCard from '../components/VuestroCard.vue';
-import VuestroChartPanel from '../components/charts/VuestroChartPanel.vue';
-import VuestroContainer from '../components/VuestroContainer.vue';
-import VuestroCleanKvp from '../components/VuestroCleanKvp.vue';
-import VuestroColorPicker from '../components/VuestroColorPicker.vue';
-import VuestroDatePicker from '../components/date/VuestroDatePicker.vue';
-import VuestroDropdown from '../components/VuestroDropdown.vue';
-import VuestroDonutGauge from '../components/charts/VuestroDonutGauge.vue';
-import VuestroDynamicTable from '../components/VuestroDynamicTable.vue';
-import VuestroEditableText from '../components/VuestroEditableText.vue';
-import VuestroEditor from '../components/VuestroEditor.vue';
-import VuestroEllipsisText from '../components/VuestroEllipsisText.vue';
-import VuestroForceGraph from '../components/charts/VuestroForceGraph.vue';
-import VuestroGeoPattern from '../components/VuestroGeoPattern.vue';
-import VuestroGrid from '../components/grid/VuestroGrid.vue';
-import VuestroGridBox from '../components/grid/VuestroGridBox.vue';
-import VuestroIcon from '../components/VuestroIcon.vue';
-import VuestroListButton from '../components/list/VuestroListButton.vue';
-import VuestroListGroup from '../components/list/VuestroListGroup.vue';
-import VuestroListGroupToggle from '../components/list/VuestroListGroupToggle.vue';
-import VuestroMap from '../components/charts/VuestroMap.vue';
-import VuestroModal from '../components/VuestroModal.vue';
-import VuestroMultiSelect from '../components/inputs/VuestroMultiSelect.vue';
-import VuestroObjectBrowser from '../components/VuestroObjectBrowser.vue';
-import VuestroPanel from '../components/VuestroPanel.vue';
-import VuestroPill from '../components/VuestroPill.vue';
-import VuestroSankeyChart from '../components/charts/VuestroSankeyChart.vue';
-import VuestroSearchBox from '../components/VuestroSearchBox.vue';
-import VuestroSidebar from '../components/sidebar/VuestroSidebar.vue';
-import VuestroStatPanel from '../components/charts/VuestroStatPanel.vue';
-import VuestroSvgTooltip from '../components/charts/VuestroSvgTooltip.vue';
-import VuestroTable from '../components/VuestroTable.vue';
-import VuestroTextField from '../components/VuestroTextField.vue';
-import VuestroTimePicker from '../components/date/VuestroTimePicker.vue';
-import VuestroTitle from '../components/VuestroTitle.vue';
-import VuestroTooltip from '../components/VuestroTooltip.vue';
-import VuestroTray from '../components/VuestroTray.vue';
+import VuestroApp from '../components/VuestroApp';
+import VuestroAreaChart from '../components/charts/VuestroAreaChart';
+import VuestroAsyncText from '../components/text/VuestroAsyncText';
+import VuestroBarChart from '../components/charts/VuestroBarChart';
+import VuestroPieChart from '../components/charts/VuestroPieChart';
+import VuestroBreadcrumb from '../components/VuestroBreadcrumb';
+import VuestroButton from '../components/VuestroButton';
+import VuestroCaret from '../components/VuestroCaret';
+import VuestroCard from '../components/VuestroCard';
+import VuestroChartPanel from '../components/charts/VuestroChartPanel';
+import VuestroContainer from '../components/VuestroContainer';
+import VuestroCleanKvp from '../components/text/VuestroCleanKvp';
+import VuestroColorPicker from '../components/VuestroColorPicker';
+import VuestroDatePicker from '../components/date/VuestroDatePicker';
+import VuestroDropdown from '../components/VuestroDropdown';
+import VuestroDonutGauge from '../components/charts/VuestroDonutGauge';
+import VuestroDynamicTable from '../components/VuestroDynamicTable';
+import VuestroEditableText from '../components/text/VuestroEditableText';
+import VuestroEditor from '../components/VuestroEditor';
+import VuestroEllipsisText from '../components/text/VuestroEllipsisText';
+import VuestroForceGraph from '../components/charts/VuestroForceGraph';
+import VuestroGeoPattern from '../components/VuestroGeoPattern';
+import VuestroGrid from '../components/grid/VuestroGrid';
+import VuestroGridBox from '../components/grid/VuestroGridBox';
+import VuestroIcon from '../components/VuestroIcon';
+import VuestroListButton from '../components/list/VuestroListButton';
+import VuestroListGroup from '../components/list/VuestroListGroup';
+import VuestroListGroupToggle from '../components/list/VuestroListGroupToggle';
+import VuestroMap from '../components/charts/VuestroMap';
+import VuestroModal from '../components/VuestroModal';
+import VuestroMultiSelect from '../components/inputs/VuestroMultiSelect';
+import VuestroObjectBrowser from '../components/VuestroObjectBrowser';
+import VuestroPanel from '../components/VuestroPanel';
+import VuestroPill from '../components/VuestroPill';
+import VuestroSankeyChart from '../components/charts/VuestroSankeyChart';
+import VuestroSearchBox from '../components/VuestroSearchBox';
+import VuestroSidebar from '../components/sidebar/VuestroSidebar';
+import VuestroStatPanel from '../components/charts/VuestroStatPanel';
+import VuestroSvgTooltip from '../components/charts/VuestroSvgTooltip';
+import VuestroTable from '../components/VuestroTable';
+import VuestroTextField from '../components/VuestroTextField';
+import VuestroTimePicker from '../components/date/VuestroTimePicker';
+import VuestroTitle from '../components/text/VuestroTitle';
+import VuestroTooltip from '../components/VuestroTooltip';
+import VuestroTray from '../components/VuestroTray';
 
 export default {
   install(Vue, options) {
     Vue.component(VuestroApp.name, VuestroApp);
     Vue.component(VuestroAreaChart.name, VuestroAreaChart);
+    Vue.component(VuestroAsyncText.name, VuestroAsyncText);
     Vue.component(VuestroBarChart.name, VuestroBarChart);
 	Vue.component(VuestroPieChart.name, VuestroPieChart);
     Vue.component(VuestroBreadcrumb.name, VuestroBreadcrumb);
@@ -196,6 +198,9 @@ export default {
     	    document.body.appendChild(downloadAnchorNode); // required for firefox
     	    downloadAnchorNode.click();
     	    downloadAnchorNode.remove();
+        },
+        vuestroGet(object, path, defaultVal) {
+          return _.get(object, path, defaultVal);
         },
         vuestroGetValueById({ data, idField, idValue, field, backupText }) {
           let q = {};
