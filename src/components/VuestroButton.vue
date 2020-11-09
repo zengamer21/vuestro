@@ -16,7 +16,8 @@
                     disabled,
                     rounded,
                     shadow }, size]"
-         @mouseover="onHover">
+         @mouseover="onEnter"
+         @mouseleave="onLeave">
       <template v-if="checkbox">
         <template v-if="value">
           <div class="vuestro-button-content">
@@ -32,10 +33,12 @@
           <span v-if="$slots.placeholder" class="vuestro-button-placeholder">
             <slot name="placeholder"></slot>
           </span>
-          <span v-if="$slots.icon" class="vuestro-button-icon">
-            <slot name="icon"></slot>
-          </span>
-          &#8203;<slot></slot>&#8203;
+          <span v-if="$slots.icon" class="vuestro-button-icon"><slot name="icon"></slot></span>
+          <transition>
+            <span>
+              <slot v-if="!showSlotOnHover || hovered"></slot>
+            </span>
+          </transition>
         </div>
       </template>
     </div>
@@ -65,6 +68,12 @@ export default {
     dark: { type: Boolean, default: false },
     shadow: { type: Boolean, default: false },
     justify: { type: String, default: 'space-evenly' },
+    showSlotOnHover: { type: Boolean, default: false },
+  },
+  data() {
+    return {
+      hovered: false,
+    };
   },
   methods: {
     onClick(e) {
@@ -73,8 +82,13 @@ export default {
         this.$emit('input', !this.value);
       }
     },
-    onHover(e) {
-      this.$emit('hover', e);
+    onEnter(e) {
+      this.hovered = true;
+      this.$emit('enter', e);
+    },
+    onLeave(e) {
+      this.hovered = false;
+      this.$emit('leave', e);
     },
   }
 };
@@ -356,7 +370,7 @@ export default {
 }
 
 .vuestro-button-icon {
-  margin-right: 4px;
+  margin-right: 0.25em;
   align-self: center;
 }
 

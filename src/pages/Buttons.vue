@@ -29,6 +29,22 @@
 
     <vuestro-card>
       <template #description>
+        <span>Set <em>show-slot-on-hover</em> property to only show default slot when button is hovered</span>
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button @click="onClick" show-slot-on-hover>
+          <template #icon>
+            <vuestro-icon name="flag"></vuestro-icon>
+          </template>
+          <template #default>
+            Default Slot
+          </template>
+        </vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description>
         <span>Basic button with VuestroIcon in <em>#icon</em> template</span>
       </template>
       <div class="example-flexbox">
@@ -382,6 +398,14 @@
       </div>
     </vuestro-card>
 
+    <vuestro-card>
+      <template #subheading>Events</template>
+      <template #description>Hover over the button to see the event emitted: {{ exampleEvent }}</template>
+      <vuestro-container>
+        <vuestro-button @enter="exampleEvent = 'enter'" @leave="exampleEvent = 'leave'" @click="exampleEvent = 'click'">I Emit Events</vuestro-button>
+      </vuestro-container>
+    </vuestro-card>
+
   </vuestro-container>
 </template>
 
@@ -397,6 +421,7 @@ export default {
   data() {
     return {
       exampleCheckbox: true,
+      exampleEvent: '',
     };
   },
   methods: {

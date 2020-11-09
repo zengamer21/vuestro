@@ -23,6 +23,10 @@
              @input="updateValue"
              @keyup="onKeyUp">
       </input>
+      <!--unit-->
+      <div v-if="$slots.unit" class="vuestro-text-field-unit-slot">
+        <slot name="unit"></slot>
+      </div>
       <!--clear button-->
       <vuestro-button v-if="!invalid && clearable && value" size="sm" round no-border @click.stop="onClear">
         <vuestro-icon name="times"></vuestro-icon>
@@ -450,4 +454,11 @@ export default {
   align-items: center;
 }
 
+.vuestro-text-field-unit-slot {
+  margin-right: 0.25em;
+  font-size: 1.2em;
+  color: var(--vuestro-secondary);
+  display: flex;
+  align-items: center;
+}
 </style>

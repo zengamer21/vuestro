@@ -34,6 +34,9 @@
       </template>
       <div class="example-flexbox">
         <vuestro-text-field placeholder="Enter a number" v-model="exampleNumber" clearable></vuestro-text-field>
+        <vuestro-text-field placeholder="Enter a number" v-model="exampleNumber" clearable>
+          <template #unit>cm</template>
+        </vuestro-text-field>
         <vuestro-text-field placeholder="Enter a date string" v-model="exampleDate" clearable></vuestro-text-field>
         <vuestro-text-field placeholder="Enter a boolean" v-model="exampleBoolean" :invalid="isBooleanString(exampleBoolean)" clearable></vuestro-text-field>
       </div>
