@@ -2,41 +2,34 @@
   <div class="vuestro-pie-chart" >
     <svg id="Pie" 
 		:width="width"
-        :height="height">
-		 <!--
-         :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
-         @mousemove="onMouseover">
-		 -->
+        :height="height"
+        :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
+		>
+		<!--
+		@mousemove="onMouseover">
+        -->
       <!--PIE-->
-	  <g v-for="d in localData"
-	  :transform="`translate(${d.pieX},${d.pieY})`">
+	  <g v-for="d in localData" :transform="`translate(${d.pieX},${d.pieY})`">
 		<path v-for="s in processedSeries" :key="s.field"
 			:d="d.arc"
-			:fill="s.color"
+			:fill="d.color"
 			stroke="black"
 			style="stroke-with: 4px; opacity: 0.7;"
-		/>
-		
-		<!-- 
-		<circle v-for="s in processedSeries" :key="s.field"
-			class="vuestro-pie-chart-pie"
-			:cx="d.pieX"
-            :cy="d.pieY"
-			:r="d.pieRadius"
-			stroke="black"
-			stroke-width="4"
-			fill="red" />
-		-->
-        </circle> 
+			@mousemove="onMouseover"
+			@mouseleave="onMouseexit"
+			@mouseenter="onMouseenter"
+		/>		
       </g> 
       <!--TOOLTIP-->
-      <!-- 
-	  <template v-if="!hideTooltip && cursorLine.length > 0">
-        <path class="vuestro-pie-chart-cursor" :d="cursorLine" />
-        <vuestro-svg-tooltip>
+	  <template v-if="hideTooltip">
+        <vuestro-svg-tooltip :x="0"
+							 :x-max="width"
+                             :categoryKey="categoryKey"
+                             :utc="utc"
+                             :series="toolKey"
+                             :values="toolData">
         </vuestro-svg-tooltip>
       </template>
-	  -->
     </svg>
   </div>
 </template>
@@ -58,7 +51,9 @@ export default {
     return {
       width: 0,
       height: 0,
-      localData: [],
+	  toolKey: [],
+      toolData: {},
+	  localData: [],
       lastHoverPoint: {},
       cursorLine: '',
       colors: d3.schemeCategory10,
@@ -74,7 +69,7 @@ export default {
       }],
       stacked: false,
       padding: 0.1,
-      hideTooltip: false,
+      hideTooltip: true,
       utc: false,
     };
   },
@@ -85,12 +80,21 @@ export default {
     },
     // process series prop by adding default colors
     processedSeries() {
-      return this.series.map((s) => {
+	  console.log("series");
+	  console.log(this.series);
+	  let result = this.series.map((s) => {
+	  
+		console.log(s.field);
+		console.log(s.color);
         if (s.field && !s.color) {
           s.color = this.color(s.field);
         }
+		console.log(s.color);
         return s;
       });
+	  console.log("Processed Series");
+	  console.log(result);
+      return result;
     },
     getCursor() {
       return d3.area().x(d => d.center).y0(this.height).y1(0);
@@ -129,16 +133,23 @@ export default {
     getPie(v) {
     },
 	
-    redraw() {
-	  
+    redraw() {	  
 	  let path = d3.select("path");
       this.localData = _.cloneDeep(this.data);
-	  //Append changing container values to container
-	  let pieY = document.getElementById('Pie').getAttribute("height")/2;	  
-	  let pieX = document.getElementById('Pie').getAttribute("width")/2;
-
-	  let testPath = d3.arc().innerRadius(0).outerRadius(pieY);
-	  console.log(testPath);
+	  
+	  //Append changing container values to container	  
+	  //instantiate center of pie chart defaults to 150,150
+	  let pieX=0, pieY=0;	  
+	  if(document.getElementById('Pie').getAttribute("height") == 0) {
+	    pieY = 150;
+	  } else {
+		pieY = document.getElementById('Pie').getAttribute("height")/2;	  
+	  }	  
+	  if(document.getElementById('Pie').getAttribute("width") == 0) {
+	    pieX = 150;
+	  } else {
+	    pieX = document.getElementById('Pie').getAttribute("width")/2;
+	  }	  
 
 	  let pieData = {}
 	  for(let i=0; i<this.localData.length; i++) {
@@ -147,43 +158,31 @@ export default {
 	  let pie = d3.pie()
 		.value(function(d) {return d.value;});
 	  let data_ready = pie(d3.entries(pieData));
-	  console.log(data_ready);
-	  
-	  
-	  
+	  	  
 	  //Update values of pie chart
 	  for(let i=0; i<this.localData.length; i++) {
+		  //Set pie chart center and radius
 		  this.localData[i]["pieX"] = pieX;
 		  this.localData[i]["pieY"] = pieY;
-		  this.localData[i]["pieRadius"] = pieY;
+		  this.localData[i]["pieRadius"] = pieY-5;		  
 		  
-		  //build path values
-		  console.log("pieX: "+pieX);
-		  console.log("pieY: "+pieY);
-		  console.log("startAngle: "+data_ready[i]["startAngle"]);
-		  console.log("endAngle: "+data_ready[i]["endAngle"]);
+		  //generate svg path data
 		  let arcGenerator = d3.arc();
 		  let pathData = arcGenerator({
 			startAngle: data_ready[i]["startAngle"],
 			endAngle: data_ready[i]["endAngle"],
 			innerRadius: 0,
-			outerRadius: pieY
+			outerRadius: pieY-5
 		  });
-		  //pieX, pieY, pieY, data_ready[i]["startAngle"], data_ready[i]["endAngle"]);
-		  console.log(pathData);
+		  
+		  //set path data
 		  this.localData[i]["arc"] = pathData;
-		  //this.localData[i]["color"] =
-	  }
-	  console.log(pieData);
-	  
-	  
-	  
-	  let slice = d3.arc().innerRadius(0).outerRadius(pieY);
-	  
-	  
-	  console.log("hello");
-	  console.log(this.localData);
-	  
+		  
+		  //set initial color
+		  if(this.localData[i]["color"] === void(0)) {	
+		    this.localData[i]["color"] = this.color(this.localData[i].value);
+		  }		  
+	  }	 	 
 	  
 	  
       let scaleX = d3.scaleBand()
@@ -223,18 +222,50 @@ export default {
         }
       }
     },
+	
+	//Update tooltip values
     onMouseover({ offsetX }) {
-      if (this.localData.length > 0) {
-        const x = offsetX;
-        const closestPoint = this.getClosestPoint(x);
-        if (this.lastHoverPoint.index !== closestPoint.index) {
-          const point = this.localData[closestPoint.index];
-          this.cursorLine = this.getCursor([point]);
-          this.$emit('select', this.data[closestPoint.index]);
-          this.lastHoverPoint = closestPoint;
-        }
-      }
+	  //console.log(event.target);	  
+	  //console.log(event.target.attributes.d.nodeValue);
+	  
+	  //grab selected pie section
+	  let pieSection = event.target.attributes.d.nodeValue;
+	  	 	 
+	  //grab data associated with pie section	
+	  let pieSectionData;	  
+	  for(let i=0; i<this.localData.length; i++) {
+	    if(this.localData[i]["arc"] == pieSection) {
+		  pieSectionData = this.localData[i];
+		}
+	  }		 
+	  
+	  //Set tool key
+	  let toolLegend = [{
+	    "title": pieSectionData.key,
+		"field": "value1",
+		"color": pieSectionData.color,
+	  }];	  
+	  this.data.toolKey = toolLegend;
+	  
+	  //Set tool data
+	  let toolValue = [{
+	    "value1": pieSectionData.value,
+	  }]
+	  this.data.toolData = toolValue;
+	  
+	  console.log(this.data.toolKey);
+	  console.log(this.data.toolData);
+	  console.log(this.data.categoryKey);
     },
+	
+	//Hide/show tooltip
+	onMouseenter() {
+	  this.data.hideTooltip = true;	  
+	},
+    onMouseexit() {
+	  this.data.hideTooltip = false;	  
+	},
+	
     getClosestPoint(x) {
       return this.localData
         .map((point, index) => ({
