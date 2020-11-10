@@ -18,7 +18,7 @@
 
     <vuestro-card>
       <template #description>
-        Basic button with only a VuestroIcon
+        Basic button with a VuestroIcon in the default slot
       </template>
       <div class="example-flexbox">
         <vuestro-button @click="onClick">
@@ -45,7 +45,7 @@
 
     <vuestro-card>
       <template #description>
-        <span>Basic button with VuestroIcon in <em>#icon</em> template</span>
+        <span>Basic button with VuestroIcon in <em>#icon</em> template to add proper spacing</span>
       </template>
       <div class="example-flexbox">
         <vuestro-button @click="onClick">
@@ -163,45 +163,61 @@
       <div class="example-flexbox">
         <vuestro-button size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="sm">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>SM Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          SM Button
         </vuestro-button>
         <vuestro-button size="md"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="md">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>md(default) Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          md(default) Button
         </vuestro-button>
         <vuestro-button size="lg"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="lg">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>lg Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          lg Button
         </vuestro-button>
         <vuestro-button size="xl"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="xl">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>xl Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          xl Button
         </vuestro-button>
       </div>
       <div class="example-flexbox">
         <vuestro-button round size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button pill size="sm">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>SM Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          SM Button
         </vuestro-button>
         <vuestro-button round size="md"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button pill size="md">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>md(default) Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          md(default) Button
         </vuestro-button>
         <vuestro-button round size="lg"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button pill size="lg">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>lg Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          lg Button
         </vuestro-button>
         <vuestro-button round size="xl"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button pill size="xl">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>xl Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          xl Button
         </vuestro-button>
       </div>
     </vuestro-card>

@@ -34,10 +34,10 @@
             <slot name="placeholder"></slot>
           </span>
           <span v-if="$slots.icon" class="vuestro-button-icon"><slot name="icon"></slot></span>
-          <transition>
-            <span>
-              <slot v-if="!showSlotOnHover || hovered"></slot>
-            </span>
+          <transition name="vuestro-button" mode="out-in">
+            <div v-if="!showSlotOnHover || hovered" class="vuestro-button-default-slot">
+              <slot></slot>
+            </div>
           </transition>
         </div>
       </template>
@@ -217,6 +217,7 @@ export default {
 .vuestro-button-content {
   flex: 1 1 auto;
   display: flex;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   user-select: none;
@@ -228,6 +229,11 @@ export default {
   padding-right: 8px;
   padding-bottom: 4px;
   align-items: center;
+}
+.vuestro-button-default-slot {
+  display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 .vuestro-button-inner.tall >>> svg {
   width: 22px;
@@ -372,6 +378,15 @@ export default {
 .vuestro-button-icon {
   margin-right: 0.25em;
   align-self: center;
+}
+
+/* transitions */
+.vuestro-button-enter-active, .vuestro-button-leave-active {
+  transition: all 1s;
+  max-width: auto;
+}
+.vuestro-button-enter, .vuestro-button-leave-to {
+  max-width: 0;
 }
 
 </style>
