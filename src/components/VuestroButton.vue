@@ -234,6 +234,7 @@ export default {
   display: flex;
   flex-wrap: nowrap;
   white-space: nowrap;
+  overflow: hidden;
 }
 .vuestro-button-inner.tall >>> svg {
   width: 22px;
@@ -382,8 +383,8 @@ export default {
 
 /* transitions */
 .vuestro-button-enter-active, .vuestro-button-leave-active {
-  transition: all 1s;
-  max-width: auto;
+  transition: all 0.4s;
+  max-width: 100vw;
 }
 .vuestro-button-enter, .vuestro-button-leave-to {
   max-width: 0;
