@@ -4,7 +4,7 @@
       <template #heading><span class="drag">Pie Chart</span></template>
       <template #description>The Vuestro Pie Chart</template>
       <div class="chart-wrapper">
-        <vuestro-pie-chart :data="data" ></vuestro-pie-chart>
+        <vuestro-pie-chart :data="data" :options="options1"></vuestro-pie-chart>
       </div>
     </vuestro-card>
 
@@ -33,6 +33,14 @@ export default {
           value: 20.0,
         },
       ],
+      options1: {
+        series: [
+          {
+            title: 'Value',
+            field: 'value',
+          },
+        ],
+      },
     };
   },
   mounted() {

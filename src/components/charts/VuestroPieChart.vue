@@ -22,12 +22,12 @@
       </g> 
       <!--TOOLTIP-->
 	  <template v-if="hideTooltip">
-        <vuestro-svg-tooltip :x="0"
-							 :x-max="width"
+        <vuestro-svg-tooltip :x="toolTipLocation"
+						              	 :x-max="width"
                              :categoryKey="categoryKey"
                              :utc="utc"
-                             :series="toolKey"
-                             :values="toolData">
+                             :series="processedSeries"
+                             :values="localData[0]">
         </vuestro-svg-tooltip>
       </template>
     </svg>
@@ -69,7 +69,7 @@ export default {
       }],
       stacked: false,
       padding: 0.1,
-      hideTooltip: true,
+      hideTooltip: false,
       utc: false,
     };
   },
@@ -80,21 +80,21 @@ export default {
     },
     // process series prop by adding default colors
     processedSeries() {
-	  console.log("series");
-	  console.log(this.series);
-	  let result = this.series.map((s) => {
-	  
-		console.log(s.field);
-		console.log(s.color);
-        if (s.field && !s.color) {
-          s.color = this.color(s.field);
-        }
-		console.log(s.color);
-        return s;
-      });
-	  console.log("Processed Series");
-	  console.log(result);
-      return result;
+      console.log("series");
+      console.log(this.series);
+      let result = this.series.map((s) => {
+      
+      console.log(s.field);
+      console.log(s.color);
+          if (s.field && !s.color) {
+            s.color = this.color(s.field);
+          }
+      console.log(s.color);
+          return s;
+        });
+      console.log("Processed Series");
+      console.log(result);
+        return result;
     },
     getCursor() {
       return d3.area().x(d => d.center).y0(this.height).y1(0);
@@ -225,37 +225,35 @@ export default {
 	
 	//Update tooltip values
     onMouseover({ offsetX }) {
-	  //console.log(event.target);	  
-	  //console.log(event.target.attributes.d.nodeValue);
-	  
-	  //grab selected pie section
-	  let pieSection = event.target.attributes.d.nodeValue;
-	  	 	 
-	  //grab data associated with pie section	
-	  let pieSectionData;	  
-	  for(let i=0; i<this.localData.length; i++) {
-	    if(this.localData[i]["arc"] == pieSection) {
-		  pieSectionData = this.localData[i];
-		}
+      //console.log(event.target);	  
+      //console.log(event.target.attributes.d.nodeValue);
+      console.log("THIS");
+      console.log(this);
+      this.toolTipLocation = 200;
+      //grab selected pie section
+      let pieSection = event.target.attributes.d.nodeValue;
+          
+      //grab data associated with pie section	
+      let pieSectionData;	  
+      for(let i=0; i<this.localData.length; i++) {
+        if(this.localData[i]["arc"] == pieSection) {
+        pieSectionData = this.localData[i];
+      }
 	  }		 
 	  
-	  //Set tool key
-	  let toolLegend = [{
-	    "title": pieSectionData.key,
-		"field": "value1",
-		"color": pieSectionData.color,
-	  }];	  
-	  this.data.toolKey = toolLegend;
-	  
+    //Set tool key
+    console.log("update");
+    this.options.series[0].title = pieSectionData.key;
+    this.options.series[0].color = pieSectionData.color;
+    console.log(this.options.series);
+
 	  //Set tool data
 	  let toolValue = [{
-	    "value1": pieSectionData.value,
+	    "value": pieSectionData.value,
 	  }]
 	  this.data.toolData = toolValue;
 	  
-	  console.log(this.data.toolKey);
 	  console.log(this.data.toolData);
-	  console.log(this.data.categoryKey);
     },
 	
 	//Hide/show tooltip
