@@ -100,7 +100,7 @@ export default {
   },
   data() {
     return {
-      toolbarHeight: 24,
+      toolbarHeight: 32,
       prunedData: {},
       width: 0,
       height: 0,

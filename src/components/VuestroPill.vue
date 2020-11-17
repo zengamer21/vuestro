@@ -1,6 +1,6 @@
 <template>
   <span class="vuestro-pill"
-       :class="[ size, { clickable, closable, shadow, draggable, geopattern }]"
+       :class="[ size, { clickable, closable, shadow, draggable, geopattern, noMargin }]"
        @click="onClick">
     <div v-if="!$slots.title" class="vuestro-pill-title" :class="{ autoCapital }"
          :style="titleStyle">
@@ -48,6 +48,7 @@ export default {
     draggable: { type: Boolean, default: false },
     shadow: { type: Boolean, default: false },
     geopattern: { type: Boolean, default: false },
+    noMargin: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -117,6 +118,9 @@ export default {
   flex: 0 1 auto;
   display: flex;
   margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
+}
+.vuestro-pill.noMargin {
+  margin: 0;
 }
 .vuestro-pill.sm {
   line-height: var(--vuestro-control-sm-height);
