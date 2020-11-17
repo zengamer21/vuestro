@@ -106,7 +106,7 @@ export default {
 }
 
 .vuestro-container.outlines {
-  border: 1px dashed black;
+  border: 1px dashed var(--vuestro-outline);
   position: relative;
   margin-top: 10px;
 }
@@ -119,7 +119,7 @@ export default {
 }
 
 .vuestro-container.outlines > div {
-  border: 1px dashed black;
+  border: 1px dashed var(--vuestro-outline);
   position: relative;
 }
 

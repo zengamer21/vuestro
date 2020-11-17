@@ -227,6 +227,7 @@ export default {
   --vuestro-field-bg: #5a5959;
   --vuestro-outline: #7d7d7d;
   --vuestro-active: #37383a;
+  --vuestro-selection: #3b4e73;
   --vuestro-hover: #535456;
   --vuestro-popup-bg: #323334;
 

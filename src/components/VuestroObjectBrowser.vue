@@ -244,14 +244,19 @@ export default {
 
 <style>
 
-.vuestro-app,
-.vuestro-dark {
+.vuestro-app {
   --vuestro-object-browser-key-fg: var(--vuestro-purple);
   --vuestro-object-browser-string-fg: var(--vuestro-orange);
   --vuestro-object-browser-bool-fg: var(--vuestro-blue);
   --vuestro-object-browser-date-fg: var(--vuestro-green);
   --vuestro-object-browser-number-fg: var(--vuestro-indigo);
   --vuestro-object-browser-null-fg: var(--vuestro-danger);
+}
+.vuestro-dark {
+  --vuestro-object-browser-string-fg: #ea7638;
+  --vuestro-object-browser-date-fg: #299a57;
+  --vuestro-object-browser-bool-fg: #4b93de;
+  --vuestro-object-browser-number-fg: #c232ff;
 }
 
 </style>

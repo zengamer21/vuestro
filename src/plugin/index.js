@@ -26,6 +26,7 @@ import VuestroIcon from '../components/VuestroIcon';
 import VuestroListButton from '../components/list/VuestroListButton';
 import VuestroListGroup from '../components/list/VuestroListGroup';
 import VuestroListGroupToggle from '../components/list/VuestroListGroupToggle';
+import VuestroListItem from '../components/list/VuestroListItem';
 import VuestroMap from '../components/charts/VuestroMap';
 import VuestroModal from '../components/VuestroModal';
 import VuestroMultiSelect from '../components/inputs/VuestroMultiSelect';
@@ -73,6 +74,7 @@ export default {
     Vue.component(VuestroListButton.name, VuestroListButton);
     Vue.component(VuestroListGroup.name, VuestroListGroup);
     Vue.component(VuestroListGroupToggle.name, VuestroListGroupToggle);
+    Vue.component(VuestroListItem.name, VuestroListItem);
     Vue.component(VuestroMap.name, VuestroMap);
     Vue.component(VuestroModal.name, VuestroModal);
     Vue.component(VuestroMultiSelect.name, VuestroMultiSelect);

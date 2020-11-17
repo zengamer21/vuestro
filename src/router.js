@@ -21,6 +21,7 @@ import ContainersBreadcrumb from './pages/ContainersBreadcrumb.vue';
 import ContainersContainer from './pages/ContainersContainer.vue';
 import ContainersCard from './pages/ContainersCard.vue';
 import ContainersColumn from './pages/ContainersColumn.vue';
+import ContainersList from './pages/ContainersList.vue';
 import ContainersRow from './pages/ContainersRow.vue';
 import ContainersPanel from './pages/ContainersPanel.vue';
 import ContainersPanelScroll from './pages/ContainersPanelScroll.vue';
@@ -94,6 +95,15 @@ export default new Router({
           name: 'column-container',
           path: 'column-container',
           component: ContainersColumn,
+        },
+        {
+          meta: {
+            title: 'Lists',
+            sidebar: true,
+          },
+          name: 'list-container',
+          path: 'list-container',
+          component: ContainersList,
         },
         {
           meta: {
