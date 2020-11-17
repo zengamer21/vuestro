@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
@@ -84,4 +85,42 @@ module.exports = {
       _: 'lodash',
     })
   ],
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        sourceMap: true,
+      }),
+    ],
+    // split vendor js files into separate chunks
+    splitChunks: {
+      chunks: 'all',
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        leafletVendor: {
+          test: /[\\/]node_modules[\\/](leaflet.*)[\\/]/,
+          name: "leaflet",
+        },
+        utilsVendor: {
+          test: /[\\/]node_modules[\\/](lodash|moment|vuedraggable)[\\/]/,
+          name: "utils",
+        },
+        iconVendor: {
+          test: /[\\/]node_modules[\\/](vue\-awesome)[\\/]/,
+          name: "icons",
+        },
+        aceVendor: {
+          test: /[\\/]node_modules[\\/](brace)[\\/]/,
+          name: "ace",
+        },
+        d3Vendor: {
+          test: /[\\/]node_modules[\\/](d3.*)[\\/]/,
+          name: "d3",
+        },
+      },
+    },
+    runtimeChunk: {
+      name: "manifest",
+    },
+  },
 };
