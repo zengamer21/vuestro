@@ -23,13 +23,13 @@
 
 <script>
 
-/* global __VERSION__, Vuex*/
+/* global VERSION, Vuex*/
 
 export default {
   name: 'app',
   data() {
     return {
-      version: __VERSION__,
+      version: VERSION,
       user: 'A Vue User',
       userImg: require('@/assets/default-user.jpg'),
       role: 'Admin',
