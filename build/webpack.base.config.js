@@ -11,8 +11,8 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': path.join(process.env.PWD, 'src'),
-      'static': path.join(process.env.PWD, 'static')
+      '@': path.join(process.cwd(), 'src'),
+      'static': path.join(process.cwd(), 'static')
     }
   },
   output: {
