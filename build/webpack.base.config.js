@@ -11,8 +11,8 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': path.join(__dirname, '..', 'src'),
-      'static': path.join(__dirname, '..', 'static')
+      '@': path.join(process.env.PWD, 'src'),
+      'static': path.join(process.env.PWD, 'static')
     }
   },
   output: {
@@ -49,6 +49,7 @@ module.exports = {
       Vue: ['vue/dist/vue.esm.js', 'default'],
       Vuex: ['vuex/dist/vuex.esm.js', 'default'],
       _: 'lodash',
+      axios: 'axios',
     }),
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
