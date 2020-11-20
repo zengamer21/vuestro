@@ -50,6 +50,7 @@ module.exports = {
       Vuex: ['vuex/dist/vuex.esm.js', 'default'],
       _: 'lodash',
       axios: 'axios',
+      moment: 'moment',
     }),
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
