@@ -8,7 +8,7 @@
   "license": "ISC",
   "main": "./src/plugin/index.js",
   "scripts": {
-    "dev": "webpack-dev-server -d --mode development --hot --config ./build/webpack.dev.config.js",
+    "dev": "webpack-dev-server -d --mode development --hot --port 8088 --config ./build/webpack.dev.config.js",
     "build": "webpack --mode production --config ./build/webpack.prod.config.js",
     "test": "jest --verbose --coverage"
   },
