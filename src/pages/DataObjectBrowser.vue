@@ -90,7 +90,7 @@ export default {
           'subObject2ArrayVal4',
         ],
         booleanVal1: true,
-        stringVal2: "hello world",
+        stringVal2: "hello world........ super loooooong striiiiing",
         dateVal1: new Date(),
         numberVal1: 324,
         numberVal2: 8.32,
