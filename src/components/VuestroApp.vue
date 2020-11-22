@@ -148,7 +148,7 @@ export default {
 /* GLOBAL STYLE VARIABLES */
 .vuestro-app {
   --vuestro-font-size: 14px;
-  --vuestro-rounded-border-radius: 4px;
+  --vuestro-rounded-border-radius: 5px;
   --vuestro-rounded-border-width: 1px;
   --vuestro-control-sm-height: 18px;
   --vuestro-control-md-height: 24px;

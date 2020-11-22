@@ -14,7 +14,6 @@
                     pill,
                     checkbox,
                     disabled,
-                    rounded,
                     shadow }, size]"
          @mouseover="onEnter"
          @mouseleave="onLeave">
@@ -62,7 +61,6 @@ export default {
     disabled: { type: Boolean, default: false }, // no hover, no click
     pill: { type: Boolean, default: false },
     round: { type: Boolean, default: false },
-    rounded: { type: Boolean, default: false },
     stretch: { type: Boolean, default: false },
     size: { type: String, default: 'md' },
     dark: { type: Boolean, default: false },
@@ -141,6 +139,7 @@ export default {
 
 .vuestro-button-inner {
   border: var(--vuestro-rounded-border-width) solid var(--variant-color);
+  border-radius: var(--vuestro-rounded-border-radius);
   margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
   color: var(--variant-color);
   cursor: pointer;
@@ -172,9 +171,6 @@ export default {
   opacity: 0.2;
   transition: 0s;
 }
-.vuestro-button-inner.rounded {
-  border-radius: var(--vuestro-rounded-border-radius);
-}
 .vuestro-button-inner.sm {
   height: var(--vuestro-control-sm-height);
   padding: 0 calc(var(--vuestro-control-sm-height) * 0.4);
@@ -198,6 +194,7 @@ export default {
 .vuestro-button.stretch > .vuestro-button-inner {
   align-self: stretch;
   flex-grow: 1;
+  height: 100%;
 }
 .vuestro-button-inner.noBorder {
   border: none;

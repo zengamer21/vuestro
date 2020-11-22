@@ -49,7 +49,9 @@
       </template>
       <vuestro-panel>
         <vuestro-object-browser :options="{ startExpanded: true }" :data="testObject">
-          <template #post-value="{ k, v, parent }"><vuestro-button>button</vuestro-button></template>
+          <template #post-value="{ k, v, parent }">
+            <vuestro-button size="sm">button</vuestro-button>
+          </template>
         </vuestro-object-browser>
       </vuestro-panel>
     </vuestro-card>

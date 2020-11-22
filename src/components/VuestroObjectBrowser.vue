@@ -13,7 +13,14 @@
           <span class="vuestro-object-browser-item-key-title">{{ k }}:</span>
           <!--EDITING CONTROLS-->
           <template v-if="k === editKeyActive">
-            <vuestro-text-field :value="v" variant="outline" no-margin selected editing-buttons @save="onSave(k, v, ...arguments)" @cancel="editKeyActive = ''"></vuestro-text-field>
+            <vuestro-text-field :value="v"
+                                variant="outline"
+                                no-margin
+                                selected
+                                editing-buttons
+                                @save="onSave(k, v, ...arguments)"
+                                @cancel="editKeyActive = ''">
+            </vuestro-text-field>
           </template>
           <template v-else>
             <!--TYPE-DEPENDENT RENDERING-->
@@ -56,7 +63,7 @@
     </div>
     <!--EXTEND OBJECT-->
     <div v-if="isExtendable()" class="vuestro-object-add-member">
-      <vuestro-button v-if="!addingMember" round no-border no-margin @click="onAddMember">
+      <vuestro-button v-if="!addingMember" size="sm" round no-border no-margin @click="onAddMember">
         <vuestro-icon name="plus"></vuestro-icon>
       </vuestro-button>
       <!--ADD FIELD CONTROLS-->
@@ -340,7 +347,7 @@ export default {
 }
 
 .vuestro-object-add-member {
-  padding: 0 1em;
+  padding: 0 1.3em;
 }
 
 </style>

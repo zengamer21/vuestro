@@ -218,9 +218,9 @@ export default {
   display: flex;
   justify-content: flex-start;
   color: white;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 0.6em;
   margin-right: calc(var(--vuestro-sidebar-item-padding-right) / 2);
   border-top-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
   border-bottom-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
