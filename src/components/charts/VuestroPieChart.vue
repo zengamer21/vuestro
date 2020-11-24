@@ -19,8 +19,10 @@
       </g> 
       <!--TOOLTIP-->
 	  <template v-if="showTooltip">
-        <vuestro-svg-tooltip :x="toolTipLocation"
+        <vuestro-svg-tooltip :x="toolTipLocationX"
 						              	 :x-max="width"
+                             :y="toolTipLocationY"
+                             :y-max="height"
                              :categoryKey="categoryKey"
                              :utc="utc"
                              :series="processedSeries"
@@ -71,7 +73,8 @@ export default {
       utc: false,
       showTooltip: false,
       pieIndex: 0,
-      toolTipLocation: 0,
+      toolTipLocationX: 0,
+      toolTipLocationY: 0,
       processedSeries: [{
         field: "value",
         title: "Value"
@@ -241,7 +244,8 @@ export default {
     onMouseover({ offsetX }) {
       //console.log(event.target);	  
       //console.log(event.target.attributes.d.nodeValue);
-      this.toolTipLocation = event.offsetX;
+      this.toolTipLocationX = event.offsetX+75;
+      this.toolTipLocationY = event.offsetY;
       //grab selected pie section
       let pieSection = event.target.attributes.d.nodeValue;
           

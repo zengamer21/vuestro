@@ -20,14 +20,17 @@
       <!--TOOLTIP-->
       <template v-if="!hideTooltip && cursorLine.length > 0">
         <path class="vuestro-bar-chart-cursor" :d="cursorLine" />
-        <vuestro-svg-tooltip :x="lastHoverPoint.x"
+        <vuestro-svg-tooltip :x="mouseX"
                              :x-max="width"
+                             :y="mouseY"
+                             :y-max="height"
                              :categoryKey="categoryKey"
                              :utc="utc"
                              :series="processedSeries"
                              :values="localData[lastHoverPoint.index]">
         </vuestro-svg-tooltip>
       </template>
+      <g ref="yAxis"></g>
     </svg>
   </div>
 </template>
@@ -65,6 +68,9 @@ export default {
       padding: 0.1,
       hideTooltip: false,
       utc: false,
+      mouseX: 0,
+      mouseY: 0,
+      yGrid: {},
     };
   },
   computed: {
@@ -95,6 +101,7 @@ export default {
   mounted() {
     window.addEventListener('resize', this.resize);
     this.resize();
+    this.updateYAxis();
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resize);
@@ -118,7 +125,8 @@ export default {
                      .padding(this.padding);
 
       let scaleY = d3.scaleLinear().range([this.height, 0]);
-
+      console.log(scaleY);
+      this.yGrid = scaleY;
       let stackedData;
       let extents;
       if (this.stacked) {
@@ -151,6 +159,8 @@ export default {
       }
     },
     onMouseover({ offsetX }) {
+      this.mouseX = event.offsetX;//+75;
+      this.mouseY = event.offsetY;
       if (this.localData.length > 0) {
         const x = offsetX;
         const closestPoint = this.getClosestPoint(x);
@@ -173,6 +183,12 @@ export default {
     },
     onMouseleave() {
       this.cursorLine = '';
+    },
+    updateYAxis(){
+      console.log("yo");
+      d3.select(this.$refs.yAxis).append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(this.scaleY))
     },
   },
 };
