@@ -4,7 +4,7 @@
       <template #heading><span class="drag">Pie Chart</span></template>
       <template #description>The Vuestro Pie Chart</template>
       <div class="chart-wrapper">
-        <vuestro-pie-chart :data="data" :options="options1"></vuestro-pie-chart>
+        <vuestro-pie-chart :data="data" :options="options"></vuestro-pie-chart>
       </div>
     </vuestro-card>
 
@@ -33,7 +33,10 @@ export default {
           value: 20.0,
         },
       ],
-      options1: {
+      options: {
+        enableToolTip: false,
+        donutRadius: 30,
+        labels: true,
         series: [
           {
             title: 'Value',

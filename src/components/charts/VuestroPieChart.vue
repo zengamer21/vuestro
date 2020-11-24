@@ -7,16 +7,23 @@
 		>
     <!--PIE-->
 	  <g v-for="d in localData" :transform="`translate(${d.pieX},${d.pieY})`">
-		<path v-for="s in processedSeries" :key="s.field"
-			:d="d.arc"
-			:fill="d.color"
-			stroke="black"
-			style="stroke-with: 4px; opacity: 0.7;"
-			@mousemove="onMouseover"
-			@mouseleave="onMouseexit"
-			@mouseenter="onMouseenter"
-		/>		
+      <path v-for="s in processedSeries"
+        :key="s.field"
+        :d="d.arc"
+        :fill="d.color"
+        stroke="black"
+        style="stroke-with: 4px; opacity: 0.7;"
+        @mousemove="onMouseover"
+        @mouseleave="onMouseexit"
+        @mouseenter="onMouseenter"
+      />
+      <text v-if="labels"
+        :x="d.label[0]-40"
+        :y="d.label[1]">
+        {{d.key}}
+      </text>
       </g> 
+      
       <!--TOOLTIP-->
 	  <template v-if="showTooltip">
         <vuestro-svg-tooltip :x="toolTipLocationX"
@@ -79,6 +86,10 @@ export default {
         field: "value",
         title: "Value"
       }],
+      //options
+      labels: false,
+      enableToolTip: false,
+      donutRadius: 0,
     };
   },
   
@@ -188,12 +199,22 @@ export default {
         let pathData = arcGenerator({
           startAngle: data_ready[i]["startAngle"],
           endAngle: data_ready[i]["endAngle"],
-          innerRadius: 0,
+          innerRadius: this.donutRadius,
+          outerRadius: pieY-5,
+        });
+
+        let labelData = arcGenerator.centroid({
+          startAngle: data_ready[i]["startAngle"],
+          endAngle: data_ready[i]["endAngle"],
+          innerRadius: this.donutRadius,
           outerRadius: pieY-5,
         });
         
         //set paths (pie sections) into local data
         this.localData[i]["arc"] = pathData;
+        
+        //set label coordinates into local data
+        this.localData[i]["label"] = labelData;
         
         //set initial color (do not change after setting)
         if(this.localData[i]["color"] === void(0)) {	
@@ -270,7 +291,8 @@ export default {
     },
     //Hide/show tooltip
     onMouseenter() {
-      this.showTooltip = true; 
+      if(this.enableToolTip)
+        this.showTooltip = true; 
     },
     onMouseexit() {
       this.showTooltip = false;	  
