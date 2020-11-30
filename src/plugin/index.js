@@ -8,6 +8,7 @@ import VuestroButton from '../components/VuestroButton';
 import VuestroCaret from '../components/VuestroCaret';
 import VuestroCard from '../components/VuestroCard';
 import VuestroChartPanel from '../components/charts/VuestroChartPanel';
+import VuestroCheckOrX from '../components/VuestroCheckOrX';
 import VuestroContainer from '../components/VuestroContainer';
 import VuestroCleanKvp from '../components/text/VuestroCleanKvp';
 import VuestroColorPicker from '../components/VuestroColorPicker';
@@ -56,6 +57,7 @@ export default {
     Vue.component(VuestroCaret.name, VuestroCaret);
     Vue.component(VuestroCard.name, VuestroCard);
     Vue.component(VuestroChartPanel.name, VuestroChartPanel);
+    Vue.component(VuestroCheckOrX.name, VuestroCheckOrX);
     Vue.component(VuestroContainer.name, VuestroContainer);
     Vue.component(VuestroCleanKvp.name, VuestroCleanKvp);
     Vue.component(VuestroColorPicker.name, VuestroColorPicker);

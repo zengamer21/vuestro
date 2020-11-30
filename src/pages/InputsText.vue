@@ -187,7 +187,7 @@ export default {
       return (str === 'true' || str === 'false') || 'should be a boolean';
     },
     isNumber(str) {
-      return str.length > 0 && _.isFinite(_.toNumber(str)) || 'should be number';
+      return _.isFinite(_.toNumber(str)) || 'should be number';
     },
     isEmail(str) {
       return str.match(/\w+@\w+.\w+/) || 'should be valid email';
