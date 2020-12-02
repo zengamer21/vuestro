@@ -36,6 +36,7 @@ export default {
 }
 .vuestro-container.noGrow {
   flex-grow: 0;
+  flex-shrink: 1;
 }
 
 .vuestro-container-inner.lg {

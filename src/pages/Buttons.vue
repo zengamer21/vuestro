@@ -9,7 +9,7 @@
 
     <vuestro-card>
       <template #description>
-        Basic flat, blocky button
+        Basic button
       </template>
       <div class="example-flexbox">
         <vuestro-button @click="onClick">Button</vuestro-button>
@@ -73,24 +73,6 @@
         <vuestro-button size="xl" @click="onClick">
           <template #placeholder>Placeholder</template>
           Value
-        </vuestro-button>
-      </div>
-    </vuestro-card>
-
-    <vuestro-card>
-      <template #description>
-        Make it less pointy by setting the rounded property
-      </template>
-      <div class="example-flexbox">
-        <vuestro-button rounded @click="onClick">
-          <vuestro-icon name="snowflake"></vuestro-icon>
-        </vuestro-button>
-        <vuestro-button rounded @click="onClick">Rounded Button</vuestro-button>
-        <vuestro-button rounded @click="onClick">
-          <template #icon>
-            <vuestro-icon name="fire"></vuestro-icon>
-          </template>
-          Rounded Button
         </vuestro-button>
       </div>
     </vuestro-card>
@@ -407,9 +389,9 @@
         </vuestro-button>
         <vuestro-button size="tall" rounded>
           <template #icon>
-            <vuestro-icon name="download"></vuestro-icon>
+            <vuestro-icon name="file"></vuestro-icon>
           </template>
-          Download
+          Export
         </vuestro-button>
       </div>
     </vuestro-card>

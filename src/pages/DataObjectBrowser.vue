@@ -49,7 +49,9 @@
       </template>
       <vuestro-panel>
         <vuestro-object-browser :options="{ startExpanded: true }" :data="testObject">
-          <template #post-value="{ k, v, parent }"><vuestro-button>button</vuestro-button></template>
+          <template #post-value="{ k, v, parent }">
+            <vuestro-button size="sm">button</vuestro-button>
+          </template>
         </vuestro-object-browser>
       </vuestro-panel>
     </vuestro-card>
@@ -88,7 +90,7 @@ export default {
           'subObject2ArrayVal4',
         ],
         booleanVal1: true,
-        stringVal2: "hello world",
+        stringVal2: "hello world........ super loooooong striiiiing",
         dateVal1: new Date(),
         numberVal1: 324,
         numberVal2: 8.32,

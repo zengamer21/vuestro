@@ -1,7 +1,6 @@
 <template>
   <vuestro-app title="vuestro">
-    <template #logo>
-    </template>
+    <template #logo></template>
 
     <template #navbar></template>
     <template #sidebar>

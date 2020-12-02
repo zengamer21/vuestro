@@ -105,7 +105,7 @@ export default {
   --vuestro-panel-toolbar-fg: inherit;
   --vuestro-panel-toolbar-border: none;
   --vuestro-panel-box-shadow: 1px 3px 5px 0px rgba(0,0,0,0.1);
-  --vuestro-panel-border-radius: 0.1em;
+  --vuestro-panel-border-radius: var(--vuestro-rounded-border-radius);
   --vuestro-panel-titlebar-min-height: 1.8em;
 }
 
@@ -166,8 +166,10 @@ export default {
   align-items: center;
   border-bottom: var(--vuestro-panel-toolbar-border);
   background-color: var(--vuestro-panel-toolbar-bg);
-  margin-left: 0.2em;
-  margin-right: 0.2em;
+  border-top-left-radius: var(--vuestro-panel-border-radius);
+  border-top-right-radius: var(--vuestro-panel-border-radius);
+  padding-left: 0.2em;
+  padding-right: 0.2em;
 }
 .vuestro-panel-title {
   padding: 0.2em 0.4em;
