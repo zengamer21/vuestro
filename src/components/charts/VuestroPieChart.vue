@@ -17,12 +17,21 @@
         @mouseleave="onMouseexit"
         @mouseenter="onMouseenter"
       />
-      <text v-if="labels"
-        :x="d.label[0]-40"
-        :y="d.label[1]">
+      <text v-if="enableLabels"
+        :x="d.label[0]"
+        :y="d.label[1]"
+        text-anchor="middle">
         {{d.key}}
       </text>
-      </g> 
+    </g> 
+    <g>
+      <text v-if="enableDonut"
+        :x="pieX"
+        :y="pieY+5"
+        text-anchor="middle">
+        {{donutCenterValue}}
+      </text>
+    </g>
       
       <!--TOOLTIP-->
 	  <template v-if="showTooltip">
@@ -80,6 +89,8 @@ export default {
       utc: false,
       showTooltip: false,
       pieIndex: 0,
+      pieX: 0,
+      pieY: 0,
       toolTipLocationX: 0,
       toolTipLocationY: 0,
       processedSeries: [{
@@ -87,8 +98,11 @@ export default {
         title: "Value"
       }],
       //options
-      labels: false,
+      enableLabels: false,
       enableToolTip: false,
+      enableDonut: false,
+      donutCenterRender: null,
+      donutCenterValue: null,
       donutRadius: 0,
     };
   },
@@ -153,112 +167,12 @@ export default {
         this.redraw();
       }
     },
-  
     //redraw componenet
     redraw() {	  
       //clones this.data into dynamic localdata
       this.localData = _.cloneDeep(this.data);
-      
-      //Append changing container values to container	  
-      //instantiate center of pie chart defaults to 150,150            
-      let pieX=0, pieY=0;	      
-      if(document.getElementById('Pie').getAttribute("height") == 0) {
-        pieY = 150;
-      } else {
-      pieY = document.getElementById('Pie').getAttribute("height")/2;	  
-      }	  
-      if(document.getElementById('Pie').getAttribute("width") == 0) {
-        pieX = 150;
-      } else {
-        pieX = document.getElementById('Pie').getAttribute("width")/2;
-      }	  
-
-      //create path object (section of pie)
-      let path = d3.select("path");
-
-      //create pie data to be ingested
-      let pieData = {}
-      for(let i=0; i<this.localData.length; i++) {
-        pieData[this.localData[i].key] = this.localData[i].value;
-      }
-
-      //create pie object to computer starting/ending angles for pie sections
-      let pie = d3.pie().value(function(d) {return d.value;});
-      let data_ready = pie(d3.entries(pieData));
-          
-      //Update values of pie chart
-      for(let i=0; i<this.localData.length; i++) {
-        //Set pie chart center and radius
-        this.localData[i]["pieX"] = pieX;
-        this.localData[i]["pieY"] = pieY;
-        //margin of 5px
-        this.localData[i]["pieRadius"] = pieY-5;		  
-        
-        //generate svg path data (pie sections)
-        let arcGenerator = d3.arc();
-        let pathData = arcGenerator({
-          startAngle: data_ready[i]["startAngle"],
-          endAngle: data_ready[i]["endAngle"],
-          innerRadius: this.donutRadius,
-          outerRadius: pieY-5,
-        });
-
-        let labelData = arcGenerator.centroid({
-          startAngle: data_ready[i]["startAngle"],
-          endAngle: data_ready[i]["endAngle"],
-          innerRadius: this.donutRadius,
-          outerRadius: pieY-5,
-        });
-        
-        //set paths (pie sections) into local data
-        this.localData[i]["arc"] = pathData;
-        
-        //set label coordinates into local data
-        this.localData[i]["label"] = labelData;
-        
-        //set initial color (do not change after setting)
-        if(this.localData[i]["color"] === void(0)) {	
-          this.localData[i]["color"] = this.color(this.localData[i].value);
-        }		  
-      }	 	 
-      
-      /* UNUSED
-      let scaleX = d3.scaleBand()
-                    .domain(this.data.map((d) => { return d[this.categoryKey]; }))
-                    .rangeRound([this.margin.left, this.width - this.margin.right])
-                    .padding(this.padding);
-
-      let scaleY = d3.scaleLinear().range([this.height, 0]);
-      let stackedData;
-      let extents;
-      if (this.stacked) {
-        let keys = _.flatMap(this.series, 'field');
-        stackedData = d3.stack().keys(keys)(this.localData);
-        extents = this.series.map((series, idx) => {
-          return d3.extent(_.flatten(stackedData[idx]));
-        });
-      } else {
-        extents = this.series.map((series) => {
-          return d3.extent(this.localData, function(d) { return d[series.field]; });
-        });
-      }
-      scaleY.domain([0, d3.max(extents, function(d) { return d[1] * 1.1; })]);
-
-      // set the pie descriptions
-      for (let [di, d] of this.localData.entries()) {
-        for (const [si, s] of this.series.entries()) {
-          if (stackedData) {
-            d[`${s.field}_y`] = scaleY(stackedData[si][di][0]);
-            d[`${s.field}_height`] = scaleY(stackedData[si][di][1]);
-          } else {
-            d.width = scaleX.bandwidth() / this.series.length;
-            d[`${s.field}_x`] = scaleX(d[this.categoryKey]) + si*(d.width + 1);
-            d[`${s.field}_y`] = scaleY(d[s.field]) - 1;
-            d[`${s.field}_height`] = this.height - scaleY(d[s.field]);
-            d.center = scaleX(d[this.categoryKey]) + scaleX.bandwidth() / 2;
-          }
-        }
-      }*/
+      //generate pie
+      this.pieGenerate();
     },
     
     //Update tooltip values
@@ -298,19 +212,91 @@ export default {
       this.showTooltip = false;	  
     },
   
-    /* UNUSED
-    getClosestPoint(x) {
-      return this.localData
-        .map((point, index) => ({
-          x: point[`${this.series[this.series.length-1].field}_x`],
-          diff: Math.abs(point[`${this.series[this.series.length-1].field}_x`] - x),
-          index,
-        }))
-        .reduce((memo, val) => (memo.diff < val.diff ? memo : val));
+    //Helper functions
+    //set pie center
+    pieCenter() {
+      if(document.getElementById('Pie').getAttribute("height") == 0) {
+        this.pieY = this.height/2;
+      } else {
+        this.pieY = document.getElementById('Pie').getAttribute("height")/2;	  
+      }	  
+      if(document.getElementById('Pie').getAttribute("width") == 0) {
+        this.pieX = this.width/2;
+      } else {
+        this.pieX = document.getElementById('Pie').getAttribute("width")/2;
+      }	  
     },
-    onMouseleave() {
-      this.cursorLine = '';
-    }, */
+    //create coordinates for labels
+    pieLabels(data, index, innerRadius, arcGenerator) {
+      //create label coordinates
+      let labelData = arcGenerator.centroid({
+        startAngle: data[index]["startAngle"],
+        endAngle: data[index]["endAngle"],
+        innerRadius: innerRadius,
+        outerRadius: this.pieY-5,
+      });
+              
+      //set label coordinates into local data
+      this.localData[index]["label"] = labelData;
+    },
+    //generate pie
+    pieGenerate() {      
+      //Append changing container values to container	  
+      //instantiate center of pie chart defaults to 150,150 
+      this.pieCenter();
+      //if donut is enabled
+      let innerRadius = 0;
+      if(this.enableDonut) {
+        innerRadius = this.donutRadius;
+        this.donutValueRender();
+      }
+      //create path object (section of pie)
+      let path = d3.select("path");
+      //create pie data to be ingested
+      let pieData = {}
+      for(let i=0; i<this.localData.length; i++) {
+        pieData[this.localData[i].key] = this.localData[i].value;
+      }
+      //create pie object to computer starting/ending angles for pie sections
+      let pie = d3.pie().value(function(d) {return d.value;});
+      let data_ready = pie(d3.entries(pieData));          
+      //Update values of pie chart
+      for(let i=0; i<this.localData.length; i++) {
+        //Set pie chart center and radius
+        this.localData[i]["pieX"] = this.pieX;
+        this.localData[i]["pieY"] = this.pieY;
+        //margin of 5px
+        this.localData[i]["pieRadius"] = this.pieY-5;		          
+        //generate svg path data (pie sections)
+        let arcGenerator = d3.arc();
+        let pathData = arcGenerator({
+          startAngle: data_ready[i]["startAngle"],
+          endAngle: data_ready[i]["endAngle"],
+          innerRadius: innerRadius,
+          outerRadius: this.pieY-5,
+        });
+        //set paths (pie sections) into local data
+        this.localData[i]["arc"] = pathData;
+        if(this.enableLabels) {
+          this.pieLabels(data_ready, i, innerRadius, arcGenerator);
+        }        
+        //set initial color (do not change after setting)
+        if(this.localData[i]["color"] === void(0)) {	
+          this.localData[i]["color"] = this.color(this.localData[i].value);
+        }		  
+      }	 	 
+    },
+    //donut value render
+    donutValueRender() {
+      //if render function is passed in
+      if(typeof(this.donutCenterRender) === 'function') {
+        this.donutCenterValue = this.donutCenterRender();
+      }
+      //if value is passed in
+      else {
+        this.donutCenterValue = this.donutCenterRender;
+      }
+    },
   },
 };
 

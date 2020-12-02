@@ -34,9 +34,14 @@ export default {
         },
       ],
       options: {
-        enableToolTip: false,
+        enableToolTip: true,
+        enableLabels: true,
+        enableDonut: false,
+        donutCenterRender() {
+            return "Center Call";
+        },        
+        //donutCenterRender: "Center",
         donutRadius: 30,
-        labels: true,
         series: [
           {
             title: 'Value',
