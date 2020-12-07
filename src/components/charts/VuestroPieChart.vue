@@ -29,7 +29,7 @@
         :x="pieX"
         :y="pieY+5"
         text-anchor="middle">
-        {{donutCenterValue}}
+        {{donutTextValue}}
       </text>
     </g>
       
@@ -101,8 +101,8 @@ export default {
       enableLabels: false,
       enableToolTip: false,
       enableDonut: false,
-      donutCenterRender: null,
-      donutCenterValue: null,
+      donutTextRender: null,
+      donutTextValue: null,
       donutRadius: 0,
     };
   },
@@ -289,12 +289,12 @@ export default {
     //donut value render
     donutValueRender() {
       //if render function is passed in
-      if(typeof(this.donutCenterRender) === 'function') {
-        this.donutCenterValue = this.donutCenterRender();
+      if(typeof(this.donutTextRender) === 'function') {
+        this.donutTextValue = this.donutTextRender();
       }
       //if value is passed in
       else {
-        this.donutCenterValue = this.donutCenterRender;
+        this.donutTextValue = this.donutTextRender;
       }
     },
   },

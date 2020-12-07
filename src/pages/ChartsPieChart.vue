@@ -36,8 +36,8 @@ export default {
       options: {
         enableToolTip: true,
         enableLabels: true,
-        enableDonut: false,
-        donutCenterRender() {
+        enableDonut: true,
+        donutTextRender() {
             return "Center Call";
         },        
         //donutCenterRender: "Center",
