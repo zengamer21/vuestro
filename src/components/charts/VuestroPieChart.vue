@@ -1,50 +1,57 @@
 <template>
   <div class="vuestro-pie-chart" >
     <svg id="Pie" 
-		:width="width"
-        :height="height"
-        :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
+		  :width="width"
+      :height="height"
+      :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
 		>
-    <!--PIE-->
-	  <g v-for="d in localData" :transform="`translate(${d.pieX},${d.pieY})`">
-      <path v-for="s in processedSeries"
-        :key="s.field"
-        :d="d.arc"
-        :fill="d.color"
-        stroke="black"
-        style="stroke-with: 4px; opacity: 0.7;"
-        @mousemove="onMouseover"
-        @mouseleave="onMouseexit"
-        @mouseenter="onMouseenter"
-      />
-      <text v-if="enableLabels"
-        :x="d.label[0]"
-        :y="d.label[1]"
-        text-anchor="middle">
-        {{d.key}}
-      </text>
-    </g> 
-    <g>
-      <text v-if="enableDonut"
-        :x="pieX"
-        :y="pieY+5"
-        text-anchor="middle">
-        {{donutTextValue}}
-      </text>
-    </g>
+      <!--PIE-->
+      <g v-for="d in localData" :transform="`translate(${d.pieX},${d.pieY})`">
+        <path v-for="s in processedSeries"
+          :key="s.field"
+          :d="d.arc"
+          :fill="d.color"
+          stroke="black"
+          style="stroke-with: 4px; opacity: 0.7;"
+          @mousemove="onMouseover"
+          @mouseleave="onMouseexit"
+          @mouseenter="onMouseenter"
+        />
+        <text v-if="enableLabels"
+          :x="d.label[0]"
+          :y="d.label[1]"
+          text-anchor="middle">
+          {{d.key}}
+        </text>
+      </g> 
+      <g>
+        <text v-if="enableDonut"
+          :x="pieX"
+          :y="pieY+5"
+          text-anchor="middle">
+          {{donutTextValue}}
+        </text>
+      </g>
       
       <!--TOOLTIP-->
-	  <template v-if="showTooltip">
-        <vuestro-svg-tooltip :x="toolTipLocationX"
-						              	 :x-max="width"
-                             :y="toolTipLocationY"
-                             :y-max="height"
-                             :categoryKey="categoryKey"
-                             :utc="utc"
-                             :series="processedSeries"
-                             :values="localData[pieIndex]">
-        </vuestro-svg-tooltip>
+      <template v-if="showTooltip">
+          <vuestro-svg-tooltip :x="toolTipLocationX"
+                              :x-max="width"
+                              :y="toolTipLocationY"
+                              :y-max="height"
+                              :categoryKey="categoryKey"
+                              :utc="utc"
+                              :series="processedSeries"
+                              :values="localData[pieIndex]"/>
       </template>
+      <!-- PIELEGEND -->
+        <template v-for="(pieSection, index) in localData">
+          <vuestro-svg-legend 
+            v-if="enableLegend" 
+            :pieSection="pieSection"
+            :y="18*(index+1)"
+            :key="index"/>
+        </template>
     </svg>
   </div>
 </template>
@@ -98,6 +105,7 @@ export default {
         title: "Value"
       }],
       //options
+      enableLegend: false,
       enableLabels: false,
       enableToolTip: false,
       enableDonut: false,
@@ -170,7 +178,7 @@ export default {
     //redraw componenet
     redraw() {	  
       //clones this.data into dynamic localdata
-      this.localData = _.cloneDeep(this.data);
+      this.localData = _.cloneDeep(this.data);      
       //generate pie
       this.pieGenerate();
     },

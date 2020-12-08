@@ -34,6 +34,7 @@ export default {
         },
       ],
       options: {
+        enableLegend: true,
         enableToolTip: true,
         enableLabels: true,
         enableDonut: true,
