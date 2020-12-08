@@ -268,9 +268,13 @@ export default {
       }
       //create pie object to computer starting/ending angles for pie sections
       let pie = d3.pie().value(function(d) {return d.value;});
-      let data_ready = pie(d3.entries(pieData));          
+      let data_ready = pie(d3.entries(pieData)); 
+      //variable to store total
+      let totalData = 0;         
       //Update values of pie chart
       for(let i=0; i<this.localData.length; i++) {
+        //Record total
+        totalData += this.localData[i]["value"];
         //Set pie chart center and radius
         this.localData[i]["pieX"] = this.pieX;
         this.localData[i]["pieY"] = this.pieY;
@@ -294,6 +298,10 @@ export default {
           this.localData[i]["color"] = this.color(this.localData[i].value);
         }		  
       }	 	 
+      //store percentages
+      for(let i=0; i<this.localData.length; i++) {
+        this.localData[i]["valuePercentage"] = ((this.localData[i]["value"]/totalData)*100) + "%";
+      }
     },
     //donut value render
     donutValueRender() {
