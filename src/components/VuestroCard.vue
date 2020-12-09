@@ -72,6 +72,7 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   flex-direction: column;
+  min-width: 0;
   padding: var(--vuestro-gutter); /* inherit from vuestro-container */
 }
 .vuestro-card.stretch {

@@ -63,6 +63,7 @@ export default {
   padding: var(--vuestro-gutter);
   align-content: flex-start;
   justify-content: flex-start;
+  min-width: 0;
 }
 .vuestro-container-inner.frame {
   position: absolute;

@@ -33,10 +33,11 @@ export default {
   text-overflow: ellipsis;
   padding: 5px;
   position: relative;
+  border-radius: var(--vuestro-selection-border-radius);
 }
 
 .vuestro-list-button:hover {
-  background-color: var(--vuestro-primary);
+  background-color: var(--vuestro-list-item-selected-bg);
   color: white;
 }
 

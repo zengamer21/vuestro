@@ -149,6 +149,7 @@ export default {
 .vuestro-app {
   --vuestro-font-size: 14px;
   --vuestro-rounded-border-radius: 5px;
+  --vuestro-selection-border-radius: 8px;
   --vuestro-rounded-border-width: 1px;
   --vuestro-control-sm-height: 18px;
   --vuestro-control-md-height: 24px;
@@ -227,7 +228,7 @@ export default {
   --vuestro-field-bg: #5a5959;
   --vuestro-outline: #7d7d7d;
   --vuestro-active: #37383a;
-  --vuestro-selection: #3b4e73;
+  --vuestro-selection: #2163C9;
   --vuestro-hover: #535456;
   --vuestro-popup-bg: #323334;
 

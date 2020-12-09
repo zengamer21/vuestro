@@ -1,13 +1,24 @@
 <template>
-  <div class="vuestro-list-item" :class="{ selected }">
-    <div class="vuestro-list-item-text" @click="$emit('click')">
-      <div class="vuestro-list-item-title">
-        <slot name="title"></slot>
+  <div class="vuestro-list-item" :class="{ selected }" @click="onClick">
+
+    <div class="vuestro-list-item-inner">
+
+      <div v-if="!$slots.default" class="vuestro-list-item-text">
+        <div v-if="$slots.title" class="vuestro-list-item-title">
+          <slot name="title"></slot>
+        </div>
+        <div v-if="$slots.description" class="vuestro-list-item-description">
+          <slot name="description"></slot>
+        </div>
+        <div v-if="$slots.content" class="vuestro-list-item-content">
+          <slot name="content"></slot>
+        </div>
       </div>
-      <div v-if="$slots.description" class="vuestro-list-item-description">
-        <slot name="description"></slot>
-      </div>
+      <template v-else>
+        <slot></slot>
+      </template>
     </div>
+
     <div class="vuestro-list-item-buttons">
       <slot name="buttons"></slot>
     </div>
@@ -21,11 +32,23 @@ export default {
   props: {
     selected: { type: Boolean, default: false },
   },
+  methods: {
+    onClick(e) {
+      // if a vuestro-button is part of the path, ignore click
+      for (let p of e.path) {
+        if (p.classList && p.classList.contains('vuestro-button')) {
+          return e.stopPropagation();
+        }
+      }
+      this.$emit('click');
+    }
+  }
 };
 
 </script>
 
 <style>
+
 .vuestro-app {
   --vuestro-list-item-selected-bg: var(--vuestro-selection);
   --vuestro-list-item-alt-bg: var(--vuestro-light);
@@ -41,34 +64,65 @@ export default {
 
 .vuestro-list-item {
   display: flex;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+/* the selection is drawn as pseudo-element so it can cover the border when selected */
+.vuestro-list-item.selected:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: var(--vuestro-selection-border-radius);
+  background-color: var(--vuestro-list-item-selected-bg);
+  z-index: -1;
+}
+/* draw a border at the bottom of all but the last child */
+/* of course these css pseudo-element manipulations assume all children are vuestro-list-item(s) */ 
+.vuestro-list-item:not(.selected):not(:last-child):before {
+  position: absolute;
+  top: 100%;
+  left: 1em;
+  right: 1em;
+  content: " ";
+  border-bottom: 0.5px solid var(--vuestro-outline);
+}
+.vuestro-list-item-inner {
+  min-width: 0;
+  margin: 0.4em 0.2em 0.4em 0.8em;
+  display: flex;
 }
 .vuestro-list-item-text {
-  cursor: pointer;
-  flex-grow: 1;
-  padding: var(--vuestro-list-item-padding);
+  flex: 1;
+  min-width: 0;
 }
 .vuestro-list-item-title {
-  font-size: 1.2em;
-  font-weight: 400;
+  font-size: 0.9em;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .vuestro-list-item-description {
   font-size: 0.9em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
-
-.vuestro-list-item:nth-child(even) {
-  background-color: var(--vuestro-list-item-alt-bg);
+.vuestro-list-item-content {
+  color: var(--vuestro-text-color-muted);
+  font-size: 0.8em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
-.vuestro-list-item.selected {
-  background-color: var(--vuestro-list-item-selected-bg);
-}
-
 .vuestro-list-item-buttons {
-  margin-left: auto;
-  margin-right: 0.2em;
-  --vuestro-control-margin-v: 0.2em;
+  --vuestro-control-margin-v: 0.2em; /* shrink v margin so buttons stack closer */
+  margin: 0.2em 0.2em 0.2em auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 </style>
