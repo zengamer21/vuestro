@@ -166,6 +166,8 @@ export default {
   flex-wrap: wrap;
   padding: 0 0.2em;
   background-color: var(--vuestro-modal-footer-bg);
+	border-bottom-left-radius: var(--vuestro-modal-border-radius);
+	border-bottom-right-radius: var(--vuestro-modal-border-radius);
 }
 
 @media screen and (max-width: 768px) {
