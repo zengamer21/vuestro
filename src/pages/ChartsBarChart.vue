@@ -4,7 +4,7 @@
       <template #heading><span class="drag">Bar Chart</span></template>
       <template #description>The Vuestro Bar Chart</template>
       <div class="chart-wrapper">
-        <vuestro-bar-chart :data="data" :options="options1"></vuestro-bar-chart>
+        <vuestro-bar-chart :data="data" :options="options"></vuestro-bar-chart>
       </div>
     </vuestro-card>
 
@@ -81,7 +81,8 @@ export default {
           value3: 2,
         },
       ],
-      options1: {
+      options: {
+        enableStacked: true,
         series: [
           {
             title: 'Series 1',
