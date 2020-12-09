@@ -102,6 +102,7 @@ export default {
 .vuestro-list-item-title {
   font-size: 0.9em;
   font-weight: 600;
+	text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
