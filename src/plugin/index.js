@@ -12,6 +12,7 @@ import VuestroCheckOrX from '../components/VuestroCheckOrX';
 import VuestroContainer from '../components/VuestroContainer';
 import VuestroCleanKvp from '../components/text/VuestroCleanKvp';
 import VuestroColorPicker from '../components/VuestroColorPicker';
+import VuestroConfirmDelete from '../components/VuestroConfirmDelete';
 import VuestroDatePicker from '../components/date/VuestroDatePicker';
 import VuestroDropdown from '../components/VuestroDropdown';
 import VuestroDonutGauge from '../components/charts/VuestroDonutGauge';
@@ -58,6 +59,7 @@ export default {
     Vue.component(VuestroCard.name, VuestroCard);
     Vue.component(VuestroChartPanel.name, VuestroChartPanel);
     Vue.component(VuestroCheckOrX.name, VuestroCheckOrX);
+    Vue.component(VuestroConfirmDelete.name, VuestroConfirmDelete);
     Vue.component(VuestroContainer.name, VuestroContainer);
     Vue.component(VuestroCleanKvp.name, VuestroCleanKvp);
     Vue.component(VuestroColorPicker.name, VuestroColorPicker);

@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-tooltip"
-       :class="[ position, { active, rounded }]"
+       :class="[ derivedPosition, { active, rounded }]"
        @mouseover="onMouseOver"
        @mouseleave="onMouseLeave">
     <slot></slot>
@@ -26,6 +26,7 @@ export default {
   },
   data() {
     return {
+			derivedPosition: this.position,
       active: false,
       offsetX: 0,
       offsetY: 0,
@@ -33,7 +34,7 @@ export default {
   },
   computed: {
     style() {
-      switch(this.position) {
+      switch(this.derivedPosition) {
         case 'top':
           return {
             bottom: 'calc(100% + var(--vuestro-tooltip-arrow-size))',
@@ -61,24 +62,32 @@ export default {
       }
     },
   },
-  mounted() {
-    let bcr = this.$refs.content.getBoundingClientRect();
-    // handle right edge
-    if (bcr.right > window.innerWidth) {
-      this.offsetX =  window.innerWidth - this.$refs.content.getBoundingClientRect().right;
-    }
-    // handle left edge
-    if (this.$el.offsetLeft < this.$refs.content.clientWidth / 2) {
-      this.offsetX = this.$refs.content.clientWidth / 2 - this.$el.offsetLeft;
-    }
-  },
   methods: {
     onMouseOver() {
-      this.active = true;
-      this.$emit('enter');
-      return true;
+      console.log('onMouseOver')
+			this.derivedPosition = this.position;
+	    let bcr = this.$refs.content.getBoundingClientRect();
+	    // handle right edge
+	    if (bcr.right > window.innerWidth) {
+	      this.offsetX =  window.innerWidth - this.$refs.content.getBoundingClientRect().right;
+				if (this.position === 'right') {
+					this.derivedPosition = 'bottom';
+				}
+	    }
+	    // handle left edge
+	    if (this.$el.offsetLeft < this.$refs.content.clientWidth / 2) {
+	      this.offsetX = this.$refs.content.clientWidth / 2 - this.$el.offsetLeft;
+				if (this.position === 'left') {
+					this.derivedPosition = 'bottom';
+				}
+	    }
+			this.$nextTick(() => {
+	      this.active = true;
+	      this.$emit('enter');
+			});
     },
     onMouseLeave() {
+      console.log('onMouseLeave')
       this.active = false;
       this.$emit('leave');
     }

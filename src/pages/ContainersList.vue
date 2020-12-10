@@ -18,14 +18,12 @@
       <vuestro-list-item v-for="i in items" :key="i.name" :selected="selectedItem == i" @click="onClick(i)">
         <template #title>{{ i.sender }}</template>
         <template #description>{{ i.subject }}</template>
-        <template #content>{{ i.content }}</template>
+        <!-- <template #content>{{ i.content }}</template>  -->
         <template #buttons>
           <vuestro-button round no-border size="sm" @click="onEdit(i)">
             <vuestro-icon name="pen"></vuestro-icon>
           </vuestro-button>
-          <vuestro-button round no-border size="sm" variant="danger" @click="onDelete(i)">
-            <vuestro-icon name="trash"></vuestro-icon>
-          </vuestro-button>
+					<vuestro-confirm-delete @confirm="onDelete(i)"></vuestro-confirm-delete>
         </template>
       </vuestro-list-item>
     </vuestro-card>

@@ -1,8 +1,11 @@
 <template>
-  <div class="vuestro-list-item" :class="{ selected }" @click="onClick">
-
+  <div class="vuestro-list-item"
+	     :class="{ selected }"
+			 :style="{ 'z-index': zIndex }"
+			 @mouseenter="onMouseEnter"
+			 @mouseleave="onMouseLeave"
+	     @click="onClick">
     <div class="vuestro-list-item-inner">
-
       <div v-if="!$slots.default" class="vuestro-list-item-text">
         <div v-if="$slots.title" class="vuestro-list-item-title">
           <slot name="title"></slot>
@@ -18,7 +21,6 @@
         <slot></slot>
       </template>
     </div>
-
     <div class="vuestro-list-item-buttons">
       <slot name="buttons"></slot>
     </div>
@@ -32,6 +34,11 @@ export default {
   props: {
     selected: { type: Boolean, default: false },
   },
+	data() {
+		return {
+			zIndex: 0,
+		};
+	},
   methods: {
     onClick(e) {
       // if a vuestro-button is part of the path, ignore click
@@ -41,7 +48,13 @@ export default {
         }
       }
       this.$emit('click');
-    }
+    },
+		onMouseEnter() {
+			this.zIndex = 0;
+		},
+		onMouseLeave() {
+			this.zIndex = 0;			
+		},
   }
 };
 
@@ -66,11 +79,11 @@ export default {
   display: flex;
   cursor: pointer;
   position: relative;
-  z-index: 1;
+/*  z-index: 1;*/
 }
 /* the selection is drawn as pseudo-element so it can cover the border when selected */
 .vuestro-list-item.selected:before {
-  content: "";
+  content: " ";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -78,17 +91,18 @@ export default {
   right: 0;
   border-radius: var(--vuestro-selection-border-radius);
   background-color: var(--vuestro-list-item-selected-bg);
-  z-index: -1;
+  z-index: -1000;
 }
 /* draw a border at the bottom of all but the last child */
 /* of course these css pseudo-element manipulations assume all children are vuestro-list-item(s) */ 
-.vuestro-list-item:not(.selected):not(:last-child):before {
+.vuestro-list-item:not(.selected):not(:last-child):after {
   position: absolute;
   top: 100%;
   left: 1em;
   right: 1em;
   content: " ";
   border-bottom: 0.5px solid var(--vuestro-outline);
+	z-index: -2;
 }
 .vuestro-list-item-inner {
   min-width: 0;
