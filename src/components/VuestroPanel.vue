@@ -105,7 +105,7 @@ export default {
   --vuestro-panel-toolbar-fg: inherit;
   --vuestro-panel-toolbar-border: none;
   --vuestro-panel-box-shadow: 1px 3px 5px 0px rgba(0,0,0,0.1);
-  --vuestro-panel-border-radius: var(--vuestro-rounded-border-radius);
+  --vuestro-panel-border-radius: var(--vuestro-control-border-radius);
   --vuestro-panel-titlebar-min-height: 1.8em;
 }
 
@@ -147,7 +147,7 @@ export default {
 .vuestro-dark .vuestro-panel {
   background-color: var(--vuestro-panel-dark-bg);
   color: var(--vuestro-text-color-inverse);
-  border: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
+  border: var(--vuestro-control-border-width) solid var(--vuestro-outline);
 }
 .vuestro-panel.noBorder {
   box-shadow: none;
@@ -155,7 +155,7 @@ export default {
 }
 
 .vuestro-panel .vuestro-tray:not(:last-child) {
-  border-bottom: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
+  border-bottom: var(--vuestro-control-border-width) solid var(--vuestro-outline);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }

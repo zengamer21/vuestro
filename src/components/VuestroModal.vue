@@ -73,7 +73,7 @@ export default {
   --vuestro-modal-header-border: 1px solid rgba(0,0,0,0.2);
   --vuestro-modal-footer-border: 1px solid rgba(0,0,0,0.2);
   --vuestro-modal-width: 60vw;
-	--vuestro-modal-border-radius: var(--vuestro-rounded-border-radius);
+	--vuestro-modal-border-radius: var(--vuestro-control-border-radius);
 }
 
 .vuestro-app.mobile {

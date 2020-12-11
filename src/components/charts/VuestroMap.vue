@@ -306,7 +306,6 @@ export default {
           };
           break;
         case 'Circle':
-          console.log(e.layer)
           ret = {
             shape: e.shape,
             ...e.layer._latlng,
@@ -355,7 +354,7 @@ export default {
 .vuestro-map >>> .leaflet-bar > a,
 .vuestro-map >>> .leaflet-buttons-control-button {
   border-radius: 0;
-  border: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
+  border: var(--vuestro-control-border-width) solid var(--vuestro-outline);
 }
 
 .vuestro-map-popup-title {

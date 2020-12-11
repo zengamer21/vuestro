@@ -148,9 +148,9 @@ export default {
 /* GLOBAL STYLE VARIABLES */
 .vuestro-app {
   --vuestro-font-size: 14px;
-  --vuestro-rounded-border-radius: 5px;
   --vuestro-selection-border-radius: 8px;
-  --vuestro-rounded-border-width: 1px;
+  --vuestro-control-border-width: 1px;
+  --vuestro-control-border-radius: 5px;
   --vuestro-control-sm-height: 18px;
   --vuestro-control-md-height: 24px;
   --vuestro-control-lg-height: 32px;
@@ -252,8 +252,8 @@ export default {
 
 .vuestro-app.mobile {
   --vuestro-base-font-size: 32px;
-  --vuestro-rounded-border-radius: 10px;
-  --vuestro-rounded-border-width: 2px;
+  --vuestro-control-border-radius: 10px;
+  --vuestro-control-border-width: 2px;
   --vuestro-control-sm-height: 42px;
   --vuestro-control-md-height: 50px;
   --vuestro-control-lg-height: 64px;

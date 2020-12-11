@@ -18,26 +18,57 @@
           <vuestro-button ref="buttonWithTooltip">top</vuestro-button>
         </vuestro-tooltip>
 
-        <vuestro-tooltip position="left" rounded min-width="200">
+        <vuestro-tooltip position="left">
           <template #content>
             hello this is a tooltip with components inside
             <vuestro-button>test</vuestro-button>
           </template>
           <vuestro-button ref="buttonWithTooltip">left</vuestro-button>
         </vuestro-tooltip>
-        <vuestro-tooltip position="right" min-width="200">
+        <vuestro-tooltip position="right">
           <template #content>
             hello this is a tooltip with components inside
             <vuestro-button>test</vuestro-button>
           </template>
           <vuestro-button ref="buttonWithTooltip">right</vuestro-button>
         </vuestro-tooltip>
-        <vuestro-tooltip position="bottom" min-width="200">
+        <vuestro-tooltip position="bottom">
           <template #content>
             hello this is a tooltip with components inside
             <vuestro-button>test</vuestro-button>
           </template>
           <vuestro-button ref="buttonWithTooltip">bottom</vuestro-button>
+        </vuestro-tooltip>
+      </vuestro-container>
+
+      <vuestro-container space-between>
+        <vuestro-tooltip position="left">
+          <template #content>
+            hello this is a tooltip with components inside
+            <vuestro-button>test</vuestro-button>
+          </template>
+          <vuestro-button ref="buttonWithTooltip">left</vuestro-button>
+        </vuestro-tooltip>
+        <vuestro-tooltip>
+          <template #content>
+            hello this is a tooltip with components inside
+            <vuestro-button>test</vuestro-button>
+          </template>
+          <vuestro-button ref="buttonWithTooltip">top</vuestro-button>
+        </vuestro-tooltip>
+        <vuestro-tooltip position="bottom">
+          <template #content>
+            hello this is a tooltip with components inside
+            <vuestro-button>test</vuestro-button>
+          </template>
+          <vuestro-button ref="buttonWithTooltip">bottom</vuestro-button>
+        </vuestro-tooltip>
+        <vuestro-tooltip position="right">
+          <template #content>
+            hello this is a tooltip with components inside
+            <vuestro-button>test</vuestro-button>
+          </template>
+          <vuestro-button ref="buttonWithTooltip">right</vuestro-button>
         </vuestro-tooltip>
       </vuestro-container>
 
