@@ -18,6 +18,16 @@
           fill-opacity="0.7"
           :stroke="bar.color">
         </rect>
+        <template v-if="enableLabels === true">
+          <text v-for="barLabel in barSet.data" 
+            :key="barLabel.id"
+            :x="barLabel.x+barLabel.width/2"
+            :y="barLabel.y-5"
+            text-anchor="middle"
+            font-size="10px">
+            {{barLabel.value}}
+          </text>
+        </template>
       </g>
       <!-- GRID -->
       <g v-if="enableGrid">
@@ -92,6 +102,7 @@
         gridY: [],
         //options
         enableStacked: false,
+        enableLabels: false,
         enableGrid: false,
         enableGridLabels: false,
       };

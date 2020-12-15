@@ -82,8 +82,9 @@ export default {
         },
       ],
       options: {
-        enableStacked: false,
-        enableGrid: true,
+        enableStacked: true,
+        enableLabels: true,
+        enableGrid: false,
         enableGridLabels: false,
         series: [
           {
