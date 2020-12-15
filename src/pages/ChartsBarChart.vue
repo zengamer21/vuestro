@@ -82,7 +82,9 @@ export default {
         },
       ],
       options: {
-        enableStacked: true,
+        enableStacked: false,
+        enableGrid: true,
+        enableGridLabels: false,
         series: [
           {
             title: 'Series 1',

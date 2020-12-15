@@ -5,21 +5,40 @@
          :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
          @mousemove="onMouseover">
       <!--BARS-->
-      <g v-for="d in localData">
-        <rect v-for="s in processedSeries" :key="s.field"
-              class="vuestro-bar-chart-bar"
-              :x="d[`${s.field}_x`]"
-              :y="d[`${s.field}_y`]"
-              :width="d.width"
-              :height="d[`${s.field}_height`]"
-              :fill="s.color"
-              fill-opacity="0.7"
-              :stroke="s.color">
+      <g v-for="barSet in barsData" 
+        :key="barSet.id">
+        <rect v-for="bar in barSet.data"
+          :key="bar.id"
+          class="vuestro-bar-chart-bar"
+          :x="bar.x"
+          :y="bar.y"
+          :width="bar.width"
+          :height="bar.height"
+          :fill="bar.color"
+          fill-opacity="0.7"
+          :stroke="bar.color">
         </rect>
+      </g>
+      <!-- GRID -->
+      <g v-if="enableGrid">
+        <line v-for="line in gridX.x"
+          :key="line.id"
+          :x1="line+gridX.width"
+          :x2="line+gridX.width"
+          stroke="black"
+          :y1="height"
+          y2=0 />
+        <line v-for="line in gridY"
+          :key="line.id"
+          x1=0
+          :x2="width"
+          stroke="black"
+          :y1="line"
+          :y2="line" />
       </g>
       <!--TOOLTIP-->
       <template v-if="!hideTooltip && cursorLine.length > 0">
-        <path class="vuestro-bar-chart-cursor" :d="cursorLine" />
+        <!--<path class="vuestro-bar-chart-cursor" :d="cursorLine" />-->
         <vuestro-svg-tooltip :x="mouseX"
                              :x-max="width"
                              :y="mouseY"
@@ -68,10 +87,13 @@
         utc: false,
         mouseX: 0,
         mouseY: 0,
-        yGrid: {},
-        barData: [],
+        barsData: [],
+        gridX: [],
+        gridY: [],
         //options
         enableStacked: false,
+        enableGrid: false,
+        enableGridLabels: false,
       };
     },
     /* THIS IS CURRENTLY UNUSED
@@ -111,7 +133,7 @@
       //on resize event call function this.resize
       window.addEventListener('resize', this.resize);
       this.resize();
-      this.updateYAxis();
+      //this.updateYAxis();
     },
     //before removal call these functions
     beforeDestroy() {
@@ -120,53 +142,111 @@
     },
     //support methods
     methods: {
+      //generate grid x
+      generateGridX(scaleX) {
+        let scale = {};
+        let x = [];
+        for(let i=0; i<this.localData.length; i++) {
+          for(let j=0; j<this.series.length; j++) {
+            let width = scaleX.bandwidth()/this.series.length;
+            scale.width = width/2;
+            x.push(scaleX(this.localData[i]["key"]) + j*(width+1));
+          }
+        }
+        scale.x = x;
+        this.gridX = scale;
+      },
+      //generate grid y
+      generateGridY() {
+        let y = []
+        console.log(this.height/15);
+        for(let i=0; i<15; i++) {
+          y.push(i*20)
+        }
+        this.gridY = y;
+      },
+      //generate bar data
+      generateBarData(scaleX, scaleY) {
+        //reset bars data
+        this.barsData = [];
+        // set the bar descriptions
+        for(let i=0; i<this.localData.length; i++) {
+          //set key (date)
+          let bars = {"key": this.localData[i].key}
+          let barsData = [];
+          //add bars data field
+          bars.data = barsData;
+          let first = true;
+          let firstValue;
+          for(let j=0; j<this.series.length; j++) {
+            let bar = {};
+            //append value
+            bar.value = this.localData[i][this.series[j].field];
+            //calculate width of bar
+            bar.width = scaleX.bandwidth()/this.series.length;
+            //call scaleX function on date key + index * width of bar
+            //if stacks are enabled do not change x
+            if(this.enableStacked) {
+              if(first) {
+                firstValue = scaleX(this.localData[i]["key"]);
+                bar.x = firstValue;
+                first = false;
+              } else {
+                bar.x = firstValue;
+              }
+            } else {
+              bar.x = scaleX(this.localData[i]["key"]) + j*(bar.width+1);
+            }
+            //call scaleY function on 'data'['value1-3'] - 1
+            bar.y = scaleY(this.localData[i][this.series[j].field]) - 1;
+            //calculate height of bar
+            bar.height = this.height - scaleY(this.localData[i][this.series[j].field]);
+            //set color
+            bar.color = this.color(this.series[j].field);
+            //set key
+            bar.key = this.localData[i]["key"]+j;
+            //append bar to bars data
+            barsData.push(bar);
+          }
+          //if stacks are enabled sort heights
+          if(this.enableStacked) {
+            barsData.sort(function(a,b){return a.height-b.height});
+            barsData = barsData.reverse()
+          }
+          //put bars data into dynamic data
+          this.barsData.push(bars)          
+        }       
+      },
       resize() {
         if (this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
           this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
-          this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
+          this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;        
           this.redraw();
         }
       },
       redraw() {
         this.localData = _.cloneDeep(this.data);
-
+        //function to scale x
         let scaleX = d3.scaleBand()
                       .domain(this.data.map((d) => { return d[this.categoryKey]; }))
                       .rangeRound([this.margin.left, this.width - this.margin.right])
                       .padding(this.padding);
 
+        //function to scale y
         let scaleY = d3.scaleLinear().range([this.height, 0]);
-        console.log(scaleY);
-        this.yGrid = scaleY;
-        let stackedData;
-        let extents;
-        if (this.stacked) {
-          let keys = _.flatMap(this.series, 'field');
-          stackedData = d3.stack().keys(keys)(this.localData);
-          extents = this.series.map((series, idx) => {
-            return d3.extent(_.flatten(stackedData[idx]));
-          });
-        } else {
-          extents = this.series.map((series) => {
-            return d3.extent(this.localData, function(d) { return d[series.field]; });
-          });
-        }
+        
+        //d3.extent is a function that returns min and max of an array
+        let extents = this.series.map((series) => {
+          return d3.extent(this.localData, function(d) { return d[series.field]; });
+        });
+        //add domain to function scale Y
         scaleY.domain([0, d3.max(extents, function(d) { return d[1] * 1.1; })]);
-
-        // set the bar descriptions
-        for (let [di, d] of this.localData.entries()) {
-          for (const [si, s] of this.series.entries()) {
-            if (stackedData) {
-              d[`${s.field}_y`] = scaleY(stackedData[si][di][0]);
-              d[`${s.field}_height`] = scaleY(stackedData[si][di][1]);
-            } else {
-              d.width = scaleX.bandwidth() / this.series.length;
-              d[`${s.field}_x`] = scaleX(d[this.categoryKey]) + si*(d.width + 1);
-              d[`${s.field}_y`] = scaleY(d[s.field]) - 1;
-              d[`${s.field}_height`] = this.height - scaleY(d[s.field]);
-              d.center = scaleX(d[this.categoryKey]) + scaleX.bandwidth() / 2;
-            }
-          }
+        //generate bar data
+        this.generateBarData(scaleX, scaleY);
+        //generate grid
+        if(this.enableGrid) {
+          this.generateGridX(scaleX);
+          this.generateGridY(scaleY);
         }
       },
       onMouseover({ offsetX }) {

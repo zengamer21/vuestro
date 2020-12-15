@@ -144,13 +144,14 @@ export default {
       return d3.area().x(d => d.center).y0(this.height).y1(0);
     },*/
   },
-  
+  /* UNUSED
   watch: {
     //called early in the component lifecycle, so basically initialization is redraw()
     data(newVal) {
+      console.log("i'm called?")
       this.redraw();
     },
-  },
+  },*/
   
   //load options data in
   beforeMount() {
