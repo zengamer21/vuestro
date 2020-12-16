@@ -42,28 +42,7 @@
       </vuestro-card>
 
       <vuestro-card cols="6">
-        <vuestro-panel dark content-padding="lg">
-          <template #title>Dark Vuestro Panel</template>
-          <template #toolbar>
-            <vuestro-button size="sm" pill variant="white" no-border dark>
-              <template #icon>
-                <vuestro-icon name="sync-alt"></vuestro-icon>
-              </template>
-              Refresh
-            </vuestro-button>
-            <vuestro-button size="sm" round no-border dark>
-              <vuestro-icon name="at"></vuestro-icon>
-            </vuestro-button>
-            <vuestro-button size="sm" round variant="danger" no-border dark>
-              <vuestro-icon name="times"></vuestro-icon>
-            </vuestro-button>
-          </template>
-          <p>Set the dark property on VuestroPanel to turn the lights out.<br><br>Remember to set dark on VuestroButtons on the toolbar for a matching effect.</p>
-        </vuestro-panel>
-      </vuestro-card>
-
-      <vuestro-card cols="6">
-        <vuestro-panel dark color="var(--vuestro-purple)" :stretch="false" content-padding="lg">
+        <vuestro-panel content-padding="lg" style="--vuestro-panel-bg: var(--vuestro-purple); --vuestro-panel-fg: var(--vuestro-text-color-inverse)">
           <template #title>Colorized Vuestro Panel Titlebar</template>
           <template #toolbar>
             <vuestro-button size="sm" no-border pill variant="white">

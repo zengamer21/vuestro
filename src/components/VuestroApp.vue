@@ -194,8 +194,7 @@ export default {
 
   /* the following are theme-able colors */
   --vuestro-content-bg: #f7f9fa;
-  --vuestro-panel-bg: #fff;
-  --vuestro-panel-dark-bg: #636363; /* panel forced dark mode */
+
   --vuestro-widget-light-bg: #e8e9ec;
   --vuestro-widget-dark-bg: #2f353f;
 
@@ -221,7 +220,6 @@ export default {
 /* DARK UI OVERRIDES */
 .vuestro-dark {
   --vuestro-content-bg: #1b1c21;
-  --vuestro-panel-dark-bg: #2e2f34; /* panel will use this in global dark mode */
 
   --vuestro-widget-dark-bg: #383b3f;
   --vuestro-widget-light-bg: var(--vuestro-widget-dark-bg);

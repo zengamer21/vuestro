@@ -5,7 +5,6 @@
 <script>
 
 import Home from '@/pages/breadcrumb/Home';
-import Edit from '@/pages/breadcrumb/Edit';
 
 export default {
   name: 'ContainersBreadcrumb',
@@ -15,7 +14,6 @@ export default {
         {
           title: 'Home',
           icon: 'home',
-          id: 'home',
           component: Home,
           data: [
             {
@@ -63,11 +61,6 @@ export default {
 
           },
         },
-        {
-          title: 'Edit',
-          id: 'edit',
-          component: Edit,
-        }
       ],
     };
   },

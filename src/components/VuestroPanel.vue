@@ -1,7 +1,6 @@
 <template>
   <div class="vuestro-panel"
-       :class="[ gutter, { dark, stretch, noBorder, hasTitlebar }]"
-       :style="color ? { 'background-color': color }:{}">
+       :class="[ gutter, { stretch, noBorder, hasTitlebar }]">
     <!--TOOLBAR-->
     <div v-if="hasTitlebar" class="vuestro-panel-title-toolbar">
       <vuestro-caret v-if="collapsible"
@@ -42,9 +41,7 @@
 export default {
   name: 'VuestroPanel',
   props: {
-    dark: { type: Boolean, default: false },
     gutter: { type: String, default: 'md' },
-    color: { type: String, default: null },
     spinner: { type: Boolean, default: false },
     collapsible: { type: Boolean, default: false },
     deferContent: { type: Boolean, default: false },   // defer loading/rendering of content until expanded
@@ -101,12 +98,21 @@ export default {
 <style>
 
 .vuestro-app {
+  --vuestro-panel-bg: #fff;
+  --vuestro-panel-fg: inherit;
   --vuestro-panel-toolbar-bg: inherit;
   --vuestro-panel-toolbar-fg: inherit;
   --vuestro-panel-toolbar-border: none;
+  --vuestro-panel-border: none;
   --vuestro-panel-box-shadow: 1px 3px 5px 0px rgba(0,0,0,0.1);
   --vuestro-panel-border-radius: var(--vuestro-control-border-radius);
   --vuestro-panel-titlebar-min-height: 1.8em;
+}
+
+.vuestro-dark.vuestro-app {
+  --vuestro-panel-bg: #2e2f34;
+  --vuestro-panel-fg: var(--vuestro-text-color-inverse);
+  --vuestro-panel-border: var(--vuestro-control-border-width) solid var(--vuestro-outline);
 }
 
 </style>
@@ -128,26 +134,20 @@ export default {
 
 .vuestro-panel {
   background-color: var(--vuestro-panel-bg);
+  color: var(--vuestro-panel-fg);
   transition: background-color 0.4s;
   border-radius: var(--vuestro-panel-border-radius);
   box-shadow: var(--vuestro-panel-box-shadow);
   display: flex;
   flex-direction: column;
   position: relative;
+  border: var(--vuestro-panel-border);
 }
 .vuestro-panel.stretch {
   flex-grow: 1;
 }
 .vuestro-panel:not(:first-child) {
   margin-top: var(--gutter-size);
-}
-
-/* border only for dark ui, whether it's forced through a prop, or global */
-.vuestro-panel.dark,
-.vuestro-dark .vuestro-panel {
-  background-color: var(--vuestro-panel-dark-bg);
-  color: var(--vuestro-text-color-inverse);
-  border: var(--vuestro-control-border-width) solid var(--vuestro-outline);
 }
 .vuestro-panel.noBorder {
   box-shadow: none;

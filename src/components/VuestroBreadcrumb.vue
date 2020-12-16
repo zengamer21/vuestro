@@ -43,13 +43,13 @@ export default {
     this.stack.push(this.pages[0]);
   },
   methods: {
-    onDescend({ id, data, options }) {
-      // find page with given id
-      let page = _.find(this.pages, { id });
-      if (page) {
-        page.data = _.merge(page.data, data);
-        page.options = _.merge(page.options, options);
-        this.stack.push(page);
+    onDescend(pageObj) {
+      // add to stack if it has the required fields
+      if (pageObj.title &&
+          pageObj.component) {
+        this.stack.push(pageObj);
+      } else {
+        console.warn('missing fields for breadcrumb push');
       }
     },
     // ascend one level

@@ -27,13 +27,16 @@
 
 <script>
 
+import Edit from '@/pages/breadcrumb/Edit';
+
 export default {
   name: 'Home',
   props: ['data', 'options'],
   methods: {
     onEdit(item) {
       this.$emit('descend', {
-        id: 'edit',
+        title: 'Edit',
+        component: Edit,
         data: item,
         options: {},
       });
