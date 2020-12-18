@@ -5,8 +5,17 @@
       :height="height"
       :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
 		>
+      <!-- BACKGROUND -->
+      <g>
+        <rect :width="width+2"
+         :height="height"
+         fill="black"
+         opacity="0.75" />         
+      </g>
       <!--PIE-->
-      <g v-for="d in localData" :transform="`translate(${d.pieX},${d.pieY})`">
+      <g v-for="d in localData" 
+      :key="d.id"
+      :transform="`translate(${d.pieX},${d.pieY})`">
         <path v-for="s in processedSeries"
           :key="s.field"
           :d="d.arc"
@@ -20,7 +29,8 @@
         <text v-if="enableLabels"
           :x="d.label[0]"
           :y="d.label[1]"
-          text-anchor="middle">
+          text-anchor="middle"
+          fill="white">
           {{d.key}}
         </text>
       </g> 
@@ -28,7 +38,8 @@
         <text v-if="enableDonut"
           :x="pieX"
           :y="pieY+5"
-          text-anchor="middle">
+          text-anchor="middle"
+          fill="white">
           {{donutTextValue}}
         </text>
       </g>

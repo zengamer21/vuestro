@@ -84,7 +84,8 @@ export default {
       options: {
         enableStacked: true,
         enableLabels: true,
-        enableGrid: false,
+        enableLegend: true,
+        enableGrid: true,
         enableGridLabels: false,
         series: [
           {

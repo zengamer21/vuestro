@@ -9,7 +9,7 @@
                     :stroke="pieSection.color"
                     stroke-width="2">
                 |</tspan>
-                <tspan fill="black">{{ pieSection.key + " - " + pieSection.valuePercentage}}</tspan>
+                <tspan fill="white">{{ pieSection.key + " - " + pieSection.valuePercentage}}</tspan>
             </template>
         </text>
     </g>

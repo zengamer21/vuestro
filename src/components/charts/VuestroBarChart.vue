@@ -1,9 +1,35 @@
 <template>
   <div class="vuestro-bar-chart" >
-    <svg :width="width"
+    <svg :width="width+2"
          :height="height"
          :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
          @mousemove="onMouseover">
+      <!-- BACKGROUND -->
+      <g>
+        <rect :width="width+2"
+         :height="height"
+         fill="black"
+         opacity="0.75" />         
+      </g>
+      <!-- GRID -->
+      <g v-if="enableGrid">
+        <line v-for="line in gridX.x"
+          :key="line.id"
+          :x1="line+gridX.width"
+          :x2="line+gridX.width"
+          stroke="black"
+          stroke-opacity="0.2"
+          :y1="height-legendShift"
+          y2=0 />
+        <line v-for="line in gridY"
+          :key="line.id"
+          x1=0
+          :x2="width"
+          stroke="black"
+          stroke-opacity="0.2"
+          :y1="line-legendShift"
+          :y2="line-legendShift" />
+      </g>
       <!--BARS-->
       <g v-for="barSet in barsData" 
         :key="barSet.id">
@@ -18,35 +44,32 @@
           fill-opacity="0.7"
           :stroke="bar.color">
         </rect>
-        <template v-if="enableLabels === true">
+        <template v-if="enableLabels">
           <text v-for="barLabel in barSet.data" 
             :key="barLabel.id"
             :x="barLabel.x+barLabel.width/2"
             :y="barLabel.y-5"
             text-anchor="middle"
-            font-size="10px">
+            font-size="10px"
+            fill="white">
             {{barLabel.value}}
           </text>
         </template>
       </g>
-      <!-- GRID -->
-      <g v-if="enableGrid">
-        <line v-for="line in gridX.x"
-          :key="line.id"
-          :x1="line+gridX.width"
-          :x2="line+gridX.width"
-          stroke="black"
-          :y1="height"
-          y2=0 />
-        <line v-for="line in gridY"
-          :key="line.id"
-          x1=0
-          :x2="width"
-          stroke="black"
-          :y1="line"
-          :y2="line" />
+      <!-- LEGEND -->
+      <g v-if="enableLegend">
+        <text font-size="10px" :x="0" :y="height-5">
+          <tspan v-for="element in legendData"
+              :key="element.id"
+              dx="1.2em"
+              :fill="element.color" 
+              :stroke="element.color"
+              stroke-width="2">|
+              <tspan font-size="10px" fill="white" stroke="black" stroke-width="0">{{element.title}}</tspan>
+          </tspan>
+        </text> 
       </g>
-      <!--TOOLTIP-->
+      <!-- TOOLTIP -->
       <template v-if="!hideTooltip && cursorLine.length > 0">
         <!--<path class="vuestro-bar-chart-cursor" :d="cursorLine" />-->
         <vuestro-svg-tooltip :x="mouseX"
@@ -98,21 +121,18 @@
         mouseX: 0,
         mouseY: 0,
         barsData: [],
+        legendData: [],
         gridX: [],
         gridY: [],
         //options
         enableStacked: false,
+        enableLegend: false,
         enableLabels: false,
+        legendShift: 0,
         enableGrid: false,
         enableGridLabels: false,
       };
     },
-    /* THIS IS CURRENTLY UNUSED
-    watch: {
-      data(newVal) {
-        this.redraw();
-      },
-    }, */
     //computed methods reactively change to data changes, 
     //think of it as a dynamic data property 
     computed: {
@@ -153,6 +173,17 @@
     },
     //support methods
     methods: {
+      //generate legend data
+      generateLegend() {
+        this.legendData = [];
+        for(let i=0; i<this.series.length; i++) {
+          let legendKey = {}
+          legendKey.title = this.series[i].title;
+          legendKey.color = this.color(this.series[i].field);
+          this.legendData.push(legendKey);
+        }
+        console.log(this.legendData);
+      },
       //generate grid x
       generateGridX(scaleX) {
         let scale = {};
@@ -178,6 +209,9 @@
       },
       //generate bar data
       generateBarData(scaleX, scaleY) {
+        if(this.enableLegend) {
+          this.legendShift = 20;
+        }
         //reset bars data
         this.barsData = [];
         // set the bar descriptions
@@ -208,8 +242,8 @@
             } else {
               bar.x = scaleX(this.localData[i]["key"]) + j*(bar.width+1);
             }
-            //call scaleY function on 'data'['value1-3'] - 1
-            bar.y = scaleY(this.localData[i][this.series[j].field]) - 1;
+            //call scaleY function on 'data'['value1-3'] - 10
+            bar.y = scaleY(this.localData[i][this.series[j].field]) - this.legendShift;            
             //calculate height of bar
             bar.height = this.height - scaleY(this.localData[i][this.series[j].field]);
             //set color
@@ -259,6 +293,10 @@
           this.generateGridX(scaleX);
           this.generateGridY(scaleY);
         }
+        //generate legend
+        if(this.enableLegend) {
+          this.generateLegend();
+        }
       },
       onMouseover({ offsetX }) {
         this.mouseX = event.offsetX;//+75;
@@ -285,12 +323,6 @@
       },
       onMouseleave() {
         this.cursorLine = '';
-      },
-      updateYAxis(){
-        console.log("yo");
-        d3.select(this.$refs.yAxis).append("g")
-          .attr("class", "axis axis--y")
-          .call(d3.axisLeft(this.scaleY))
       },
     },
   };
