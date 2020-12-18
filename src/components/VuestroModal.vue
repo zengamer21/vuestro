@@ -23,6 +23,9 @@
         <div class="vuestro-modal-default-slot">
           <slot></slot>
         </div>
+        <div v-if="$slots.footer">
+          <slot name="footer"></slot>
+        </div>
         <div v-if="$slots.buttons" class="vuestro-modal-buttons">
           <slot name="buttons"></slot>
         </div>

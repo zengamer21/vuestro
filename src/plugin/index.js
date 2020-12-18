@@ -24,6 +24,7 @@ import VuestroForceGraph from '../components/charts/VuestroForceGraph';
 import VuestroGeoPattern from '../components/VuestroGeoPattern';
 import VuestroGrid from '../components/grid/VuestroGrid';
 import VuestroGridBox from '../components/grid/VuestroGridBox';
+import VuestroHr from '../components/VuestroHr';
 import VuestroIcon from '../components/VuestroIcon';
 import VuestroListButton from '../components/list/VuestroListButton';
 import VuestroListGroup from '../components/list/VuestroListGroup';
@@ -74,6 +75,7 @@ export default {
     Vue.component(VuestroGeoPattern.name, VuestroGeoPattern);
     Vue.component(VuestroGrid.name, VuestroGrid);
     Vue.component(VuestroGridBox.name, VuestroGridBox);
+    Vue.component(VuestroHr.name, VuestroHr);
     Vue.component(VuestroIcon.name, VuestroIcon);
     Vue.component(VuestroListButton.name, VuestroListButton);
     Vue.component(VuestroListGroup.name, VuestroListGroup);
