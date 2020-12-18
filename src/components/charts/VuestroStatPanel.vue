@@ -1,5 +1,5 @@
 <template>
-  <vuestro-panel class="vuestro-stat-panel" :color="color" frame>
+  <vuestro-panel class="vuestro-stat-panel" :style="style" frame>
     <div class="vuestro-stat-panel-title drag">{{ title }}</div>
     <vuestro-icon class="vuestro-stat-panel-icon" v-if="icon" :name="icon"></vuestro-icon>
     <div class="vuestro-stat-panel-value"
@@ -26,6 +26,13 @@ export default {
       color: 'var(--vuestro-primary)',
       icon: null,
     };
+  },
+  computed: {
+    style() {
+      return {
+        '--vuestro-panel-bg': this.color,
+      };
+    },
   },
   beforeMount() {
     _.merge(this, this.options);
