@@ -5,6 +5,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
+  output: {
+    publicPath: '/',
+  },
   devServer: {
     host: '0.0.0.0',
     historyApiFallback: true,
