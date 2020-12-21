@@ -1,7 +1,7 @@
 <template>
-  <vuestro-tooltip class="vuestro-confirm-delete" position="left" rounded>
+  <vuestro-tooltip class="vuestro-confirm-delete" position="left">
     <template #default>
-      <vuestro-button size="sm" no-margin round no-border variant="danger">
+      <vuestro-button :size="size" no-margin round no-border variant="danger">
         <vuestro-icon name="trash"></vuestro-icon>
       </vuestro-button>
     </template>
@@ -17,6 +17,9 @@
 
 export default {
   name: 'VuestroConfirmDelete',
+  props: {
+    size: { type: String, default: 'md'},
+  },
   methods: {
     onConfirm() {
       this.$emit('confirm');
@@ -32,6 +35,7 @@ export default {
   display: flex;
   white-space: nowrap;
   align-items: center;
+  position: relative;
 }
 
 </style>

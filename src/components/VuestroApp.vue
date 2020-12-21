@@ -148,9 +148,9 @@ export default {
 /* GLOBAL STYLE VARIABLES */
 .vuestro-app {
   --vuestro-font-size: 14px;
-  --vuestro-rounded-border-radius: 5px;
   --vuestro-selection-border-radius: 8px;
-  --vuestro-rounded-border-width: 1px;
+  --vuestro-control-border-width: 1px;
+  --vuestro-control-border-radius: 5px;
   --vuestro-control-sm-height: 18px;
   --vuestro-control-md-height: 24px;
   --vuestro-control-lg-height: 32px;
@@ -194,8 +194,7 @@ export default {
 
   /* the following are theme-able colors */
   --vuestro-content-bg: #f7f9fa;
-  --vuestro-panel-bg: #fff;
-  --vuestro-panel-dark-bg: #636363; /* panel forced dark mode */
+
   --vuestro-widget-light-bg: #e8e9ec;
   --vuestro-widget-dark-bg: #2f353f;
 
@@ -221,7 +220,6 @@ export default {
 /* DARK UI OVERRIDES */
 .vuestro-dark {
   --vuestro-content-bg: #1b1c21;
-  --vuestro-panel-dark-bg: #2e2f34; /* panel will use this in global dark mode */
 
   --vuestro-widget-dark-bg: #383b3f;
   --vuestro-widget-light-bg: var(--vuestro-widget-dark-bg);
@@ -252,8 +250,8 @@ export default {
 
 .vuestro-app.mobile {
   --vuestro-base-font-size: 32px;
-  --vuestro-rounded-border-radius: 10px;
-  --vuestro-rounded-border-width: 2px;
+  --vuestro-control-border-radius: 10px;
+  --vuestro-control-border-width: 2px;
   --vuestro-control-sm-height: 42px;
   --vuestro-control-md-height: 50px;
   --vuestro-control-lg-height: 64px;

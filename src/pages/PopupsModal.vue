@@ -79,6 +79,9 @@
             <span>Refresh</span>
           </vuestro-button>
         </template>
+        <template #footer>
+          <vuestro-hr></vuestro-hr>
+        </template>
         <template #buttons>
           <vuestro-dropdown click-to-open close-on-content-click>
             <template #button>

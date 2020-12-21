@@ -45,11 +45,11 @@ export default {
 }
 
 .vuestro-tray-outline {
-  border-radius: var(--vuestro-rounded-border-radius);
-  border: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
+  border-radius: var(--vuestro-control-border-radius);
+  border: var(--vuestro-control-border-width) solid var(--vuestro-outline);
 }
 .vuestro-tray-regular {
-  border-bottom: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
+  border-bottom: var(--vuestro-control-border-width) solid var(--vuestro-outline);
 }
 
 .vuestro-tray-shaded {

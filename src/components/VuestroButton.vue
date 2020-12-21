@@ -138,8 +138,8 @@ export default {
 }
 
 .vuestro-button-inner {
-  border: var(--vuestro-rounded-border-width) solid var(--variant-color);
-  border-radius: var(--vuestro-rounded-border-radius);
+  border: var(--vuestro-control-border-width) solid var(--variant-color);
+  border-radius: var(--vuestro-control-border-radius);
   margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
   color: var(--variant-color);
   cursor: pointer;
@@ -325,9 +325,9 @@ export default {
 /* checkbox mode */
 .vuestro-button-inner.checkbox {
   padding: 0; /* clear padding */
-  border: var(--vuestro-rounded-border-width) solid var(--vuestro-field-bg);
+  border: var(--vuestro-control-border-width) solid var(--vuestro-field-bg);
   background-color: var(--vuestro-field-bg);
-  border-radius: var(--vuestro-rounded-border-radius);
+  border-radius: var(--vuestro-control-border-radius);
 }
 .vuestro-button-inner.checkbox:hover {
   border-color: var(--variant-color);
