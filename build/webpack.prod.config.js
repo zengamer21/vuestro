@@ -17,7 +17,7 @@ const webpackConfig = merge(baseWebpackConfig, {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: '../',
+              publicPath: '../../',
             },
           },
           'css-loader'
