@@ -32,7 +32,7 @@
         <template v-if="enableYGridLabel">          
           <text v-for="line in gridY" 
             :key="line.id"
-            :x="gridPadding-3"
+            :x="gridPadding-6"
             :y="line.coordinate+3"
             text-anchor="end"
             font-size="10px"
@@ -70,6 +70,19 @@
             font-size="10px"
             fill="white">
             {{barLabel.value}}
+          </text>
+        </template>     
+        <template v-if="enableXGridLabel">          
+          <text v-for="label in xLabels" 
+            :key="label.id"
+            :x="label.x"
+            :y="height-gridPadding-legendShift+12"
+            text-anchor="middle"
+            font-size="10px"
+            fill-opacity="0.2"
+            fill="white"
+            font-weight="normal">
+            {{label.key}}
           </text>
         </template>
       </g>
@@ -143,6 +156,7 @@
         numYLines: 10,
         gridPadding: 0,
         yMax: 0,
+        xLabels: [],
         toolTipData: {},
         showToolTip: false,
         //options
@@ -153,7 +167,7 @@
         legendShift: 0,
         enableGrid: false,
         enableYGridLabel: false,
-        enableGridLabels: false,
+        enableXGridLabel: false,
       };
     },
     //computed methods reactively change to data changes, 
@@ -224,6 +238,38 @@
         x.push(x[0]-width);
         scale.x = x;
         this.gridX = scale;
+      },
+      //generate x grid labels
+      generateXLabels() {
+        let data = [];
+        //stacked
+        if(this.enableStacked) {
+          //add label for each set of bars
+          for(let i=0; i<this.barsData.length; i++) {
+            let label = {};
+            label.key = this.barsData[i].key;
+            label.x = this.barsData[i].data[0].x+this.barsData[i].data[0].width/2;
+            data.push(label);
+          }
+        }
+        //unstacked
+        else {
+          //add label for each set of bars
+          for(let i=0; i<this.barsData.length; i++) {
+            let label = {};
+            label.key = this.barsData[i].key;
+            let barData = this.barsData[i].data;
+            let totalX = 0;
+            //average of number of bars
+            for(let j=0; j<barData.length; j++) {
+              totalX += barData[j].x;            
+            }
+            label.x = totalX/barData.length+this.barsData[i].data[0].width/2;
+            data.push(label);
+          }
+        }
+        this.xLabels = data;      
+        console.log(this.xLabels);
       },
       //generate grid y
       generateGridY() {
@@ -300,7 +346,11 @@
           }
           //put bars data into dynamic data
           this.barsData.push(bars)          
-        }       
+        }   
+        //generate x labels
+        if(this.enableXGridLabel) {
+          this.generateXLabels();
+        }
       },
       resize() {
         //set legend shift if legend is enabled
@@ -326,8 +376,7 @@
         //d3.extent is a function that returns min and max of an array
         let extents = this.series.map((series) => {
           return d3.extent(this.localData, function(d) { return d[series.field]; });
-        });
-        
+        });        
         //set y max
         this.yMax = Math.trunc((d3.max(extents, function(d) { return d[1] * 1.1 ; })));        
         //add domain to function scale Y
@@ -344,9 +393,11 @@
           this.generateLegend();
         }
       },
+      //enable tooltip
       onMouseenter({ offsetX }) {
         this.showToolTip = true;
       },
+      //disable tooltip
       onMouseexit({ offsetX }) {
         this.showToolTip = false;
       },

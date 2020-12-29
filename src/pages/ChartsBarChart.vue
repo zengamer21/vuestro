@@ -84,13 +84,13 @@ export default {
       ],
       options: {
         gridPadding: 20,
-        enableStacked: true,
+        enableStacked: false,
         enableToolTip: true,
         enableYGridLabel: true,
+        enableXGridLabel: true,
         enableLabels: true,
         enableLegend: true,
         enableGrid: true,
-        enableGridLabels: true,
         series: [
           {
             title: 'Series 1',
