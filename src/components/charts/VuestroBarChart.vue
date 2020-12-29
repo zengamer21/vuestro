@@ -48,7 +48,7 @@
           :key="bar.id"
           class="vuestro-bar-chart-bar"
           :x="bar.x"
-          :y="bar.y-gridPadding"
+          :y="bar.y"
           :width="bar.width"
           :height="bar.height"
           :fill="bar.color"
@@ -59,7 +59,7 @@
           <text v-for="barLabel in barSet.data" 
             :key="barLabel.id"
             :x="barLabel.x+barLabel.width/2"
-            :y="barLabel.y-5-gridPadding"
+            :y="barLabel.y-5"
             text-anchor="middle"
             font-size="10px"
             fill="white">
@@ -244,9 +244,6 @@
       },
       //generate bar data
       generateBarData(scaleX, scaleY) {
-        if(this.enableLegend) {
-          this.legendShift = 20;
-        }
         //reset bars data
         this.barsData = [];
         // set the bar descriptions
@@ -278,9 +275,9 @@
               bar.x = scaleX(this.localData[i]["key"]) + j*(bar.width+1);
             }
             //call scaleY function on 'data'['value1-3'] - 10
-            bar.y = scaleY(this.localData[i][this.series[j].field]) - this.legendShift;            
+            bar.y = scaleY(this.localData[i][this.series[j].field])-this.legendShift;            
             //calculate height of bar
-            bar.height = this.height - scaleY(this.localData[i][this.series[j].field]);
+            bar.height = this.height - this.gridPadding - scaleY(this.localData[i][this.series[j].field]);
             //set color
             bar.color = this.color(this.series[j].field);
             //set key
@@ -298,6 +295,10 @@
         }       
       },
       resize() {
+        //set legend shift if legend is enabled
+        if(this.enableLegend) {
+          this.legendShift = 20;
+        }
         if (this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
           this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
           this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;        
@@ -313,15 +314,14 @@
                       .padding(this.padding);
 
         //function to scale y
-        let scaleY = d3.scaleLinear().range([this.height, 0]);
-        
+        let scaleY = d3.scaleLinear().range([this.height-this.gridPadding, this.gridPadding+this.legendShift]);
         //d3.extent is a function that returns min and max of an array
         let extents = this.series.map((series) => {
           return d3.extent(this.localData, function(d) { return d[series.field]; });
         });
         
         //set y max
-        this.yMax = Math.trunc((d3.max(extents, function(d) { return d[1] * 1.1; })));        
+        this.yMax = Math.trunc((d3.max(extents, function(d) { return d[1] * 1.1 ; })));        
         //add domain to function scale Y
         scaleY.domain([0, this.yMax]);
         //generate bar data
