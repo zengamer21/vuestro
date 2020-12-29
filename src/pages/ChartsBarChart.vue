@@ -70,7 +70,7 @@ export default {
         },
         {
           key: '2019-10-01T08:00:00Z',
-          value1: 12,
+          value1: 15,
           value2: 12,
           value3: 2,
         },
@@ -82,11 +82,13 @@ export default {
         },
       ],
       options: {
+        gridPadding: 20,
         enableStacked: true,
+        enableYGridLabel: true,
         enableLabels: true,
         enableLegend: true,
         enableGrid: true,
-        enableGridLabels: false,
+        enableGridLabels: true,
         series: [
           {
             title: 'Series 1',

@@ -19,16 +19,27 @@
           :x2="line+gridX.width"
           stroke="black"
           stroke-opacity="0.2"
-          :y1="height-legendShift"
-          y2=0 />
+          :y1="height-legendShift-gridPadding"
+          :y2="0+gridPadding" />        
         <line v-for="line in gridY"
           :key="line.id"
-          x1=0
-          :x2="width"
+          :x1="gridPadding"
+          :x2="width-gridPadding"
           stroke="black"
           stroke-opacity="0.2"
-          :y1="line-legendShift"
-          :y2="line-legendShift" />
+          :y1="line.coordinate"
+          :y2="line.coordinate" />
+        <template v-if="enableYGridLabel">          
+          <text v-for="line in gridY" 
+            :key="line.id"
+            :x="gridPadding-3"
+            :y="line.coordinate+3"
+            text-anchor="end"
+            font-size="10px"
+            fill="white">
+            {{line.value}}
+          </text>
+        </template>
       </g>
       <!--BARS-->
       <g v-for="barSet in barsData" 
@@ -37,7 +48,7 @@
           :key="bar.id"
           class="vuestro-bar-chart-bar"
           :x="bar.x"
-          :y="bar.y"
+          :y="bar.y-gridPadding"
           :width="bar.width"
           :height="bar.height"
           :fill="bar.color"
@@ -48,7 +59,7 @@
           <text v-for="barLabel in barSet.data" 
             :key="barLabel.id"
             :x="barLabel.x+barLabel.width/2"
-            :y="barLabel.y-5"
+            :y="barLabel.y-5-gridPadding"
             text-anchor="middle"
             font-size="10px"
             fill="white">
@@ -124,12 +135,18 @@
         legendData: [],
         gridX: [],
         gridY: [],
+        yGridMax: 0,
+        yGridMin: 0,
+        numYLines: 10,
+        gridPadding: 0,
+        yMax: 0,
         //options
         enableStacked: false,
         enableLegend: false,
         enableLabels: false,
         legendShift: 0,
         enableGrid: false,
+        enableYGridLabel: false,
         enableGridLabels: false,
       };
     },
@@ -182,30 +199,48 @@
           legendKey.color = this.color(this.series[i].field);
           this.legendData.push(legendKey);
         }
-        console.log(this.legendData);
       },
       //generate grid x
       generateGridX(scaleX) {
         let scale = {};
         let x = [];
+        let width = scaleX.bandwidth()/this.series.length;
+        let firstLine, lastLine;
         for(let i=0; i<this.localData.length; i++) {
           for(let j=0; j<this.series.length; j++) {
-            let width = scaleX.bandwidth()/this.series.length;
-            scale.width = width/2;
+            scale.width = width/2;            
             x.push(scaleX(this.localData[i]["key"]) + j*(width+1));
           }
         }
+        //last line
+        x.push(x[x.length-1]+width);
+        //first line
+        x.push(x[0]-width);
         scale.x = x;
         this.gridX = scale;
       },
       //generate grid y
       generateGridY() {
         let y = []
-        console.log(this.height/15);
-        for(let i=0; i<15; i++) {
-          y.push(i*20)
+        //y grid max
+        this.yGridMax = this.height-this.legendShift-this.gridPadding;
+        //y grid min
+        this.yGridMin = this.gridPadding;
+        //value step
+        let valueStep = this.yMax/this.numYLines;
+        //step
+        let step = (this.yGridMax-this.yGridMin)/this.numYLines;
+        //set grid values
+        for(let i=0; i<this.numYLines; i++) {
+          let yGridObj = {};
+          yGridObj.value = Math.trunc(i*valueStep);
+          yGridObj.coordinate = this.yGridMax - i*step;
+          y.push(yGridObj);
         }
+        //last line
+        y.push({value: this.yMax, coordinate: this.yGridMin});
         this.gridY = y;
+        console.log(this.yMax);
       },
       //generate bar data
       generateBarData(scaleX, scaleY) {
@@ -274,7 +309,7 @@
         //function to scale x
         let scaleX = d3.scaleBand()
                       .domain(this.data.map((d) => { return d[this.categoryKey]; }))
-                      .rangeRound([this.margin.left, this.width - this.margin.right])
+                      .rangeRound([this.margin.left+this.gridPadding, this.width - this.margin.right-this.gridPadding])
                       .padding(this.padding);
 
         //function to scale y
@@ -284,8 +319,11 @@
         let extents = this.series.map((series) => {
           return d3.extent(this.localData, function(d) { return d[series.field]; });
         });
+        
+        //set y max
+        this.yMax = Math.trunc((d3.max(extents, function(d) { return d[1] * 1.1; })));        
         //add domain to function scale Y
-        scaleY.domain([0, d3.max(extents, function(d) { return d[1] * 1.1; })]);
+        scaleY.domain([0, this.yMax]);
         //generate bar data
         this.generateBarData(scaleX, scaleY);
         //generate grid
