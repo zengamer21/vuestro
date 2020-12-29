@@ -3,7 +3,7 @@
     <svg :width="width+2"
          :height="height"
          :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
-         @mousemove="onMouseover">
+        >
       <!-- BACKGROUND -->
       <g>
         <rect :width="width+2"
@@ -53,7 +53,13 @@
           :height="bar.height"
           :fill="bar.color"
           fill-opacity="0.7"
-          :stroke="bar.color">
+          :stroke="bar.color"
+          :barKey="bar.key"
+          :barTitle="bar.title"
+          :barValue="bar.value"
+          @mousemove="onMouseover"
+          @mouseleave="onMouseexit"
+          @mouseenter="onMouseenter">
         </rect>
         <template v-if="enableLabels">
           <text v-for="barLabel in barSet.data" 
@@ -81,17 +87,14 @@
         </text> 
       </g>
       <!-- TOOLTIP -->
-      <template v-if="!hideTooltip && cursorLine.length > 0">
+      <template v-if="enableToolTip && showToolTip">
         <!--<path class="vuestro-bar-chart-cursor" :d="cursorLine" />-->
-        <vuestro-svg-tooltip :x="mouseX"
+        <vuestro-bar-svg-tooltip :x="mouseX"
                              :x-max="width"
                              :y="mouseY"
                              :y-max="height"
-                             :categoryKey="categoryKey"
-                             :utc="utc"
-                             :series="processedSeries"
-                             :values="localData[lastHoverPoint.index]">
-        </vuestro-svg-tooltip>
+                             :toolData="toolTipData">
+        </vuestro-bar-svg-tooltip>
       </template>
       <g ref="yAxis"></g>
     </svg>
@@ -140,10 +143,13 @@
         numYLines: 10,
         gridPadding: 0,
         yMax: 0,
+        toolTipData: {},
+        showToolTip: false,
         //options
         enableStacked: false,
         enableLegend: false,
         enableLabels: false,
+        enableToolTip: false,
         legendShift: 0,
         enableGrid: false,
         enableYGridLabel: false,
@@ -278,10 +284,12 @@
             bar.y = scaleY(this.localData[i][this.series[j].field])-this.legendShift;            
             //calculate height of bar
             bar.height = this.height - this.gridPadding - scaleY(this.localData[i][this.series[j].field]);
+            //set title
+            bar.title = this.series[j].title;
             //set color
             bar.color = this.color(this.series[j].field);
             //set key
-            bar.key = this.localData[i]["key"]+j;
+            bar.key = this.localData[i]["key"];
             //append bar to bars data
             barsData.push(bar);
           }
@@ -336,31 +344,54 @@
           this.generateLegend();
         }
       },
+      onMouseenter({ offsetX }) {
+        this.showToolTip = true;
+      },
+      onMouseexit({ offsetX }) {
+        this.showToolTip = false;
+      },
+      //Tool tip data passed through event
       onMouseover({ offsetX }) {
-        this.mouseX = event.offsetX;//+75;
-        this.mouseY = event.offsetY;
-        if (this.localData.length > 0) {
-          const x = offsetX;
-          const closestPoint = this.getClosestPoint(x);
-          if (this.lastHoverPoint.index !== closestPoint.index) {
-            const point = this.localData[closestPoint.index];
-            this.cursorLine = this.getCursor([point]);
-            this.$emit('select', this.data[closestPoint.index]);
-            this.lastHoverPoint = closestPoint;
+        //track mouse
+        this.mouseX = event.offsetX + 20;
+        this.mouseY = event.offsetY - 20;
+        //generate tool data
+        let toolData = {};
+        //stacked
+        if(this.enableStacked) {
+          //event data is passed through attributes of html
+          toolData.key = event.target.attributes.barKey.value;
+          //find data through bars data
+          for(let i=0; i<this.barsData.length; i++) {
+            //find set of stacked data
+            if(toolData.key === this.barsData[i].key) {
+              let barData = this.barsData[i].data;
+              //create tooltip data
+              toolData.data = [];
+              for(let j=0; j<barData.length; j++) {
+                toolData.data.push({
+                  title: barData[j].title,
+                  color: barData[j].color,
+                  value: barData[j].value,
+                })
+              }
+            }
           }
+        } 
+        //bars are not stacked
+        else {
+          //event data is passed through attributes of html
+          toolData.key = event.target.attributes.barKey.value;
+          toolData.data = [];
+          toolData.data.push({
+            title: event.target.attributes.barTitle.value,
+            color: event.target.attributes.fill.value,
+            value: event.target.attributes.barValue.value,
+          });
         }
-      },
-      getClosestPoint(x) {
-        return this.localData
-          .map((point, index) => ({
-            x: point[`${this.series[this.series.length-1].field}_x`],
-            diff: Math.abs(point[`${this.series[this.series.length-1].field}_x`] - x),
-            index,
-          }))
-          .reduce((memo, val) => (memo.diff < val.diff ? memo : val));
-      },
-      onMouseleave() {
-        this.cursorLine = '';
+
+        //allow tooltip to be shown
+        this.toolTipData = toolData;
       },
     },
   };

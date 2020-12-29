@@ -60,7 +60,7 @@
           <vuestro-svg-legend 
             v-if="enableLegend" 
             :pieSection="pieSection"
-            :x="pieX-pieY-200"
+            :x="pieX-pieY*1.6"
             :y="18*(index+1)"
             :key="index"/>
         </template>

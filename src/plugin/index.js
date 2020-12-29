@@ -38,6 +38,7 @@ import VuestroSearchBox from '../components/VuestroSearchBox';
 import VuestroSidebar from '../components/sidebar/VuestroSidebar';
 import VuestroStatPanel from '../components/charts/VuestroStatPanel';
 import VuestroSvgTooltip from '../components/charts/VuestroSvgTooltip';
+import VuestroBarSvgTooltip from '../components/charts/VuestroBarSvgTooltip';
 import VuestroSvgLegend from '../components/charts/VuestroSvgLegend';
 import VuestroTable from '../components/VuestroTable';
 import VuestroTextField from '../components/VuestroTextField';
@@ -87,6 +88,7 @@ export default {
     Vue.component(VuestroSidebar.name, VuestroSidebar);
     Vue.component(VuestroStatPanel.name, VuestroStatPanel);
     Vue.component(VuestroSvgTooltip.name, VuestroSvgTooltip);
+    Vue.component(VuestroBarSvgTooltip.name, VuestroBarSvgTooltip);
     Vue.component(VuestroSvgLegend.name, VuestroSvgLegend);
     Vue.component(VuestroTable.name, VuestroTable);
     Vue.component(VuestroTextField.name, VuestroTextField);

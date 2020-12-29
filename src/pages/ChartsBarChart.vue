@@ -79,11 +79,13 @@ export default {
           value1: 23,
           value2: 13,
           value3: 2,
+          value4: 35,
         },
       ],
       options: {
         gridPadding: 20,
         enableStacked: true,
+        enableToolTip: true,
         enableYGridLabel: true,
         enableLabels: true,
         enableLegend: true,
