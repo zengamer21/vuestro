@@ -1,12 +1,15 @@
 <template>
   <div class="vuestro-bar-chart" >
-    <svg :width="width+2"
-         :height="height"
-         :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"         
-         @mousedown="onZoomPress"
-         @mouseup="onZoomRelease"
-         @mousemove="onZoomDrag"
-        >
+    <svg 
+      id="testZoom"
+      :width="width+2"
+      :height="height"
+      :style="{ transform: `translate(${margin.left}px, ${margin.top}px)
+                            scale(${zoomScale})`}"
+      @mousedown="onZoomPress"
+      @mouseup="onZoomRelease"
+      @mousemove="onZoomDrag"
+    >
       <!-- BACKGROUND -->
       <g>
         <rect :width="width+2"
@@ -176,6 +179,7 @@
         zoomY: 0,
         zoomWidth: 0,
         zoomHeight: 0,
+        zoomScale: 1,
         //options
         enableStacked: false,
         enableLegend: false,
@@ -288,7 +292,6 @@
           }
         }
         this.xLabels = data;      
-        console.log(this.xLabels);
       },
       //generate grid y
       generateGridY() {
@@ -382,7 +385,17 @@
           this.redraw();
         }
       },
+      test() {
+      /*  console.log(this.margin.left)
+      // append the svg object to the body of the page
+      var svg = d3.select("#testZoom")
+          console.log(svg);
+          svg.call(d3.zoom().on("zoom", function () {
+            svg.attr("transform", d3.event.transform)
+          }))*/
+      },
       redraw() {
+        this.test();
         this.localData = _.cloneDeep(this.data);
         //function to scale x
         let scaleX = d3.scaleBand()
@@ -423,6 +436,9 @@
           this.zoomX = event.offsetX;
           this.zoomY = event.offsetY;
         }        
+        this.zoomScale += 0.1;
+        console.log(event);
+        console.log("click");
       },
       //bounding box of zoom
       onZoomDrag() {
