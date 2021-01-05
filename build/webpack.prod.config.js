@@ -14,13 +14,19 @@ const webpackConfig = merge(baseWebpackConfig, {
       {
         test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../../',
+            },
+          },
           'css-loader'
         ]
       },
     ],
   },
   output: {
+    publicPath: '',
     filename: 'static/js/[name].[chunkhash].js',
     chunkFilename: 'static/js/[name].[chunkhash].js'
   },

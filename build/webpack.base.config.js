@@ -15,9 +15,6 @@ module.exports = {
       'static': path.join(process.cwd(), 'static')
     }
   },
-  output: {
-    publicPath: '/',
-  },
   module: {
     rules: [
       {

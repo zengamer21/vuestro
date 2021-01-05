@@ -47,6 +47,7 @@ import Settings from './pages/Settings.vue';
 Vue.use(Router);
 
 export default new Router({
+  base: '/',
   mode: 'history',
   routes: [
     {
