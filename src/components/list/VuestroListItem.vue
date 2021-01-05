@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-list-item"
-	     :class="{ selected }"
+	     :class="{ selected, readonly }"
 			 :style="{ 'z-index': zIndex }"
 			 @mouseenter="onMouseEnter"
 			 @mouseleave="onMouseLeave"
@@ -33,6 +33,7 @@ export default {
   name: 'VuestroListItem',
   props: {
     selected: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
   },
 	data() {
 		return {
@@ -41,19 +42,21 @@ export default {
 	},
   methods: {
     onClick(e) {
-      // if a vuestro-button is part of the path, ignore click
-      for (let p of e.path) {
-        if (p.classList && p.classList.contains('vuestro-button')) {
-          return e.stopPropagation();
+      if (!this.readonly) {
+        // if a vuestro-button is part of the path, ignore click
+        for (let p of e.path) {
+          if (p.classList && p.classList.contains('vuestro-button')) {
+            return e.stopPropagation();
+          }
         }
+        this.$emit('click');
       }
-      this.$emit('click');
     },
 		onMouseEnter() {
 			this.zIndex = 0;
 		},
 		onMouseLeave() {
-			this.zIndex = 0;			
+			this.zIndex = 0;
 		},
   }
 };
@@ -79,7 +82,10 @@ export default {
   display: flex;
   cursor: pointer;
   position: relative;
-/*  z-index: 1;*/
+}
+/* unset cursor for readonly */
+.vuestro-list-item.readonly {
+  cursor: initial;
 }
 /* the selection is drawn as pseudo-element so it can cover the border when selected */
 .vuestro-list-item.selected:before {
@@ -94,7 +100,7 @@ export default {
   z-index: -1000;
 }
 /* draw a border at the bottom of all but the last child */
-/* of course these css pseudo-element manipulations assume all children are vuestro-list-item(s) */ 
+/* of course these css pseudo-element manipulations assume all children are vuestro-list-item(s) */
 .vuestro-list-item:not(.selected):not(:last-child):after {
   position: absolute;
   top: 100%;
