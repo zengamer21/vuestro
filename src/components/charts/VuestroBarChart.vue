@@ -2,14 +2,27 @@
   <div class="vuestro-bar-chart" >
     <svg :width="width+2"
          :height="height"
-         :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
+         :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"         
+         @mousedown="onZoomPress"
+         @mouseup="onZoomRelease"
+         @mousemove="onZoomDrag"
         >
       <!-- BACKGROUND -->
       <g>
         <rect :width="width+2"
-         :height="height"
-         fill="black"
-         opacity="0.75" />         
+          :height="height"
+          fill="black"
+          opacity="0.75" />         
+      </g>
+      <!-- ZOOM -->
+      <g>
+        <rect v-if="enableZoom && showZoom"
+          :x="zoomX"
+          :y="zoomY"
+          :width="zoomWidth"
+          :height="zoomHeight"
+          fill="red"
+          opacity="0.75" />         
       </g>
       <!-- GRID -->
       <g v-if="enableGrid">
@@ -159,6 +172,10 @@
         xLabels: [],
         toolTipData: {},
         showToolTip: false,
+        zoomX: 0,
+        zoomY: 0,
+        zoomWidth: 0,
+        zoomHeight: 0,
         //options
         enableStacked: false,
         enableLegend: false,
@@ -166,6 +183,8 @@
         enableToolTip: false,
         legendShift: 0,
         enableGrid: false,
+        enableZoom: false,
+        showZoom: false,
         enableYGridLabel: false,
         enableXGridLabel: false,
       };
@@ -391,6 +410,41 @@
         //generate legend
         if(this.enableLegend) {
           this.generateLegend();
+        }
+      },
+      //enable zoom
+      onZoomPress() {
+        if(this.enableZoom) {
+          this.showZoom = true;
+          //save coordinates of click
+          this.zoomXClick = event.offsetX;
+          this.zoomYClick = event.offsetY;
+          //set initial value of box
+          this.zoomX = event.offsetX;
+          this.zoomY = event.offsetY;
+        }        
+      },
+      //bounding box of zoom
+      onZoomDrag() {
+        if(this.enableZoom && this.showZoom) {
+          //calculate x coordinate of box
+          let widthDiff = this.zoomXClick - event.offsetX;
+          this.zoomWidth = Math.abs(widthDiff);
+          if(widthDiff > 0) {
+            this.zoomX = event.offsetX;
+          }
+          //calculate y coordinate of box
+          let heightDiff = this.zoomYClick - event.offsetY;
+          this.zoomHeight = Math.abs(heightDiff);
+          if(heightDiff > 0) {
+            this.zoomY = event.offsetY;
+          }            
+        }
+      },
+      //disable zoom
+      onZoomRelease() {
+        if(this.enableZoom) {
+          this.showZoom = false;
         }
       },
       //enable tooltip

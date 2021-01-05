@@ -91,6 +91,7 @@ export default {
         enableLabels: true,
         enableLegend: true,
         enableGrid: true,
+        enableZoom: true,
         series: [
           {
             title: 'Series 1',
