@@ -45,11 +45,11 @@
           <!--MAIN PAGE VIEW-->
           <div ref="routerView" class="vuestro-router-view" @scroll="onScroll">
             <slot name="pre-content"></slot>
-            <transition name="vuestro-app-pages" mode="out-in" @after-leave="onRouterTransitionDone">
-              <keep-alive> <!-- vue router option for persistent state -->
+            <keep-alive> <!-- vue router option for persistent state -->
+              <transition name="vuestro-app-pages" mode="out-in" @after-leave="onRouterTransitionDone">
                 <router-view/>
-              </keep-alive>
-            </transition>
+              </transition>
+            </keep-alive>
             <slot name="footer"></slot>
           </div>
         </div>
@@ -232,7 +232,7 @@ export default {
 
   --vuestro-widget-dark-bg: #383b3f;
   --vuestro-widget-light-bg: var(--vuestro-widget-dark-bg);
-  
+
   --vuestro-field-bg: #5a5959;
   --vuestro-outline: #7d7d7d;
   --vuestro-active: #37383a;
