@@ -104,8 +104,8 @@ export default {
 .vuestro-list-item:not(.selected):not(:last-child):after {
   position: absolute;
   top: 100%;
-  left: 1em;
-  right: 1em;
+  left: var(--vuestro-selection-border-radius);
+  right: var(--vuestro-selection-border-radius);
   content: " ";
   border-bottom: 0.5px solid var(--vuestro-outline);
 	z-index: -2;

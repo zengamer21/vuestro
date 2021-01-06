@@ -52,7 +52,7 @@ export default {
           this.contentPos.top = `${elBcr.y + elBcr.height/2 - bcr.height/2}px`;
           break;
         case 'right':
-          left = elBcr.right - arrowSize;
+          left = elBcr.right + arrowSize;
           this.contentPos.top = `${elBcr.y + elBcr.height/2 - bcr.height/2}px`;
           break;
         case 'bottom':

@@ -10,21 +10,41 @@
 flex: 1 1 auto;
 flex-wrap: wrap;
 flex-direction: row;
+align-items: stretch;
 align-content: flex-start;
 justify-content: flex-start;
         </pre>
-        <vuestro-container :class="{ outlines }">
+        <p>VuestroContainer also defines a "gutter" which is implemented as padding, and assigned as a CSS var named <em>--vuestro-gutter</em> that is picked up by child VuestroCards. The values for the <em>gutter</em> property are <em>{ none, sm, md, lg, xl }</em>. The default is <em>md</em>.</p>
+
+
+        <vuestro-container gutter="none" :class="{ outlines }">
+          <div>div</div>
+          <div>div</div>
+        </vuestro-container>
+        <vuestro-container gutter="sm" :class="{ outlines }">
+          <div>div</div>
+          <div>div</div>
+        </vuestro-container>
+        <vuestro-container gutter="md" :class="{ outlines }">
+          <div>div</div>
+          <div>div</div>
+        </vuestro-container>
+        <vuestro-container gutter="lg" :class="{ outlines }">
+          <div>div</div>
+          <div>div</div>
+        </vuestro-container>
+        <vuestro-container gutter="xl" :class="{ outlines }">
           <div>div</div>
           <div>div</div>
         </vuestro-container>
       </vuestro-card>
 
       <vuestro-card>
-        <template #heading>Other flexbox options are set as properties:</template>
+        <template #heading>Flexbox behavior may be changed by setting properties:</template>
       </vuestro-card>
 
       <vuestro-card>
-        <template #subheading><em>column</em></template>
+        <template #subheading><span><em>column</em> - sets flex-direction to column (default is row)</span></template>
         <vuestro-container column :class="{ outlines }">
           <div>div</div>
           <div>div</div>
@@ -32,7 +52,7 @@ justify-content: flex-start;
       </vuestro-card>
 
       <vuestro-card>
-        <template #subheading><em>no-wrap</em></template>
+        <template #subheading><span><em>no-wrap</em> - sets flex-wrap to nowrap (default is wrap)</span></template>
         <template #description>Use to have single-row/column of stretched divs</template>
         <vuestro-container no-wrap :class="{ outlines }">
           <div>div</div>
@@ -45,39 +65,40 @@ justify-content: flex-start;
       </vuestro-card>
 
       <vuestro-card>
-        <template #subheading><em>space-between</em></template>
-        <vuestro-container space-between :class="{ outlines }">
+        <template #subheading><span><em>justify="space-between"</em> - justify can take any value flexbox supports</span></template>
+        <vuestro-container justify="space-between" :class="{ outlines }">
           <div>div</div>
           <div>div</div>
         </vuestro-container>
       </vuestro-card>
 
       <vuestro-card>
-        <template #subheading><em>space-evenly</em></template>
-        <vuestro-container space-evenly :class="{ outlines }">
+        <template #subheading><em>justify="space-evenly"</em></template>
+        <vuestro-container justify="space-evenly" :class="{ outlines }">
           <div>div</div>
           <div>div</div>
         </vuestro-container>
       </vuestro-card>
 
       <vuestro-card>
-        <template #subheading><em>center</em></template>
-        <vuestro-container center :class="{ outlines }">
+        <template #subheading><em>justify="center"</em></template>
+        <vuestro-container justify="center" :class="{ outlines }">
           <div>div</div>
           <div>div</div>
         </vuestro-container>
       </vuestro-card>
 
       <vuestro-card>
-        <template #subheading><em>middle</em></template>
-        <template #description><span>Has to be combined with <em>no-wrap</em> to work</span></template>
-        <vuestro-container middle no-wrap :class="{ outlines }">
-          <div>div</div>
-          <div>div</div>
+        <template #subheading><span><em>align="center"</em> - align can take any value flexbox supports</span></template>
+        <vuestro-container align="center" :class="{ outlines }" style="height: 100px">
+          <div>div inside fixed height container</div>
         </vuestro-container>
-        <vuestro-container column no-wrap middle :class="{ outlines }" style="height: 100px">
-          <div>div</div>
-          <div>div</div>
+      </vuestro-card>
+
+      <vuestro-card>
+        <template #subheading><span><em>justify="center" align="center"</em> - combine for advanced layouts</span></template>
+        <vuestro-container justify="center" align="center" :class="{ outlines }" style="height: 100px">
+          <div>div inside fixed height container</div>
         </vuestro-container>
       </vuestro-card>
 
@@ -110,14 +131,6 @@ export default {
   position: relative;
   margin-top: 10px;
 }
-.vuestro-container.outlines:before {
-  content: 'VuestroContainer';
-  position: absolute;
-  top: -18px;
-  left: 0;
-  background-color: var(--vuestro-gray);
-}
-
 .vuestro-container.outlines > div {
   border: 1px dashed var(--vuestro-outline);
   position: relative;

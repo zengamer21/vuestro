@@ -147,6 +147,7 @@ export default {
 
 /* GLOBAL STYLE VARIABLES */
 .vuestro-app {
+  /* dimensions */
   --vuestro-font-size: 14px;
   --vuestro-selection-border-radius: 8px;
   --vuestro-control-border-width: 1px;
@@ -160,39 +161,46 @@ export default {
   --vuestro-primary-transition-time: 0.4s;
   --vuestro-secondary-transition-time: 0.2s;
 
-  /* base palette */
-  --vuestro-blue: #217ada;
-  --vuestro-primary: #0c86d2;
-  --vuestro-secondary: #8c949a;
-  --vuestro-success: #33b86c;
-  --vuestro-info: #08a1ff;
-  --vuestro-warning: #ebc142;
-  --vuestro-danger: #cb2a2a;
-  --vuestro-inverse: #14082d;
-  --vuestro-purple: #551A8B;
+  /* palette */
   --vuestro-indigo: #682fa1;
-  --vuestro-pink: #f13c6e;
-  --vuestro-red: #ea4958;
-  --vuestro-orange: #f47633;
-  --vuestro-yellow: #fff700;
-  --vuestro-green: #4bbc79;
-  --vuestro-teal: #87e6ca;
-  --vuestro-cyan: #42b9cc;
+  --vuestro-purple: #551A8B;
   --vuestro-magenta: #ed23a9;
+  --vuestro-pink: #f13c6e;
+
+  --vuestro-royal: #101c5a;
+  --vuestro-blue: #217ada;
+  --vuestro-cobalt: #2163C9;
+  --vuestro-cyan: #42b9cc;
+  --vuestro-teal: #87e6ca;
+
+  --vuestro-green: #4bbc79;
+  --vuestro-emerald: #229649;
+  --vuestro-yellow: #fff700;
   --vuestro-gold: #fce228;
 
+  --vuestro-orange: #f47633;
+  --vuestro-salmon: #f13c6e;
+  --vuestro-brick: #8a270c;
+  --vuestro-red: #ea4958;
+
   --vuestro-white: #fff;
-  --vuestro-black: #000;
+  --vuestro-light: #f5f5f5;
+  --vuestro-light-med: #ececec;
   --vuestro-gray: #c3cbe0;
   --vuestro-gray-med: #b3b3b3;
   --vuestro-gray-dark: #505664;
-  --vuestro-light: #f5f5f5;
-  --vuestro-light-med: #ececec;
-
   --vuestro-dark: #1b1c21;
   --vuestro-darker: #101110;
+  --vuestro-black: #000;
 
-  /* the following are theme-able colors */
+  --vuestro-primary: var(--vuestro-blue);
+  --vuestro-secondary: var(--vuestro-light-med);
+  --vuestro-success: var(--vuestro-green);
+  --vuestro-info: var(--vuestro-cyan);
+  --vuestro-warning: var(--vuestro-yellow);
+  --vuestro-danger: var(--vuestro-red);
+
+  /* colors responsible for change to dark */
   --vuestro-content-bg: #f7f9fa;
 
   --vuestro-widget-light-bg: #e8e9ec;
@@ -202,14 +210,15 @@ export default {
 
   --vuestro-popup-bg: #464748;
   --vuestro-popup-fg: #eee;
+
   --vuestro-tooltip-opacity: 0.8;
 
-  --vuestro-selection: #2e3037;
+  --vuestro-selection: var(--vuestro-cobalt);
   --vuestro-outline: #aaa;
   --vuestro-active: #e9eff7;
   --vuestro-hover: #e4e7ea;
 
-  --vuestro-notifications-bg: #fff3cd;
+  --vuestro-notifications-bg: var(--vuestro-salmon);
 
   --vuestro-text-color: #323334;
   --vuestro-text-color-secondary: #696969;
@@ -223,25 +232,40 @@ export default {
 
   --vuestro-widget-dark-bg: #383b3f;
   --vuestro-widget-light-bg: var(--vuestro-widget-dark-bg);
+  
   --vuestro-field-bg: #5a5959;
   --vuestro-outline: #7d7d7d;
   --vuestro-active: #37383a;
-  --vuestro-selection: #2163C9;
   --vuestro-hover: #535456;
   --vuestro-popup-bg: #323334;
 
-  --vuestro-success: #1c7f51;
   --vuestro-indigo: #441473;
-  --vuestro-blue: #1b446f;
-  --vuestro-green: #104425;
-  --vuestro-orange: #a3552c;
-  --vuestro-warning: #ca9e17;
-  --vuestro-purple: #bc77fb;
+  --vuestro-purple: #8747c1;
+  --vuestro-magenta: #bd2c70;
+  --vuestro-pink: #e04aad;
+
+  --vuestro-royal: #101c5a;
+  --vuestro-blue: #27538a;
+  --vuestro-cobalt: #2163C9;
+  --vuestro-cyan: #108bb7;
+  --vuestro-teal: #136f6a;
+
+  --vuestro-green: #137139;
+  --vuestro-emerald: #229649;
+  --vuestro-yellow: #c1a529;
+  --vuestro-gold: #b38c05;
+
+  --vuestro-orange: #c14703;
+  --vuestro-salmon: #e25058;
+  --vuestro-brick: #8a270c;
+  --vuestro-red: #de1f31;
+
+  --vuestro-light: #9e9999;
+  --vuestro-light-med: #878585;
+
   --vuestro-gray: #656565;
   --vuestro-gray-med: #4a4a4a;
   --vuestro-gray-dark: #3a3a3a;
-  --vuestro-light: #878585;
-  --vuestro-light-med: #7f7f7f;
 
   --vuestro-text-color: #ccc;
   --vuestro-text-color-secondary: #696969;

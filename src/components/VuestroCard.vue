@@ -33,9 +33,9 @@ export default {
   },
   computed: {
     colorBarStyle() {
-      let borderWidth = '2px';
+      let borderWidth = '0.15em';
       if (this.$root.mobile) {
-        borderWidth = '4px';
+        borderWidth = '0.3em';
       }
       if (this.color) {
         return {
@@ -60,7 +60,7 @@ export default {
   --vuestro-card-heading-font-weight: 300;
   --vuestro-card-subheading-font-size: 1.4em;
   --vuestro-card-subheading-font-weight: 300;
-  --vuestro-card-description-font-size: 1.1em;
+  --vuestro-card-description-font-size: 1.2em;
   --vuestro-card-description-font-weight: 300;
 }
 </style>

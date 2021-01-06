@@ -55,11 +55,11 @@
 
     <vuestro-card>
       <template #description>Single date - value is selected date</template>
-      <vuestro-container space-between>
+      <vuestro-container justify="space-between">
         <vuestro-date-picker v-model="exampleDate"></vuestro-date-picker>
         <div>value: {{ exampleDate }}</div>
       </vuestro-container>
-      <vuestro-container space-between>
+      <vuestro-container justify="space-between">
         <vuestro-date-picker v-model="exampleDateString"></vuestro-date-picker>
         <div>value: {{ exampleDateString }}</div>
       </vuestro-container>
@@ -67,7 +67,7 @@
 
     <vuestro-card>
       <template #description><span>Date range - set the <em>range</em> property to use an array as the value with [start, end] dates</span></template>
-      <vuestro-container space-between>
+      <vuestro-container justify="space-between">
         <vuestro-date-picker v-model="exampleDateRange" range></vuestro-date-picker>
         <div>value: {{ exampleDateRange }}</div>
       </vuestro-container>
@@ -75,7 +75,7 @@
 
     <vuestro-card>
       <template #description><span>In a popup</span></template>
-      <vuestro-container space-between>
+      <vuestro-container justify="space-between">
         <vuestro-dropdown click-to-open no-scroll>
           <template #title>{{ exampleDateString }}</template>
           <vuestro-date-picker v-model="exampleDateString"></vuestro-date-picker>
@@ -89,7 +89,7 @@
 
     <vuestro-card>
       <template #description><span>Use UTC by setting the <em>utc</em> property</span></template>
-      <vuestro-container space-between>
+      <vuestro-container justify="space-between">
         <vuestro-dropdown click-to-open no-scroll>
           <template #title>{{ formatIsoRange(exampleDateRange) }}</template>
           <vuestro-date-picker v-model="exampleDateRange" range utc></vuestro-date-picker>
@@ -99,11 +99,11 @@
 
     <vuestro-card>
       <template #description><span>Combine date picker with time picker</span></template>
-      <vuestro-container space-between>
+      <vuestro-container justify="space-between">
         <vuestro-dropdown click-to-open no-scroll>
           <template #title>{{ formatIsoRange(exampleDateRange) }}</template>
           <vuestro-date-picker v-model="exampleDateRange" range utc></vuestro-date-picker>
-          <vuestro-container space-between>
+          <vuestro-container justify="space-between">
             <vuestro-time-picker v-model="exampleDateRange[0]" utc seconds></vuestro-time-picker>
             <vuestro-time-picker v-model="exampleDateRange[1]" utc seconds></vuestro-time-picker>
           </vuestro-container>

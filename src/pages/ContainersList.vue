@@ -3,7 +3,7 @@
     <vuestro-card cols=4 color="var(--vuestro-orange)">
       <template #heading>
         <span>List</span>
-        <vuestro-container no-grow gutter="none">
+        <vuestro-container grow=0 gutter="none">
 					<vuestro-button pill @click="onNew" variant="success" value>
 					  <template #icon>
   						<vuestro-icon name="plus"></vuestro-icon>

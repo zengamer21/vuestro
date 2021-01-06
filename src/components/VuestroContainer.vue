@@ -1,8 +1,15 @@
 <template>
-  <div class="vuestro-container" :class="{ noWrap, noGrow }">
-    <div class="vuestro-container-inner" :class="[gutter, { frame, column, noWrap, noShrink, spaceBetween, spaceEvenly, center, middle, itemsStart }]">
+  <div class="vuestro-container"
+       :class="[ gutter ]"
+       :style="style">
+    <div v-if="inner"
+         class="vuestro-container-inner"
+         :style="style">
       <slot></slot>
     </div>
+    <template v-else>
+      <slot></slot>
+    </template>
   </div>
 </template>
 
@@ -11,87 +18,80 @@
 export default {
   name: 'VuestroContainer',
   props: {
-    gutter: { type: String, default: 'md' },
+    gutter: { type: String, default: 'md' },  // { 'none', 'sm', 'md', 'lg', 'xl' }
+    inner: { type: Boolean, default: false }, // uses an absolutely positioned inner div
+
     column: { type: Boolean, default: false },
     noWrap: { type: Boolean, default: false },
-    noGrow: { type: Boolean, default: false },
-    noShrink: { type: Boolean, default: false }, // for compatibility
-    spaceBetween: { type: Boolean, default: false },
-    spaceEvenly: { type: Boolean, default: false },
-    itemsStart: { type: Boolean, default: false },
-    center: { type: Boolean, default: false },
-    middle: { type: Boolean, default: false },
-    frame: { type: Boolean, default: false },
+
+    grow: { type: String, default: '1' },       // flexbox grow value
+    shrink: { type: String, default: '1' },     // flexbox shrink value
+    basis: { type: String, default: 'auto' }, // flexbox basis value
+    self: { type: String, default: 'auto' },  // use standard flexbox values for align-self
+
+    justify: { type: String, default: 'flex-start' }, // use standard flexbox values for justify-content
+    align: { type: String, default: 'stretch' }, // use standard flexbox values for align-items
+    content: { type: String, default: 'flex-start' }, // use standard flexbox values for align-content
+  },
+  computed: {
+    style() {
+      return {
+        'padding': 'var(--vuestro-gutter)',
+        'flex-direction': this.column ? 'column':'row',
+        'flex-grow': this.grow,
+        'flex-shrink': this.shrink,
+        'flex-basis': this.basis,
+        'flex-wrap': this.noWrap ? 'nowrap':'wrap',
+        'justify-content': this.justify,
+        'align-items': this.align,
+        'align-content': this.content,
+      };
+    },
   },
 };
 
 </script>
 
+<style>
+
+.vuestro-app {
+  --vuestro-gutter-sm: 0.2em;
+  --vuestro-gutter-md: 0.5em;
+  --vuestro-gutter-lg: 0.8em;
+  --vuestro-gutter-xl: 1em;
+}
+
+</style>
+
 <style scoped>
 
 .vuestro-container {
   display: flex;
-  flex: 1 0 auto;
   position: relative;
 }
-.vuestro-container.noGrow {
-  flex-grow: 0;
-  flex-shrink: 1;
+.vuestro-container.xl {
+  --vuestro-gutter: var(--vuestro-gutter-xl);
 }
-
-.vuestro-container-inner.lg {
-  --vuestro-gutter: 15px;
+.vuestro-container.lg {
+  --vuestro-gutter: var(--vuestro-gutter-lg);
 }
-.vuestro-container-inner.md {
-  --vuestro-gutter: 8px;
+.vuestro-container.md {
+  --vuestro-gutter: var(--vuestro-gutter-md);
 }
-.vuestro-container-inner.sm {
-  --vuestro-gutter: 4px;
+.vuestro-container.sm {
+  --vuestro-gutter: var(--vuestro-gutter-sm);
 }
-.vuestro-container-inner.none {
+.vuestro-container.none {
   --vuestro-gutter: 0px;
 }
-.vuestro-container-inner.itemsStart {
-  align-items: flex-start;
-}
-
 .vuestro-container-inner {
   display: flex;
-  flex: 1 1 auto;
-  flex-wrap: wrap;
-  flex-direction: row;
-  padding: var(--vuestro-gutter);
-  align-content: flex-start;
-  justify-content: flex-start;
   min-width: 0;
-}
-.vuestro-container-inner.frame {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-}
-.vuestro-container-inner.column {
-  flex-direction: column;
-}
-.vuestro-container-inner.noWrap {
-  flex-wrap: nowrap;
-}
-.vuestro-container-inner.noShrink {
-  flex-shrink: 0;
-}
-.vuestro-container-inner.spaceBetween {
-  justify-content: space-between;
-}
-.vuestro-container-inner.spaceEvenly {
-  justify-content: space-evenly;
-}
-.vuestro-container-inner.center {
-  justify-content: center;
-}
-.vuestro-container-inner.middle {
-  align-items: center;
 }
 
 </style>

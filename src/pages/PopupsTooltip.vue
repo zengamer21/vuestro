@@ -9,7 +9,7 @@
         VuestroTooltip provides a fully template-able Vue tooltip.
       </template>
 
-      <vuestro-container space-between>
+      <vuestro-container justify="space-between">
         <vuestro-tooltip min-width="200">
           <template #content>
             hello this is a tooltip with components inside
@@ -41,7 +41,7 @@
         </vuestro-tooltip>
       </vuestro-container>
 
-      <vuestro-container space-between>
+      <vuestro-container justify="space-between">
         <vuestro-tooltip position="left">
           <template #content>
             hello this is a tooltip with components inside

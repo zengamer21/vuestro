@@ -75,8 +75,10 @@
         <template #title>VuestroModal</template>
         <template #toolbar>
           <vuestro-button pill no-border variant="info">
-            <vuestro-icon name="sync-alt"></vuestro-icon>
-            <span>Refresh</span>
+            <template #icon>
+              <vuestro-icon name="sync-alt"></vuestro-icon>
+            </template>
+            Refresh
           </vuestro-button>
         </template>
         <template #footer>

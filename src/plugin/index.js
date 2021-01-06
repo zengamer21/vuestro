@@ -168,8 +168,24 @@ export default {
     });
 
     Vue.filter('vuestroTitleCase', (str) => {
-      return str.split(' ').map(function(word) {
-        if (word[0] !== 'i') {
+      return str.split(' ').map(function(word, idx) {
+        let exceptions = [
+          // short conjunctions
+          'and', 'as', 'but', 'for', 'if', 'nor', 'or', 'so', 'yet',
+          // articles
+          'a', 'an', 'the',
+          // short prepositions
+          'as', 'at', 'by', 'in', 'of', 'off', 'on', 'per', 'to', 'up', 'via',
+          // Apple words
+          'iOS', 'macOS', 'iCloud',
+        ];
+        if (idx === 0 || exceptions.indexOf(word) < 0) {
+          let hyphenated = word.split('-');
+          if (hyphenated.length > 1) {
+            return hyphenated.map(function(word) {
+              return word.replace(word[0], word[0].toUpperCase());
+            }).join('-');
+          }
           return word.replace(word[0], word[0].toUpperCase());
         }
         return word;

@@ -174,13 +174,6 @@ export default {
   border: 1px dashed var(--vuestro-outline);
   position: relative;
 }
-.vuestro-container.outlines:before {
-  content: 'VuestroContainer';
-  position: absolute;
-  top: -18px;
-  left: 0;
-  background-color: var(--vuestro-gray);
-}
 
 .vuestro-container.outlines .vuestro-card {
   border: 1px dashed var(--vuestro-outline);
