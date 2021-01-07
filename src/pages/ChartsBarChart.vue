@@ -89,7 +89,7 @@ export default {
         enableYGridLabel: true,
         enableXGridLabel: true,
         enableLabels: true,
-        enableLegend: true,
+        enableLegend: false,
         enableGrid: true,
         enableZoom: true,
         series: [

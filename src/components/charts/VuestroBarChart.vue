@@ -1,11 +1,9 @@
 <template>
   <div class="vuestro-bar-chart" >
-    <svg 
-      id="testZoom"
+    <svg id="barChart" 
       :width="width+2"
       :height="height"
-      :style="{ transform: `translate(${margin.left}px, ${margin.top}px)
-                            scale(${zoomScale})`}"
+      :style="{ transform: `translate(${margin.left}px, ${margin.top}px)`}"
       @mousedown="onZoomPress"
       @mouseup="onZoomRelease"
       @mousemove="onZoomDrag"
@@ -45,62 +43,84 @@
           stroke-opacity="0.2"
           :y1="line.coordinate"
           :y2="line.coordinate" />
-        <template v-if="enableYGridLabel">          
-          <text v-for="line in gridY" 
-            :key="line.id"
-            :x="gridPadding-6"
-            :y="line.coordinate+3"
-            text-anchor="end"
-            font-size="10px"
-            fill="white">
-            {{line.value}}
-          </text>
-        </template>
       </g>
-      <!--BARS-->
-      <g v-for="barSet in barsData" 
-        :key="barSet.id">
-        <rect v-for="bar in barSet.data"
-          :key="bar.id"
-          class="vuestro-bar-chart-bar"
-          :x="bar.x"
-          :y="bar.y"
-          :width="bar.width"
-          :height="bar.height"
-          :fill="bar.color"
-          fill-opacity="0.7"
-          :stroke="bar.color"
-          :barKey="bar.key"
-          :barTitle="bar.title"
-          :barValue="bar.value"
-          @mousemove="onMouseover"
-          @mouseleave="onMouseexit"
-          @mouseenter="onMouseenter">
-        </rect>
-        <template v-if="enableLabels">
-          <text v-for="barLabel in barSet.data" 
-            :key="barLabel.id"
-            :x="barLabel.x+barLabel.width/2"
-            :y="barLabel.y-5"
-            text-anchor="middle"
-            font-size="10px"
-            fill="white">
-            {{barLabel.value}}
-          </text>
-        </template>     
-        <template v-if="enableXGridLabel">          
-          <text v-for="label in xLabels" 
-            :key="label.id"
-            :x="label.x"
-            :y="height-gridPadding-legendShift+12"
-            text-anchor="middle"
-            font-size="10px"
-            fill-opacity="0.2"
-            fill="white"
-            font-weight="normal">
-            {{label.key}}
-          </text>
-        </template>
+      <!--BARS -->
+      <g :style="{ transform: `translate(${0}px, ${zoomYDelta}px)
+                              scale(${zoomScale})`}">
+        <g v-for="barSet in barsData" 
+          :key="barSet.id">
+          <rect v-for="bar in barSet.data"
+            :key="bar.id"
+            class="vuestro-bar-chart-bar"
+            :x="bar.x"
+            :y="bar.y"
+            :width="bar.width"
+            :height="bar.height"
+            :fill="bar.color"
+            fill-opacity="0.7"
+            :stroke="bar.color"
+            :barKey="bar.key"
+            :barTitle="bar.title"
+            :barValue="bar.value"
+            @mousemove="onMouseover"
+            @mouseleave="onMouseexit"
+            @mouseenter="onMouseenter">
+          </rect>
+          <template v-if="enableLabels">
+            <text v-for="barLabel in barSet.data" 
+              :key="barLabel.id"
+              :x="barLabel.x+barLabel.width/2"
+              :y="barLabel.y-5"
+              text-anchor="middle"
+              font-size="10px"
+              fill="white">
+              {{barLabel.value}}
+            </text>
+          </template>     
+        </g>
+      </g>
+      <!-- BACKGROUND X CROP 
+      <g>
+        <rect 
+          :y="height-gridPadding-legendShift+2"
+          :width="width+2"
+          :height="gridPadding+legendShift"
+          fill="#3F3F3F"
+          opacity="1" />         
+      </g> -->
+      <!-- X Labels -->
+      <g v-if="enableXGridLabel"
+        :style="{ transform: `translate(${-zoomXDelta}px)`}">    
+        <text v-for="label in xLabels" 
+          :key="label.id"
+          :x="label.x"
+          :y="height-gridPadding-legendShift+12"
+          text-anchor="middle"
+          font-size="10px"
+          fill="white"
+          font-weight="normal">
+          {{label.key}}
+        </text>
+      </g>
+      <!-- BACKGROUND Y CROP 
+      <g>
+        <rect 
+          :width="gridPadding-4"
+          :height="height"
+          fill="#3F3F3F"
+          opacity="1" />   
+      </g> -->
+      <!-- Y Labels -->      
+      <g v-if="enableYGridLabel">          
+        <text v-for="line in gridY" 
+          :key="line.id"
+          :x="gridPadding-6"
+          :y="line.coordinate+3"
+          text-anchor="end"
+          font-size="10px"
+          fill="white">
+          {{line.value}}
+        </text>
       </g>
       <!-- LEGEND -->
       <g v-if="enableLegend">
@@ -175,8 +195,11 @@
         xLabels: [],
         toolTipData: {},
         showToolTip: false,
+        zoomFirstClick: true,
         zoomX: 0,
+        zoomXDelta: 0,
         zoomY: 0,
+        zoomYDelta: 0,
         zoomWidth: 0,
         zoomHeight: 0,
         zoomScale: 1,
@@ -385,18 +408,9 @@
           this.redraw();
         }
       },
-      test() {
-      /*  console.log(this.margin.left)
-      // append the svg object to the body of the page
-      var svg = d3.select("#testZoom")
-          console.log(svg);
-          svg.call(d3.zoom().on("zoom", function () {
-            svg.attr("transform", d3.event.transform)
-          }))*/
-      },
       redraw() {
-        this.test();
         this.localData = _.cloneDeep(this.data);
+        
         //function to scale x
         let scaleX = d3.scaleBand()
                       .domain(this.data.map((d) => { return d[this.categoryKey]; }))
@@ -427,6 +441,18 @@
       },
       //enable zoom
       onZoomPress() {
+        /*
+        let svg = d3.select("#barChart");
+        let width = svg.attr("width")/2;
+        let height = svg.attr("height")/2;
+
+        console.log(width);
+        console.log(height);
+        let bars = d3.select("#testZoom").selectAll("rect");
+        bars.attr("transform", "scale(2)");// translate(0, "+(height*(-1.3))+")");//"translate("+-width+" "+height+") scale(1.02) translate("+(width*1.02)+" "+(-height*1.02)+")");
+        */
+
+        this.zoomScale += 0.01;
         if(this.enableZoom) {
           this.showZoom = true;
           //save coordinates of click
@@ -435,10 +461,13 @@
           //set initial value of box
           this.zoomX = event.offsetX;
           this.zoomY = event.offsetY;
+          //keep track of x transform
+          this.zoomXDelta += this.zoomXClick - this.gridPadding;
+          this.zoomYDelta = this.height*this.zoomScale - this.zoomYClick*this.zoomScale - this.gridPadding*this.zoomScale - this.legendShift*this.zoomScale;
+          console.log(this.zoomYDelta);
+          //this.zoomYDelta = this.zoomYDelta*this.zoomScale;
+          console.log(this.zoomYDelta);
         }        
-        this.zoomScale += 0.1;
-        console.log(event);
-        console.log("click");
       },
       //bounding box of zoom
       onZoomDrag() {
