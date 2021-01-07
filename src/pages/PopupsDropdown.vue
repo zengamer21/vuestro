@@ -14,7 +14,7 @@
         Default is to open on hover
       </template>
       <div class="example-container">
-        <vuestro-dropdown>
+        <vuestro-dropdown close-on-content-click>
           <template #title>VuestroDropdown</template>
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>

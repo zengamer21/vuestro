@@ -105,7 +105,8 @@ export default {
     },
     onContentClick() {
       if (this.closeOnContentClick) {
-        this.onBlur();
+        this.active = this.alwaysOpen;
+        this.$emit('leave');
       }
     },
   },

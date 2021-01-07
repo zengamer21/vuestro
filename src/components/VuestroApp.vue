@@ -193,7 +193,7 @@ export default {
   --vuestro-darker: #101110;
   --vuestro-black: #000;
 
-  --vuestro-primary: var(--vuestro-blue);
+  --vuestro-primary: var(--vuestro-cobalt);
   --vuestro-secondary: var(--vuestro-light-med);
   --vuestro-success: var(--vuestro-green);
   --vuestro-info: var(--vuestro-cyan);
