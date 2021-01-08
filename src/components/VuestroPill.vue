@@ -47,7 +47,7 @@ export default {
     clickable: { type: Boolean, default: false },
     draggable: { type: Boolean, default: false },
     shadow: { type: Boolean, default: false },
-    geopattern: { type: Boolean, default: false },
+    geopattern: { type: null, default: null },
     noMargin: { type: Boolean, default: false },
   },
   data() {
@@ -57,8 +57,14 @@ export default {
   },
   computed: {
     titleStyle() {
-      if (this.geopattern) {
-        let text = this.$slots.title[0].text || this.title || '';
+      if (_.isString(this.geopattern)) {
+        let text;
+        // use the value of geopattern as the seed if it's a string
+        if (this.geopattern.length > 0) {
+          text = this.geopattern;
+        } else {
+          text = this.$slots.title[0].text || this.title || '';
+        }
         return {
           'background-image': GeoPattern.generate(text.trim()).toDataUrl(),
         };

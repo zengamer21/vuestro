@@ -1,11 +1,24 @@
 <template>
-  <div class="vuestro-hr"></div>
+  <div class="vuestro-hr"
+       :style="style">
+  </div>
 </template>
 
 <script>
 
 export default {
   name: 'VuestroHr',
+  props: {
+    margin: { type: String, default: '0' },
+  },
+  computed: {
+    style() {
+      return {
+        'margin-top': this.margin,
+        'margin-bottom': this.margin,
+      };
+    },
+  },
 };
 
 </script>

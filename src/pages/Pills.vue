@@ -194,6 +194,11 @@
             This string generated the background!!!
           </template>
         </vuestro-pill>
+        <vuestro-pill geopattern="theseed">
+          <template #title>
+            ...or set geopattern to a string to set the seed!
+          </template>
+        </vuestro-pill>
       </div>
     </vuestro-card>
 
