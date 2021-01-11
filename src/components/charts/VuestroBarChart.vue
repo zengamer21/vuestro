@@ -45,8 +45,8 @@
           :y2="line.coordinate" />
       </g>
       <!--BARS -->
-      <g :style="{ transform: `translate(${0}px, ${zoomYDelta}px)
-                              scale(${zoomScale})`}">
+      <g :style="{ transform: `scale(${zoomScale})
+        translate(${-zoomXDelta}px, ${zoomYDelta}px)`}">
         <g v-for="barSet in barsData" 
           :key="barSet.id">
           <rect v-for="bar in barSet.data"
@@ -79,7 +79,7 @@
           </template>     
         </g>
       </g>
-      <!-- BACKGROUND X CROP 
+      <!-- BACKGROUND X CROP -->
       <g>
         <rect 
           :y="height-gridPadding-legendShift+2"
@@ -87,9 +87,9 @@
           :height="gridPadding+legendShift"
           fill="#3F3F3F"
           opacity="1" />         
-      </g> -->
+      </g> 
       <!-- X Labels -->
-      <g v-if="enableXGridLabel"
+      <g v-if="enableXGridLabel && !zoomed"
         :style="{ transform: `translate(${-zoomXDelta}px)`}">    
         <text v-for="label in xLabels" 
           :key="label.id"
@@ -102,14 +102,14 @@
           {{label.key}}
         </text>
       </g>
-      <!-- BACKGROUND Y CROP 
+      <!-- BACKGROUND Y CROP -->
       <g>
         <rect 
           :width="gridPadding-4"
           :height="height"
           fill="#3F3F3F"
           opacity="1" />   
-      </g> -->
+      </g>
       <!-- Y Labels -->      
       <g v-if="enableYGridLabel">          
         <text v-for="line in gridY" 
@@ -212,6 +212,7 @@
         enableGrid: false,
         enableZoom: false,
         showZoom: false,
+        zoomed: false,
         enableYGridLabel: false,
         enableXGridLabel: false,
       };
@@ -317,27 +318,27 @@
         this.xLabels = data;      
       },
       //generate grid y
-      generateGridY() {
+      generateGridY(min, max) {
         let y = []
         //y grid max
         this.yGridMax = this.height-this.legendShift-this.gridPadding;
         //y grid min
         this.yGridMin = this.gridPadding;
         //value step
-        let valueStep = this.yMax/this.numYLines;
+        let valueStep = max/this.numYLines;
         //step
         let step = (this.yGridMax-this.yGridMin)/this.numYLines;
         //set grid values
         for(let i=0; i<this.numYLines; i++) {
           let yGridObj = {};
-          yGridObj.value = Math.trunc(i*valueStep);
+          yGridObj.value = Math.trunc(i*valueStep+min);
           yGridObj.coordinate = this.yGridMax - i*step;
           y.push(yGridObj);
         }
         //last line
-        y.push({value: this.yMax, coordinate: this.yGridMin});
+        y.push({value: Math.trunc(max), coordinate: this.yGridMin});
         this.gridY = y;
-        console.log(this.yMax);
+        console.log(this.gridY);
       },
       //generate bar data
       generateBarData(scaleX, scaleY) {
@@ -397,6 +398,22 @@
           this.generateXLabels();
         }
       },
+      //generate scale for x
+      generateXScale() {
+        let scale = d3.scaleBand()
+                      .domain(this.data.map((d) => { return d[this.categoryKey]; }))
+                      .rangeRound([this.margin.left+this.gridPadding, this.width - this.margin.right-this.gridPadding])
+                      .padding(this.padding);
+        return scale;
+      },
+      //generate scale for y
+      generateYScale(xMin, xMax, yMin, yMax) {
+        //function to scale y, add range
+        let scaleY = d3.scaleLinear().range([yMin, yMax]);        
+        //add domain to function scale Y
+        scaleY.domain([xMin, xMax]);
+        return scaleY;
+      },
       resize() {
         //set legend shift if legend is enabled
         if(this.enableLegend) {
@@ -412,27 +429,21 @@
         this.localData = _.cloneDeep(this.data);
         
         //function to scale x
-        let scaleX = d3.scaleBand()
-                      .domain(this.data.map((d) => { return d[this.categoryKey]; }))
-                      .rangeRound([this.margin.left+this.gridPadding, this.width - this.margin.right-this.gridPadding])
-                      .padding(this.padding);
-
-        //function to scale y
-        let scaleY = d3.scaleLinear().range([this.height-this.gridPadding, this.gridPadding+this.legendShift]);
+        let scaleX = this.generateXScale();
         //d3.extent is a function that returns min and max of an array
         let extents = this.series.map((series) => {
           return d3.extent(this.localData, function(d) { return d[series.field]; });
         });        
         //set y max
-        this.yMax = Math.trunc((d3.max(extents, function(d) { return d[1] * 1.1 ; })));        
-        //add domain to function scale Y
-        scaleY.domain([0, this.yMax]);
+        this.yMax = Math.trunc((d3.max(extents, function(d) { return d[1] * 1.1 ; })));   
+        //function to scale y
+        let scaleY = this.generateYScale(0, this.yMax, this.height-this.gridPadding, this.gridPadding+this.legendShift);  
         //generate bar data
         this.generateBarData(scaleX, scaleY);
         //generate grid
         if(this.enableGrid) {
           this.generateGridX(scaleX);
-          this.generateGridY(scaleY);
+          this.generateGridY(0, this.yMax);
         }
         //generate legend
         if(this.enableLegend) {
@@ -441,7 +452,7 @@
       },
       //enable zoom
       onZoomPress() {
-        /*
+        /* TEST CODE TO DO ACTUAL SCALING CORRECTLY
         let svg = d3.select("#barChart");
         let width = svg.attr("width")/2;
         let height = svg.attr("height")/2;
@@ -452,7 +463,6 @@
         bars.attr("transform", "scale(2)");// translate(0, "+(height*(-1.3))+")");//"translate("+-width+" "+height+") scale(1.02) translate("+(width*1.02)+" "+(-height*1.02)+")");
         */
 
-        this.zoomScale += 0.01;
         if(this.enableZoom) {
           this.showZoom = true;
           //save coordinates of click
@@ -461,36 +471,75 @@
           //set initial value of box
           this.zoomX = event.offsetX;
           this.zoomY = event.offsetY;
-          //keep track of x transform
-          this.zoomXDelta += this.zoomXClick - this.gridPadding;
-          this.zoomYDelta = this.height*this.zoomScale - this.zoomYClick*this.zoomScale - this.gridPadding*this.zoomScale - this.legendShift*this.zoomScale;
-          console.log(this.zoomYDelta);
-          //this.zoomYDelta = this.zoomYDelta*this.zoomScale;
-          console.log(this.zoomYDelta);
         }        
       },
       //bounding box of zoom
       onZoomDrag() {
         if(this.enableZoom && this.showZoom) {
           //calculate x coordinate of box
-          let widthDiff = this.zoomXClick - event.offsetX;
+          this.zoomReleaseX = event.offsetX;
+          let widthDiff = this.zoomXClick - this.zoomReleaseX;
           this.zoomWidth = Math.abs(widthDiff);
           if(widthDiff > 0) {
             this.zoomX = event.offsetX;
           }
           //calculate y coordinate of box
-          let heightDiff = this.zoomYClick - event.offsetY;
+          this.zoomReleaseY = event.offsetY
+          let heightDiff = this.zoomYClick - this.zoomReleaseY;
           this.zoomHeight = Math.abs(heightDiff);
           if(heightDiff > 0) {
             this.zoomY = event.offsetY;
-          }            
+          }
+          //this.zoomScale = this.calculateZoomScale(this.zoomXDelta, this.zoomYDelta);            
         }
       },
       //disable zoom
       onZoomRelease() {
-        if(this.enableZoom) {
+        if(this.enableZoom) {          
+          //keep track of x transform
+          if(event.offsetX < this.zoomXClick) {
+            this.zoomXDelta += event.offsetX - this.gridPadding;
+          } else {            
+            this.zoomXDelta += this.zoomXClick - this.gridPadding;
+          }
+          //keep track of y transform
+          if(event.offsetY > this.zoomYClick) {
+            this.zoomYDelta += this.height - event.offsetY - this.gridPadding - this.legendShift;
+          } else {
+            this.zoomYDelta += this.height - this.zoomYClick - this.gridPadding - this.legendShift;          
+          }
+          //update y grid values
+          this.updateZoomGrid(this.zoomYClick);
+          //calculate zoom scale         
+          this.zoomScale += this.calculateZoom(this.zoomXClick, this.zoomYClick, this.zoomReleaseX, this.zoomReleaseY);          
+          //turn off zoom box
           this.showZoom = false;
-        }
+          //zoomed
+          this.zoomed = true;
+        }; 
+      },
+      //update grid values
+      updateZoomGrid(min) {  
+        //d3.extent is a function that returns min and max of an array
+        let extents = this.series.map((series) => {
+          return d3.extent(this.localData, function(d) { return d[series.field]; });
+        });      
+        //set y max
+        this.yMax = Math.trunc((d3.max(extents, function(d) { return d[1] * 1.1 ; })));           
+        //function to scale y        
+        let scaleY = this.generateYScale(this.height-this.gridPadding, this.gridPadding+this.legendShift, 0, this.yMax);
+        //calculate new min and new max
+        let newMin = scaleY(min+this.gridPadding);
+        //generate new y labels
+        this.generateGridY(newMin, this.yMax);
+      },
+      //calculate hypotenuse of box
+      calculateZoom(x1, y1, x2, y2, gridScale) {
+        let width = Math.abs(x1-x2);
+        let height = Math.abs(y1-y2);
+        let hypotenuse = Math.sqrt(width*width+height*height);
+        let scale = hypotenuse*0.001;
+        return scale;
       },
       //enable tooltip
       onMouseenter({ offsetX }) {
