@@ -1,20 +1,39 @@
 <template>
-  <div class="vuestro-bar-chart" >
-    <svg id="barChart" 
-      :width="width+2"
-      :height="height"
-      :style="{ transform: `translate(${margin.left}px, ${margin.top}px)`}"
+  <!-- DIVISION BAR CHART -->
+  <div class="vuestro-bar-chart" style="background-color:#3F3F3F;" >
+     <!-- <div
+      style="background-color:#3F3F3F;">
+      <button v-on:click="resetZoom"
+        type="button"
+        :x="30"
+        :y="200">Reset View</button></div> -->
+    <!-- BAR CHART -->
+    <svg 
+      :width="svgWidth"
+      :height="svgHeight"
       @mousedown="onZoomPress"
       @mouseup="onZoomRelease"
       @mousemove="onZoomDrag"
     >
-      <!-- BACKGROUND -->
-      <g>
-        <rect :width="width+2"
-          :height="height"
-          fill="black"
-          opacity="0.75" />         
-      </g>
+      <!-- GRID -->
+      <template v-if="enableGrid">
+        <g 
+          stroke="black"
+          stroke-opacity="0.2">
+          <line v-for="line in gridX.x"
+            :key="line.id"
+            :x1="line"
+            :x2="line"
+            :y1="chartHeight + chartMargin.top"
+            :y2="chartMargin.top" />        
+          <line v-for="line in gridY"
+            :key="line.id"
+            :x1="chartMargin.left"
+            :x2="chartWidth + chartMargin.left"
+            :y1="line.coordinate"
+            :y2="line.coordinate" />
+        </g>
+      </template>
       <!-- ZOOM -->
       <g>
         <rect v-if="enableZoom && showZoom"
@@ -24,25 +43,6 @@
           :height="zoomHeight"
           fill="red"
           opacity="0.75" />         
-      </g>
-      <!-- GRID -->
-      <g v-if="enableGrid">
-        <line v-for="line in gridX.x"
-          :key="line.id"
-          :x1="line+gridX.width"
-          :x2="line+gridX.width"
-          stroke="black"
-          stroke-opacity="0.2"
-          :y1="height-legendShift-gridPadding"
-          :y2="0+gridPadding" />        
-        <line v-for="line in gridY"
-          :key="line.id"
-          :x1="gridPadding"
-          :x2="width-gridPadding"
-          stroke="black"
-          stroke-opacity="0.2"
-          :y1="line.coordinate"
-          :y2="line.coordinate" />
       </g>
       <!--BARS -->
       <g :style="{ transform: `scale(${zoomScale})
@@ -79,7 +79,8 @@
           </template>     
         </g>
       </g>
-      <!-- BACKGROUND X CROP -->
+      <!--
+      <!-- BACKGROUND X CROP 
       <g>
         <rect 
           :y="height-gridPadding-legendShift+2"
@@ -87,65 +88,67 @@
           :height="gridPadding+legendShift"
           fill="#3F3F3F"
           opacity="1" />         
-      </g> 
+      </g> -->
       <!-- X Labels -->
-      <g v-if="enableXGridLabel && !zoomed"
-        :style="{ transform: `translate(${-zoomXDelta}px)`}">    
-        <text v-for="label in xLabels" 
-          :key="label.id"
-          :x="label.x"
-          :y="height-gridPadding-legendShift+12"
-          text-anchor="middle"
-          font-size="10px"
-          fill="white"
-          font-weight="normal">
-          {{label.key}}
-        </text>
-      </g>
-      <!-- BACKGROUND Y CROP -->
+      <template v-if="enableXGridLabel && !zoomed">
+        <g :style="{ transform: `translate(${-zoomXDelta}px)`}">    
+          <text v-for="label in xLabels" 
+            :key="label.id"
+            :x="label.x"
+            :y="chartHeight + chartMargin.top + 14"
+            text-anchor="middle"
+            font-size="10px"
+            fill="white"
+            font-weight="normal">
+            {{label.key}}
+          </text>
+        </g>
+      </template>
+      <!-- BACKGROUND Y CROP 
       <g>
         <rect 
           :width="gridPadding-4"
           :height="height"
           fill="#3F3F3F"
           opacity="1" />   
-      </g>
-      <!-- Y Labels -->      
-      <g v-if="enableYGridLabel">          
-        <text v-for="line in gridY" 
-          :key="line.id"
-          :x="gridPadding-6"
-          :y="line.coordinate+3"
+      </g> -->
+      <!-- Y Labels -->   
+      <template v-if="enableYGridLabel">   
+        <g 
           text-anchor="end"
           font-size="10px"
-          fill="white">
-          {{line.value}}
-        </text>
-      </g>
+          fill="white">          
+          <text v-for="line in gridY" 
+            :key="line.id"
+            :x="chartMargin.left-4"
+            :y="line.coordinate+3">
+            {{line.value}}
+          </text>
+        </g>
+      </template>
       <!-- LEGEND -->
-      <g v-if="enableLegend">
-        <text font-size="10px" :x="0" :y="height-5">
+      <template v-if="enableLegend">
+        <text font-size="10px" :x="chartMargin.left" :y="svgHeight - 5">
           <tspan v-for="element in legendData"
-              :key="element.id"
+              :key="element.id"            
               dx="1.2em"
               :fill="element.color" 
               :stroke="element.color"
               stroke-width="2">|
-              <tspan font-size="10px" fill="white" stroke="black" stroke-width="0">{{element.title}}</tspan>
+              <tspan fill="white" stroke="black" stroke-width="0">{{element.title}}</tspan>
           </tspan>
         </text> 
-      </g>
+      </template>
       <!-- TOOLTIP -->
       <template v-if="enableToolTip && showToolTip">
-        <!--<path class="vuestro-bar-chart-cursor" :d="cursorLine" />-->
-        <vuestro-bar-svg-tooltip :x="mouseX"
-                             :x-max="width"
-                             :y="mouseY"
-                             :y-max="height"
-                             :toolData="toolTipData">
+        <vuestro-bar-svg-tooltip 
+          :x="toolX"
+          :x-max="svgWidth"
+          :y="toolY"
+          :y-max="svgHeight"
+          :toolData="toolTipData">
         </vuestro-bar-svg-tooltip>
       </template>
-      <g ref="yAxis"></g>
     </svg>
   </div>
 </template>
@@ -153,7 +156,9 @@
 <script>
   /* global _ */
   import * as d3 from 'd3';
+import VuestroButton from '../VuestroButton.vue';
   export default {
+  components: { VuestroButton },
     name: 'VuestroBarChart',
     props: {
       data: { type: Array, default: () => [] },
@@ -161,11 +166,21 @@
     },
     data() {
       return {
+        //svg dimensions
+        svgWidth: 0,
+        svgHeight: 0,
+        //chart dimensions
+        chartWidth: 0,
+        chartHeight: 0,
+        chartMargin: {
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+        },
         width: 0,
         height: 0,
         localData: [],
-        lastHoverPoint: {},
-        cursorLine: '',
         colors: d3.schemeCategory10,
         margin: {
           left: 0,
@@ -177,12 +192,8 @@
         series: [{
           field: 'value'
         }],
-        stacked: false,
         padding: 0.1,
-        hideTooltip: false,
-        utc: false,
-        mouseX: 0,
-        mouseY: 0,
+        //label data
         barsData: [],
         legendData: [],
         gridX: [],
@@ -193,8 +204,12 @@
         gridPadding: 0,
         yMax: 0,
         xLabels: [],
+        //tool tip data
+        toolX: 0,
+        toolY: 0,
         toolTipData: {},
         showToolTip: false,
+        //zoom box data
         zoomFirstClick: true,
         zoomX: 0,
         zoomXDelta: 0,
@@ -267,8 +282,43 @@
           this.legendData.push(legendKey);
         }
       },
+      //generate scale for x
+      generateXScale() {
+        let scale = d3.scaleBand()
+          .domain(this.data.map((d) => { return d[this.categoryKey]; }))
+          .rangeRound([this.chartMargin.left, this.chartMargin.left + this.chartWidth])
+          .padding(this.padding);
+        return scale;
+      },
+      //generate grid x values 
+      generateXGrid() {
+        //generate scale
+        let xScale = this.generateXScale();    
+        let xGrid = {};
+        let xValue = [];
+        //calculate width of each bar for each category, divide by how many bars in category
+        let width = scaleX.bandwidth()/this.series.length;
+        //include first and last line
+        let firstLine, lastLine;
+        for(let i=0; i<this.localData.length; i++) {
+          for(let j=0; j<this.series.length; j++) {
+            xGrid.width = width/2;            
+            x.push(scaleX(this.localData[i]["key"]) + j*(width+1)+width/2);
+          }
+        }
+        //last line
+        x.push(x[x.length-1]+width);
+        //first line
+        x.push(x[0]-width);
+        scale.x = x;
+        this.gridX = scale;
+      },
       //generate grid x
       generateGridX(scaleX) {
+
+
+    
+
         let scale = {};
         let x = [];
         let width = scaleX.bandwidth()/this.series.length;
@@ -276,7 +326,9 @@
         for(let i=0; i<this.localData.length; i++) {
           for(let j=0; j<this.series.length; j++) {
             scale.width = width/2;            
-            x.push(scaleX(this.localData[i]["key"]) + j*(width+1));
+            console.log(scaleX(this.localData[i]["key"]));
+            console.log(width/2);
+            x.push(scaleX(this.localData[i]["key"]) + j*(width)+width/2);
           }
         }
         //last line
@@ -398,14 +450,6 @@
           this.generateXLabels();
         }
       },
-      //generate scale for x
-      generateXScale() {
-        let scale = d3.scaleBand()
-                      .domain(this.data.map((d) => { return d[this.categoryKey]; }))
-                      .rangeRound([this.margin.left+this.gridPadding, this.width - this.margin.right-this.gridPadding])
-                      .padding(this.padding);
-        return scale;
-      },
       //generate scale for y
       generateYScale(xMin, xMax, yMin, yMax) {
         //function to scale y, add range
@@ -414,20 +458,37 @@
         scaleY.domain([xMin, xMax]);
         return scaleY;
       },
+      //view box is resized
       resize() {
-        //set legend shift if legend is enabled
-        if(this.enableLegend) {
-          this.legendShift = 20;
-        }
+        //view box doesn't exist
         if (this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
-          this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
-          this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;        
+          //set legend shift if legend is enabled
+          if(this.enableLegend) {
+            this.legendShift = 20;
+          }
+          //SVG
+          this.svgWidth = this.$el.clientWidth;
+          this.svgHeight = this.$el.clientHeight;
+          //old code -- temporarily kept to make sure everything's working
+          this.width = this.svgWidth;
+          this.height = this.svgHeight;
+          //chart padding          
+          this.chartMargin.left = this.gridPadding;
+          this.chartMargin.right = this.gridPadding;
+          this.chartMargin.bottom = this.legendShift + this.gridPadding;
+          this.chartMargin.top = this.gridPadding;
+          //chart dimensions
+          this.chartWidth = this.svgWidth - this.chartMargin.left - this.chartMargin.right;
+          this.chartHeight = this.svgHeight - this.chartMargin.top - this.chartMargin.bottom;
+          //redraw svg
           this.redraw();
         }
       },
+      //redraw svg
       redraw() {
         this.localData = _.cloneDeep(this.data);
         
+
         //function to scale x
         let scaleX = this.generateXScale();
         //d3.extent is a function that returns min and max of an array
@@ -450,20 +511,11 @@
           this.generateLegend();
         }
       },
-      //enable zoom
+      //click for zoom
       onZoomPress() {
-        /* TEST CODE TO DO ACTUAL SCALING CORRECTLY
-        let svg = d3.select("#barChart");
-        let width = svg.attr("width")/2;
-        let height = svg.attr("height")/2;
-
-        console.log(width);
-        console.log(height);
-        let bars = d3.select("#testZoom").selectAll("rect");
-        bars.attr("transform", "scale(2)");// translate(0, "+(height*(-1.3))+")");//"translate("+-width+" "+height+") scale(1.02) translate("+(width*1.02)+" "+(-height*1.02)+")");
-        */
-
+        //check if zoom is enabled
         if(this.enableZoom) {
+          //enable draw box
           this.showZoom = true;
           //save coordinates of click
           this.zoomXClick = event.offsetX;
@@ -475,23 +527,39 @@
       },
       //bounding box of zoom
       onZoomDrag() {
-        if(this.enableZoom && this.showZoom) {
+        if(this.enableZoom && this.showZoom) {          
           //calculate x coordinate of box
-          this.zoomReleaseX = event.offsetX;
-          let widthDiff = this.zoomXClick - this.zoomReleaseX;
-          this.zoomWidth = Math.abs(widthDiff);
-          if(widthDiff > 0) {
-            this.zoomX = event.offsetX;
+          let xDelta = event.offsetX;
+          //calculate width
+          let xDiff = this.zoomXClick - xDelta;
+          //drags right
+          if(xDiff < 0) {
+            this.zoomX = this.zoomXClick;
+          } 
+          //drags left
+          else {
+            this.zoomX = this.zoomXClick - xDiff;
           }
+          //update width of zoom box
+          this.zoomWidth = Math.abs(xDiff);
           //calculate y coordinate of box
-          this.zoomReleaseY = event.offsetY
-          let heightDiff = this.zoomYClick - this.zoomReleaseY;
-          this.zoomHeight = Math.abs(heightDiff);
-          if(heightDiff > 0) {
-            this.zoomY = event.offsetY;
+          let yDelta = event.offsetY;
+          //calculate y offset difference
+          let yDiff = this.zoomYClick - yDelta;
+          //calculate height aspect ratio and update height of zoom box
+          this.zoomHeight = (this.height/(this.width+2))*this.zoomWidth;
+          //drags up
+          if(yDiff > 0) {
+            this.zoomY = this.zoomYClick-this.zoomHeight;
           }
-          //this.zoomScale = this.calculateZoomScale(this.zoomXDelta, this.zoomYDelta);            
+          //drags down
+          else {
+            this.zoomY = this.zoomYClick;
+          }           
         }
+      },
+      resetZoom() {
+        console.log("clicked");
       },
       //disable zoom
       onZoomRelease() {
@@ -552,8 +620,8 @@
       //Tool tip data passed through event
       onMouseover({ offsetX }) {
         //track mouse
-        this.mouseX = event.offsetX + 20;
-        this.mouseY = event.offsetY - 20;
+        this.toolX = event.offsetX + 20;
+        this.toolY = event.offsetY - 20;
         //generate tool data
         let toolData = {};
         //stacked
