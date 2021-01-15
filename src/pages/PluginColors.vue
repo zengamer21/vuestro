@@ -14,13 +14,13 @@
       <template #heading>CSS Colors</template>
       <template #description><span>Vuestro provides many pre-defined CSS vars for a rainbow of colors. Any of these may be redefined in your app by setting them on <em>.vuestro-app</em></span></template>
     </vuestro-card>
-    <vuestro-card cols="3" v-for="c in colorVars">
+    <vuestro-card cols="3" v-for="c in colorVars" :key="c">
       <div class="color-chip" :style="{'background-color': `var(${c})`}">
         {{ c }}
       </div>
     </vuestro-card>
 
-    <vuestro-card cols="3" v-for="c in grayScale">
+    <vuestro-card cols="3" v-for="c in grayScale" :key="c">
       <div class="color-chip" :style="{'background-color': `var(${c})`}">
         {{ c }}
       </div>
@@ -29,7 +29,7 @@
     <vuestro-card cols="12">
       <template #subheading>Some of the above are aliased using semantic variant names</template>
     </vuestro-card>
-    <vuestro-card cols="3" v-for="c in semanticColors">
+    <vuestro-card cols="3" v-for="c in semanticColors" :key="c">
       <div class="color-chip" :style="{'background-color': `var(${c})`}">
         {{ c }}
       </div>
@@ -38,12 +38,11 @@
     <vuestro-card cols="12">
       <template #subheading>...and text colors</template>
     </vuestro-card>
-    <vuestro-card cols="3" v-for="c in textColors">
+    <vuestro-card cols="3" v-for="c in textColors" :key="c">
       <div class="color-chip" :style="{color: 'black', 'background-color': `var(${c})`}">
         {{ c }}
       </div>
     </vuestro-card>
-
   </vuestro-container>
 </template>
 

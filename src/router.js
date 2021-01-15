@@ -28,6 +28,7 @@ import ContainersPanelScroll from './pages/ContainersPanelScroll';
 import Popups from './pages/Popups';
 import PopupsDropdown from './pages/PopupsDropdown';
 import PopupsModal from './pages/PopupsModal';
+import PopupsNotifications from './pages/PopupsNotifications';
 import PopupsTooltip from './pages/PopupsTooltip';
 import Data from './pages/Data';
 import DataTable from './pages/DataTable';
@@ -260,6 +261,15 @@ export default new Router({
           name: 'tooltip',
           path: 'tooltip',
           component: PopupsTooltip,
+        },
+        {
+          meta: {
+            title: 'Notifications',
+            sidebar: true,
+          },
+          name: 'notifications',
+          path: 'notifications',
+          component: PopupsNotifications,
         },
       ]
     },

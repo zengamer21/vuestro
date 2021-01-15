@@ -3,6 +3,7 @@
     <template #logo></template>
 
     <template #navbar></template>
+    
     <template #sidebar>
       <vuestro-sidebar :user="user"
                        :user-img="userImg"

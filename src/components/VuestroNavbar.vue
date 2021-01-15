@@ -30,6 +30,12 @@
                             v-model="search"
                             history>
         </vuestro-search-box>
+        <vuestro-notifications>
+          <template #default="{ item }">
+            <vuestro-list-button>{{ item.title }} - {{ item.created | vuestroDate }}
+            </vuestro-list-button>
+          </template>
+        </vuestro-notifications>
       </slot>
     </div>
   </div>
@@ -72,7 +78,7 @@ export default {
   --vuestro-navbar-title-font-size: 2em;
   --vuestro-navbar-height: 60px;
   --vuestro-navbar-bg: var(--vuestro-content-bg);
-  --vuestro-navbar-fg: #323334;
+  --vuestro-navbar-fg: var(--vuestro-text-color);
   --vuestro-navbar-border: transparent;
   --vuestro-navbar-separator: 1px solid var(--vuestro-outline);
 }
@@ -118,6 +124,7 @@ export default {
 .vuestro-navbar-slot {
   display: flex;
   flex-grow: 1;
+  align-self: stretch;
 }
 
 .vuestro-hamburger {

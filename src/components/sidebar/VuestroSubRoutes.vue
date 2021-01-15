@@ -70,7 +70,7 @@ export default {
 }
 .vuestro-sub-routes-item > a.vuestro-router-link-active {
   background-color: var(--vuestro-sidebar-item-active-bg);
-  color: var(--vuestro-sidebar-item-active-fg);
+  color: var(--vuestro-sidebar-subroute-active-fg);
   border-left: var(--vuestro-sidebar-subroute-active-border);
 }
 

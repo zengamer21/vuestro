@@ -125,7 +125,7 @@
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
-        <vuestro-dropdown click-to-open close-on-content-click>
+        <vuestro-dropdown click-to-open close-on-content-click right>
           <template #button>
             <vuestro-button variant="info" size="lg">
               <template #placeholder>PLACEHOLDER</template>

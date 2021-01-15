@@ -151,10 +151,11 @@ export default {
   --vuestro-sidebar-item-padding-right: 15px;
   --vuestro-sidebar-item-hover: var(--vuestro-hover);
   --vuestro-sidebar-item-active-bg: var(--vuestro-active);
-  --vuestro-sidebar-item-active-fg: var(--vuestro-primary);
+  --vuestro-sidebar-item-active-fg: #278ffd;
   --vuestro-sidebar-radius: calc(var(--vuestro-sidebar-item-height) / 2);
   --vuestro-sidebar-subroutes-spacing: 2px;
-  --vuestro-sidebar-active-border: 3px solid var(--vuestro-primary);
+  --vuestro-sidebar-active-border: 3px solid #278ffd;
+  --vuestro-sidebar-subroute-active-fg: var(--vuestro-orange);
   --vuestro-sidebar-subroute-active-border: 3px solid var(--vuestro-orange);
   --vuestro-sidebar-user-image-width: 40px;
   --vuestro-sidebar-font-weight: 400;

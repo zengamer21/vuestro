@@ -10,6 +10,13 @@ export default new Vuex.Store({
   state: {
     isDarkUI: true,
     isSidebarMini: false,
+    notifications: [
+      {
+        _id: 'testid',
+        title: 'Example Alert',
+        created: new Date(),
+      }
+    ],
   },
   getters: {
     isDarkUI(state) {
@@ -17,7 +24,10 @@ export default new Vuex.Store({
     },
     isSidebarMini(state) {
       return state.isSidebarMini;
-    }
+    },
+    notifications(state) {
+      return state.notifications;
+    },
   },
   actions: {
     toggleIsDarkUI({ commit }) {

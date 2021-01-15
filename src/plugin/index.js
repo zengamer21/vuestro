@@ -33,6 +33,7 @@ import VuestroListItem from '../components/list/VuestroListItem';
 import VuestroMap from '../components/charts/VuestroMap';
 import VuestroModal from '../components/VuestroModal';
 import VuestroMultiSelect from '../components/inputs/VuestroMultiSelect';
+import VuestroNotifications from '../components/VuestroNotifications';
 import VuestroObjectBrowser from '../components/VuestroObjectBrowser';
 import VuestroPanel from '../components/VuestroPanel';
 import VuestroPill from '../components/VuestroPill';
@@ -84,6 +85,7 @@ export default {
     Vue.component(VuestroMap.name, VuestroMap);
     Vue.component(VuestroModal.name, VuestroModal);
     Vue.component(VuestroMultiSelect.name, VuestroMultiSelect);
+    Vue.component(VuestroNotifications.name, VuestroNotifications);
     Vue.component(VuestroObjectBrowser.name, VuestroObjectBrowser);
     Vue.component(VuestroPanel.name, VuestroPanel);
     Vue.component(VuestroPill.name, VuestroPill);
@@ -241,7 +243,31 @@ export default {
           var arr = new Uint8Array((length || 40) / 2);
           window.crypto.getRandomValues(arr);
           return Array.from(arr, dec2hex).join('');
-        }
+        },
+        vuestroColorPalette() {
+          return [
+            '--vuestro-indigo',
+            '--vuestro-purple',
+            '--vuestro-magenta',
+            '--vuestro-pink',
+
+            '--vuestro-royal',
+            '--vuestro-blue',
+            '--vuestro-cobalt',
+            '--vuestro-cyan',
+            '--vuestro-teal',
+
+            '--vuestro-green',
+            '--vuestro-emerald',
+            '--vuestro-yellow',
+            '--vuestro-gold',
+
+            '--vuestro-orange',
+            '--vuestro-salmon',
+            '--vuestro-brick',
+            '--vuestro-red',
+          ];
+        },
       }
     });
   }

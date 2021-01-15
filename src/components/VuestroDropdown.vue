@@ -3,7 +3,9 @@
        :class="{ disabled, stretch }"
        v-vuestro-blur="onBlur"
        :style="{ 'z-index': active ? 200:100 }">
-    <div class="vuestro-dropdown-inner" @mouseleave="onLeave" :class="{ dark, active, noSpacing, noScroll, rounded, bottom, clickToOpen, stretch }">
+    <div class="vuestro-dropdown-inner"
+         @mouseleave="onLeave"
+         :class="{ dark, active, noSpacing, noScroll, bottom, clickToOpen, stretch, button: !!$slots.button }">
       <div v-if="$slots.title" class="vuestro-dropdown-title" @mouseover="onHover" @click="onClick">
         &#8203;<slot name="title"></slot>&#8203;
       </div>
@@ -32,7 +34,6 @@ export default {
   props: {
     alwaysOpen: { type: Boolean, default: false },
     clickToOpen: { type: Boolean, default: false },
-    rounded: { type: Boolean, default: false },
     dark: { type: Boolean, default: false },
     right: { type: Boolean, default: false }, // force right justification
     noSpacing: { type: Boolean, default: false },
@@ -160,6 +161,8 @@ export default {
 
 .vuestro-dropdown-title {
   border: var(--vuestro-control-border-width) solid transparent;
+  border-top-left-radius: var(--vuestro-control-border-radius);
+  border-top-right-radius: var(--vuestro-control-border-radius);
   border-top: none;
   position: relative;
   padding: 2px 6px;
@@ -178,10 +181,6 @@ export default {
 }
 .vuestro-dropdown-inner.noSpacing .vuestro-dropdown-title {
   padding: 0;
-}
-.vuestro-dropdown-inner.rounded .vuestro-dropdown-title {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
 }
 .vuestro-dropdown-inner.stretch,
 .vuestro-dropdown-inner.stretch .vuestro-dropdown-title {
@@ -223,19 +222,28 @@ export default {
   min-width: 160px;
   overflow: auto;
   border: var(--vuestro-control-border-width) solid var(--vuestro-dropdown-outline);
+  border-bottom-left-radius: var(--vuestro-control-border-radius);
+  border-bottom-right-radius: var(--vuestro-control-border-radius);
+  border-top-left-radius: var(--vuestro-control-border-radius);
   z-index: -1;
 }
 .vuestro-dropdown-inner.noScroll .vuestro-dropdown-menu {
   overflow: visible;
 }
-.vuestro-dropdown-inner.rounded .vuestro-dropdown-menu {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+.vuestro-dropdown-inner.stretch .vuestro-dropdown-menu {
+  right: 0;
+  left: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
-
+.vuestro-dropdown-inner.button .vuestro-dropdown-menu {
+  border-radius: var(--vuestro-control-border-radius);
+}
 .vuestro-dropdown-menu.left {
   left: 0px;
   right: initial;
+  border-top-left-radius: 0;
+  border-top-right-radius: var(--vuestro-control-border-radius);
 }
 .vuestro-dropdown-menu.bottom {
   bottom: initial;
@@ -253,8 +261,8 @@ export default {
   cursor: pointer;
 }
 .vuestro-dropdown-inner.rounded .vuestro-dropdown-menu-buttons {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: var(--vuestro-control-border-radius);
+  border-bottom-right-radius: var(--vuestro-control-border-radius);
 }
 
 .vuestro-dropdown-menu-buttons > span {
