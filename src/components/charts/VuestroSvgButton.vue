@@ -35,7 +35,6 @@ export default {
       update() {        
         // size it
         let size = this.$refs.text.getBBox();
-        console.log(size);
         this.buttonHeight = size.height + this.padding;
         this.buttonWidth = size.width + this.padding;
       }

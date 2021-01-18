@@ -695,14 +695,18 @@ import VuestroButton from '../VuestroButton.vue';
                 bar.x = (bar.x - xStart) * this.xZoomScale;
                 //clip x if bar is clipped from left side
                 if(bar.x < this.chartMargin.left) {
+                  //keep difference
                   let clip = this.chartMargin.left - bar.x;
+                  //set new x
                   bar.x = this.chartMargin.left;
-                  console.log(clip);
+                  //adjust width
                   bar.width = bar.width - clip;
                 }
                 //clip x if bar is clipped from right side
                 if((bar.x + bar.width) > (this.chartMargin.left + this.chartWidth)) {
+                  //keep difference
                   let clip = (bar.x + bar.width) - (this.chartMargin.left + this.chartWidth)
+                  //adjust width
                   bar.width = bar.width - clip;
                 }
                 //scale y
@@ -724,7 +728,6 @@ import VuestroButton from '../VuestroButton.vue';
           }
           //include this barset
           if(include){
-            console.log(barSet);
             updateBars.push(barSet);
           }
         }
