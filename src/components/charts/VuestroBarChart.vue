@@ -583,11 +583,7 @@ import VuestroButton from '../VuestroButton.vue';
         this.updateXZoomGrid(xStart, xEnd);
       },
       //update y grid and labels
-      updateYZoom(yStart, yEnd) {  
-        //d3.extent is a function that returns min and max of an array
-        let extents = this.series.map((series) => {
-          return d3.extent(this.localData, function(d) { return d[series.field]; });
-        });      
+      updateYZoom(yStart, yEnd) {          
         //set y max
         let yMax = this.yLabels[this.yLabels.length-1].value;
         //set y min
@@ -598,16 +594,15 @@ import VuestroButton from '../VuestroButton.vue';
         let newMin = Math.trunc(yScale(yStart));
         let newMax = Math.trunc(yScale(yEnd));
         //generate new scale with new min/max
-        yScale = this.generateYScale(newMin, newMax,this.chartMargin.top+this.chartHeight, this.chartMargin.top);
+        this.yZoomScale = this.generateYScale(newMin, newMax,this.chartMargin.top+this.chartHeight, this.chartMargin.top);
         //generate new y labels
-        this.generateYLabels(newMax, yScale);
+        this.generateYLabels(newMax, this.yZoomScale);
         //generate new y grid
-        this.generateYGrid(newMin, newMax, yScale);
+        this.generateYGrid(newMin, newMax, this.yZoomScale);
       },
       //calculate x scale and y scale
       calculateZoom() {
         this.xZoomScale = this.chartWidth/this.zoomWidth;
-        this.yZoomScale = this.chartHeight/this.zoomHeight;
       },
       //update x labels
       updateXZoomLabels(xStart, xEnd) {
@@ -701,7 +696,7 @@ import VuestroButton from '../VuestroButton.vue';
                   bar.width = bar.width - clip;
                 }
                 //scale y
-                bar.y = (bar.y - yEnd) * this.yZoomScale;
+                bar.y = this.yZoomScale(bar.value);
                 //clip y if bar is out of view
                 if(bar.y < this.chartMargin.top) {
                   //set y to top of chart                  
