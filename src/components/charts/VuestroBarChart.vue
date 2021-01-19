@@ -589,9 +589,11 @@ import VuestroButton from '../VuestroButton.vue';
           return d3.extent(this.localData, function(d) { return d[series.field]; });
         });      
         //set y max
-        this.yMax = Math.trunc((d3.max(extents, function(d) { return d[1] * 1.1 ; })));           
+        let yMax = this.yLabels[this.yLabels.length-1].value;
+        //set y min
+        let yMin = this.yLabels[0].value;
         //function to scale y        
-        let yScale = this.generateYScale(this.chartMargin.top+this.chartHeight, this.chartMargin.top, 0, this.yMax);
+        let yScale = this.generateYScale(this.chartMargin.top+this.chartHeight, this.chartMargin.top, yMin, yMax);
         //calculate new min and new max
         let newMin = Math.trunc(yScale(yStart));
         let newMax = Math.trunc(yScale(yEnd));
@@ -781,11 +783,11 @@ import VuestroButton from '../VuestroButton.vue';
 <style scoped>
 #zoom-brush{
   position: absolute;
-  padding-left: 480px;
+  padding-left: 40px;
 }
 #reset-zoom{
   position: absolute;
-  padding-left: 40px;
+  padding-left: 150px;
 }
 .vuestro-bar-chart {
   width: 100%;
