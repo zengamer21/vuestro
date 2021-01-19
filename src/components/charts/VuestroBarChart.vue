@@ -542,7 +542,6 @@ import VuestroButton from '../VuestroButton.vue';
       },
       //reset chart
       resetZoom() {
-        console.log("clicked");
         this.redraw();
         this.zoomed = false;
       },
