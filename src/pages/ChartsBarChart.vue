@@ -83,8 +83,8 @@ export default {
         },
       ],
       options: {
-        gridPadding: 20,
-        enableStacked: false,
+        gridPadding: 35,
+        enableStacked: true,
         enableToolTip: true,
         enableYGridLabel: true,
         enableXGridLabel: true,

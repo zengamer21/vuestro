@@ -1,176 +1,153 @@
 <template>
   <!-- DIVISION BAR CHART -->
   <div class="vuestro-bar-chart" style="background-color:#3F3F3F;" >
-     <!-- <div
-      style="background-color:#3F3F3F;">
-      <button v-on:click="resetZoom"
-        type="button"
-        :x="30"
-        :y="200">Reset View</button></div> -->
-    <!-- BAR CHART -->
-    <svg 
-      :width="svgWidth"
-      :height="svgHeight"
-      @mousedown="onZoomPress"
-      @mouseup="onZoomRelease"
-      @mousemove="onZoomDrag"
-    >
-      <!-- GRID -->
-      <template v-if="enableGrid">
-        <g 
-          stroke="black"
-          stroke-opacity="0.2">
-          <!-- X LINES -->
-          <line v-for="x in xGrid"
-            :key="x.id"
-            :x1="x"
-            :x2="x"
-            :y1="chartHeight + chartMargin.top"
-            :y2="chartMargin.top" /> 
-          <!-- Y LINES -->       
-          <line v-for="y in yGrid"
-            :key="y.id"
-            :x1="chartMargin.left"
-            :x2="chartWidth + chartMargin.left"
-            :y1="y"
-            :y2="y"/>
-        </g> 
-      </template>       
-      <!-- X Labels --> 
-      <template v-if="enableXGridLabel">   
-        <g 
-          text-anchor="middle"
-          font-size="10px"
-          fill="white">          
-          <text v-for="label in xLabels" 
-            :key="label.id"
-            :x="label.x"
-            :y="chartMargin.top + chartHeight + 10">
-            {{label.value}}
-          </text>
-        </g>
-      </template> 
-      <!-- Y Labels --> 
-      <template v-if="enableYGridLabel">   
-        <g 
-          text-anchor="end"
-          font-size="10px"
-          fill="white">          
-          <text v-for="label in yLabels" 
-            :key="label.id"
-            :x="chartMargin.left-4"
-            :y="label.y+3">
-            {{label.value}}
-          </text>
-        </g>
-      </template>    
-      <!-- Y Labels  
-      <template v-if="enableYGridLabel">
-        <g class="yLabel" 
-          :style="{transform: `translate(${chartMargin.left}px, 0px)`}"/>
-      </template>    
+    <!-- BUTTONS -->
+    <div>
       <!-- BRUSH -->
       <template v-if="enableZoom">
-        <vuestro-svg-button 
-          :x="chartMargin.left+2"
-          :y="2"
-          buttonText="Zoom Brush">
-        </vuestro-svg-button>
+        <div id="zoom-brush">
+          <vuestro-button 
+            :checkbox="true" 
+            :value="zoomBrush"
+            v-on:click="checkZoomBrush">Zoom Brush</vuestro-button>
+        </div>
       </template>
       <!-- ZOOM OUT -->      
-      <template v-if="enableZoom">
-        <vuestro-svg-button 
-          :x="chartMargin.left+80"
-          :y="2"
-          buttonText="Reset Zoom"
-          v-on:click="resetZoom">
-        </vuestro-svg-button>
+      <template v-if="enableZoom && zoomed">
+        <div id="reset-zoom">
+          <vuestro-button
+            v-on:click="resetZoom">Reset
+          </vuestro-button>
+        </div>
       </template>
-      <!-- ZOOM -->
-      <g>
-        <rect v-if="enableZoom && showZoom"
-          :x="xZoom"
-          :y="yZoom"
-          :width="zoomWidth"
-          :height="zoomHeight"
-          fill="red"
-          opacity="0.75" />         
-      </g>
-      <!--BARS -->
-      <g>
-        <g v-for="barSet in barsData" 
-          :key="barSet.id">
-          <rect v-for="bar in barSet.data"
-            :key="bar.id"
-            class="vuestro-bar-chart-bar"
-            :x="bar.x"
-            :y="bar.y"
-            :width="bar.width"
-            :height="bar.height"
-            :fill="bar.color"
-            fill-opacity="0.7"
-            :stroke="bar.color"
-            :barKey="bar.key"
-            :barTitle="bar.title"
-            :barValue="bar.value"
-            @mousemove="onMouseover"
-            @mouseleave="onMouseexit"
-            @mouseenter="onMouseenter">
-          </rect>
-          <template v-if="enableLabels && !zoomed">
-            <text v-for="barLabel in barSet.data" 
-              :key="barLabel.id"
-              :x="barLabel.x+barLabel.width/2"
-              :y="barLabel.y-5"
-              text-anchor="middle"
-              font-size="10px"
-              fill="white">
-              {{barLabel.value}}
+    </div>
+    <div>
+      <!-- BAR CHART -->
+      <svg 
+        :width="svgWidth"
+        :height="svgHeight"
+        @mousedown="onZoomPress"
+        @mouseup="onZoomRelease"
+        @mousemove="onZoomDrag"
+      >
+        <!-- GRID -->
+        <template v-if="enableGrid">
+          <g 
+            stroke="black"
+            stroke-opacity="0.2">
+            <!-- X LINES -->
+            <line v-for="x in xGrid"
+              :key="x.id"
+              :x1="x"
+              :x2="x"
+              :y1="chartHeight + chartMargin.top"
+              :y2="chartMargin.top" /> 
+            <!-- Y LINES -->       
+            <line v-for="y in yGrid"
+              :key="y.id"
+              :x1="chartMargin.left"
+              :x2="chartWidth + chartMargin.left"
+              :y1="y"
+              :y2="y"/>
+          </g> 
+        </template>       
+        <!-- X Labels --> 
+        <template v-if="enableXGridLabel">   
+          <g 
+            text-anchor="middle"
+            font-size="10px"
+            fill="white">          
+            <text v-for="label in xLabels" 
+              :key="label.id"
+              :x="label.x"
+              :y="chartMargin.top + chartHeight + 10">
+              {{label.value}}
             </text>
-          </template>     
+          </g>
+        </template> 
+        <!-- Y Labels --> 
+        <template v-if="enableYGridLabel">   
+          <g 
+            text-anchor="end"
+            font-size="10px"
+            fill="white">          
+            <text v-for="label in yLabels" 
+              :key="label.id"
+              :x="chartMargin.left-4"
+              :y="label.y+3">
+              {{label.value}}
+            </text>
+          </g>
+        </template>    
+        <!-- ZOOM -->
+        <g>
+          <rect v-if="enableZoom && showZoom && zoomBrush"
+            :x="xZoom"
+            :y="yZoom"
+            :width="zoomWidth"
+            :height="zoomHeight"
+            fill="red"
+            opacity="0.75" />         
         </g>
-      </g>
-      <!-- BACKGROUND X CROP 
-      <g>
-        <rect 
-          :y="height-gridPadding-legendShift+2"
-          :width="width+2"
-          :height="gridPadding+legendShift"
-          fill="#3F3F3F"
-          opacity="1" />         
-      </g> -->
-      <!-- BACKGROUND Y CROP 
-      <g>
-        <rect 
-          :width="gridPadding-4"
-          :height="height"
-          fill="#3F3F3F"
-          opacity="1" />   
-      </g> -->
-      <!-- LEGEND -->
-      <template v-if="enableLegend">
-        <text font-size="10px" :x="chartMargin.left" :y="svgHeight - 5">
-          <tspan v-for="element in legendData"
-              :key="element.id"            
-              dx="1.2em"
-              :fill="element.color" 
-              :stroke="element.color"
-              stroke-width="2">|
-              <tspan fill="white" stroke="black" stroke-width="0">{{element.title}}</tspan>
-          </tspan>
-        </text> 
-      </template>
-      <!-- TOOLTIP -->
-      <template v-if="enableToolTip && showToolTip">
-        <vuestro-bar-svg-tooltip 
-          :x="toolX"
-          :x-max="svgWidth"
-          :y="toolY"
-          :y-max="svgHeight"
-          :toolData="toolTipData">
-        </vuestro-bar-svg-tooltip>
-      </template>
-    </svg>
+        <!--BARS -->
+        <g>
+          <g v-for="barSet in barsData" 
+            :key="barSet.id">
+            <rect v-for="bar in barSet.data"
+              :key="bar.id"
+              class="vuestro-bar-chart-bar"
+              :x="bar.x"
+              :y="bar.y"
+              :width="bar.width"
+              :height="bar.height"
+              :fill="bar.color"
+              fill-opacity="0.7"
+              :stroke="bar.color"
+              :barKey="bar.key"
+              :barTitle="bar.title"
+              :barValue="bar.value"
+              @mousemove="onMouseover"
+              @mouseleave="onMouseexit"
+              @mouseenter="onMouseenter">
+            </rect>
+            <template v-if="enableLabels && !zoomed">
+              <text v-for="barLabel in barSet.data" 
+                :key="barLabel.id"
+                :x="barLabel.x+barLabel.width/2"
+                :y="barLabel.y-5"
+                text-anchor="middle"
+                font-size="10px"
+                fill="white">
+                {{barLabel.value}}
+              </text>
+            </template>     
+          </g>
+        </g>
+        <!-- LEGEND -->
+        <template v-if="enableLegend">
+          <text font-size="10px" :x="chartMargin.left" :y="svgHeight - 5">
+            <tspan v-for="element in legendData"
+                :key="element.id"            
+                dx="1.2em"
+                :fill="element.color" 
+                :stroke="element.color"
+                stroke-width="2">|
+                <tspan fill="white" stroke="black" stroke-width="0">{{element.title}}</tspan>
+            </tspan>
+          </text> 
+        </template>
+        <!-- TOOLTIP -->
+        <template v-if="enableToolTip && showToolTip">
+          <vuestro-bar-svg-tooltip 
+            :x="toolX"
+            :x-max="svgWidth"
+            :y="toolY"
+            :y-max="svgHeight"
+            :toolData="toolTipData">
+          </vuestro-bar-svg-tooltip>
+        </template>
+      </svg>
+    </div>
   </div>
 </template>
 
@@ -226,6 +203,8 @@ import VuestroButton from '../VuestroButton.vue';
         toolTipData: {},
         showToolTip: false,
         //zoom box data
+        zoomBrush: false,
+        showZoom: false,
         xZoom: 0,
         yZoom: 0,
         xZoomScale: 0,
@@ -240,7 +219,6 @@ import VuestroButton from '../VuestroButton.vue';
         enableToolTip: false,
         enableGrid: false,
         enableZoom: false,
-        showZoom: false,
         enableYGridLabel: false,
         enableXGridLabel: false,
       };
@@ -509,7 +487,7 @@ import VuestroButton from '../VuestroButton.vue';
       //click for zoom
       onZoomPress() {
         //check if zoom is enabled
-        if(this.enableZoom) {
+        if(this.enableZoom && this.zoomBrush) {
           //enable draw box
           this.showZoom = true;
           //save coordinates of click
@@ -522,7 +500,7 @@ import VuestroButton from '../VuestroButton.vue';
       },
       //bounding box of zoom
       onZoomDrag() {
-        if(this.enableZoom && this.showZoom) {          
+        if(this.enableZoom && this.showZoom && this.zoomBrush) {          
           //calculate x coordinate of box
           let xDelta = event.offsetX;
           //calculate width
@@ -553,13 +531,24 @@ import VuestroButton from '../VuestroButton.vue';
           }           
         }
       },
+      //check/uncheck
+      checkZoomBrush() {
+        //untick or tick checkbox
+        if(this.zoomBrush) {
+          this.zoomBrush = false;
+        } else {
+          this.zoomBrush = true;
+        }        
+      },
+      //reset chart
       resetZoom() {
         console.log("clicked");
         this.redraw();
+        this.zoomed = false;
       },
       //disable zoom
       onZoomRelease() {
-        if(this.enableZoom) { 
+        if(this.enableZoom && this.zoomBrush) { 
           //calculate y min and y max pixel
           let yMin, yMax;
           if(this.yZoomClick > event.offsetY) {
@@ -789,21 +778,21 @@ import VuestroButton from '../VuestroButton.vue';
   };
 </script>
 
-<style>
+<style scoped>
+#zoom-brush{
+  position: absolute;
+  padding-left: 480px;
+}
+#reset-zoom{
+  position: absolute;
+  padding-left: 40px;
+}
 .vuestro-bar-chart {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
-
 .vuestro-bar-chart-bar {
   transition: all 0.4s ease-in-out;
 }
-
-.vuestro-bar-chart-cursor {
-  stroke: var(--vuestro-outline);
-  stroke-width: 1px;
-  fill: none;
-}
-
 </style>
