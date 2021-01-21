@@ -21,7 +21,12 @@
                 </vuestro-sidebar>
               </slot>
             </template>
-            <slot name="navbar-slot"></slot>
+            <template #logo>
+              <slot name="navbar-logo"></slot>
+            </template>
+            <template #default>
+              <slot name="navbar-slot"></slot>
+            </template>
           </vuestro-navbar>
         </slot>
 

@@ -19,7 +19,9 @@
         </transition>
       </vuestro-dropdown>
     </template>
-    <!--OPTIONAL APP TITLE-->
+    <!--LOGO SLOT-->
+    <slot name="logo"></slot>
+    <!--OPTIONAL TEXTUAL APP TITLE-->
     <div v-if="title" class="vuestro-title-text">{{ title }}</div>
     <div class="vuestro-v-separator"></div>
     <!--SLOT FOR USER WIDGETS-->

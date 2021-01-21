@@ -39,7 +39,10 @@ export default new Vuex.Store({
         name: 'Documents',
         path: '/Documents',
         children: [
-          ]
+          {
+            name: ''
+          }
+        ]
       }
       
     ],

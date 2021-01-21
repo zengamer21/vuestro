@@ -1,9 +1,5 @@
 <template>
   <vuestro-app title="vuestro">
-    <template #logo></template>
-
-    <template #navbar></template>
-    
     <template #sidebar>
       <vuestro-sidebar :user="user"
                        :user-img="userImg"
@@ -62,6 +58,11 @@ body {
 
 .default-footer {
   text-align: center;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
 }
 
 </style>

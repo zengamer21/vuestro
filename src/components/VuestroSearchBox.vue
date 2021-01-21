@@ -109,6 +109,7 @@ export default {
   overflow: visible !important; /* so dropdown menu will show */
   display: flex;
   flex: 1 1 auto;
+  align-self: center;
 }
 
 .vuestro-search-box .history-dropdown {
