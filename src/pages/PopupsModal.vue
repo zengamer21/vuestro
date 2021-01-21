@@ -16,8 +16,10 @@
           <vuestro-dropdown click-to-open>
             <template #button>
               <vuestro-button rounded>
-                <vuestro-icon name="car"></vuestro-icon>
-                <span>Make</span>
+                <template #icon>
+                  <vuestro-icon name="car"></vuestro-icon>
+                </template>
+                Make
               </vuestro-button>
             </template>
             <vuestro-list-button>Acura</vuestro-list-button>
@@ -35,7 +37,9 @@
           <vuestro-dropdown click-to-open>
             <template #button>
               <vuestro-button rounded>
-                <vuestro-icon name="car"></vuestro-icon>
+                <template #icon>
+                  <vuestro-icon name="car"></vuestro-icon>
+                </template>
                 <span>Model</span>
               </vuestro-button>
             </template>
@@ -59,8 +63,10 @@
         <template #buttons></template>
         <vuestro-container column>
           <vuestro-button rounded>
-            <vuestro-icon name="hospital"></vuestro-icon>
-            <span>SOS</span>
+            <template #icon>
+              <vuestro-icon name="hospital"></vuestro-icon>
+            </template>
+            SOS
           </vuestro-button>
         </vuestro-container>
       </vuestro-modal>
@@ -98,16 +104,22 @@
             <vuestro-list-button>Item 2</vuestro-list-button>
           </vuestro-dropdown>
           <vuestro-button variant="primary">
-            <vuestro-icon name="download"></vuestro-icon>
-            <span>Download</span>
+            <template #icon>
+              <vuestro-icon name="download"></vuestro-icon>
+            </template>
+            Download
           </vuestro-button>
           <vuestro-button variant="warning">
-            <vuestro-icon name="times"></vuestro-icon>
-            <span>Cancel</span>
+            <template #icon>
+              <vuestro-icon name="times"></vuestro-icon>
+            </template>
+            Cancel
           </vuestro-button>
           <vuestro-button variant="success">
-            <vuestro-icon name="save"></vuestro-icon>
-            <span>Save</span>
+            <template #icon>
+              <vuestro-icon name="save"></vuestro-icon>
+            </template>
+            Save
           </vuestro-button>
         </template>
         <p>Modal content</p>

@@ -9,6 +9,7 @@
           :flip="flip"
           :label="label"
           :title="title"></icon>
+    <slot></slot>
   </span>
 </template>
 
@@ -45,6 +46,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 .vuestro-icon-primary {
   color: var(--vuestro-primary);

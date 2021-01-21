@@ -284,6 +284,13 @@ export default {
   --vuestro-control-margin-h: 5px;
 }
 
+.vuestro-mla {
+  margin-left: auto;
+}
+.vuestro-mra {
+  margin-right: auto;
+}
+
 </style>
 
 <style scoped>

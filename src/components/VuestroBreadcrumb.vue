@@ -7,7 +7,7 @@
         </div>
         <div class="vuestro-breadcrumb-item" @click="onClickTrail(idx)">
           <vuestro-icon v-if="p.icon" :name="p.icon"></vuestro-icon>
-          <div class="vuestro-breadcrumb-title">{{ p.title || 'Missing title' }}</div>
+          <div class="vuestro-breadcrumb-title">{{ getComponentTitle(p.component) }}</div>
         </div>
       </template>
     </div>
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-
-/* global _ */
 
 export default {
   name: 'VuestroBreadcrumb',
@@ -43,11 +41,16 @@ export default {
     this.stack.push(this.pages[0]);
   },
   methods: {
+    getComponentTitle(c) {
+      let d = Vue.component(c);
+      console.log(d)
+    },
     onDescend(pageObj) {
       // add to stack if it has the required fields
       if (pageObj.title &&
           pageObj.component) {
         this.stack.push(pageObj);
+        this.updateUrl();
       } else {
         console.warn('missing fields for breadcrumb push');
       }
@@ -55,6 +58,7 @@ export default {
     // ascend one level
     onAscend(d) {
       this.stack.pop();
+      this.updateUrl();
       // if a callbackName was provided (such as 'refresh') call it
       // on the new top component
       this.$nextTick(() => {
@@ -70,6 +74,11 @@ export default {
     // the stack after the given index
     onClickTrail(idx) {
       this.stack = this.stack.slice(0, idx+1);
+      this.updateUrl();
+    },
+    updateUrl() {
+      let d = _.map(this.stack, _.partialRight(_.omit, ['instance']))
+      this.$router.push({ query: { p: JSON.stringify(this.stack) }}).catch(()=>{});
     },
   },
 };

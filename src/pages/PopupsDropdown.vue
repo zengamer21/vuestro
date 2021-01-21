@@ -192,6 +192,30 @@ export default {
           id: 'id2',
           val: 'Value for id2',
         },
+        {
+          id: 'id3',
+          val: 'Value for id3',
+        },
+        {
+          id: 'id4',
+          val: 'Value for id4',
+        },
+        {
+          id: 'id5',
+          val: 'Value for id5',
+        },
+        {
+          id: 'id6',
+          val: 'Value for id6',
+        },
+        {
+          id: 'id7',
+          val: 'Value for id7',
+        },
+        {
+          id: 'id8',
+          val: 'Value for id8',
+        },
       ],
     };
   },

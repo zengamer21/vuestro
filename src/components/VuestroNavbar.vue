@@ -30,12 +30,7 @@
                             v-model="search"
                             history>
         </vuestro-search-box>
-        <vuestro-notifications>
-          <template #default="{ item }">
-            <vuestro-list-button>{{ item.title }} - {{ item.created | vuestroDate }}
-            </vuestro-list-button>
-          </template>
-        </vuestro-notifications>
+        <vuestro-notifications></vuestro-notifications>
       </slot>
     </div>
   </div>

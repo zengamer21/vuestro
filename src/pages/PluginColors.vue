@@ -12,7 +12,7 @@
 
     <vuestro-card cols="12" color="var(--vuestro-brick)">
       <template #heading>CSS Colors</template>
-      <template #description><span>Vuestro provides many pre-defined CSS vars for a rainbow of colors. Any of these may be redefined in your app by setting them on <em>.vuestro-app</em></span></template>
+      <template #description><span>Vuestro provides many pre-defined CSS vars for a rainbow of colors. Any of these may be redefined in your app by setting them on <em>.vuestro-app</em>. These color names can be obtained for use in a palette by calling the <em>vuestroColorPalette()</em> mixin.</span></template>
     </vuestro-card>
     <vuestro-card cols="3" v-for="c in colorVars" :key="c">
       <div class="color-chip" :style="{'background-color': `var(${c})`}">
@@ -20,6 +20,9 @@
       </div>
     </vuestro-card>
 
+    <vuestro-card cols="12">
+      <template #subheading>And the grayscale</template>
+    </vuestro-card>
     <vuestro-card cols="3" v-for="c in grayScale" :key="c">
       <div class="color-chip" :style="{'background-color': `var(${c})`}">
         {{ c }}

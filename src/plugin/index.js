@@ -157,6 +157,26 @@ export default {
       return d.toLocaleString();
     });
 
+    Vue.filter('vuestroLocaleDate', (d) => {
+      if (d === null || d === undefined) {
+        return '';
+      }
+      if (_.isString(d)) {
+        d = new Date(d);
+      }
+      return d.toLocaleDateString();
+    });
+
+    Vue.filter('vuestroLocaleTime', (d) => {
+      if (d === null || d === undefined) {
+        return '';
+      }
+      if (_.isString(d)) {
+        d = new Date(d);
+      }
+      return d.toLocaleTimeString();
+    });
+
     Vue.filter('vuestroBytes', (intNum) => {
       if (intNum === null || intNum === undefined) {
         return '';

@@ -1,7 +1,6 @@
 <template>
   <div class="vuestro-button"
-       :class="{ stretch }"
-       @click="onClick">
+       :class="{ stretch }">
     <div class="vuestro-button-inner"
          :class="[`vuestro-button-${variant}`,
                   { mobile: $root.mobile,
@@ -16,7 +15,8 @@
                     disabled,
                     shadow }, size]"
          @mouseover="onEnter"
-         @mouseleave="onLeave">
+         @mouseleave="onLeave"
+         @click="onClick">
       <template v-if="checkbox">
         <template v-if="value">
           <div class="vuestro-button-content">

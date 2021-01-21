@@ -22,6 +22,7 @@ export default {
     minWidth: { type: null, default: 10 },
     noWrap: { type: Boolean, default: false },
     noPadding: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -34,6 +35,16 @@ export default {
   },
   methods: {
     onMouseOver() {
+      if (!this.disabled) {
+        this.open();
+      }
+    },
+    onMouseLeave() {
+      if (!this.disabled) {
+        this.close();
+      }
+    },
+    open() {
       // onmouseover triggers often when inside the component, so prevent retriggering
       if (this.active) return;
       // get origin of default slot content (usually a button)
@@ -65,7 +76,11 @@ export default {
       this.active = true;
       this.$emit('enter');
     },
-    onMouseLeave() {
+    openForMs(ms) {
+      this.open();
+      setTimeout(this.close, ms);
+    },
+    close() {
       this.active = false;
       this.$emit('leave');
     }

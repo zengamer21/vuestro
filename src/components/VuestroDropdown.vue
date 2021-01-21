@@ -14,9 +14,9 @@
       </div>
       <div ref="content"
            class="vuestro-dropdown-menu"
-           :style="{ visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }"
+           :style="{ visibility: active ? 'visible':'hidden', 'max-height': maxHeight }"
            :class="{ left, bottom }">
-        <div class="vuestro-dropdown-menu-content" @click="onContentClick">
+        <div v-if="active" class="vuestro-dropdown-menu-content" @click="onContentClick">
           <slot></slot>
         </div>
         <div class="vuestro-dropdown-menu-buttons" v-if="$slots.buttons">
@@ -32,7 +32,6 @@
 export default {
   name: 'VuestroDropdown',
   props: {
-    alwaysOpen: { type: Boolean, default: false },
     clickToOpen: { type: Boolean, default: false },
     dark: { type: Boolean, default: false },
     right: { type: Boolean, default: false }, // force right justification
@@ -44,9 +43,11 @@ export default {
   },
   data() {
     return {
-      left: true, // left justified
-      bottom: true, // default to bottom position
-      active: this.alwaysOpen,
+      holdOpen: false, // for programmatic open
+      left: true,      // left justified
+      bottom: true,    // default to bottom position
+      active: false,   // open/close state
+      maxHeight: '100vh', // default to full screen height
     };
   },
   mounted() {
@@ -61,53 +62,72 @@ export default {
         });
       }
     });
-    // see if menu would go offscreen so we can flip it horizontally
-    if (this.$refs.content.getBoundingClientRect().right > window.innerWidth) {
-      this.left = false;
-    }
-    // see if menu would go offscreen so we can flip it vertically
-    if (this.$refs.content.getBoundingClientRect().bottom > window.scrollHeight) {
-      this.bottom = false;
-    }
-    // see if right-justify was specified
-    if (this.right) {
-      this.left = false;
-    }
   },
   methods: {
+    // the programmatic open method
+    open() {
+      this.holdOpen = true;
+      this.activate();
+    },
+    openForMs(ms) {
+      this.open();
+      setTimeout(this.close, ms);
+    },
+    release() {
+      this.holdOpen = false;
+    },
+    // the programmatic close method
+    close() {
+      this.holdOpen = false;
+      this.deactivate();
+    },
+    // this is the internal activation method
+    activate() {
+      // set max height based on available vertical space
+      let bcr = this.$refs.content.getBoundingClientRect();
+      this.maxHeight = `${window.innerHeight - bcr.top}px`;
+      // see if menu would go offscreen so we can flip it horizontally
+      if (window.innerWidth - bcr.left < bcr.width*1.5) {
+        this.left = false;
+      }
+      // see if right-justify was specified
+      if (this.right) {
+        this.left = false;
+      }
+      this.active = true;
+    },
+    deactivate() {
+      this.active = false;
+      this.$emit('leave');
+    },
     onHover() {
       if (!this.clickToOpen) {
-        this.active = true;
-        this.$emit('hover');
+        this.activate();
       }
+      this.$emit('hover');
     },
     onLeave() {
       if (!this.clickToOpen) {
-        this.active = this.alwaysOpen;
-        this.$emit('leave');
+        this.deactivate();
       }
     },
     onClick() {
       if (this.clickToOpen) {
         if (this.active) {
-          this.active = this.alwaysOpen;
-          this.$emit('leave');
+          this.deactivate();
         } else {
-          this.active = true;
-          this.$emit('hover');
+          this.activate();
         }
       }
     },
     onBlur() {
-      if (this.clickToOpen) {
-        this.active = this.alwaysOpen;
-        this.$emit('leave');
+      if (!this.holdOpen && this.clickToOpen) {
+        this.deactivate();
       }
     },
     onContentClick() {
       if (this.closeOnContentClick) {
-        this.active = this.alwaysOpen;
-        this.$emit('leave');
+        this.deactivate();
       }
     },
   },
@@ -221,6 +241,7 @@ export default {
   right: 0px;
   min-width: 160px;
   overflow: auto;
+  max-height: 90vh;
   border: var(--vuestro-control-border-width) solid var(--vuestro-dropdown-outline);
   border-bottom-left-radius: var(--vuestro-control-border-radius);
   border-bottom-right-radius: var(--vuestro-control-border-radius);
@@ -251,7 +272,7 @@ export default {
 }
 
 .vuestro-dropdown-menu-content {
-  padding: 8px;
+  padding: 0.4em;
 }
 
 .vuestro-dropdown-menu-buttons {
