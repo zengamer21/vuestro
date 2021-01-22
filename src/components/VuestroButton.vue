@@ -124,7 +124,7 @@ export default {
 }
 .vuestro-button-text {
   --variant-color: var(--vuestro-text-color);
-  --variant-text-color: var(--vuestro-text-color);
+  --variant-text-color: var(--vuestro-dark);
 }
 
 .vuestro-button {
@@ -244,7 +244,7 @@ export default {
   background-color: var(--variant-color);
 }
 .vuestro-button-inner.value:hover {
-  filter: brightness(110%);
+  filter: brightness(120%);
 }
 .vuestro-button-inner.disabled {
   pointer-events: none;
@@ -261,8 +261,12 @@ export default {
 .vuestro-button-inner.vuestro-button-black:hover {
   color: var(--vuestro-white);
 }
+.vuestro-button-inner.vuestro-button-black:hover {
+  border-color: var(--vuestro-gray);
+}
+.vuestro-button-inner.vuestro-button-text.value,
 .vuestro-button-inner.vuestro-button-text:hover {
-  background-color: var(--variant-text-color);
+  color: var(--variant-text-color);
 }
 .vuestro-button-inner.vuestro-button-link {
   color: var(--vuestro-primary);
@@ -270,7 +274,7 @@ export default {
 }
 .vuestro-button-inner.vuestro-button-link.value,
 .vuestro-button-inner.vuestro-button-link:hover {
-  filter: brightness(120%);
+  filter: brightness(150%);
   background-color: transparent;
 }
 
