@@ -9,7 +9,7 @@
 
     <vuestro-card>
       <template #description>
-        Basic flat, blocky button
+        Basic button
       </template>
       <div class="example-flexbox">
         <vuestro-button @click="onClick">Button</vuestro-button>
@@ -18,7 +18,7 @@
 
     <vuestro-card>
       <template #description>
-        Basic button with only a VuestroIcon
+        Basic button with a VuestroIcon in the default slot
       </template>
       <div class="example-flexbox">
         <vuestro-button @click="onClick">
@@ -29,7 +29,23 @@
 
     <vuestro-card>
       <template #description>
-        <span>Basic button with VuestroIcon in <em>#icon</em> template</span>
+        <span>Set <em>show-slot-on-hover</em> property to only show default slot when button is hovered</span>
+      </template>
+      <div class="example-flexbox">
+        <vuestro-button @click="onClick" show-slot-on-hover>
+          <template #icon>
+            <vuestro-icon name="flag"></vuestro-icon>
+          </template>
+          <template #default>
+            Default Slot
+          </template>
+        </vuestro-button>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description>
+        <span>Basic button with VuestroIcon in <em>#icon</em> template to add proper spacing</span>
       </template>
       <div class="example-flexbox">
         <vuestro-button @click="onClick">
@@ -57,24 +73,6 @@
         <vuestro-button size="xl" @click="onClick">
           <template #placeholder>Placeholder</template>
           Value
-        </vuestro-button>
-      </div>
-    </vuestro-card>
-
-    <vuestro-card>
-      <template #description>
-        Make it less pointy by setting the rounded property
-      </template>
-      <div class="example-flexbox">
-        <vuestro-button rounded @click="onClick">
-          <vuestro-icon name="snowflake"></vuestro-icon>
-        </vuestro-button>
-        <vuestro-button rounded @click="onClick">Rounded Button</vuestro-button>
-        <vuestro-button rounded @click="onClick">
-          <template #icon>
-            <vuestro-icon name="fire"></vuestro-icon>
-          </template>
-          Rounded Button
         </vuestro-button>
       </div>
     </vuestro-card>
@@ -147,45 +145,61 @@
       <div class="example-flexbox">
         <vuestro-button size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="sm">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>SM Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          SM Button
         </vuestro-button>
         <vuestro-button size="md"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="md">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>md(default) Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          md(default) Button
         </vuestro-button>
         <vuestro-button size="lg"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="lg">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>lg Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          lg Button
         </vuestro-button>
         <vuestro-button size="xl"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button size="xl">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>xl Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          xl Button
         </vuestro-button>
       </div>
       <div class="example-flexbox">
         <vuestro-button round size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button pill size="sm">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>SM Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          SM Button
         </vuestro-button>
         <vuestro-button round size="md"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button pill size="md">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>md(default) Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          md(default) Button
         </vuestro-button>
         <vuestro-button round size="lg"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button pill size="lg">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>lg Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          lg Button
         </vuestro-button>
         <vuestro-button round size="xl"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
         <vuestro-button pill size="xl">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>xl Button</span>
+          <template #icon>
+            <vuestro-icon name="tractor"></vuestro-icon>
+          </template>
+          xl Button
         </vuestro-button>
       </div>
     </vuestro-card>
@@ -375,11 +389,19 @@
         </vuestro-button>
         <vuestro-button size="tall" rounded>
           <template #icon>
-            <vuestro-icon name="download"></vuestro-icon>
+            <vuestro-icon name="file"></vuestro-icon>
           </template>
-          Download
+          Export
         </vuestro-button>
       </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>Events</template>
+      <template #description>Hover over the button to see the event emitted: {{ exampleEvent }}</template>
+      <vuestro-container>
+        <vuestro-button @enter="exampleEvent = 'enter'" @leave="exampleEvent = 'leave'" @click="exampleEvent = 'click'">I Emit Events</vuestro-button>
+      </vuestro-container>
     </vuestro-card>
 
   </vuestro-container>
@@ -397,6 +419,7 @@ export default {
   data() {
     return {
       exampleCheckbox: true,
+      exampleEvent: '',
     };
   },
   methods: {

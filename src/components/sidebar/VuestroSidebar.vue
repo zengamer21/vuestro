@@ -151,10 +151,11 @@ export default {
   --vuestro-sidebar-item-padding-right: 15px;
   --vuestro-sidebar-item-hover: var(--vuestro-hover);
   --vuestro-sidebar-item-active-bg: var(--vuestro-active);
-  --vuestro-sidebar-item-active-fg: var(--vuestro-primary);
+  --vuestro-sidebar-item-active-fg: #278ffd;
   --vuestro-sidebar-radius: calc(var(--vuestro-sidebar-item-height) / 2);
   --vuestro-sidebar-subroutes-spacing: 2px;
-  --vuestro-sidebar-active-border: 3px solid var(--vuestro-primary);
+  --vuestro-sidebar-active-border: 3px solid #278ffd;
+  --vuestro-sidebar-subroute-active-fg: var(--vuestro-orange);
   --vuestro-sidebar-subroute-active-border: 3px solid var(--vuestro-orange);
   --vuestro-sidebar-user-image-width: 40px;
   --vuestro-sidebar-font-weight: 400;
@@ -218,9 +219,9 @@ export default {
   display: flex;
   justify-content: flex-start;
   color: white;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 0.6em;
   margin-right: calc(var(--vuestro-sidebar-item-padding-right) / 2);
   border-top-right-radius: calc(var(--vuestro-sidebar-radius) * 2);
   border-bottom-right-radius: calc(var(--vuestro-sidebar-radius) * 2);

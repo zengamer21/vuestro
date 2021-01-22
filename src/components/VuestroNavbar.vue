@@ -19,7 +19,9 @@
         </transition>
       </vuestro-dropdown>
     </template>
-    <!--OPTIONAL APP TITLE-->
+    <!--LOGO SLOT-->
+    <slot name="logo"></slot>
+    <!--OPTIONAL TEXTUAL APP TITLE-->
     <div v-if="title" class="vuestro-title-text">{{ title }}</div>
     <div class="vuestro-v-separator"></div>
     <!--SLOT FOR USER WIDGETS-->
@@ -30,6 +32,7 @@
                             v-model="search"
                             history>
         </vuestro-search-box>
+        <vuestro-notifications></vuestro-notifications>
       </slot>
     </div>
   </div>
@@ -72,7 +75,7 @@ export default {
   --vuestro-navbar-title-font-size: 2em;
   --vuestro-navbar-height: 60px;
   --vuestro-navbar-bg: var(--vuestro-content-bg);
-  --vuestro-navbar-fg: #323334;
+  --vuestro-navbar-fg: var(--vuestro-text-color);
   --vuestro-navbar-border: transparent;
   --vuestro-navbar-separator: 1px solid var(--vuestro-outline);
 }
@@ -118,6 +121,7 @@ export default {
 .vuestro-navbar-slot {
   display: flex;
   flex-grow: 1;
+  align-self: stretch;
 }
 
 .vuestro-hamburger {

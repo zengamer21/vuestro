@@ -13,13 +13,13 @@
                   {{ item.field }}
                 </template>
                 <template #title-buttons>
-                  <vuestro-button round no-border variant="white"
+                  <vuestro-button round no-border no-margin variant="white"
                                   class="vuestro-table-header-sort"
                                   :class="{ active: $refs.theTable.isSortActive(item), desc: $refs.theTable.isSortDescending(item) }"
                                   @click="$refs.theTable.onSort(item)">
                     <vuestro-icon name="arrow-up"></vuestro-icon>
                   </vuestro-button>
-                  <vuestro-button round no-border variant="white" @click="removeColumn(item)">
+                  <vuestro-button round no-border no-margin variant="white" @click="removeColumn(item)">
                     <vuestro-icon name="times"></vuestro-icon>
                   </vuestro-button>
                 </template>
@@ -242,6 +242,9 @@ export default {
 .vuestro-dynamic-table-filter-button {
   transition: all 0.2s;
   margin-right: 2px;
+  height: 100%;
+}
+.vuestro-dynamic-table-filter-button >>> .vuestro-button-inner {
   height: 100%;
 }
 

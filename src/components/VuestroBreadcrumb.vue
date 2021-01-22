@@ -1,9 +1,21 @@
 <template>
-  <div class="vuestro-breadcrumb">
-    <div class="vuestro-breadcrumb-root">
-      Root
+  <vuestro-container class="vuestro-breadcrumb">
+    <div class="vuestro-breadcrumb-trail">
+      <template v-for="(p, idx) in stack">
+        <div v-if="idx !== 0" class="vuestro-breadcrumb-separator">
+          <vuestro-icon name="angle-right"></vuestro-icon>
+        </div>
+        <div class="vuestro-breadcrumb-item" @click="onClickTrail(idx)">
+          <vuestro-icon v-if="p.icon" :name="p.icon"></vuestro-icon>
+          <div class="vuestro-breadcrumb-title">{{ getComponentTitle(p.component) }}</div>
+        </div>
+      </template>
     </div>
-  </div>
+    <template v-if="top && top.component">
+      <component ref="top" :is="top.component" :data="top.data" :options="top.options" @descend="onDescend" @ascend="onAscend"></component>
+    </template>
+    <div v-else>Component not found</div>
+  </vuestro-container>
 </template>
 
 <script>
@@ -11,7 +23,63 @@
 export default {
   name: 'VuestroBreadcrumb',
   props: {
-    root: { type: null },
+    pages: { type: Array, required: true },
+  },
+  data() {
+    return {
+      stack: [],
+    };
+  },
+  computed: {
+    top() {
+      return this.stack[this.stack.length - 1];
+    },
+  },
+  mounted() {
+    // initialize stack with root
+    this.stack = [];
+    this.stack.push(this.pages[0]);
+  },
+  methods: {
+    getComponentTitle(c) {
+      let d = Vue.component(c);
+      console.log(d)
+    },
+    onDescend(pageObj) {
+      // add to stack if it has the required fields
+      if (pageObj.title &&
+          pageObj.component) {
+        this.stack.push(pageObj);
+        this.updateUrl();
+      } else {
+        console.warn('missing fields for breadcrumb push');
+      }
+    },
+    // ascend one level
+    onAscend(d) {
+      this.stack.pop();
+      this.updateUrl();
+      // if a callbackName was provided (such as 'refresh') call it
+      // on the new top component
+      this.$nextTick(() => {
+        if (d && d.callbackName) {
+          let fn = this.$refs.top[d.callbackName];
+          if (fn && fn instanceof Function) {
+            fn();
+          }
+        }
+      });
+    },
+    // jump to location on click trail, this means dumping
+    // the stack after the given index
+    onClickTrail(idx) {
+      this.stack = this.stack.slice(0, idx+1);
+      this.updateUrl();
+    },
+    updateUrl() {
+      let d = _.map(this.stack, _.partialRight(_.omit, ['instance']))
+      this.$router.push({ query: { p: JSON.stringify(this.stack) }}).catch(()=>{});
+    },
   },
 };
 
@@ -21,40 +89,38 @@ export default {
 
 .vuestro-app {
   --vuestro-breadcrumb-height: 30px;
-  --vuestro-breadcrumb-root-bg: var(--vuestro-indigo);
+  --vuestro-breadcrumb-root-bg: var(--vuestro-primary);
 }
 
 </style>
 
 <style scoped>
 
-.vuestro-breadcrumb {
-  width: 100%;
+.vuestro-breadcrumb-trail {
   flex: none;
   height: var(--vuestro-breadcrumb-height);
-  border: 1px solid var(--vuestro-outline);
-  display: flex;
-}
-
-.vuestro-breadcrumb > div {
-  height: var(--vuestro-breadcrumb-height);
+  width: 100%;
   display: flex;
   align-items: center;
-  padding-left: 10px;
 }
-.vuestro-breadcrumb > div:after {
-  padding-left: 10px;
-  content: '';
-  width: 0;
-  height: 0;
-  border-top: calc(var(--vuestro-breadcrumb-height) / 2) solid transparent;
-  border-bottom: calc(var(--vuestro-breadcrumb-height) / 2) solid transparent;
-  border-left: 10px solid var(--vuestro-breadcrumb-bg);
+.vuestro-breadcrumb-item {
+  display: flex;
+  cursor: pointer;
+  padding: 0.2em 0.4em;
+}
+.vuestro-breadcrumb-item:hover {
+  border-radius: var(--vuestro-control-border-radius);
+  background-color: var(--vuestro-selection);
+}
+.vuestro-breadcrumb-title {
+  font-size: 0.9em;
+}
+.vuestro-breadcrumb-title:not(:only-child) {
+  margin-left: 0.2em;
 }
 
-.vuestro-breadcrumb-root {
-  background-color: var(--vuestro-breadcrumb-root-bg);
-  color: var(--vuestro-text-color-inverse);
+.vuestro-breadcrumb-separator {
+  padding: 0 0.3em;
 }
 
 </style>

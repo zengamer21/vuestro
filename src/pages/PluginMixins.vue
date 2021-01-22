@@ -13,6 +13,14 @@
         </vuestro-button>
       </vuestro-container>
     </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>vuestroColorPalette()</template>
+      <template #description>Mixin will return an array of the hex html strings for the vuestro-defined color palette</template>
+      <vuestro-container>
+        {{ vuestroColorPalette() }}
+      </vuestro-container>
+    </vuestro-card>
   </vuestro-container>
 </template>
 

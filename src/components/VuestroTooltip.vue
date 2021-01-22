@@ -1,13 +1,13 @@
 <template>
   <div class="vuestro-tooltip"
-       :class="[ position, { active, rounded }]"
+       :class="[ position, { active }]"
        @mouseover="onMouseOver"
        @mouseleave="onMouseLeave">
     <slot></slot>
     <div ref="content"
          class="vuestro-tooltip-content"
          :class="{ noWrap, noPadding }"
-         :style="[style, { 'min-width': `${minWidth}px`, visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }]">
+         :style="[ contentPos, { 'min-width': `${minWidth}px`, visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }]">
       <slot name="content"></slot>
     </div>
   </div>
@@ -19,66 +19,68 @@ export default {
   name: 'VuestroTooltip',
   props: {
     position: { type: String, default: 'top' },
-    rounded: { type: Boolean, default: false },
     minWidth: { type: null, default: 10 },
     noWrap: { type: Boolean, default: false },
     noPadding: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false },
   },
   data() {
     return {
       active: false,
-      offsetX: 0,
-      offsetY: 0,
+      contentPos: {
+        top: 0,
+        left: 0,
+      },
     };
-  },
-  computed: {
-    style() {
-      switch(this.position) {
-        case 'top':
-          return {
-            bottom: 'calc(100% + var(--vuestro-tooltip-arrow-size))',
-            left: `calc(50% + ${this.offsetX}px)`,
-            transform: 'translateX(-50%)'
-          };
-        case 'left':
-          return {
-            right: 'calc(100% + var(--vuestro-tooltip-arrow-size))',
-            top: '50%',
-            transform: 'translateY(-50%)',
-          };
-        case 'right':
-          return {
-            left: 'calc(100% + var(--vuestro-tooltip-arrow-size))',
-            top: '50%',
-            transform: 'translateY(-50%)',
-          };
-        case 'bottom':
-          return {
-            top: 'calc(100% + var(--vuestro-tooltip-arrow-size))',
-            left: `calc(50% + ${this.offsetX}px)`,
-            transform: 'translateX(-50%)',
-          };
-      }
-    },
-  },
-  mounted() {
-    let bcr = this.$refs.content.getBoundingClientRect();
-    // handle right edge
-    if (bcr.right > window.innerWidth) {
-      this.offsetX =  window.innerWidth - this.$refs.content.getBoundingClientRect().right;
-    }
-    // handle left edge
-    if (this.$el.offsetLeft < this.$refs.content.clientWidth / 2) {
-      this.offsetX = this.$refs.content.clientWidth / 2 - this.$el.offsetLeft;
-    }
   },
   methods: {
     onMouseOver() {
-      this.active = true;
-      this.$emit('enter');
-      return true;
+      if (!this.disabled) {
+        this.open();
+      }
     },
     onMouseLeave() {
+      if (!this.disabled) {
+        this.close();
+      }
+    },
+    open() {
+      // onmouseover triggers often when inside the component, so prevent retriggering
+      if (this.active) return;
+      // get origin of default slot content (usually a button)
+      let elBcr = this.$el.getBoundingClientRect();
+      let bcr = this.$refs.content.getBoundingClientRect();
+
+      let left;
+      let arrowSize = parseInt(getComputedStyle(this.$el).getPropertyValue('--vuestro-tooltip-arrow-size'), 10);
+      switch(this.position) {
+        case 'top':
+          left = elBcr.x + elBcr.width/2 - bcr.width/2;
+          this.contentPos.top = `${elBcr.y - bcr.height - arrowSize}px`;
+          break;
+        case 'left':
+          left = elBcr.x - bcr.width - arrowSize;
+          this.contentPos.top = `${elBcr.y + elBcr.height/2 - bcr.height/2}px`;
+          break;
+        case 'right':
+          left = elBcr.right + arrowSize;
+          this.contentPos.top = `${elBcr.y + elBcr.height/2 - bcr.height/2}px`;
+          break;
+        case 'bottom':
+          left = elBcr.x + elBcr.width/2 - bcr.width/2;
+          this.contentPos.top = `${elBcr.bottom + arrowSize}px`;
+          break;
+      }
+      this.contentPos.left = left > 0 ? `${left}px`:'0';
+
+      this.active = true;
+      this.$emit('enter');
+    },
+    openForMs(ms) {
+      this.open();
+      setTimeout(this.close, ms);
+    },
+    close() {
       this.active = false;
       this.$emit('leave');
     }
@@ -108,12 +110,13 @@ export default {
 }
 
 .vuestro-tooltip-content {
-  position: absolute;
+  position: fixed;
   background: var(--vuestro-dropdown-content-bg);
   color: var(--vuestro-dropdown-content-fg);
-  border: var(--vuestro-rounded-border-width) solid var(--vuestro-dropdown-outline);
+  border: var(--vuestro-control-border-width) solid var(--vuestro-dropdown-outline);
   padding: 0.5em;
-  z-index: 3000;
+  border-radius: var(--vuestro-control-border-radius);
+  z-index: 999 !important;
 }
 .vuestro-tooltip-content.noPadding {
   padding: 0;
@@ -121,10 +124,6 @@ export default {
 .vuestro-tooltip-content.noWrap {
   white-space: nowrap;
 }
-.vuestro-tooltip.rounded .vuestro-tooltip-content {
-  border-radius: var(--vuestro-rounded-border-radius);
-}
-
 /* render arrow */
 .vuestro-tooltip.active.top::after {
   content: " ";

@@ -156,6 +156,7 @@ export default {
 .vuestro-editor {
   height: 100%;
   min-height: 28px;
+  border-radius: var(--vuestro-control-border-radius);
 }
 
 .vuestro-editor >>> * {

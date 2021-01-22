@@ -1,7 +1,6 @@
 <template>
   <div class="vuestro-button"
-       :class="{ stretch }"
-       @click="onClick">
+       :class="{ stretch }">
     <div class="vuestro-button-inner"
          :class="[`vuestro-button-${variant}`,
                   { mobile: $root.mobile,
@@ -14,9 +13,10 @@
                     pill,
                     checkbox,
                     disabled,
-                    rounded,
                     shadow }, size]"
-         @mouseover="onHover">
+         @mouseover="onEnter"
+         @mouseleave="onLeave"
+         @click="onClick">
       <template v-if="checkbox">
         <template v-if="value">
           <div class="vuestro-button-content">
@@ -32,10 +32,12 @@
           <span v-if="$slots.placeholder" class="vuestro-button-placeholder">
             <slot name="placeholder"></slot>
           </span>
-          <span v-if="$slots.icon" class="vuestro-button-icon">
-            <slot name="icon"></slot>
-          </span>
-          &#8203;<slot></slot>&#8203;
+          <span v-if="$slots.icon" class="vuestro-button-icon"><slot name="icon"></slot></span>
+          <transition name="vuestro-button" mode="out-in">
+            <div v-if="!showSlotOnHover || hovered" class="vuestro-button-default-slot">
+              <slot></slot>
+            </div>
+          </transition>
         </div>
       </template>
     </div>
@@ -59,12 +61,17 @@ export default {
     disabled: { type: Boolean, default: false }, // no hover, no click
     pill: { type: Boolean, default: false },
     round: { type: Boolean, default: false },
-    rounded: { type: Boolean, default: false },
     stretch: { type: Boolean, default: false },
     size: { type: String, default: 'md' },
     dark: { type: Boolean, default: false },
     shadow: { type: Boolean, default: false },
     justify: { type: String, default: 'space-evenly' },
+    showSlotOnHover: { type: Boolean, default: false },
+  },
+  data() {
+    return {
+      hovered: false,
+    };
   },
   methods: {
     onClick(e) {
@@ -73,8 +80,13 @@ export default {
         this.$emit('input', !this.value);
       }
     },
-    onHover(e) {
-      this.$emit('hover', e);
+    onEnter(e) {
+      this.hovered = true;
+      this.$emit('enter', e);
+    },
+    onLeave(e) {
+      this.hovered = false;
+      this.$emit('leave', e);
     },
   }
 };
@@ -112,7 +124,7 @@ export default {
 }
 .vuestro-button-text {
   --variant-color: var(--vuestro-text-color);
-  --variant-text-color: var(--vuestro-text-color);
+  --variant-text-color: var(--vuestro-dark);
 }
 
 .vuestro-button {
@@ -126,7 +138,8 @@ export default {
 }
 
 .vuestro-button-inner {
-  border: var(--vuestro-rounded-border-width) solid var(--variant-color);
+  border: var(--vuestro-control-border-width) solid var(--variant-color);
+  border-radius: var(--vuestro-control-border-radius);
   margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
   color: var(--variant-color);
   cursor: pointer;
@@ -158,9 +171,6 @@ export default {
   opacity: 0.2;
   transition: 0s;
 }
-.vuestro-button-inner.rounded {
-  border-radius: var(--vuestro-rounded-border-radius);
-}
 .vuestro-button-inner.sm {
   height: var(--vuestro-control-sm-height);
   padding: 0 calc(var(--vuestro-control-sm-height) * 0.4);
@@ -184,6 +194,7 @@ export default {
 .vuestro-button.stretch > .vuestro-button-inner {
   align-self: stretch;
   flex-grow: 1;
+  height: 100%;
 }
 .vuestro-button-inner.noBorder {
   border: none;
@@ -203,6 +214,7 @@ export default {
 .vuestro-button-content {
   flex: 1 1 auto;
   display: flex;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   user-select: none;
@@ -215,6 +227,12 @@ export default {
   padding-bottom: 4px;
   align-items: center;
 }
+.vuestro-button-default-slot {
+  display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow: hidden;
+}
 .vuestro-button-inner.tall >>> svg {
   width: 22px;
   height: 22px;
@@ -226,7 +244,7 @@ export default {
   background-color: var(--variant-color);
 }
 .vuestro-button-inner.value:hover {
-  filter: brightness(110%);
+  filter: brightness(120%);
 }
 .vuestro-button-inner.disabled {
   pointer-events: none;
@@ -243,8 +261,12 @@ export default {
 .vuestro-button-inner.vuestro-button-black:hover {
   color: var(--vuestro-white);
 }
+.vuestro-button-inner.vuestro-button-black:hover {
+  border-color: var(--vuestro-gray);
+}
+.vuestro-button-inner.vuestro-button-text.value,
 .vuestro-button-inner.vuestro-button-text:hover {
-  background-color: var(--variant-text-color);
+  color: var(--variant-text-color);
 }
 .vuestro-button-inner.vuestro-button-link {
   color: var(--vuestro-primary);
@@ -252,7 +274,7 @@ export default {
 }
 .vuestro-button-inner.vuestro-button-link.value,
 .vuestro-button-inner.vuestro-button-link:hover {
-  filter: brightness(120%);
+  filter: brightness(150%);
   background-color: transparent;
 }
 
@@ -307,9 +329,9 @@ export default {
 /* checkbox mode */
 .vuestro-button-inner.checkbox {
   padding: 0; /* clear padding */
-  border: var(--vuestro-rounded-border-width) solid var(--vuestro-field-bg);
+  border: var(--vuestro-control-border-width) solid var(--vuestro-field-bg);
   background-color: var(--vuestro-field-bg);
-  border-radius: var(--vuestro-rounded-border-radius);
+  border-radius: var(--vuestro-control-border-radius);
 }
 .vuestro-button-inner.checkbox:hover {
   border-color: var(--variant-color);
@@ -356,8 +378,17 @@ export default {
 }
 
 .vuestro-button-icon {
-  margin-right: 4px;
+  margin-right: 0.25em;
   align-self: center;
+}
+
+/* transitions */
+.vuestro-button-enter-active, .vuestro-button-leave-active {
+  transition: all 0.4s;
+  max-width: 100vw;
+}
+.vuestro-button-enter, .vuestro-button-leave-to {
+  max-width: 0;
 }
 
 </style>

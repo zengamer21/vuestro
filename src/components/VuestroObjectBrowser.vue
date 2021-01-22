@@ -13,7 +13,14 @@
           <span class="vuestro-object-browser-item-key-title">{{ k }}:</span>
           <!--EDITING CONTROLS-->
           <template v-if="k === editKeyActive">
-            <vuestro-text-field :value="v" variant="outline" no-margin selected editing-buttons @save="onSave(k, v, ...arguments)" @cancel="editKeyActive = ''"></vuestro-text-field>
+            <vuestro-text-field :value="v"
+                                variant="outline"
+                                no-margin
+                                selected
+                                editing-buttons
+                                @save="onSave(k, v, ...arguments)"
+                                @cancel="editKeyActive = ''">
+            </vuestro-text-field>
           </template>
           <template v-else>
             <!--TYPE-DEPENDENT RENDERING-->
@@ -26,7 +33,7 @@
             <span v-if="v === null" class="vuestro-object-browser-item-null">null</span>
             <span v-if="v === undefined" class="vuestro-object-browser-item-null">undefined</span>
             <span v-if="isEditable(k, v)" class="vuestro-object-editing-buttons">
-              <vuestro-button round no-border size="sm" @click="onEditActive(k)">
+              <vuestro-button round no-border no-margin size="sm" @click="onEditActive(k)">
                 <vuestro-icon name="pen"></vuestro-icon>
               </vuestro-button>
             </span>
@@ -38,6 +45,7 @@
         </div>
         <div v-if="isObject(v) || isArray(v)">
           <div v-show="expanded.indexOf(k) >= 0" class="vuestro-object-browser-item-sub">
+            <!--OMG RECURSION!!!-->
             <vuestro-object-browser :ref="k"
                                     :options="options"
                                     :data="v"
@@ -55,7 +63,7 @@
     </div>
     <!--EXTEND OBJECT-->
     <div v-if="isExtendable()" class="vuestro-object-add-member">
-      <vuestro-button v-if="!addingMember" round no-border @click="onAddMember">
+      <vuestro-button v-if="!addingMember" size="sm" round no-border no-margin @click="onAddMember">
         <vuestro-icon name="plus"></vuestro-icon>
       </vuestro-button>
       <!--ADD FIELD CONTROLS-->
@@ -244,8 +252,7 @@ export default {
 
 <style>
 
-.vuestro-app,
-.vuestro-dark {
+.vuestro-app {
   --vuestro-object-browser-key-fg: var(--vuestro-purple);
   --vuestro-object-browser-string-fg: var(--vuestro-orange);
   --vuestro-object-browser-bool-fg: var(--vuestro-blue);
@@ -253,17 +260,24 @@ export default {
   --vuestro-object-browser-number-fg: var(--vuestro-indigo);
   --vuestro-object-browser-null-fg: var(--vuestro-danger);
 }
+.vuestro-dark {
+  --vuestro-object-browser-string-fg: #ea7638;
+  --vuestro-object-browser-date-fg: #299a57;
+  --vuestro-object-browser-bool-fg: #4b93de;
+  --vuestro-object-browser-number-fg: #c232ff;
+}
 
 </style>
 
 <style scoped>
 
 .vuestro-object-browser-item {
-  padding: 0 0.2em;
+  padding: 0 0.5em;
 }
 
 .vuestro-object-browser-item.root {
   padding-top: 0.4em;
+  padding-left: 0.2em;
   padding-bottom: 0.4em;
 }
 
@@ -320,7 +334,7 @@ export default {
 }
 
 .vuestro-object-browser-empty {
-  padding: 0.1em 2em;
+  padding: 0.1em 1.2em;
 }
 /* decrease padding for empty root */
 .vuestro-object-browser-item.root > .vuestro-object-browser-empty {
@@ -333,7 +347,7 @@ export default {
 }
 
 .vuestro-object-add-member {
-  padding: 0 1em;
+  padding: 0 1.3em;
 }
 
 </style>

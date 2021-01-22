@@ -3,7 +3,9 @@
        :class="{ disabled, stretch }"
        v-vuestro-blur="onBlur"
        :style="{ 'z-index': active ? 200:100 }">
-    <div class="vuestro-dropdown-inner" @mouseleave="onLeave" :class="{ dark, active, noSpacing, noScroll, rounded, bottom, clickToOpen, stretch }">
+    <div class="vuestro-dropdown-inner"
+         @mouseleave="onLeave"
+         :class="{ dark, active, noSpacing, noScroll, bottom, clickToOpen, stretch, button: !!$slots.button }">
       <div v-if="$slots.title" class="vuestro-dropdown-title" @mouseover="onHover" @click="onClick">
         &#8203;<slot name="title"></slot>&#8203;
       </div>
@@ -12,9 +14,9 @@
       </div>
       <div ref="content"
            class="vuestro-dropdown-menu"
-           :style="{ visibility: active ? 'visible':'hidden', opacity: active ? '1':'0' }"
+           :style="{ visibility: active ? 'visible':'hidden', 'max-height': maxHeight }"
            :class="{ left, bottom }">
-        <div class="vuestro-dropdown-menu-content" @click="onContentClick">
+        <div v-if="active" class="vuestro-dropdown-menu-content" @click="onContentClick">
           <slot></slot>
         </div>
         <div class="vuestro-dropdown-menu-buttons" v-if="$slots.buttons">
@@ -30,9 +32,7 @@
 export default {
   name: 'VuestroDropdown',
   props: {
-    alwaysOpen: { type: Boolean, default: false },
     clickToOpen: { type: Boolean, default: false },
-    rounded: { type: Boolean, default: false },
     dark: { type: Boolean, default: false },
     right: { type: Boolean, default: false }, // force right justification
     noSpacing: { type: Boolean, default: false },
@@ -43,9 +43,11 @@ export default {
   },
   data() {
     return {
-      left: true, // left justified
-      bottom: true, // default to bottom position
-      active: this.alwaysOpen,
+      holdOpen: false, // for programmatic open
+      left: true,      // left justified
+      bottom: true,    // default to bottom position
+      active: false,   // open/close state
+      maxHeight: '100vh', // default to full screen height
     };
   },
   mounted() {
@@ -60,52 +62,72 @@ export default {
         });
       }
     });
-    // see if menu would go offscreen so we can flip it horizontally
-    if (this.$refs.content.getBoundingClientRect().right > window.innerWidth) {
-      this.left = false;
-    }
-    // see if menu would go offscreen so we can flip it vertically
-    if (this.$refs.content.getBoundingClientRect().bottom > window.scrollHeight) {
-      this.bottom = false;
-    }
-    // see if right-justify was specified
-    if (this.right) {
-      this.left = false;
-    }
   },
   methods: {
+    // the programmatic open method
+    open() {
+      this.holdOpen = true;
+      this.activate();
+    },
+    openForMs(ms) {
+      this.open();
+      setTimeout(this.close, ms);
+    },
+    release() {
+      this.holdOpen = false;
+    },
+    // the programmatic close method
+    close() {
+      this.holdOpen = false;
+      this.deactivate();
+    },
+    // this is the internal activation method
+    activate() {
+      // set max height based on available vertical space
+      let bcr = this.$refs.content.getBoundingClientRect();
+      this.maxHeight = `${window.innerHeight - bcr.top}px`;
+      // see if menu would go offscreen so we can flip it horizontally
+      if (window.innerWidth - bcr.left < bcr.width*1.5) {
+        this.left = false;
+      }
+      // see if right-justify was specified
+      if (this.right) {
+        this.left = false;
+      }
+      this.active = true;
+    },
+    deactivate() {
+      this.active = false;
+      this.$emit('leave');
+    },
     onHover() {
       if (!this.clickToOpen) {
-        this.active = true;
-        this.$emit('hover');
+        this.activate();
       }
+      this.$emit('hover');
     },
     onLeave() {
       if (!this.clickToOpen) {
-        this.active = this.alwaysOpen;
-        this.$emit('leave');
+        this.deactivate();
       }
     },
     onClick() {
       if (this.clickToOpen) {
         if (this.active) {
-          this.active = this.alwaysOpen;
-          this.$emit('leave');
+          this.deactivate();
         } else {
-          this.active = true;
-          this.$emit('hover');
+          this.activate();
         }
       }
     },
     onBlur() {
-      if (this.clickToOpen) {
-        this.active = this.alwaysOpen;
-        this.$emit('leave');
+      if (!this.holdOpen && this.clickToOpen) {
+        this.deactivate();
       }
     },
     onContentClick() {
       if (this.closeOnContentClick) {
-        this.onBlur();
+        this.deactivate();
       }
     },
   },
@@ -158,7 +180,9 @@ export default {
 }
 
 .vuestro-dropdown-title {
-  border: var(--vuestro-rounded-border-width) solid transparent;
+  border: var(--vuestro-control-border-width) solid transparent;
+  border-top-left-radius: var(--vuestro-control-border-radius);
+  border-top-right-radius: var(--vuestro-control-border-radius);
   border-top: none;
   position: relative;
   padding: 2px 6px;
@@ -172,25 +196,24 @@ export default {
   user-select: none;
 }
 .vuestro-dropdown-inner.bottom .vuestro-dropdown-title {
-  border-top: var(--vuestro-rounded-border-width) solid transparent;
+  border-top: var(--vuestro-control-border-width) solid transparent;
   border-bottom: none;
 }
 .vuestro-dropdown-inner.noSpacing .vuestro-dropdown-title {
   padding: 0;
-}
-.vuestro-dropdown-inner.rounded .vuestro-dropdown-title {
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
 }
 .vuestro-dropdown-inner.stretch,
 .vuestro-dropdown-inner.stretch .vuestro-dropdown-title {
   flex-grow: 1;
 }
 
+.vuestro-dropdown-inner.active .vuestro-dropdown-title,
+.vuestro-dropdown-inner:hover .vuestro-dropdown-title {
+  color: var(--vuestro-dropdown-title-fg);
+}
 .vuestro-dropdown-inner.active .vuestro-dropdown-title {
   background-color: var(--vuestro-dropdown-title-bg);
   border-color: var(--vuestro-dropdown-outline);
-  color: var(--vuestro-dropdown-title-fg);
 }
 
 .vuestro-dropdown-title >>> .vuestro-icon:not(:only-child) {
@@ -221,20 +244,30 @@ export default {
   right: 0px;
   min-width: 160px;
   overflow: auto;
-  border: var(--vuestro-rounded-border-width) solid var(--vuestro-dropdown-outline);
+  max-height: 90vh;
+  border: var(--vuestro-control-border-width) solid var(--vuestro-dropdown-outline);
+  border-bottom-left-radius: var(--vuestro-control-border-radius);
+  border-bottom-right-radius: var(--vuestro-control-border-radius);
+  border-top-left-radius: var(--vuestro-control-border-radius);
   z-index: -1;
 }
 .vuestro-dropdown-inner.noScroll .vuestro-dropdown-menu {
   overflow: visible;
 }
-.vuestro-dropdown-inner.rounded .vuestro-dropdown-menu {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+.vuestro-dropdown-inner.stretch .vuestro-dropdown-menu {
+  right: 0;
+  left: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
-
+.vuestro-dropdown-inner.button .vuestro-dropdown-menu {
+  border-radius: var(--vuestro-control-border-radius);
+}
 .vuestro-dropdown-menu.left {
   left: 0px;
   right: initial;
+  border-top-left-radius: 0;
+  border-top-right-radius: var(--vuestro-control-border-radius);
 }
 .vuestro-dropdown-menu.bottom {
   bottom: initial;
@@ -242,7 +275,7 @@ export default {
 }
 
 .vuestro-dropdown-menu-content {
-  padding: 8px;
+  padding: 0.4em;
 }
 
 .vuestro-dropdown-menu-buttons {
@@ -252,8 +285,8 @@ export default {
   cursor: pointer;
 }
 .vuestro-dropdown-inner.rounded .vuestro-dropdown-menu-buttons {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: var(--vuestro-control-border-radius);
+  border-bottom-right-radius: var(--vuestro-control-border-radius);
 }
 
 .vuestro-dropdown-menu-buttons > span {

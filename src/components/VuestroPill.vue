@@ -1,6 +1,6 @@
 <template>
   <span class="vuestro-pill"
-       :class="[ size, { clickable, closable, shadow, draggable, geopattern }]"
+       :class="[ size, { clickable, closable, shadow, draggable, geopattern, noMargin }]"
        @click="onClick">
     <div v-if="!$slots.title" class="vuestro-pill-title" :class="{ autoCapital }"
          :style="titleStyle">
@@ -47,7 +47,8 @@ export default {
     clickable: { type: Boolean, default: false },
     draggable: { type: Boolean, default: false },
     shadow: { type: Boolean, default: false },
-    geopattern: { type: Boolean, default: false },
+    geopattern: { type: null, default: null },
+    noMargin: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -56,8 +57,14 @@ export default {
   },
   computed: {
     titleStyle() {
-      if (this.geopattern) {
-        let text = this.$slots.title[0].text || this.title || '';
+      if (_.isString(this.geopattern)) {
+        let text;
+        // use the value of geopattern as the seed if it's a string
+        if (this.geopattern.length > 0) {
+          text = this.geopattern;
+        } else {
+          text = this.$slots.title[0].text || this.title || '';
+        }
         return {
           'background-image': GeoPattern.generate(text.trim()).toDataUrl(),
         };
@@ -117,6 +124,9 @@ export default {
   flex: 0 1 auto;
   display: flex;
   margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
+}
+.vuestro-pill.noMargin {
+  margin: 0;
 }
 .vuestro-pill.sm {
   line-height: var(--vuestro-control-sm-height);

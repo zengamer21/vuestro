@@ -9,9 +9,11 @@ import VuestroButton from '../components/VuestroButton';
 import VuestroCaret from '../components/VuestroCaret';
 import VuestroCard from '../components/VuestroCard';
 import VuestroChartPanel from '../components/charts/VuestroChartPanel';
+import VuestroCheckOrX from '../components/VuestroCheckOrX';
 import VuestroContainer from '../components/VuestroContainer';
 import VuestroCleanKvp from '../components/text/VuestroCleanKvp';
 import VuestroColorPicker from '../components/VuestroColorPicker';
+import VuestroConfirmDelete from '../components/VuestroConfirmDelete';
 import VuestroDatePicker from '../components/date/VuestroDatePicker';
 import VuestroDropdown from '../components/VuestroDropdown';
 import VuestroDonutGauge from '../components/charts/VuestroDonutGauge';
@@ -23,13 +25,16 @@ import VuestroForceGraph from '../components/charts/VuestroForceGraph';
 import VuestroGeoPattern from '../components/VuestroGeoPattern';
 import VuestroGrid from '../components/grid/VuestroGrid';
 import VuestroGridBox from '../components/grid/VuestroGridBox';
+import VuestroHr from '../components/VuestroHr';
 import VuestroIcon from '../components/VuestroIcon';
 import VuestroListButton from '../components/list/VuestroListButton';
 import VuestroListGroup from '../components/list/VuestroListGroup';
 import VuestroListGroupToggle from '../components/list/VuestroListGroupToggle';
+import VuestroListItem from '../components/list/VuestroListItem';
 import VuestroMap from '../components/charts/VuestroMap';
 import VuestroModal from '../components/VuestroModal';
 import VuestroMultiSelect from '../components/inputs/VuestroMultiSelect';
+import VuestroNotifications from '../components/VuestroNotifications';
 import VuestroObjectBrowser from '../components/VuestroObjectBrowser';
 import VuestroPanel from '../components/VuestroPanel';
 import VuestroPill from '../components/VuestroPill';
@@ -60,6 +65,8 @@ export default {
     Vue.component(VuestroCaret.name, VuestroCaret);
     Vue.component(VuestroCard.name, VuestroCard);
     Vue.component(VuestroChartPanel.name, VuestroChartPanel);
+    Vue.component(VuestroCheckOrX.name, VuestroCheckOrX);
+    Vue.component(VuestroConfirmDelete.name, VuestroConfirmDelete);
     Vue.component(VuestroContainer.name, VuestroContainer);
     Vue.component(VuestroCleanKvp.name, VuestroCleanKvp);
     Vue.component(VuestroColorPicker.name, VuestroColorPicker);
@@ -74,13 +81,16 @@ export default {
     Vue.component(VuestroGeoPattern.name, VuestroGeoPattern);
     Vue.component(VuestroGrid.name, VuestroGrid);
     Vue.component(VuestroGridBox.name, VuestroGridBox);
+    Vue.component(VuestroHr.name, VuestroHr);
     Vue.component(VuestroIcon.name, VuestroIcon);
     Vue.component(VuestroListButton.name, VuestroListButton);
     Vue.component(VuestroListGroup.name, VuestroListGroup);
     Vue.component(VuestroListGroupToggle.name, VuestroListGroupToggle);
+    Vue.component(VuestroListItem.name, VuestroListItem);
     Vue.component(VuestroMap.name, VuestroMap);
     Vue.component(VuestroModal.name, VuestroModal);
     Vue.component(VuestroMultiSelect.name, VuestroMultiSelect);
+    Vue.component(VuestroNotifications.name, VuestroNotifications);
     Vue.component(VuestroObjectBrowser.name, VuestroObjectBrowser);
     Vue.component(VuestroPanel.name, VuestroPanel);
     Vue.component(VuestroPill.name, VuestroPill);
@@ -155,6 +165,26 @@ export default {
       return d.toLocaleString();
     });
 
+    Vue.filter('vuestroLocaleDate', (d) => {
+      if (d === null || d === undefined) {
+        return '';
+      }
+      if (_.isString(d)) {
+        d = new Date(d);
+      }
+      return d.toLocaleDateString();
+    });
+
+    Vue.filter('vuestroLocaleTime', (d) => {
+      if (d === null || d === undefined) {
+        return '';
+      }
+      if (_.isString(d)) {
+        d = new Date(d);
+      }
+      return d.toLocaleTimeString();
+    });
+
     Vue.filter('vuestroBytes', (intNum) => {
       if (intNum === null || intNum === undefined) {
         return '';
@@ -168,8 +198,24 @@ export default {
     });
 
     Vue.filter('vuestroTitleCase', (str) => {
-      return str.split(' ').map(function(word) {
-        if (word[0] !== 'i') {
+      return str.split(' ').map(function(word, idx) {
+        let exceptions = [
+          // short conjunctions
+          'and', 'as', 'but', 'for', 'if', 'nor', 'or', 'so', 'yet',
+          // articles
+          'a', 'an', 'the',
+          // short prepositions
+          'as', 'at', 'by', 'in', 'of', 'off', 'on', 'per', 'to', 'up', 'via',
+          // Apple words
+          'iOS', 'macOS', 'iCloud',
+        ];
+        if (idx === 0 || exceptions.indexOf(word) < 0) {
+          let hyphenated = word.split('-');
+          if (hyphenated.length > 1) {
+            return hyphenated.map(function(word) {
+              return word.replace(word[0], word[0].toUpperCase());
+            }).join('-');
+          }
           return word.replace(word[0], word[0].toUpperCase());
         }
         return word;
@@ -225,7 +271,31 @@ export default {
           var arr = new Uint8Array((length || 40) / 2);
           window.crypto.getRandomValues(arr);
           return Array.from(arr, dec2hex).join('');
-        }
+        },
+        vuestroColorPalette() {
+          return [
+            '--vuestro-indigo',
+            '--vuestro-purple',
+            '--vuestro-magenta',
+            '--vuestro-pink',
+
+            '--vuestro-royal',
+            '--vuestro-blue',
+            '--vuestro-cobalt',
+            '--vuestro-cyan',
+            '--vuestro-teal',
+
+            '--vuestro-green',
+            '--vuestro-emerald',
+            '--vuestro-yellow',
+            '--vuestro-gold',
+
+            '--vuestro-orange',
+            '--vuestro-salmon',
+            '--vuestro-brick',
+            '--vuestro-red',
+          ];
+        },
       }
     });
   }

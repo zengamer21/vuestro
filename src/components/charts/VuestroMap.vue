@@ -64,8 +64,8 @@
 <script>
 
 /* global _, L */
-require('leaflet/dist/leaflet.css');
-require('leaflet/dist/leaflet.js');
+import 'leaflet/dist/leaflet.css';
+import 'leaflet/dist/leaflet.js';
 delete L.Icon.Default.prototype._getIconUrl;
 
 // fix up leaflet marker icons
@@ -76,13 +76,13 @@ L.Icon.Default.mergeOptions({
 });
 
 /* markercluster plugin */
-require('leaflet.markercluster/dist/MarkerCluster.css');
-require('leaflet.markercluster/dist/MarkerCluster.Default.css');
-require('leaflet.markercluster/dist/leaflet.markercluster.js');
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+import 'leaflet.markercluster/dist/leaflet.markercluster.js';
 
 /* geoman plugin */
-require('@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css');
-require('@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.min.js');
+import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css';
+import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.min.js';
 
 export default {
   name: 'VuestroMap',
@@ -306,7 +306,6 @@ export default {
           };
           break;
         case 'Circle':
-          console.log(e.layer)
           ret = {
             shape: e.shape,
             ...e.layer._latlng,
@@ -355,7 +354,7 @@ export default {
 .vuestro-map >>> .leaflet-bar > a,
 .vuestro-map >>> .leaflet-buttons-control-button {
   border-radius: 0;
-  border: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
+  border: var(--vuestro-control-border-width) solid var(--vuestro-outline);
 }
 
 .vuestro-map-popup-title {

@@ -1,12 +1,14 @@
 <template>
-  <vuestro-panel class="vuestro-stat-panel" :color="color" frame>
+  <vuestro-panel class="vuestro-stat-panel" :style="style" frame>
     <div class="vuestro-stat-panel-title drag">{{ title }}</div>
-    <vuestro-icon class="vuestro-stat-panel-icon" v-if="icon" :name="icon"></vuestro-icon>
-    <div class="vuestro-stat-panel-value"
-         :class="{ clickable: options.clickRoute }"
-         @click="onClick">
-      {{ data[data.length-1].stat | vuestroCommas }}
-    </div>
+    <vuestro-container content="flex-end"
+                       :class="{ 'vuestro-stat-panel-clickable': options.clickRoute }"
+                       @click="onClick">
+      <vuestro-icon class="vuestro-stat-panel-icon" v-if="icon" :name="icon"></vuestro-icon>
+      <div class="vuestro-stat-panel-value">
+        {{ data[data.length-1].stat | vuestroCommas }}
+      </div>
+    </vuestro-container>
   </vuestro-panel>
 </template>
 
@@ -26,6 +28,13 @@ export default {
       color: 'var(--vuestro-primary)',
       icon: null,
     };
+  },
+  computed: {
+    style() {
+      return {
+        '--vuestro-panel-bg': this.color,
+      };
+    },
   },
   beforeMount() {
     _.merge(this, this.options);
@@ -71,28 +80,19 @@ export default {
   cursor: default;
 }
 .vuestro-stat-panel-value {
-  position: absolute;
-  right: 0px;
-  bottom: 4px;
-  max-width: 100%;
-  color: var(--vuestro-white);
-  padding-right: 15px;
+  margin-left: auto;
   font-size: var(--vuestro-stat-panel-value-font-size);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   text-shadow: 1px 1px 0px rgba(0,0,0,.1);
-  cursor: default;
 }
-.vuestro-stat-panel-value.clickable {
+.vuestro-stat-panel-clickable {
   cursor: pointer;
 }
 
 .vuestro-stat-panel-icon {
-  color: var(--vuestro-white);
-  position: absolute;
-  left: 15px;
-  bottom: 12px;
+  margin-left: 0.4em;
 }
 .vuestro-stat-panel-icon >>> svg {
   width: 36px;

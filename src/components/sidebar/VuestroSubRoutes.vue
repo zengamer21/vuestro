@@ -2,7 +2,7 @@
   <transition name="vuestro-sub-routes" mode="out-in">
     <ul v-if="show" class="vuestro-sub-routes">
       <template v-for="subroute in route.children">
-        <li v-if="subroute.meta.sidebar" class="vuestro-sub-routes-item">
+        <li v-if="subroute.meta.sidebar" class="vuestro-sub-routes-item" :key="subroute.path">
           <router-link v-if="toPath"
                        :to="{ path: route.path + '/' + subroute.path }"
                        exact-active-class="vuestro-router-link-exact-active"
@@ -70,7 +70,7 @@ export default {
 }
 .vuestro-sub-routes-item > a.vuestro-router-link-active {
   background-color: var(--vuestro-sidebar-item-active-bg);
-  color: var(--vuestro-sidebar-item-active-fg);
+  color: var(--vuestro-sidebar-subroute-active-fg);
   border-left: var(--vuestro-sidebar-subroute-active-border);
 }
 

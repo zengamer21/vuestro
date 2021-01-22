@@ -157,12 +157,14 @@
         </vuestro-dropdown>
       </vuestro-container>
 
+      <vuestro-hr margin="1em"></vuestro-hr>
+
       <vuestro-container>
-        <vuestro-text-field variant="outline" radius="0" size="lg" no-margin placeholder="outline box"></vuestro-text-field>
-        <vuestro-button size="lg" no-margin variant="primary" value>lg button</vuestro-button>
+        <vuestro-text-field variant="outline" size="lg" placeholder="outline box"></vuestro-text-field>
+        <vuestro-button size="lg" variant="primary" value>lg button</vuestro-button>
         <vuestro-dropdown>
           <template #button>
-            <vuestro-button size="lg" variant="info" value no-margin>Dropdown with lg button</vuestro-button>
+            <vuestro-button size="lg" variant="info" value>Dropdown with lg button</vuestro-button>
           </template>
           <vuestro-list-button>test</vuestro-list-button>
         </vuestro-dropdown>

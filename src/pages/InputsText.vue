@@ -34,6 +34,9 @@
       </template>
       <div class="example-flexbox">
         <vuestro-text-field placeholder="Enter a number" v-model="exampleNumber" clearable></vuestro-text-field>
+        <vuestro-text-field placeholder="Enter a number" v-model="exampleNumber" clearable>
+          <template #unit>cm</template>
+        </vuestro-text-field>
         <vuestro-text-field placeholder="Enter a date string" v-model="exampleDate" clearable></vuestro-text-field>
         <vuestro-text-field placeholder="Enter a boolean" v-model="exampleBoolean" :invalid="isBooleanString(exampleBoolean)" clearable></vuestro-text-field>
       </div>
@@ -184,7 +187,7 @@ export default {
       return (str === 'true' || str === 'false') || 'should be a boolean';
     },
     isNumber(str) {
-      return str.length > 0 && _.isFinite(_.toNumber(str)) || 'should be number';
+      return _.isFinite(_.toNumber(str)) || 'should be number';
     },
     isEmail(str) {
       return str.match(/\w+@\w+.\w+/) || 'should be valid email';

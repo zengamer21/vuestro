@@ -26,12 +26,12 @@ export default {
 <style scoped>
 
 .vuestro-container.outlines {
-  border: 1px dashed black;
+  border: 1px dashed var(--vuestro-outline);
   position: relative;
 }
 
 .vuestro-container.outlines .vuestro-card {
-  border: 1px dashed black;
+  border: 1px dashed var(--vuestro-outline);
   position: relative;
 }
 

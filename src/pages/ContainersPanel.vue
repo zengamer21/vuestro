@@ -20,7 +20,12 @@
         <vuestro-panel content-padding="lg">
           <template #title>Vuestro Panel</template>
           <template #toolbar>
-            <vuestro-button size="sm" no-border pill><vuestro-icon name="sync-alt"></vuestro-icon><span>Refresh</span></vuestro-button>
+            <vuestro-button size="sm" no-border pill>
+              <template #icon>
+                <vuestro-icon name="sync-alt"></vuestro-icon>
+              </template>
+              Refresh
+            </vuestro-button>
             <vuestro-dropdown click-open>
               <template #button>
                 <vuestro-button size="sm" no-border pill>Options</vuestro-button>
@@ -28,31 +33,30 @@
               <vuestro-list-button>Menu Item 1</vuestro-list-button>
               <vuestro-list-button>Menu Item 2</vuestro-list-button>
             </vuestro-dropdown>
-            <vuestro-button size="sm" no-border round><vuestro-icon name="times"></vuestro-icon></vuestro-button>
+            <vuestro-button size="sm" no-border round>
+              <vuestro-icon name="times"></vuestro-icon>
+            </vuestro-button>
           </template>
           <div>VuestroPanel has a title slot for a nice title, and a toolbar slot for adding controls such as VuestroButton</div>
         </vuestro-panel>
       </vuestro-card>
 
       <vuestro-card cols="6">
-        <vuestro-panel dark content-padding="lg">
-          <template #title>Dark Vuestro Panel</template>
-          <template #toolbar>
-            <vuestro-button size="sm" pill variant="white" no-border dark><vuestro-icon name="sync-alt"></vuestro-icon><span>Refresh</span></vuestro-button>
-            <vuestro-button size="sm" round no-border dark><vuestro-icon name="at"></vuestro-icon></vuestro-button>
-            <vuestro-button size="sm" round variant="danger" no-border dark><vuestro-icon name="times"></vuestro-icon></vuestro-button>
-          </template>
-          <p>Set the dark property on VuestroPanel to turn the lights out.<br><br>Remember to set dark on VuestroButtons on the toolbar for a matching effect.</p>
-        </vuestro-panel>
-      </vuestro-card>
-
-      <vuestro-card cols="6">
-        <vuestro-panel dark color="var(--vuestro-purple)" :stretch="false" content-padding="lg">
+        <vuestro-panel content-padding="lg" style="--vuestro-panel-bg: var(--vuestro-purple); --vuestro-panel-fg: var(--vuestro-text-color-inverse)">
           <template #title>Colorized Vuestro Panel Titlebar</template>
           <template #toolbar>
-            <vuestro-button size="sm" no-border pill variant="white"><vuestro-icon name="sync-alt"></vuestro-icon><span>Refresh</span></vuestro-button>
-            <vuestro-button size="sm" no-border round><vuestro-icon name="at"></vuestro-icon></vuestro-button>
-            <vuestro-button size="sm" no-border round variant="danger"><vuestro-icon name="times"></vuestro-icon></vuestro-button>
+            <vuestro-button size="sm" no-border pill variant="white">
+              <template #icon>
+                <vuestro-icon name="sync-alt"></vuestro-icon>
+              </template>
+              Refresh
+            </vuestro-button>
+            <vuestro-button size="sm" no-border round>
+              <vuestro-icon name="at"></vuestro-icon>
+            </vuestro-button>
+            <vuestro-button size="sm" no-border round variant="danger">
+              <vuestro-icon name="times"></vuestro-icon>
+            </vuestro-button>
           </template>
           <p>Colorize the panel background by setting the color property. If you choose a dark color, add the dark property as well for contrasting text.</p>
           <p>Set the stretch property to false to prevent the panel from stretching to available vertical space.</p>
@@ -114,7 +118,12 @@
         <vuestro-panel class="dark-toolbar">
           <template #title>Vuestro Panel</template>
           <template #toolbar>
-            <vuestro-button size="sm" pill variant="white" no-border><vuestro-icon name="sync-alt"></vuestro-icon><span>Refresh</span></vuestro-button>
+            <vuestro-button size="sm" pill variant="white" no-border>
+              <template #icon>
+                <vuestro-icon name="sync-alt"></vuestro-icon>
+              </template>
+              Refresh
+            </vuestro-button>
           </template>
           <vuestro-container>
             <vuestro-card>
@@ -162,19 +171,12 @@ export default {
 <style scoped>
 
 .vuestro-container.outlines {
-  border: 1px dashed black;
+  border: 1px dashed var(--vuestro-outline);
   position: relative;
-}
-.vuestro-container.outlines:before {
-  content: 'VuestroContainer';
-  position: absolute;
-  top: -18px;
-  left: 0;
-  background-color: var(--vuestro-gray);
 }
 
 .vuestro-container.outlines .vuestro-card {
-  border: 1px dashed black;
+  border: 1px dashed var(--vuestro-outline);
   position: relative;
 }
 

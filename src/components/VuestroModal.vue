@@ -23,6 +23,9 @@
         <div class="vuestro-modal-default-slot">
           <slot></slot>
         </div>
+        <div v-if="$slots.footer">
+          <slot name="footer"></slot>
+        </div>
         <div v-if="$slots.buttons" class="vuestro-modal-buttons">
           <slot name="buttons"></slot>
         </div>
@@ -73,6 +76,7 @@ export default {
   --vuestro-modal-header-border: 1px solid rgba(0,0,0,0.2);
   --vuestro-modal-footer-border: 1px solid rgba(0,0,0,0.2);
   --vuestro-modal-width: 60vw;
+	--vuestro-modal-border-radius: var(--vuestro-control-border-radius);
 }
 
 .vuestro-app.mobile {
@@ -118,6 +122,7 @@ export default {
   flex-direction: column;
   align-content: start;
   filter: drop-shadow(0px 0px 1em var(--vuestro-dark));
+	border-radius: var(--vuestro-modal-border-radius);
   z-index: 10001;
 }
 
@@ -134,6 +139,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+	border-top-left-radius: var(--vuestro-modal-border-radius);
+	border-top-right-radius: var(--vuestro-modal-border-radius);
   flex-wrap: wrap;
 }
 .vuestro-dark .vuestro-modal-titlebar {
@@ -162,6 +169,8 @@ export default {
   flex-wrap: wrap;
   padding: 0 0.2em;
   background-color: var(--vuestro-modal-footer-bg);
+	border-bottom-left-radius: var(--vuestro-modal-border-radius);
+	border-bottom-right-radius: var(--vuestro-modal-border-radius);
 }
 
 @media screen and (max-width: 768px) {

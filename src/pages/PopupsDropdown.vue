@@ -14,7 +14,7 @@
         Default is to open on hover
       </template>
       <div class="example-container">
-        <vuestro-dropdown>
+        <vuestro-dropdown close-on-content-click>
           <template #title>VuestroDropdown</template>
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
@@ -125,7 +125,7 @@
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
-        <vuestro-dropdown click-to-open close-on-content-click>
+        <vuestro-dropdown click-to-open close-on-content-click right>
           <template #button>
             <vuestro-button variant="info" size="lg">
               <template #placeholder>PLACEHOLDER</template>
@@ -191,6 +191,30 @@ export default {
         {
           id: 'id2',
           val: 'Value for id2',
+        },
+        {
+          id: 'id3',
+          val: 'Value for id3',
+        },
+        {
+          id: 'id4',
+          val: 'Value for id4',
+        },
+        {
+          id: 'id5',
+          val: 'Value for id5',
+        },
+        {
+          id: 'id6',
+          val: 'Value for id6',
+        },
+        {
+          id: 'id7',
+          val: 'Value for id7',
+        },
+        {
+          id: 'id8',
+          val: 'Value for id8',
         },
       ],
     };

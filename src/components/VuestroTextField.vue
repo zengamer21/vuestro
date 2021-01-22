@@ -23,6 +23,10 @@
              @input="updateValue"
              @keyup="onKeyUp">
       </input>
+      <!--unit-->
+      <div v-if="$slots.unit" class="vuestro-text-field-unit-slot">
+        <slot name="unit"></slot>
+      </div>
       <!--clear button-->
       <vuestro-button v-if="!invalid && clearable && value" size="sm" round no-border @click.stop="onClear">
         <vuestro-icon name="times"></vuestro-icon>
@@ -94,7 +98,7 @@ export default {
     value: { type: null, required: true },
     placeholder: { type: String, default: null },
     variant: { type: String, default: 'regular' }, // { 'regular', 'outline', 'shaded' }
-    radius: { type: String, default: 'var(--vuestro-rounded-border-radius)' },
+    radius: { type: String, default: 'var(--vuestro-control-border-radius)' },
     type: { type: String, default: 'text' },
     dark: { type: Boolean, default: false },
     hint: { type: String, default: null },
@@ -172,7 +176,7 @@ export default {
       setTimeout(() => {
         if (this.placeholder && this.raisedPlaceholder) {
           let placeholderWidth = window.getComputedStyle(this.$refs.placeholder, null).getPropertyValue('width');
-          this.$set(this.style, 'clip-path', `polygon(0 -10%, 0px 110%, 110% 110%, 110% -10%, calc(${placeholderWidth} - var(--vuestro-rounded-border-radius)*2) -10%, calc(${placeholderWidth} - var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) 4px, calc(var(--vuestro-rounded-border-radius)*2) -10%)`);
+          this.$set(this.style, 'clip-path', `polygon(0 -10%, 0px 110%, 110% 110%, 110% -10%, calc(${placeholderWidth} - var(--vuestro-control-border-radius)*2) -10%, calc(${placeholderWidth} - var(--vuestro-control-border-radius)*2) 4px, calc(var(--vuestro-control-border-radius)*2) 4px, calc(var(--vuestro-control-border-radius)*2) -10%)`);
         } else {
           this.$delete(this.style, 'clip-path');
         }
@@ -303,10 +307,10 @@ export default {
 }
 
 .vuestro-text-field-outline .vuestro-text-field-input-el-wrapper {
-  border: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
+  border: var(--vuestro-control-border-width) solid var(--vuestro-outline);
 }
 .vuestro-text-field-regular {
-  border-bottom: var(--vuestro-rounded-border-width) solid var(--vuestro-outline);
+  border-bottom: var(--vuestro-control-border-width) solid var(--vuestro-outline);
 }
 
 .vuestro-text-field-shaded {
@@ -344,10 +348,10 @@ export default {
   padding-right: 3px;
 }
 .vuestro-text-field-outline .vuestro-text-field-placeholder {
-  padding: 0 calc(var(--vuestro-rounded-border-radius)*2);
+  padding: 0 calc(var(--vuestro-control-border-radius)*2);
 }
 .vuestro-text-field-outline .vuestro-text-field-placeholder.active {
-  padding: 0 calc(var(--vuestro-rounded-border-radius)*3);
+  padding: 0 calc(var(--vuestro-control-border-radius)*3);
 }
 
 .vuestro-text-field-shaded .vuestro-text-field-placeholder {
@@ -409,7 +413,7 @@ export default {
 .vuestro-text-field-input-el-wrapper > input:-webkit-autofill:hover,
 .vuestro-text-field-input-el-wrapper > input:-webkit-autofill:focus {
   content: "\feff"; /* magic value to detect browser autofill */
-  border: var(--vuestro-rounded-border-width) solid var(--vuestro-gray);
+  border: var(--vuestro-control-border-width) solid var(--vuestro-gray);
   -webkit-text-fill-color: var(--vuestro-black);
   -webkit-box-shadow: 0 0 0px 1000px var(--vuestro-gray) inset;
 }
@@ -429,8 +433,8 @@ export default {
   white-space: nowrap;
   padding-left: 2px;
   padding-right: 5px;
-  border-top-right-radius: var(--vuestro-rounded-border-radius);
-  border-bottom-right-radius: var(--vuestro-rounded-border-radius);
+  border-top-right-radius: var(--vuestro-control-border-radius);
+  border-bottom-right-radius: var(--vuestro-control-border-radius);
 }
 /* render the left-pointing angle on the invalid msg */
 .vuestro-text-field-invalid-msg:before {
@@ -450,4 +454,11 @@ export default {
   align-items: center;
 }
 
+.vuestro-text-field-unit-slot {
+  margin-right: 0.25em;
+  font-size: 1.2em;
+  color: var(--vuestro-secondary);
+  display: flex;
+  align-items: center;
+}
 </style>

@@ -21,7 +21,12 @@
                 </vuestro-sidebar>
               </slot>
             </template>
-            <slot name="navbar-slot"></slot>
+            <template #logo>
+              <slot name="navbar-logo"></slot>
+            </template>
+            <template #default>
+              <slot name="navbar-slot"></slot>
+            </template>
           </vuestro-navbar>
         </slot>
 
@@ -45,11 +50,11 @@
           <!--MAIN PAGE VIEW-->
           <div ref="routerView" class="vuestro-router-view" @scroll="onScroll">
             <slot name="pre-content"></slot>
-            <transition name="vuestro-app-pages" mode="out-in" @after-leave="onRouterTransitionDone">
-              <keep-alive> <!-- vue router option for persistent state -->
+            <keep-alive> <!-- vue router option for persistent state -->
+              <transition name="vuestro-app-pages" mode="out-in" @after-leave="onRouterTransitionDone">
                 <router-view/>
-              </keep-alive>
-            </transition>
+              </transition>
+            </keep-alive>
             <slot name="footer"></slot>
           </div>
         </div>
@@ -147,9 +152,11 @@ export default {
 
 /* GLOBAL STYLE VARIABLES */
 .vuestro-app {
+  /* dimensions */
   --vuestro-font-size: 14px;
-  --vuestro-rounded-border-radius: 4px;
-  --vuestro-rounded-border-width: 1px;
+  --vuestro-selection-border-radius: 8px;
+  --vuestro-control-border-width: 1px;
+  --vuestro-control-border-radius: 5px;
   --vuestro-control-sm-height: 18px;
   --vuestro-control-md-height: 24px;
   --vuestro-control-lg-height: 32px;
@@ -159,42 +166,48 @@ export default {
   --vuestro-primary-transition-time: 0.4s;
   --vuestro-secondary-transition-time: 0.2s;
 
-  /* base palette */
-  --vuestro-blue: #217ada;
-  --vuestro-primary: #0c86d2;
-  --vuestro-secondary: #8c949a;
-  --vuestro-success: #33b86c;
-  --vuestro-info: #08a1ff;
-  --vuestro-warning: #ebc142;
-  --vuestro-danger: #cb2a2a;
-  --vuestro-inverse: #14082d;
-  --vuestro-purple: #551A8B;
+  /* palette */
   --vuestro-indigo: #682fa1;
-  --vuestro-pink: #f13c6e;
-  --vuestro-red: #ea4958;
-  --vuestro-orange: #f47633;
-  --vuestro-yellow: #fff700;
-  --vuestro-green: #4bbc79;
-  --vuestro-teal: #87e6ca;
-  --vuestro-cyan: #42b9cc;
+  --vuestro-purple: #551A8B;
   --vuestro-magenta: #ed23a9;
+  --vuestro-pink: #f13c6e;
+
+  --vuestro-royal: #101c5a;
+  --vuestro-blue: #217ada;
+  --vuestro-cobalt: #2163C9;
+  --vuestro-cyan: #42b9cc;
+  --vuestro-teal: #87e6ca;
+
+  --vuestro-green: #4bbc79;
+  --vuestro-emerald: #229649;
+  --vuestro-yellow: #fff700;
   --vuestro-gold: #fce228;
 
+  --vuestro-orange: #f47633;
+  --vuestro-salmon: #f13c6e;
+  --vuestro-brick: #8a270c;
+  --vuestro-red: #ea4958;
+
   --vuestro-white: #fff;
-  --vuestro-black: #000;
+  --vuestro-light: #f5f5f5;
+  --vuestro-light-med: #ececec;
   --vuestro-gray: #c3cbe0;
   --vuestro-gray-med: #b3b3b3;
   --vuestro-gray-dark: #505664;
-  --vuestro-light: #f5f5f5;
-  --vuestro-light-med: #ececec;
-
   --vuestro-dark: #1b1c21;
   --vuestro-darker: #101110;
+  --vuestro-black: #000;
 
-  /* the following are theme-able colors */
+  --vuestro-primary: var(--vuestro-cobalt);
+  --vuestro-secondary: var(--vuestro-light-med);
+  --vuestro-success: var(--vuestro-green);
+  --vuestro-info: var(--vuestro-cyan);
+  --vuestro-warning: var(--vuestro-yellow);
+  --vuestro-danger: var(--vuestro-red);
+
+  /* colors responsible for change to dark */
   --vuestro-content-bg: #f7f9fa;
-  --vuestro-panel-bg: #fff;
-  --vuestro-panel-dark-bg: #636363; /* panel forced dark mode */
+
   --vuestro-widget-light-bg: #e8e9ec;
   --vuestro-widget-dark-bg: #2f353f;
 
@@ -202,14 +215,15 @@ export default {
 
   --vuestro-popup-bg: #464748;
   --vuestro-popup-fg: #eee;
+
   --vuestro-tooltip-opacity: 0.8;
 
-  --vuestro-selection: #2e3037;
+  --vuestro-selection: var(--vuestro-cobalt);
   --vuestro-outline: #aaa;
   --vuestro-active: #e9eff7;
   --vuestro-hover: #e4e7ea;
 
-  --vuestro-notifications-bg: #fff3cd;
+  --vuestro-notifications-bg: var(--vuestro-salmon);
 
   --vuestro-text-color: #323334;
   --vuestro-text-color-secondary: #696969;
@@ -220,23 +234,43 @@ export default {
 /* DARK UI OVERRIDES */
 .vuestro-dark {
   --vuestro-content-bg: #1b1c21;
-  --vuestro-panel-dark-bg: #2e2f34; /* panel will use this in global dark mode */
 
   --vuestro-widget-dark-bg: #383b3f;
   --vuestro-widget-light-bg: var(--vuestro-widget-dark-bg);
+
   --vuestro-field-bg: #5a5959;
   --vuestro-outline: #7d7d7d;
   --vuestro-active: #37383a;
   --vuestro-hover: #535456;
   --vuestro-popup-bg: #323334;
 
-  --vuestro-purple: #bc77fb;
-  --vuestro-indigo: #9b37ff;
+  --vuestro-indigo: #441473;
+  --vuestro-purple: #8747c1;
+  --vuestro-magenta: #bd2c70;
+  --vuestro-pink: #e04aad;
+
+  --vuestro-royal: #101c5a;
+  --vuestro-blue: #27538a;
+  --vuestro-cobalt: #2163C9;
+  --vuestro-cyan: #108bb7;
+  --vuestro-teal: #136f6a;
+
+  --vuestro-green: #137139;
+  --vuestro-emerald: #229649;
+  --vuestro-yellow: #c1a529;
+  --vuestro-gold: #b38c05;
+
+  --vuestro-orange: #c14703;
+  --vuestro-salmon: #e25058;
+  --vuestro-brick: #8a270c;
+  --vuestro-red: #de1f31;
+
+  --vuestro-light: #9e9999;
+  --vuestro-light-med: #878585;
+
   --vuestro-gray: #656565;
   --vuestro-gray-med: #4a4a4a;
   --vuestro-gray-dark: #3a3a3a;
-  --vuestro-light: #878585;
-  --vuestro-light-med: #7f7f7f;
 
   --vuestro-text-color: #ccc;
   --vuestro-text-color-secondary: #696969;
@@ -245,14 +279,21 @@ export default {
 
 .vuestro-app.mobile {
   --vuestro-base-font-size: 32px;
-  --vuestro-rounded-border-radius: 10px;
-  --vuestro-rounded-border-width: 2px;
+  --vuestro-control-border-radius: 10px;
+  --vuestro-control-border-width: 2px;
   --vuestro-control-sm-height: 42px;
   --vuestro-control-md-height: 50px;
   --vuestro-control-lg-height: 64px;
   --vuestro-control-xl-height: 74px;
   --vuestro-control-margin-v: 7px;
   --vuestro-control-margin-h: 5px;
+}
+
+.vuestro-mla {
+  margin-left: auto;
+}
+.vuestro-mra {
+  margin-right: auto;
 }
 
 </style>
