@@ -10,7 +10,6 @@
   "scripts": {
     "dev": "webpack-dev-server -d --hot --port 8088 --config ./build/webpack.dev.config.js",
     "build": "webpack --config ./build/webpack.prod.config.js",
-    "test": "jest --verbose --coverage"
   },
   "dependencies": {
     "@geoman-io/leaflet-geoman-free": "^2.7.0",
