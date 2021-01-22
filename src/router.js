@@ -6,6 +6,7 @@ import Charts from './pages/Charts';
 import ChartsAreaChart from './pages/ChartsAreaChart';
 import ChartsBarChart from './pages/ChartsBarChart';
 import ChartsMap from './pages/ChartsMap';
+import ChartsPieChart from './pages/ChartsPieChart.vue';
 import ChartsSankey from './pages/ChartsSankey';
 import ChartsForceGraph from './pages/ChartsForceGraph';
 import Buttons from './pages/Buttons';
@@ -44,7 +45,6 @@ import InputsEditor from './pages/InputsEditor';
 import Example from './pages/Example';
 import ExampleForms from './pages/ExampleForms';
 import Settings from './pages/Settings';
-
 
 Vue.use(Router);
 
@@ -173,6 +173,15 @@ export default new Router({
           name: 'bar-chart',
           path: 'bar-chart',
           component: ChartsBarChart,
+        },
+        {
+          meta: {
+            title: 'Pie Chart',
+            sidebar: true,
+          },
+          name: 'pie-chart',
+          path: 'pie-chart',
+          component: ChartsPieChart,
         },
         {
           meta: {

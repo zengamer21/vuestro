@@ -4,7 +4,7 @@
       <template #heading><span class="drag">Bar Chart</span></template>
       <template #description>The Vuestro Bar Chart</template>
       <div class="chart-wrapper">
-        <vuestro-bar-chart :data="data" :options="options1"></vuestro-bar-chart>
+        <vuestro-bar-chart :data="data" :options="options"></vuestro-bar-chart>
       </div>
     </vuestro-card>
 
@@ -21,7 +21,7 @@ export default {
     return {
       data: [
         {
-          key: '2019-10-01T00:00:00Z',
+          key: 'Zoom Brush',
           value1: 12,
           value2: 12,
           value3: 8,
@@ -70,7 +70,7 @@ export default {
         },
         {
           key: '2019-10-01T08:00:00Z',
-          value1: 12,
+          value1: 15,
           value2: 12,
           value3: 2,
         },
@@ -79,9 +79,19 @@ export default {
           value1: 23,
           value2: 13,
           value3: 2,
+          value4: 35,
         },
       ],
-      options1: {
+      options: {
+        gridPadding: 35,
+        enableStacked: true,
+        enableToolTip: true,
+        enableYGridLabel: true,
+        enableXGridLabel: true,
+        enableLabels: true,
+        enableLegend: true,
+        enableGrid: true,
+        enableZoom: true,
         series: [
           {
             title: 'Series 1',
