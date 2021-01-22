@@ -207,10 +207,13 @@ export default {
   flex-grow: 1;
 }
 
+.vuestro-dropdown-inner.active .vuestro-dropdown-title,
+.vuestro-dropdown-inner:hover .vuestro-dropdown-title {
+  color: var(--vuestro-dropdown-title-fg);
+}
 .vuestro-dropdown-inner.active .vuestro-dropdown-title {
   background-color: var(--vuestro-dropdown-title-bg);
   border-color: var(--vuestro-dropdown-outline);
-  color: var(--vuestro-dropdown-title-fg);
 }
 
 .vuestro-dropdown-title >>> .vuestro-icon:not(:only-child) {
