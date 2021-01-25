@@ -160,17 +160,17 @@
           <template #title>w/ buttons!</template>
           Add span elements to the #buttons template
           <template #buttons>
-            <vuestro-button variant="danger">
-              <template #icon>
-                <vuestro-icon name="trash"></vuestro-icon>
-              </template>
-              Delete
-            </vuestro-button>
             <vuestro-button variant="success">
               <template #icon>
                 <vuestro-icon name="save"></vuestro-icon>
               </template>
               Save
+            </vuestro-button>
+            <vuestro-button variant="danger">
+              <template #icon>
+                <vuestro-icon name="trash"></vuestro-icon>
+              </template>
+              Delete
             </vuestro-button>
           </template>
         </vuestro-dropdown>

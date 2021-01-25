@@ -237,6 +237,7 @@ export default {
 }
 
 .vuestro-dropdown-menu {
+  font-size: 1em; /* reset font to 1em */
   background: var(--vuestro-dropdown-content-bg);
   color: var(--vuestro-dropdown-content-fg);
   box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
@@ -282,6 +283,7 @@ export default {
 .vuestro-dropdown-menu-buttons {
   display: flex;
   justify-content: space-between;
+  flex-direction: row-reverse;
   margin-left: 0.1em;
   margin-right: 0.1em;
 }
