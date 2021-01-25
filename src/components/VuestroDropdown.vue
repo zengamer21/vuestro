@@ -159,7 +159,6 @@ export default {
   cursor: default;
   display: flex;
   align-self: center;
-  font-size: 1em; /* reset font to 1em */
 }
 .vuestro-dropdown.stretch {
   flex-grow: 1;
@@ -237,7 +236,7 @@ export default {
 }
 
 .vuestro-dropdown-menu {
-  font-size: 1em; /* reset font to 1em */
+  font-size: initial; /* reset font size */
   background: var(--vuestro-dropdown-content-bg);
   color: var(--vuestro-dropdown-content-fg);
   box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
