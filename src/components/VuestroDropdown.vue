@@ -57,7 +57,7 @@ export default {
         this.$children[0].$on('click', () => {
           this.onClick();
         });
-        this.$children[0].$on('hover', () => {
+        this.$children[0].$on('enter', () => {
           this.onHover();
         });
       }
@@ -159,6 +159,7 @@ export default {
   cursor: default;
   display: flex;
   align-self: center;
+  font-size: 1em; /* reset font to 1em */
 }
 .vuestro-dropdown.stretch {
   flex-grow: 1;
@@ -279,30 +280,10 @@ export default {
 }
 
 .vuestro-dropdown-menu-buttons {
-  border-top: 1px solid var(--vuestro-dropdown-outline);
-  overflow: hidden;
   display: flex;
-  cursor: pointer;
-}
-.vuestro-dropdown-inner.rounded .vuestro-dropdown-menu-buttons {
-  border-bottom-left-radius: var(--vuestro-control-border-radius);
-  border-bottom-right-radius: var(--vuestro-control-border-radius);
-}
-
-.vuestro-dropdown-menu-buttons > span {
-  background-color: var(--vuestro-dropdown-buttons-bg);
-  color: var(--vuestro-dropdown-buttons-fg);
-  padding: 6px;
-  flex-grow: 1;
-  text-align: center;
-}
-
-.vuestro-dropdown-menu-buttons > span:not(:first-child) {
-  border-left: 1px solid var(--vuestro-dropdown-outline);
-}
-
-.vuestro-dropdown-menu-buttons > span:hover {
-  background-color: var(--vuestro-primary);
+  justify-content: space-between;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
 }
 
 </style>

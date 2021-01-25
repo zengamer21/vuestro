@@ -104,26 +104,33 @@
         <vuestro-dropdown>
           <template #button>
             <vuestro-button pill variant="info" size="lg">
-              <vuestro-icon name="bullhorn"></vuestro-icon>
-              <span>I'm a button!</span>
+              <template #icon>
+                <vuestro-icon name="bullhorn"></vuestro-icon>
+              </template>
+              I'm a button!
             </vuestro-button>
           </template>
-          <vuestro-list-button>Menu Item 1</vuestro-list-button>
-          <vuestro-list-button>Menu Item 2</vuestro-list-button>
+          <template #default>
+            <vuestro-list-button>Menu Item 1</vuestro-list-button>
+            <vuestro-list-button>Menu Item 2</vuestro-list-button>
+          </template>
         </vuestro-dropdown>
         <vuestro-dropdown click-to-open close-on-content-click>
           <template #button>
             <vuestro-button variant="info" size="lg">
-              <vuestro-icon name="bullhorn"></vuestro-icon>
-              <span>Click Me to open drop down</span>
+              <template #icon>
+                <vuestro-icon name="bullhorn"></vuestro-icon>
+              </template>
+              Click Me to open drop down
             </vuestro-button>
           </template>
-					<vuestro-pill dark clickable @click="onClick">
-						<template #title>X</template>
-						<template #value>Xylophone</template>
-					</vuestro-pill>
-          <vuestro-list-button>Menu Item 1</vuestro-list-button>
-          <vuestro-list-button>Menu Item 2</vuestro-list-button>
+          <template #default>
+  					<vuestro-pill clickable @click="onClick">
+  						<template #value>Xylophone</template>
+  					</vuestro-pill>
+            <vuestro-list-button>Menu Item 1</vuestro-list-button>
+            <vuestro-list-button>Menu Item 2</vuestro-list-button>
+          </template>
         </vuestro-dropdown>
         <vuestro-dropdown click-to-open close-on-content-click right>
           <template #button>
@@ -146,25 +153,37 @@
 
     <vuestro-card>
       <template #description>
-        <span>Disable the dropdown function by setting the <em>disabled</em> property</span>
+        <span>Speaking of buttons...add buttons to the bottom of a dropdown by adding spans to the <em>buttons</em> slot</span>
       </template>
       <div class="example-container">
-        <vuestro-dropdown disabled>
-          <template #title>Disabled Dropdown</template>
+        <vuestro-dropdown>
+          <template #title>w/ buttons!</template>
+          Add span elements to the #buttons template
+          <template #buttons>
+            <vuestro-button variant="danger">
+              <template #icon>
+                <vuestro-icon name="trash"></vuestro-icon>
+              </template>
+              Delete
+            </vuestro-button>
+            <vuestro-button variant="success">
+              <template #icon>
+                <vuestro-icon name="save"></vuestro-icon>
+              </template>
+              Save
+            </vuestro-button>
+          </template>
         </vuestro-dropdown>
       </div>
     </vuestro-card>
 
     <vuestro-card>
       <template #description>
-        <span>Speaking of buttons...add buttons to the bottom of a dropdown by adding spans to the <em>buttons</em> slot</span>
+        <span>Disable the dropdown function by setting the <em>disabled</em> property</span>
       </template>
       <div class="example-container">
-        <vuestro-dropdown>
-          <template #title>Dropdown w/ buttons</template>
-          <template #buttons>
-            <span>Button</span>
-          </template>
+        <vuestro-dropdown disabled>
+          <template #title>Disabled Dropdown</template>
         </vuestro-dropdown>
       </div>
     </vuestro-card>

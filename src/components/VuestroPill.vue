@@ -80,12 +80,13 @@ export default {
         return this.title;
       } else {
         this.autoCapital = true;
-        let v = this.value || this.$slots.value[0].text;
-        if (v && _.isString(v)) {
-          return v.trim().slice(0, 1).toUpperCase();
-        } else {
-          return '';
+        if (this.$slots.value && this.$slots.value[0]) {
+          let v = this.value || this.$slots.value[0].text;
+          if (v && _.isString(v)) {
+            return v.trim().slice(0, 1).toUpperCase();
+          }
         }
+        return '';
       }
     },
   },
