@@ -16,6 +16,9 @@
 				</vuestro-container>
       </template>
       <vuestro-list-item v-for="i in items" :key="i.name" :selected="selectedItem == i" @click="onClick(i)">
+        <template #icon>
+          <vuestro-icon name="user"></vuestro-icon>
+        </template>
         <template #title>{{ i.sender }}</template>
         <template #description>{{ i.subject }}</template>
         <!-- <template #content>{{ i.content }}</template>  -->

@@ -76,11 +76,11 @@
     <vuestro-card>
       <template #description><span>In a popup</span></template>
       <vuestro-container justify="space-between">
-        <vuestro-dropdown click-to-open no-scroll>
+        <vuestro-dropdown no-scroll>
           <template #title>{{ exampleDateString }}</template>
           <vuestro-date-picker v-model="exampleDateString"></vuestro-date-picker>
         </vuestro-dropdown>
-        <vuestro-dropdown click-to-open no-scroll>
+        <vuestro-dropdown no-scroll>
           <template #title>{{ formatRange(exampleDateRange) }}</template>
           <vuestro-date-picker v-model="exampleDateRange" range></vuestro-date-picker>
         </vuestro-dropdown>
@@ -90,7 +90,7 @@
     <vuestro-card>
       <template #description><span>Use UTC by setting the <em>utc</em> property</span></template>
       <vuestro-container justify="space-between">
-        <vuestro-dropdown click-to-open no-scroll>
+        <vuestro-dropdown no-scroll>
           <template #title>{{ formatIsoRange(exampleDateRange) }}</template>
           <vuestro-date-picker v-model="exampleDateRange" range utc></vuestro-date-picker>
         </vuestro-dropdown>
@@ -100,7 +100,7 @@
     <vuestro-card>
       <template #description><span>Combine date picker with time picker</span></template>
       <vuestro-container justify="space-between">
-        <vuestro-dropdown click-to-open no-scroll>
+        <vuestro-dropdown no-scroll>
           <template #title>{{ formatIsoRange(exampleDateRange) }}</template>
           <vuestro-date-picker v-model="exampleDateRange" range utc></vuestro-date-picker>
           <vuestro-container justify="space-between">

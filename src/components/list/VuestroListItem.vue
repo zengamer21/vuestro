@@ -5,6 +5,9 @@
 			 @mouseenter="onMouseEnter"
 			 @mouseleave="onMouseLeave"
 	     @click="onClick">
+    <div v-if="$slots.icon" class="vuestro-list-item-icon">
+      <slot name="icon"></slot>
+    </div>
     <div class="vuestro-list-item-inner">
       <div v-if="!$slots.default" class="vuestro-list-item-text">
         <div v-if="$slots.title" class="vuestro-list-item-title">
@@ -109,6 +112,11 @@ export default {
   content: " ";
   border-bottom: 0.5px solid var(--vuestro-outline);
 	z-index: -2;
+}
+.vuestro-list-item-icon {
+  margin-left: 0.8em;
+  display: flex;
+  align-items: center;
 }
 .vuestro-list-item-inner {
   min-width: 0;

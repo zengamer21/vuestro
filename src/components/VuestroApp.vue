@@ -193,13 +193,13 @@ export default {
   --vuestro-light-med: #ececec;
   --vuestro-gray: #c3cbe0;
   --vuestro-gray-med: #b3b3b3;
-  --vuestro-gray-dark: #505664;
+  --vuestro-gray-dark: #676a6f;
   --vuestro-dark: #1b1c21;
   --vuestro-darker: #101110;
   --vuestro-black: #000;
 
   --vuestro-primary: var(--vuestro-cobalt);
-  --vuestro-secondary: var(--vuestro-light-med);
+  --vuestro-secondary: #757575;
   --vuestro-success: var(--vuestro-green);
   --vuestro-info: var(--vuestro-cyan);
   --vuestro-warning: var(--vuestro-yellow);
@@ -271,6 +271,13 @@ export default {
   --vuestro-gray: #656565;
   --vuestro-gray-med: #4a4a4a;
   --vuestro-gray-dark: #3a3a3a;
+
+  --vuestro-primary: var(--vuestro-cobalt);
+  --vuestro-secondary: var(--vuestro-light-med);
+  --vuestro-success: var(--vuestro-green);
+  --vuestro-info: var(--vuestro-cyan);
+  --vuestro-warning: var(--vuestro-yellow);
+  --vuestro-danger: var(--vuestro-red);
 
   --vuestro-text-color: #ccc;
   --vuestro-text-color-secondary: #696969;

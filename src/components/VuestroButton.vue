@@ -41,7 +41,7 @@
         </div>
       </template>
     </div>
-    <div v-if="checkbox" class="vuestro-button-checkbox-text" :class="[ size ]">
+    <div v-if="checkbox" class="vuestro-button-checkbox-text" :class="[ size ]" @click="onClick">
       <slot></slot>
     </div>
   </div>

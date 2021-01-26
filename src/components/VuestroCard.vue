@@ -35,7 +35,7 @@ export default {
     colorBarStyle() {
       let borderWidth = '0.15em';
       if (this.$root.mobile) {
-        borderWidth = '0.3em';
+        borderWidth = '0.2em';
       }
       if (this.color) {
         return {

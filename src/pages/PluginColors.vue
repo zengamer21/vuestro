@@ -125,6 +125,8 @@ export default {
 .color-chip {
   padding: 1em;
   border-radius: var(--vuestro-selection-border-radius);
+  color: white;
+  text-shadow: 0 0 3px black;
 }
 
 </style>

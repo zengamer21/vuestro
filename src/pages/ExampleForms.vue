@@ -12,7 +12,7 @@
           <vuestro-text-field size="md" variant="outline" placeholder="md outline box" v-model="exampleString"></vuestro-text-field>
         </vuestro-card>
         <vuestro-card cols="6">
-          <vuestro-dropdown stretch click-to-open>
+          <vuestro-dropdown stretch>
             <template #button>
               <vuestro-button size="md" rounded justify="flex-start">Dropdown with md button</vuestro-button>
             </template>

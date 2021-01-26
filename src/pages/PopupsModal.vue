@@ -13,7 +13,7 @@
         <template #title>VuestroModal</template>
         <template #buttons></template>
         <vuestro-container no-grow>
-          <vuestro-dropdown click-to-open>
+          <vuestro-dropdown>
             <template #button>
               <vuestro-button rounded>
                 <template #icon>
@@ -34,7 +34,7 @@
             <vuestro-list-button>Toyota</vuestro-list-button>
             <vuestro-list-button>Super-loooooooong-title</vuestro-list-button>
           </vuestro-dropdown>
-          <vuestro-dropdown click-to-open>
+          <vuestro-dropdown>
             <template #button>
               <vuestro-button rounded>
                 <template #icon>
@@ -91,7 +91,7 @@
           <vuestro-hr></vuestro-hr>
         </template>
         <template #buttons>
-          <vuestro-dropdown click-to-open close-on-content-click>
+          <vuestro-dropdown close-on-content-click>
             <template #button>
               <vuestro-button variant="info">
                 <template #icon>

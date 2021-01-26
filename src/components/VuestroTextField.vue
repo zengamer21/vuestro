@@ -52,7 +52,7 @@
     </div>
     <!--presets dropdown menu-->
     <div v-if="presets.length > 0" class="vuestro-text-field-preset-dropdown-wrapper">
-      <vuestro-dropdown right click-to-open close-on-content-click>
+      <vuestro-dropdown right close-on-content-click>
         <template #button>
           <vuestro-button no-border round size="sm">
             <vuestro-icon name="chevron-down"></vuestro-icon>
@@ -63,7 +63,7 @@
     </div>
     <!--templatized dropdown menu-->
     <div v-if="$slots.dropdown" class="vuestro-text-field-preset-dropdown-wrapper">
-      <vuestro-dropdown right click-to-open close-on-content-click>
+      <vuestro-dropdown right close-on-content-click>
         <template #button>
           <vuestro-button no-border round size="sm">
             <vuestro-icon name="chevron-down"></vuestro-icon>
@@ -100,7 +100,6 @@ export default {
     variant: { type: String, default: 'regular' }, // { 'regular', 'outline', 'shaded' }
     radius: { type: String, default: 'var(--vuestro-control-border-radius)' },
     type: { type: String, default: 'text' },
-    dark: { type: Boolean, default: false },
     hint: { type: String, default: null },
     center: { type: Boolean, default: false },
     noMargin: { type: Boolean, default: false },
@@ -250,6 +249,15 @@ export default {
 
 </script>
 
+<style>
+
+.vuestro-app {
+  --vuestro-text-field-fg: var(--vuestro-text-color);
+  --vuestro-text-field-placeholder: var(--vuestro-outline);
+}
+
+</style>
+
 <style scoped>
 
 .vuestro-text-field.sm {
@@ -292,9 +300,6 @@ export default {
 .vuestro-text-field.stretch {
   flex-grow: 1;
 }
-.vuestro-text-field.dark .vuestro-text-field-input-el {
-  color: var(--vuestro-text-color-inverse);
-}
 .vuestro-text-field.focused,
 .vuestro-text-field.focused .vuestro-text-field-input-el-wrapper {
   border-color: var(--vuestro-primary);
@@ -334,7 +339,7 @@ export default {
   transform: translate(0, -50%);
   transition: all 0.15s;
   position: absolute;
-  color: var(--vuestro-secondary);
+  color: var(--vuestro-text-field-placeholder);
   pointer-events: none;
 }
 .vuestro-text-field.center .vuestro-text-field-placeholder {
@@ -377,7 +382,7 @@ export default {
   background-color: transparent;
   border: none;
   outline: none;
-  color: var(--vuestro-text-color);
+  color: var(--vuestro-text-field-fg);
   padding: 0;
 }
 .vuestro-text-field-shaded .vuestro-text-field-input-el {

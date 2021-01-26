@@ -108,10 +108,12 @@ export default {
 
 .vuestro-app {
   --vuestro-pill-radius: 999px;
-  --vuestro-pill-value-background: var(--vuestro-widget-light-bg);
+  --vuestro-pill-value-fg: var(--vuestro-text-color);
+  --vuestro-pill-value-bg: var(--vuestro-widget-light-bg);
 }
 .vuestro-dark {
-  --vuestro-pill-value-background: var(--vuestro-gray-med);
+  --vuestro-pill-value-fg: var(--vuestro-text-color);
+  --vuestro-pill-value-bg: var(--vuestro-gray-med);
 }
 
 </style>
@@ -119,7 +121,7 @@ export default {
 <style scoped>
 
 .vuestro-pill {
-  background-color: var(--vuestro-pill-value-background);
+  background-color: var(--vuestro-pill-value-bg);
   transition: background-color 0.4s;
   border-radius: var(--vuestro-pill-radius);
   flex: 0 1 auto;
@@ -203,7 +205,7 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-	color: var(--vuestro-text-color);
+	color: var(--vuestro-pill-value-fg);
 }
 .vuestro-pill.closable .vuestro-pill-value {
   padding-right: 0.33em;

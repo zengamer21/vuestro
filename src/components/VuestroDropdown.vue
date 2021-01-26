@@ -4,9 +4,8 @@
        v-vuestro-blur="onBlur"
        :style="{ 'z-index': active ? 200:100 }">
     <div class="vuestro-dropdown-inner"
-         @mouseleave="onLeave"
-         :class="{ dark, active, noSpacing, noScroll, bottom, clickToOpen, stretch, button: !!$slots.button }">
-      <div v-if="$slots.title" class="vuestro-dropdown-title" @mouseover="onHover" @click="onClick">
+         :class="{ active, noSpacing, noScroll, bottom, stretch, button: !!$slots.button }">
+      <div v-if="$slots.title" class="vuestro-dropdown-title" @click="onClick">
         &#8203;<slot name="title"></slot>&#8203;
       </div>
       <div class="vuestro-dropdown-button" v-else-if="$slots.button">
@@ -32,8 +31,6 @@
 export default {
   name: 'VuestroDropdown',
   props: {
-    clickToOpen: { type: Boolean, default: false },
-    dark: { type: Boolean, default: false },
     right: { type: Boolean, default: false }, // force right justification
     noSpacing: { type: Boolean, default: false },
     noScroll: { type: Boolean, default: false },
@@ -100,28 +97,15 @@ export default {
       this.active = false;
       this.$emit('leave');
     },
-    onHover() {
-      if (!this.clickToOpen) {
-        this.activate();
-      }
-      this.$emit('hover');
-    },
-    onLeave() {
-      if (!this.clickToOpen) {
-        this.deactivate();
-      }
-    },
     onClick() {
-      if (this.clickToOpen) {
-        if (this.active) {
-          this.deactivate();
-        } else {
-          this.activate();
-        }
+      if (this.active) {
+        this.deactivate();
+      } else {
+        this.activate();
       }
     },
     onBlur() {
-      if (!this.holdOpen && this.clickToOpen) {
+      if (!this.holdOpen) {
         this.deactivate();
       }
     },
@@ -141,13 +125,20 @@ export default {
   --vuestro-dropdown-outline: transparent;
   --vuestro-dropdown-title-bg: var(--vuestro-popup-bg);
   --vuestro-dropdown-title-fg: var(--vuestro-popup-fg);
+  --vuestro-dropdown-title-active-fg: var(--vuestro-gray-dark);
   --vuestro-dropdown-content-bg: var(--vuestro-popup-bg);
   --vuestro-dropdown-content-fg: var(--vuestro-popup-fg);
   --vuestro-dropdown-buttons-bg: var(--vuestro-primary);
   --vuestro-dropdown-buttons-fg: var(--vuestro-text-color-inverse);
+  --vuestro-dropdown-min-width: 160px;
+}
+.vuestro-app.mobile {
+  --vuestro-dropdown-min-width: 40vw;
 }
 .vuestro-dark {
   --vuestro-dropdown-outline: var(--vuestro-outline);
+  --vuestro-dropdown-title-active-fg: var(--vuestro-white);
+
 }
 
 </style>
@@ -192,7 +183,7 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  cursor: default;
+  cursor: pointer;
   user-select: none;
 }
 .vuestro-dropdown-inner.bottom .vuestro-dropdown-title {
@@ -207,8 +198,10 @@ export default {
   flex-grow: 1;
 }
 
-.vuestro-dropdown-inner.active .vuestro-dropdown-title,
 .vuestro-dropdown-inner:hover .vuestro-dropdown-title {
+  color: var(--vuestro-dropdown-title-active-fg);
+}
+.vuestro-dropdown-inner.active .vuestro-dropdown-title {
   color: var(--vuestro-dropdown-title-fg);
 }
 .vuestro-dropdown-inner.active .vuestro-dropdown-title {
@@ -218,9 +211,6 @@ export default {
 
 .vuestro-dropdown-title >>> .vuestro-icon:not(:only-child) {
   margin-right: 4px;
-}
-.vuestro-dropdown-inner.clickToOpen .vuestro-dropdown-title {
-  cursor: pointer;
 }
 .vuestro-dropdown-inner.dark .vuestro-dropdown-title {
   color: var(--vuestro-dropdown-title-fg);
@@ -236,14 +226,13 @@ export default {
 }
 
 .vuestro-dropdown-menu {
-  font-size: initial; /* reset font size */
   background: var(--vuestro-dropdown-content-bg);
   color: var(--vuestro-dropdown-content-fg);
   box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
   position: absolute;
   bottom: calc(100% - 1px);
   right: 0px;
-  min-width: 160px;
+  min-width: var(--vuestro-dropdown-min-width);
   overflow: auto;
   max-height: 90vh;
   border: var(--vuestro-control-border-width) solid var(--vuestro-dropdown-outline);
@@ -251,6 +240,10 @@ export default {
   border-bottom-right-radius: var(--vuestro-control-border-radius);
   border-top-left-radius: var(--vuestro-control-border-radius);
   z-index: -1;
+  /* redefine vars */
+  --vuestro-text-field-fg: var(--vuestro-dropdown-content-fg);
+  --vuestro-pill-value-fg: var(--vuestro-dropdown-content-fg);
+  --vuestro-pill-value-bg: var(--vuestro-gray-dark);
 }
 .vuestro-dropdown-inner.noScroll .vuestro-dropdown-menu {
   overflow: visible;
@@ -272,7 +265,7 @@ export default {
 }
 .vuestro-dropdown-menu.bottom {
   bottom: initial;
-  top: calc(100% - 1px);
+  top: calc(100% - var(--vuestro-control-border-width));
 }
 
 .vuestro-dropdown-menu-content {

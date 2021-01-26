@@ -137,6 +137,9 @@ export default {
   --vuestro-sidebar-bg: linear-gradient(to right, var(--vuestro-content-bg) 25%, rgba(255,255,255,0) 100%);
   --vuestro-sidebar-border: none;
 }
+.vuestro-dark .vuestro-mobile-sidebar-wrapper {
+  --vuestro-sidebar-bg: linear-gradient(to right, var(--vuestro-content-bg) 25%, rgba(0,0,0,0) 100%);
+}
 
 .vuestro-mobile-sidebar-enter-active, .vuestro-mobile-sidebar-leave-active {
   transition: all 0.4s;

@@ -9,30 +9,12 @@
       <template #description>VuestroDropdown provides a dropdown menu suitable for use both in a menu-bar (i.e. text only) or as a button-style dropdown menu using VuestroButton, with all the associated style options. The drop down will be left-justified unless it would go off screen.</template>
     </vuestro-card>
 
-    <vuestro-card cols="6">
+    <vuestro-card cols="12">
       <template #description>
-        Default is to open on hover
+        Menubar style
       </template>
-      <div class="example-container">
-        <vuestro-dropdown close-on-content-click>
-          <template #title>VuestroDropdown</template>
-          <vuestro-list-button>Menu Item 1</vuestro-list-button>
-          <vuestro-list-button>Menu Item 2</vuestro-list-button>
-        </vuestro-dropdown>
+      <vuestro-container justify="space-between">
         <vuestro-dropdown>
-          <template #title><vuestro-icon name="tractor"></vuestro-icon></template>
-          <vuestro-list-button>Menu Item 1</vuestro-list-button>
-          <vuestro-list-button>Menu Item 2</vuestro-list-button>
-        </vuestro-dropdown>
-      </div>
-    </vuestro-card>
-
-    <vuestro-card cols="6">
-      <template #description>
-        Set the click-to-open property to open on click
-      </template>
-      <div class="example-container">
-        <vuestro-dropdown click-to-open>
           <template #title>
             <vuestro-icon name="hand-pointer"></vuestro-icon>
             <span>Click-to-Open</span>
@@ -40,30 +22,15 @@
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
-        <vuestro-dropdown click-to-open>
-          <template #title><vuestro-icon name="tractor"></vuestro-icon></template>
+        <vuestro-dropdown>
+          <template #title>
+            <vuestro-icon name="tractor"></vuestro-icon>
+            <span>Auto-flip</span>
+          </template>
           <vuestro-list-button>Menu Item 1</vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
-      </div>
-    </vuestro-card>
-
-    <vuestro-card>
-      <template #description>
-        Set the dark property for a dark-theme compatible dropdown with a nice border for contrast.
-      </template>
-      <div class="example-container dark">
-        <vuestro-dropdown dark click-to-open>
-          <template #title>Dark DropDown</template>
-          <vuestro-list-button>Menu Item 1</vuestro-list-button>
-          <vuestro-list-button>Menu Item 2</vuestro-list-button>
-        </vuestro-dropdown>
-        <vuestro-dropdown dark click-to-open always-open>
-          <template #title>Dark DropDown</template>
-          <vuestro-list-button>Long Menu Item 1 which would go off screen automatically flips</vuestro-list-button>
-          <vuestro-list-button>Menu Item 2</vuestro-list-button>
-        </vuestro-dropdown>
-      </div>
+      </vuestro-container>
     </vuestro-card>
 
     <vuestro-card>
@@ -111,11 +78,12 @@
             </vuestro-button>
           </template>
           <template #default>
+            <vuestro-text-field placeholder="Name" variant="outline" size="lg"></vuestro-text-field>
             <vuestro-list-button>Menu Item 1</vuestro-list-button>
             <vuestro-list-button>Menu Item 2</vuestro-list-button>
           </template>
         </vuestro-dropdown>
-        <vuestro-dropdown click-to-open close-on-content-click>
+        <vuestro-dropdown close-on-content-click>
           <template #button>
             <vuestro-button variant="info" size="lg">
               <template #icon>
@@ -125,14 +93,14 @@
             </vuestro-button>
           </template>
           <template #default>
-  					<vuestro-pill clickable @click="onClick">
-  						<template #value>Xylophone</template>
-  					</vuestro-pill>
+            <vuestro-pill clickable @click="onClick">
+              <template #value>Xylophone</template>
+            </vuestro-pill>
             <vuestro-list-button>Menu Item 1</vuestro-list-button>
             <vuestro-list-button>Menu Item 2</vuestro-list-button>
           </template>
         </vuestro-dropdown>
-        <vuestro-dropdown click-to-open close-on-content-click right>
+        <vuestro-dropdown close-on-content-click right>
           <template #button>
             <vuestro-button variant="info" size="lg">
               <template #placeholder>PLACEHOLDER</template>
@@ -238,14 +206,14 @@ export default {
       ],
     };
   },
-	methods: {
-		onClick() {
-			console.log('click');
-		},
-		onAfterOpen() {
-		  console.log('opened');
-		},
-	}
+  methods: {
+    onClick() {
+      console.log('click');
+    },
+    onAfterOpen() {
+      console.log('opened');
+    },
+  }
 };
 
 </script>

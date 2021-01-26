@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-notifications">
-    <vuestro-dropdown ref="theDropdown" click-to-open @hover="onDropdownHover" @leave="popupMode = false">
+    <vuestro-dropdown ref="theDropdown" @leave="popupMode = false">
       <!--NAVBAR ICON-->
       <template #title>
         <div class="vuestro-notifications-icon">
@@ -164,10 +164,16 @@ export default {
   margin-right: 0.6em;
   margin-left: 0.6em;
 }
+.vuestro-app.mobile .vuestro-notifications-icon {
+  margin-right: 1em;
+}
 .vuestro-notifications-icon-count {
   position: absolute;
-  top: -0.9em;
-  right: -0.6em;
+  top: -0.7em;
+  right: -0.5em;
+}
+.vuestro-app.mobile .vuestro-notifications-icon-count {
+  right: -1em;
 }
 .vuestro-notification-item {
   display: flex;
