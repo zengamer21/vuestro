@@ -59,6 +59,7 @@ export default {
         });
       }
     });
+    this.checkDimensions();
   },
   methods: {
     // the programmatic open method
@@ -78,8 +79,7 @@ export default {
       this.holdOpen = false;
       this.deactivate();
     },
-    // this is the internal activation method
-    activate() {
+    checkDimensions() {
       // set max height based on available vertical space
       let bcr = this.$refs.content.getBoundingClientRect();
       this.maxHeight = `${window.innerHeight - bcr.top}px`;
@@ -91,6 +91,10 @@ export default {
       if (this.right) {
         this.left = false;
       }
+    },
+    // this is the internal activation method
+    activate() {
+      this.checkDimensions();
       this.active = true;
     },
     deactivate() {
