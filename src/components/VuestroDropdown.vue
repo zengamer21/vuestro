@@ -170,10 +170,6 @@ export default {
   position: relative;
 }
 
-.vuestro-dropdown-inner.dark {
-  --vuestro-dropdown-outline: var(--vuestro-outline)
-}
-
 .vuestro-dropdown-title {
   border: var(--vuestro-control-border-width) solid transparent;
   border-top-left-radius: var(--vuestro-control-border-radius);
@@ -216,10 +212,6 @@ export default {
 .vuestro-dropdown-title >>> .vuestro-icon:not(:only-child) {
   margin-right: 4px;
 }
-.vuestro-dropdown-inner.dark .vuestro-dropdown-title {
-  color: var(--vuestro-dropdown-title-fg);
-}
-
 .vuestro-dropdown-button {
   align-self: center;
   position: relative;

@@ -56,9 +56,6 @@ export default {
   border: none;
   background-color: var(--vuestro-light-med);
 }
-.vuestro-tray-shaded.dark {
-  background-color: var(--vuestro-darker);
-}
 
 .vuestro-tray-title {
   text-transform: uppercase;

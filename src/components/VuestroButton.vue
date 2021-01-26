@@ -4,7 +4,6 @@
     <div class="vuestro-button-inner"
          :class="[`vuestro-button-${variant}`,
                   { mobile: $root.mobile,
-                    dark,
                     value,
                     noBorder,
                     noMargin,
@@ -63,7 +62,6 @@ export default {
     round: { type: Boolean, default: false },
     stretch: { type: Boolean, default: false },
     size: { type: String, default: 'md' },
-    dark: { type: Boolean, default: false },
     shadow: { type: Boolean, default: false },
     justify: { type: String, default: 'space-evenly' },
     showSlotOnHover: { type: Boolean, default: false },
@@ -204,9 +202,6 @@ export default {
 }
 .vuestro-button-inner.noPadding {
   padding: 0;
-}
-.vuestro-button-inner.dark {
-  background-color: var(--vuestro-widget-dark-bg);
 }
 .vuestro-button-inner.shadow {
   box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);

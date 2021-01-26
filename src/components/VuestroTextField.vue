@@ -2,8 +2,7 @@
   <div class="vuestro-text-field"
        :class="[ `vuestro-text-field-${variant}`,
                  size,
-                 { dark,
-                   focused,
+                 { focused,
                    center,
                    noMargin,
                    readonly,
@@ -322,8 +321,7 @@ export default {
   border: none;
   background-color: var(--vuestro-light-med);
 }
-.vuestro-dark .vuestro-text-field-shaded,
-.vuestro-text-field-shaded.dark {
+.vuestro-dark .vuestro-text-field-shaded {
   background-color: var(--vuestro-darker);
 }
 
