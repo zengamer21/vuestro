@@ -59,7 +59,7 @@ export default {
     Vue.component(VuestroAreaChart.name, VuestroAreaChart);
     Vue.component(VuestroAsyncText.name, VuestroAsyncText);
     Vue.component(VuestroBarChart.name, VuestroBarChart);
-	Vue.component(VuestroPieChart.name, VuestroPieChart);
+    Vue.component(VuestroPieChart.name, VuestroPieChart);
     Vue.component(VuestroBreadcrumb.name, VuestroBreadcrumb);
     Vue.component(VuestroButton.name, VuestroButton);
     Vue.component(VuestroCaret.name, VuestroCaret);
@@ -197,6 +197,18 @@ export default {
       return (intNum / Math.pow(1000, i)).toFixed(1) + suffixes[i];
     });
 
+    Vue.filter('vuestroHumanNum', (intNum) => {
+      if (intNum == null || intNum === undefined) {
+        return '';
+      }
+      const suffixes = ['k', 'M', 'B', 'T', 'Qd', 'Qn', 'Sx', 'Sp', 'O', 'N', 'D', 'G', 'Gp'];
+      if (intNum < 1000) {
+        return intNum;
+      }
+      let i = parseInt(Math.floor(Math.log(intNum) / Math.log(1000)), 10) - 1;
+      return (intNum / Math.pow(1000, i+1)).toFixed(1) + suffixes[i];
+    });
+
     Vue.filter('vuestroTitleCase', (str) => {
       return str.split(' ').map(function(word, idx) {
         let exceptions = [
@@ -243,13 +255,13 @@ export default {
             console.error('downloadAsJSON needs data and filename params');
             return;
           }
-    			var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data,null,2));
-    	    var downloadAnchorNode = document.createElement('a');
-    	    downloadAnchorNode.setAttribute("href", dataStr);
-    	    downloadAnchorNode.setAttribute("download", filename);
-    	    document.body.appendChild(downloadAnchorNode); // required for firefox
-    	    downloadAnchorNode.click();
-    	    downloadAnchorNode.remove();
+          var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data,null,2));
+          var downloadAnchorNode = document.createElement('a');
+          downloadAnchorNode.setAttribute("href", dataStr);
+          downloadAnchorNode.setAttribute("download", filename);
+          document.body.appendChild(downloadAnchorNode); // required for firefox
+          downloadAnchorNode.click();
+          downloadAnchorNode.remove();
         },
         vuestroGet(object, path, defaultVal) {
           return _.get(object, path, defaultVal);
