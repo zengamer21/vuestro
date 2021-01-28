@@ -195,7 +195,7 @@ export default {
   --vuestro-gray-med: #b3b3b3;
   --vuestro-gray-dark: #676a6f;
   --vuestro-dark: #1b1c21;
-  --vuestro-darker: #101110;
+  --vuestro-darker: #131313;
   --vuestro-black: #000;
 
   --vuestro-primary: var(--vuestro-cobalt);

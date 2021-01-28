@@ -54,9 +54,6 @@ export default {
         this.$children[0].$on('click', () => {
           this.onClick();
         });
-        this.$children[0].$on('enter', () => {
-          this.onHover();
-        });
       }
     });
     this.checkDimensions();
