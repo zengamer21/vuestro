@@ -66,6 +66,16 @@
     </vuestro-card>
 
 
+    <vuestro-card>
+      <template #subheading>
+        <span>VuestroObjectBrowser with a string as data</span>
+      </template>
+      <vuestro-panel>
+        <vuestro-object-browser data="hello! I'm a string!"></vuestro-object-browser>
+      </vuestro-panel>
+    </vuestro-card>
+
+
   </vuestro-container>
 </template>
 

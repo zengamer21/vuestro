@@ -3,7 +3,13 @@
     <!--ISEMPTY MESSAGE-->
     <div v-if="empty" class="vuestro-object-browser-empty">{{ emptyMessage }}</div>
     <!--MAIN LOOP-->
-    <div v-for="(v, k) in data">
+    <div v-if="isString(data)">
+      <div class="vuestro-object-browser-item-gutter"></div>
+      <div class="vuestro-object-browser-item-string" title="String">
+        {{ data }}
+      </div>
+    </div>
+    <div v-else v-for="(v, k) in data">
       <div class="vuestro-object-browser-item">
         <div class="vuestro-object-browser-item-kv">
           <div class="vuestro-object-browser-item-gutter">
@@ -118,7 +124,7 @@ export default {
         }
       }
       return false;
-    }
+    },
   },
   watch: {
     data() {
