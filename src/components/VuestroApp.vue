@@ -115,10 +115,6 @@ export default {
       this.toRoute = to;
     }
   },
-  created() {
-    window.addEventListener('resize', () => {
-    });
-  },
   beforeMount() {
     console.log('vuestro-app beforeMount');
     console.log('window width', window.innerWidth);
@@ -132,6 +128,7 @@ export default {
     onScroll(e) {
       // save content-container scroll position to this route's meta
       this.$route.meta.scrollTop = this.$refs.routerView.scrollTop;
+      window.dispatchEvent(new Event('scroll'));
     },
     onRouterTransitionDone() {
       // only works if we delay 2 ticks

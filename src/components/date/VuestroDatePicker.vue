@@ -4,11 +4,11 @@
       <div class="vuestro-date-picker-block">
         <div v-if="pickYear">
           <div class="vuestro-date-picker-header">
-            <vuestro-button class="back" round no-border @click="backYears">
+            <vuestro-button class="back" round size="sm" no-margin no-border @click="backYears">
               <vuestro-icon name="angle-left"></vuestro-icon>
             </vuestro-button>
             <div class="name">{{ getYear() - 5 }} - {{ getYear() + 6 }}</div>
-            <vuestro-button class="forward" round no-border @click="forwardYears">
+            <vuestro-button class="forward" round size="sm" no-margin no-border @click="forwardYears">
               <vuestro-icon name="angle-right"></vuestro-icon>
             </vuestro-button>
           </div>
@@ -260,6 +260,7 @@ export default {
 }
 .vuestro-date-picker-header {
   display: flex;
+  align-items: center;
   justify-content: center;
   position: relative;
   margin-bottom: 2px;

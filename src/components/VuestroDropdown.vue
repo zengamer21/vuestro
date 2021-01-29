@@ -11,10 +11,11 @@
       <div class="vuestro-dropdown-button" v-else-if="$slots.button">
         <slot name="button"></slot>
       </div>
-      <div ref="content"
+      <div ref="dropdown"
            class="vuestro-dropdown-menu"
            :style="{ visibility: active ? 'visible':'hidden', 'max-height': maxHeight }"
-           :class="{ left, bottom }">
+           :class="{ left, bottom }"
+           @scroll="checkDimensions">
         <div v-if="active" class="vuestro-dropdown-menu-content" @click="onContentClick">
           <slot></slot>
         </div>
@@ -47,6 +48,13 @@ export default {
       maxHeight: '100vh', // default to full screen height
     };
   },
+  created() {
+    // watch for scroll event and resize
+    window.addEventListener('scroll', this.checkDimensions);
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.checkDimensions);
+  },
   mounted() {
     // if VuestroButton was used as activator, wire up its events
     this.$nextTick(() => {
@@ -77,22 +85,27 @@ export default {
       this.deactivate();
     },
     checkDimensions() {
-      // set max height based on available vertical space
-      let bcr = this.$refs.content.getBoundingClientRect();
-      this.maxHeight = `${window.innerHeight - bcr.top}px`;
-      // see if menu would go offscreen so we can flip it horizontally
-      if (window.innerWidth - bcr.left < bcr.width*1.5) {
-        this.left = false;
-      }
-      // see if right-justify was specified
-      if (this.right) {
-        this.left = false;
-      }
+      this.$nextTick(() => {
+        this.left = true;
+        // set max height based on available vertical space
+        let bcr = this.$refs.dropdown.getBoundingClientRect();
+        if (!this.noScroll) {
+          this.maxHeight = `${window.innerHeight - bcr.top}px`;
+        }
+        // see if menu would go offscreen so we can flip it horizontally
+        if (window.innerWidth - bcr.left < bcr.width*1.5) {
+          this.left = false;
+        }
+        // see if right-justify was specified
+        if (this.right) {
+          this.left = false;
+        }
+      });
     },
     // this is the internal activation method
     activate() {
-      this.checkDimensions();
       this.active = true;
+      this.checkDimensions();
     },
     deactivate() {
       this.active = false;
@@ -233,10 +246,10 @@ export default {
   border-bottom-right-radius: var(--vuestro-control-border-radius);
   border-top-left-radius: var(--vuestro-control-border-radius);
   z-index: -1;
-  /* redefine vars */
+  /* redefine style vars for vuestro components */
   --vuestro-text-field-fg: var(--vuestro-dropdown-content-fg);
   --vuestro-pill-value-fg: var(--vuestro-dropdown-content-fg);
-  --vuestro-pill-value-bg: var(--vuestro-gray-dark);
+  --vuestro-pill-value-bg: var(--vuestro-gray-med);
 }
 .vuestro-dropdown-inner.noScroll .vuestro-dropdown-menu {
   overflow: visible;
@@ -263,6 +276,7 @@ export default {
 
 .vuestro-dropdown-menu-content {
   padding: 0.4em;
+  position: relative;
 }
 
 .vuestro-dropdown-menu-buttons {

@@ -115,6 +115,14 @@
             </vuestro-button>
           </template>
           <vuestro-list-button v-for="d in exampleDatasetWithIds" :key="d.id" @click="selectedId = d.id">{{ d.val }}</vuestro-list-button>
+          <template #buttons>
+            <vuestro-button variant="success">
+              <template #icon>
+                <vuestro-icon name="save"></vuestro-icon>
+              </template>
+              Save
+            </vuestro-button>
+          </template>
         </vuestro-dropdown>
       </div>
     </vuestro-card>

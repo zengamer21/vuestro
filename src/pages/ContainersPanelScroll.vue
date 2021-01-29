@@ -11,7 +11,12 @@
             </vuestro-button>
           </vuestro-tooltip>
         </template>
-        <p>Set the <em>scroll</em> property to enable scrolling of the content.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>Still here.</p>
+        <p>Set the <em>scroll</em> property to enable scrolling of the content.<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>Still here. Also I brought a dropdown with me.<vuestro-dropdown>
+          <template #title>Dropdown</template>
+          <vuestro-list-button>Option 1</vuestro-list-button>
+          <vuestro-list-button>Option 2</vuestro-list-button>
+        </vuestro-dropdown></p>
+
       </vuestro-panel>
     </vuestro-card>
   </vuestro-container>
