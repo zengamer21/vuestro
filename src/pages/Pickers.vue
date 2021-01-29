@@ -141,7 +141,7 @@ export default {
         '#ffd180',
         '#ff9e80',
   		],
-  		exampleTime: new Date(),
+  		exampleTime: new Date().toISOString(),
   		exampleDate: moment().subtract(1, 'day'),
   		exampleDateString: moment().subtract(1, 'day').toISOString(),
   		exampleDateRange: [moment().subtract(7, 'days').toDate(), new Date()],

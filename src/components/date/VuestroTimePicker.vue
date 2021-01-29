@@ -58,7 +58,7 @@ import moment from 'moment';
 export default {
   name: 'VuestroTimePicker',
   props: {
-    value: { type: Date, required: true },
+    value: { type: null, required: true },
     seconds: { type: Boolean, default: false },
     utc: { type: Boolean, default: false },
   },
