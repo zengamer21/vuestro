@@ -19,22 +19,34 @@ Vue.config.productionTip = false;
 console.log('VUESTRO DEV MODE');
 let oldConsoleLog = console.log;
 console.log = function() {
-  axios.post('/vuestro-dev-console/log', [...arguments]);
+  try {
+    let body = JSON.stringify(arguments);
+    axios.post('/vuestro-dev-console/log', body);
+  } catch (e) {}
   oldConsoleLog(...arguments);
 };
 let oldConsoleWarn = console.warn;
 console.warn = function() {
-  axios.post('/vuestro-dev-console/warn', [...arguments]);
+  try {
+    let body = JSON.stringify(arguments);
+    axios.post('/vuestro-dev-console/warn', body);
+  } catch (e) {}
   oldConsoleWarn(...arguments);
 };
 let oldConsoleError = console.error;
 console.error = function() {
-  axios.post('/vuestro-dev-console/error', [...arguments]);
+  try {
+    let body = JSON.stringify(arguments);
+    axios.post('/vuestro-dev-console/error', body);
+  } catch (e) {}
   oldConsoleError(...arguments);
 };
 let oldConsoleInfo = console.info;
 console.info = function() {
-  axios.post('/vuestro-dev-console/info', [...arguments]);
+  try {
+    let body = JSON.stringify(arguments);
+    axios.post('/vuestro-dev-console/info', body);
+  } catch (e) {}
   oldConsoleInfo(...arguments);
 };
 

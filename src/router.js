@@ -215,9 +215,11 @@ export default new Router({
     {
       meta: {
         title: 'Buttons',
-        sidebar: true,
         icon: 'th',
-        scrollTop: 0,
+        sidebar: true,
+        showFunc: function() {
+          return true;
+        }
       },
       name: 'buttons',
       path: '/buttons',
