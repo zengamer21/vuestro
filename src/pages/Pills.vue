@@ -5,14 +5,25 @@
       <template #description>
         Pills are a great way to represent either key-value pairs, or "grabbable" bits of information. They consist of an color-accented title along with a value. If a title is not provided, the first letter of the value property will be used for the accent dot.
       </template>
-      <vuestro-pill value="Pill Value"></vuestro-pill>
+      <vuestro-pill>
+        <template #value>Pill Value</template>
+      </vuestro-pill>
     </vuestro-card>
 
     <vuestro-card>
       <template #description>
         <span>Pill with <em>title</em> and <em>value</em> properties</span>
       </template>
-      <vuestro-pill title="Pill Title" value="Pill Value"></vuestro-pill>
+      <vuestro-pill>
+        <template #title>Title</template>
+        <template #value>Value</template>
+      </vuestro-pill>
+      <vuestro-pill>
+        <template #icon>
+          <vuestro-icon name="download"></vuestro-icon>
+        </template>
+        <template #value>Value</template>
+      </vuestro-pill>
     </vuestro-card>
 
     <vuestro-card>
@@ -23,9 +34,7 @@
         <template #icon>
           <vuestro-icon name="pills"></vuestro-icon>
         </template>
-        <template #title>
-          title
-        </template>
+        <template #title>Title</template>
         <template #value>value slot</template>
       </vuestro-pill>
       <vuestro-pill>
@@ -47,12 +56,16 @@
         <span>Get a color pill by only setting the <em>title</em> slot (or <em>icon</em> and <em>title</em>)</span>
       </template>
       <div class="example-align-items-start">
-        <vuestro-pill title="Pill Title"></vuestro-pill>
-        <vuestro-pill title="M"></vuestro-pill>
+        <vuestro-pill>
+          <template #title>Pill Title</template>
+        </vuestro-pill>
+        <vuestro-pill>
+          <template #title>M</template>
+        </vuestro-pill>
         <vuestro-pill>
           <template #title>Slot Title</template>
           <template #title-buttons>
-            <vuestro-button round no-border variant="white" size="sm">
+            <vuestro-button round no-border variant="white">
               <vuestro-icon name="times"></vuestro-icon>
             </vuestro-button>
           </template>
@@ -69,10 +82,10 @@
           </template>
           <template #title>Tractor</template>
           <template #title-buttons>
-            <vuestro-button round no-border variant="white" size="sm">
+            <vuestro-button round no-border variant="white">
               <vuestro-icon name="save"></vuestro-icon>
             </vuestro-button>
-            <vuestro-button round no-border variant="white" size="sm">
+            <vuestro-button round no-border variant="white">
               <vuestro-icon name="times"></vuestro-icon>
             </vuestro-button>
           </template>
@@ -94,8 +107,12 @@
         Use a VuestroTray to keep pills together!
       </template>
   		<vuestro-tray title="Pill Tray" variant="outline">
-  			<vuestro-pill value="Pill Value"></vuestro-pill>
-  			<vuestro-pill title="Pill" value="Pill Value"></vuestro-pill>
+  			<vuestro-pill>
+  			  <template #title>Pill Value</template>
+  			</vuestro-pill>
+  			<vuestro-pill>
+  			  <template #value>Pill Value</template>
+			  </vuestro-pill>
   		</vuestro-tray>
     </vuestro-card>
 
@@ -104,11 +121,21 @@
         Pills can also have different colors by specifying a color property.
       </template>
       <div class="example-align-items-start">
-        <vuestro-pill value="Orange" color="var(--vuestro-orange"></vuestro-pill>
-        <vuestro-pill value="Green" color="var(--vuestro-green"></vuestro-pill>
-        <vuestro-pill value="Red" color="var(--vuestro-red"></vuestro-pill>
-        <vuestro-pill value="Blue" color="var(--vuestro-blue"></vuestro-pill>
-        <vuestro-pill value="Purple" color="var(--vuestro-purple"></vuestro-pill>
+        <vuestro-pill color="var(--vuestro-orange)">
+          <template #value>Orange</template>
+        </vuestro-pill>
+        <vuestro-pill color="var(--vuestro-green)">
+          <template #value>Green</template>
+        </vuestro-pill>
+        <vuestro-pill color="var(--vuestro-red)">
+          <template #value>Red</template>
+        </vuestro-pill>
+        <vuestro-pill color="var(--vuestro-blue)">
+          <template #value>Blue</template>
+        </vuestro-pill>
+        <vuestro-pill color="var(--vuestro-purple)">
+          <template #value>Purple</template>
+        </vuestro-pill>
       </div>
     </vuestro-card>
 
@@ -117,10 +144,18 @@
         ...or a different size by specifying a size property {'sm', 'md', 'lg', 'xl'}
       </template>
       <div class="example-align-items-start">
-        <vuestro-pill value="Orange" color="var(--vuestro-orange" size="sm"></vuestro-pill>
-        <vuestro-pill value="Green" color="var(--vuestro-green" size="md"></vuestro-pill>
-        <vuestro-pill value="Red" color="var(--vuestro-red" size="lg"></vuestro-pill>
-        <vuestro-pill value="Blue" color="var(--vuestro-blue" size="xl"></vuestro-pill>
+        <vuestro-pill color="var(--vuestro-orange)" size="sm">
+          <template #value>Orange</template>
+        </vuestro-pill>
+        <vuestro-pill color="var(--vuestro-green)" size="md">
+          <template #value>Green</template>
+        </vuestro-pill>
+        <vuestro-pill color="var(--vuestro-red)" size="lg">
+          <template #value>Red</template>
+        </vuestro-pill>
+        <vuestro-pill color="var(--vuestro-blue)" size="xl">
+          <template #value>Blue</template>
+        </vuestro-pill>
       </div>
     </vuestro-card>
 
@@ -129,10 +164,22 @@
         <span>...or a different radius by defining the <em>--vuestro-pill-radius</em> CSS var (with units)</span>
       </template>
       <div class="example-align-items-start">
-        <vuestro-pill title="Default" value="Radius"></vuestro-pill>
-        <vuestro-pill title="4px" value="Radius" style="--vuestro-pill-radius:4px"></vuestro-pill>
-        <vuestro-pill title="0.5em" value="Radius" style="--vuestro-pill-radius:0.5em"></vuestro-pill>
-        <vuestro-pill title="0" value="Radius" style="--vuestro-pill-radius:0"></vuestro-pill>
+        <vuestro-pill>
+          <template #title>Default</template>
+          <template #value>Radius</template>
+        </vuestro-pill>
+        <vuestro-pill style="--vuestro-pill-radius:4px">
+          <template #title>4px</template>
+          <template #value>Radius</template>
+        </vuestro-pill>
+        <vuestro-pill style="--vuestro-pill-radius:0.5em">
+          <template #title>0.5em</template>
+          <template #value>Radius</template>
+        </vuestro-pill>
+        <vuestro-pill style="--vuestro-pill-radius:0">
+          <template #title>0</template>
+          <template #value>Radius</template>
+        </vuestro-pill>
       </div>
     </vuestro-card>
 
@@ -141,7 +188,9 @@
         <span>Set the <em>clickable</em> property to make the pill a button which emits a 'click' event.</span>
       </template>
       <div class="example-align-items-start">
-        <vuestro-pill value="Clickable" clickable @click="exampleClicked = !exampleClicked"></vuestro-pill>
+        <vuestro-pill clickable @click="exampleClicked = !exampleClicked">
+          <template #title>Clickable</template>
+        </vuestro-pill>
         <span class="example-action-text" v-if="exampleClicked">Pill clicked!</span>
       </div>
     </vuestro-card>
@@ -151,7 +200,10 @@
         <span>A pill will show a close button and emit a <em>close</em> event when the closable property is set.</span>
       </template>
       <div class="example-align-items-start">
-        <vuestro-pill v-if="!exampleClosed" value="Closable" closable @close="exampleClosed = true"></vuestro-pill>
+        <vuestro-pill v-if="!exampleClosed" closable @close="exampleClosed = true">
+          <template #title>Close</template>
+          <template #value>Me</template>
+        </vuestro-pill>
         <span class="example-action-text" v-if="exampleClosed">
           Pill closed! <vuestro-button variant="link" @click="exampleClosed = false">Click</vuestro-button> to reopen.
         </span>
@@ -180,7 +232,10 @@
         A pill will refuse to wrap and will show an ellipsis when the value is too long to fit in the provided space.
       </template>
       <div class="example-constrained-width">
-        <vuestro-pill title="Long Title" value="Long Value"></vuestro-pill>
+        <vuestro-pill>
+          <template #title>Long Title</template>
+          <template #value>Long Value</template>
+        </vuestro-pill>
       </div>
     </vuestro-card>
 
@@ -236,7 +291,7 @@ export default {
 }
 
 .example-constrained-width {
-  width: 10vh;
+  width:120px;
 }
 
 </style>

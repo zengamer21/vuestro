@@ -326,6 +326,7 @@
         <vuestro-button disabled @click="onClick" round no-border>
           <vuestro-icon name="download"></vuestro-icon>
         </vuestro-button>
+        <vuestro-button disabled @click="onClick" checkbox value>checkbox</vuestro-button>
       </div>
     </vuestro-card>
 

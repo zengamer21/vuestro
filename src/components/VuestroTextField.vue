@@ -251,8 +251,10 @@ export default {
 <style>
 
 .vuestro-app {
+  --vuestro-text-field-font-weight: 300;
   --vuestro-text-field-fg: var(--vuestro-text-color);
   --vuestro-text-field-placeholder: var(--vuestro-outline);
+  --vuestro-text-field-placeholder-font-weight: 300;
 }
 
 </style>
@@ -330,7 +332,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 1em;
-  font-weight: 300;
+  font-weight: var(--vuestro-text-field-placeholder-font-weight);
   top: 50%;
   left: 0px;
   max-width: 100%;
@@ -374,7 +376,7 @@ export default {
 
 .vuestro-text-field-input-el {
   font-size: inherit;
-  font-weight: 300;
+  font-weight: var(--vuestro-text-field-font-weight);
   align-self: center;
   width: 100%;
   background-color: transparent;

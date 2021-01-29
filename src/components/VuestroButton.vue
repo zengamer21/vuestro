@@ -40,7 +40,7 @@
         </div>
       </template>
     </div>
-    <div v-if="checkbox" class="vuestro-button-checkbox-text" :class="[ size ]" @click="onClick">
+    <div v-if="checkbox" class="vuestro-button-checkbox-text" :class="[ size, { disabled } ]" @click="onClick">
       <slot></slot>
     </div>
   </div>
@@ -343,6 +343,9 @@ export default {
   margin-left: 4px;
   margin-right: 10px;
   cursor: pointer;
+}
+.vuestro-button-checkbox-text.disabled {
+  pointer-events: none;
 }
 .vuestro-button-checkbox-text.sm {
   font-size: calc(var(--vuestro-control-sm-height) * 0.7);
