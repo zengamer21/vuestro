@@ -81,6 +81,12 @@
             <vuestro-text-field placeholder="Name" variant="outline" size="lg"></vuestro-text-field>
             <vuestro-list-button>Menu Item 1</vuestro-list-button>
             <vuestro-list-button>Menu Item 2</vuestro-list-button>
+            <vuestro-pill>
+              <template #title>Pill 1</template>
+            </vuestro-pill>
+            <vuestro-pill color="var(--vuestro-purple)">
+              <template #title>Pill 2</template>
+            </vuestro-pill>
           </template>
         </vuestro-dropdown>
         <vuestro-dropdown close-on-content-click>

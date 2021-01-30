@@ -55,6 +55,7 @@ export default {
   },
   computed: {
     titleStyle() {
+      let ret = {};
       if (_.isString(this.geopattern)) {
         let text;
         // use the value of geopattern as the seed if it's a string
@@ -63,15 +64,16 @@ export default {
         } else {
           text = this.$slots.title[0].text || '';
         }
-        return {
-          'background-image': GeoPattern.generate(text.trim()).toDataUrl(),
-        };
+        ret['background-image'] = GeoPattern.generate(text.trim()).toDataUrl();
       }
       if (this.color) {
-        return {
-          'background-color': this.color,
-        };
+        ret['background-color'] = this.color;
       }
+      if (!this.$slots.value) {
+        ret['flex-grow'] = 1;
+        ret['justify-content'] = 'flex-start';
+      }
+      return ret;
     },
     titleComputed() {
       this.autoCapital = true;
