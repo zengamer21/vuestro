@@ -93,6 +93,8 @@ export default {
 /* override these css vars to set style */
 .vuestro-app {
   --vuestro-tooltip-arrow-size: 10px;
+  --vuestro-tooltip-font-size: inherit;
+  --vuestro-tooltip-padding: 0.5em;
 }
 
 .vuestro-app.mobile {
@@ -107,6 +109,7 @@ export default {
   display: flex;
   align-self: center;
   position: relative;
+  font-size: initial;
 }
 
 .vuestro-tooltip-content {
@@ -114,9 +117,10 @@ export default {
   background: var(--vuestro-dropdown-content-bg);
   color: var(--vuestro-dropdown-content-fg);
   border: var(--vuestro-control-border-width) solid var(--vuestro-dropdown-outline);
-  padding: 0.5em;
+  padding: var(--vuestro-tooltip-padding);
   border-radius: var(--vuestro-control-border-radius);
   z-index: 999 !important;
+  font-size: var(--vuestro-tooltip-font-size);
 }
 .vuestro-tooltip-content.noPadding {
   padding: 0;
@@ -133,6 +137,7 @@ export default {
   border-left: var(--vuestro-tooltip-arrow-size) solid transparent;
   border-right: var(--vuestro-tooltip-arrow-size) solid transparent;
   border-top: var(--vuestro-tooltip-arrow-size) solid var(--vuestro-dropdown-content-bg);
+  z-index: 998 !important;
 }
 .vuestro-dark .vuestro-tooltip.active.top::after {
   border-top: var(--vuestro-tooltip-arrow-size) solid var(--vuestro-outline);
@@ -146,6 +151,7 @@ export default {
   border-top: var(--vuestro-tooltip-arrow-size) solid transparent;
   border-bottom: var(--vuestro-tooltip-arrow-size) solid transparent;
   border-left: var(--vuestro-tooltip-arrow-size) solid var(--vuestro-dropdown-content-bg);
+  z-index: 998 !important;
 }
 .vuestro-dark .vuestro-tooltip.active.left::after {
   border-left: var(--vuestro-tooltip-arrow-size) solid var(--vuestro-outline);
@@ -159,6 +165,7 @@ export default {
   border-left: var(--vuestro-tooltip-arrow-size) solid transparent;
   border-right: var(--vuestro-tooltip-arrow-size) solid transparent;
   border-bottom: var(--vuestro-tooltip-arrow-size) solid var(--vuestro-dropdown-content-bg);
+  z-index: 998 !important;
 }
 .vuestro-dark .vuestro-tooltip.active.bottom::after {
   border-bottom: var(--vuestro-tooltip-arrow-size) solid var(--vuestro-outline);
@@ -172,6 +179,7 @@ export default {
   border-top: var(--vuestro-tooltip-arrow-size) solid transparent;
   border-bottom: var(--vuestro-tooltip-arrow-size) solid transparent;
   border-right: var(--vuestro-tooltip-arrow-size) solid var(--vuestro-dropdown-content-bg);
+  z-index: 998 !important;
 }
 .vuestro-dark .vuestro-tooltip.active.right::after {
   border-right: var(--vuestro-tooltip-arrow-size) solid var(--vuestro-outline);

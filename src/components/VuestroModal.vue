@@ -121,7 +121,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-content: start;
-  filter: drop-shadow(0px 0px 1em var(--vuestro-dark));
+  box-shadow: 0 0 1em var(--vuestro-dark);
 	border-radius: var(--vuestro-modal-border-radius);
   z-index: 10001;
 }

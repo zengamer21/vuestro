@@ -11,7 +11,14 @@
       <vuestro-button @click="modalOpen1 = true">Open Modal</vuestro-button>
       <vuestro-modal :active.sync="modalOpen1" no-scroll>
         <template #title>VuestroModal</template>
-        <template #buttons></template>
+        <template #toolbar>
+          <vuestro-tooltip position="top">
+            <vuestro-button pill variant="primary">Button w/Tooltip</vuestro-button>
+            <template #content>
+              Tooltip Test
+            </template>
+          </vuestro-tooltip>
+        </template>
         <vuestro-container no-grow>
           <vuestro-dropdown>
             <template #button>
@@ -49,7 +56,21 @@
             <vuestro-list-button>Civic</vuestro-list-button>
             <vuestro-list-button>Camry</vuestro-list-button>
           </vuestro-dropdown>
+          <vuestro-tooltip position="bottom">
+            <vuestro-button>Button w/Tooltip</vuestro-button>
+            <template #content>
+              Tooltip Test
+            </template>
+          </vuestro-tooltip>
         </vuestro-container>
+        <template #buttons>
+          <vuestro-tooltip position="bottom">
+            <vuestro-button variant="success">Button w/Tooltip</vuestro-button>
+            <template #content>
+              Tooltip Test
+            </template>
+          </vuestro-tooltip>
+        </template>
       </vuestro-modal>
     </vuestro-card>
 
