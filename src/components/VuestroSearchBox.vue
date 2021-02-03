@@ -12,7 +12,12 @@
           {{ h }}
         </vuestro-list-button>
         <template #buttons v-if="historyArray.length > 0">
-          <span class="clear-history" @click="historyArray = []">Clear History</span>
+          <vuestro-button size="sm" variant="warning" @click="historyArray = []">
+            <template #icon>
+              <vuestro-icon name="trash"></vuestro-icon>
+            </template>
+            Clear History
+          </vuestro-button>
         </template>
       </vuestro-dropdown>
     </div>
