@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-card" :class="[`basis-${cols}`, { overflowHidden, stretch, row }]">
+  <div class="vuestro-card" :class="[`basis-${cols}`, { overflowHidden, stretch, shrink, row }]">
     <!--SLOT FOR HEADER TEXT (only show if "heading" slot was provided)-->
     <div v-if="$slots.heading"
          class="vuestro-card-heading"
@@ -29,6 +29,7 @@ export default {
     color: { type: String, default: null },
     overflowHidden: { type: Boolean, default: null },
     stretch: { type: Boolean, default: false },
+    shrink: { type: Boolean, default: false },
     row: { type: Boolean, default: false },
   },
   computed: {
@@ -77,6 +78,9 @@ export default {
 }
 .vuestro-card.stretch {
   flex-grow: 1;
+}
+.vuestro-card.shrink {
+  flex-shrink: 1;
 }
 .vuestro-card.row {
   flex-direction: row;
