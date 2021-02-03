@@ -64,15 +64,15 @@
       <div class="example-flexbox">
         <vuestro-button @click="onClick">
           <template #placeholder>Placeholder</template>
-          Value
+          Value md
         </vuestro-button>
         <vuestro-button size="lg" @click="onClick">
           <template #placeholder>Placeholder</template>
-          Value
+          Value lg
         </vuestro-button>
         <vuestro-button size="xl" @click="onClick">
           <template #placeholder>Placeholder</template>
-          Value
+          Value xl
         </vuestro-button>
       </div>
     </vuestro-card>

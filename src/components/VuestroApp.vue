@@ -156,8 +156,8 @@ export default {
   --vuestro-control-border-radius: 5px;
   --vuestro-control-sm-height: 18px;
   --vuestro-control-md-height: 24px;
-  --vuestro-control-lg-height: 32px;
-  --vuestro-control-xl-height: 48px;
+  --vuestro-control-lg-height: 30px;
+  --vuestro-control-xl-height: 36px;
   --vuestro-control-margin-v: 5px;
   --vuestro-control-margin-h: 2px;
   --vuestro-primary-transition-time: 0.4s;
