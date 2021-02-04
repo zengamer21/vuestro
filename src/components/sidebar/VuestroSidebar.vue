@@ -37,11 +37,11 @@
     <transition name="vuestro-sidebar" mode="out-in" @after-leave="afterLeave">
       <vuestro-sidebar-menu v-if="!localMini"
                             :role="role"
-                            :routes="$router.options.routes"
+                            :routes="routes"
                             @click="toggleSidebar"></vuestro-sidebar-menu>
       <vuestro-mini-sidebar-menu v-else
                                  :role="role"
-                                 :routes="$router.options.routes"
+                                 :routes="routes"
                                  @click="toggleSidebar">
       </vuestro-mini-sidebar-menu>
     </transition>
@@ -74,10 +74,15 @@ export default {
     role: { type: [String, Array], default: '' }, // user role
     link: { type: String, default: '' }, // user link
     mini: { type: Boolean, default: false }, // mini sidebar
+    routes: {
+      type: Array,
+      default: function() {
+        return _.cloneDeep(this.$router.options.routes);
+      }
+    },
   },
   data() {
     return {
-      routes: _.cloneDeep(this.$router.options.routes),
       geoColor: '',
       localMini: this.mini,
       debounceAuto: false,
