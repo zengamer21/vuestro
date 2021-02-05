@@ -46,6 +46,17 @@
         {{ c }}
       </div>
     </vuestro-card>
+
+    <vuestro-card cols="12">
+      <template #subheading><span>Vuestro also provides <em>vuestroChartColorGenerator()</em> a color palette generator for chart colors that works with either numbers or strings.</span></template>
+    </vuestro-card>
+    <vuestro-card cols="3" v-for="c in 10" :key="c">
+      <div class="color-chip" :style="{color: 'white', 'background-color': vuestroChartColorGenerator(c)}">
+        {{ c }}
+      </div>
+    </vuestro-card>
+
+
   </vuestro-container>
 </template>
 

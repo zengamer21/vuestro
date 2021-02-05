@@ -53,6 +53,9 @@ import VuestroTitle from '../components/text/VuestroTitle';
 import VuestroTooltip from '../components/VuestroTooltip';
 import VuestroTray from '../components/VuestroTray';
 
+import * as d3 from 'd3';
+let colors = d3.scaleOrdinal(d3.schemeCategory10);
+
 export default {
   install(Vue, options) {
     Vue.component(VuestroApp.name, VuestroApp);
@@ -307,6 +310,9 @@ export default {
             '--vuestro-brick',
             '--vuestro-red',
           ];
+        },
+        vuestroChartColorGenerator(idx) {
+          return colors(idx);
         },
       }
     });
