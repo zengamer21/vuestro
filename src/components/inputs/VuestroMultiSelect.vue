@@ -2,25 +2,43 @@
   <vuestro-tray class="vuestro-multi-select"
                 :class="{ stretch }"
                 :variant="variant"
-                :size="size">
+                :size="size"
+                v-vuestro-blur="closeDropdown">
     <template #title>
       <slot name="title"></slot>
     </template>
-    <draggable v-model="contents"
+    <draggable class="vuestro-multi-draggable" v-model="contents"
                draggable=".vuestro-pill"
                group="vuestro-multi-select"
                @add="onDragAdd">
-      <div class="vuestro-multi-select-pill-container">
-        <vuestro-pill v-for="(c, idx) in contents" :key="c" closable @close="removeVal(idx)">
-          <template #value>{{ c }}</template>
-        </vuestro-pill>
-      </div>
-      <input slot="footer" class="input-el"
-             :placeholder="placeholder"
-             :value="newVal"
-             @keyup.enter="onManualAdd">
-      </input>
+      <template v-for="(c, idx) in contents">
+        <slot name="item" :item="c">
+          <vuestro-pill :key="idx" closable @close="removeVal(idx)">
+            <template v-if="c[keyField]" #title>{{ c[keyField] }}</template>
+            <template v-if="c[valueField]" #value>{{ c[valueField] }}</template>
+            <template v-else #value>{{ c }}</template>
+          </vuestro-pill>
+        </slot>
+      </template>
+      <template #footer>
+        <div class="vuestro-multi-input-el-wrapper">
+          <input class="input-el"
+                 :placeholder="placeholder"
+                 :value="searchTerm"
+                 @focus="onFocus"
+                 @keyup="onKeyup">
+          </input>
+          <vuestro-button round size="sm" no-border no-margin @click="onClear">
+            <vuestro-icon name="times"></vuestro-icon>
+          </vuestro-button>
+        </div>
+      </template>
     </draggable>
+    <div v-if="$slots.dropdown"
+         class="vuestro-multi-select-dropdown"
+         :style="{ visibility: showDropdown ? 'visible':'hidden'}">
+        <slot name="dropdown"></slot>
+    </div>
   </vuestro-tray>
 </template>
 
@@ -35,23 +53,28 @@ export default {
   },
   props: {
     value: { type: Array, default: () => []},
+    searchTerm: { type: String, default: '' },
     size: { type: String, default: 'md' },
     variant: { type: String, default: 'outline' },
-    placeholder: { type: String },
+    placeholder: { type: String, default: 'Search...' },
     stretch: { type: Boolean, default: false },
+    keyField: { type: String, default: 'key' },
+    valueField: { type: String, default: 'value' },
   },
   data() {
     return {
-      contents: [],
-      newVal: '',
+      showDropdown: false,
+      contents: this.value,
     };
   },
-  computed: {
+  watch: {
+    value(newVal) {
+      this.contents = newVal;
+    },
   },
   methods: {
-    onManualAdd(e) {
-      this.contents.push(e.target.value);
-      this.$emit('add', e.target.value);
+    onFocus() {
+      this.showDropdown = true;
     },
     onDragAdd(e) {
       this.$emit('add', e.item.innerText);
@@ -59,6 +82,19 @@ export default {
     removeVal(idx) {
       this.$emit('remove', this.contents[idx]);
       this.contents.splice(idx, 1);
+    },
+    closeDropdown() {
+      this.showDropdown = false;
+    },
+    // keyup passthrough, so you can use @keyup.enter
+    onKeyup(e) {
+      this.$emit('keyup', e);
+    },
+    onClear() {
+      this.$emit('clear');
+    },
+    clearSearchTerm() {
+      this.searchTerm = '';
     },
   },
 };
@@ -75,30 +111,54 @@ export default {
   flex-grow: 1;
 }
 
-.vuestro-multi-select > div {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.vuestro-multi-select-pill-container {
+.vuestro-multi-draggable {
   display: flex;
   flex-grow: 1;
-  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 0.2em 0em;
+}
+.vuestro-multi-draggable > .vuestro-pill {
+  margin: 0.15em 0.15em;
 }
 
-.vuestro-multi-select-pill-container >>> span.sortable-ghost {
-  border: var(--vuestro-control-border-width) dashed var(--vuestro-outline);
+.vuestro-multi-select >>> span.sortable-ghost {
+  border: 0.15em dashed var(--vuestro-outline);
+  border-radius: 999px;
+  margin: 0.2em;
+  padding: 0 0.4em;
 }
 
+.vuestro-multi-input-el-wrapper {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin-left: 0.2em;
+  margin-right: 0.4em;
+}
 .input-el {
-  margin-left: 2px;
+  margin: 0.2em;
   width: 100%;
   background-color: transparent;
   border: none;
   outline: none;
   color: var(--vuestro-text-color);
-  font-size: 0.6em;
 }
+
+.vuestro-multi-select-dropdown {
+  background: var(--vuestro-dropdown-content-bg);
+  color: var(--vuestro-dropdown-content-fg);
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
+  position: absolute;
+  top: calc(100% + 0.2em);
+  left: 0;
+  right: 0;
+  overflow: auto;
+  max-height: 90vh;
+  border: var(--vuestro-control-border-width) solid var(--vuestro-dropdown-outline);
+  border-radius: var(--vuestro-control-border-radius);
+  z-index: 999;
+  padding: 0.2em;
+}
+
 
 </style>

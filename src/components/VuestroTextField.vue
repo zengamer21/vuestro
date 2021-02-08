@@ -9,7 +9,8 @@
                    invalid,
                    stretch,
                   }
-               ]">
+               ]"
+       v-vuestro-blur="closeDropdown">
     <!--the main input, input-el-wrapper provides border for outline variant-->
     <div class="vuestro-text-field-input-el-wrapper" :style="style">
       <input ref="inputEl"
@@ -22,17 +23,17 @@
              @input="updateValue"
              @keyup="onKeyUp">
       </input>
-      <!--unit-->
+      <!--UNIT-->
       <div v-if="$slots.unit" class="vuestro-text-field-unit-slot">
         <slot name="unit"></slot>
       </div>
-      <!--clear button-->
+      <!--CLEAR BUTTON-->
       <vuestro-button v-if="!invalid && clearable && value" size="sm" round no-border @click.stop="onClear">
         <vuestro-icon name="times"></vuestro-icon>
       </vuestro-button>
       <!--validation-->
       <div v-if="invalid" class="vuestro-text-field-invalid-msg">{{ invalid }}</div>
-      <!--editing buttons-->
+      <!--EDITING BUTTONS-->
       <div v-else-if="editingButtons" class="vuestro-text-field-editing-buttons">
         <vuestro-button v-if="!invalid" round no-border size="sm" variant="success" @click="onSaveButton">
           <vuestro-icon name="save"></vuestro-icon>
@@ -41,7 +42,7 @@
           <vuestro-icon name="trash"></vuestro-icon>
         </vuestro-button>
       </div>
-      <!--show password button-->
+      <!--SHOW PASSWORD BUTTON-->
       <span class="vuestro-text-field-show-password"
             v-if="type === 'password' || type === 'hidden'"
             @click="showPassword = !showPassword">
@@ -49,34 +50,18 @@
         <vuestro-icon v-if="showPassword" name="eye"></vuestro-icon>
       </span>
     </div>
-    <!--presets dropdown menu-->
-    <div v-if="presets.length > 0" class="vuestro-text-field-preset-dropdown-wrapper">
-      <vuestro-dropdown right close-on-content-click>
-        <template #button>
-          <vuestro-button no-border round size="sm">
-            <vuestro-icon name="chevron-down"></vuestro-icon>
-          </vuestro-button>
-        </template>
-        <vuestro-list-button v-for="p in presets" :key="p" @click="onPreset(p)">{{ p }}</vuestro-list-button>
-      </vuestro-dropdown>
-    </div>
-    <!--templatized dropdown menu-->
-    <div v-if="$slots.dropdown" class="vuestro-text-field-preset-dropdown-wrapper">
-      <vuestro-dropdown right close-on-content-click>
-        <template #button>
-          <vuestro-button no-border round size="sm">
-            <vuestro-icon name="chevron-down"></vuestro-icon>
-          </vuestro-button>
-        </template>
+    <!--TEMPLATIZED DROPDOWN MENU-->
+    <div v-if="$slots.dropdown"
+         class="vuestro-text-field-dropdown"
+         :style="{ visibility: showDropdown ? 'visible':'hidden'}">
         <slot name="dropdown"></slot>
-      </vuestro-dropdown>
     </div>
-    <!--placeholder-->
+    <!--PLACEHOLDER-->
     <div v-if="placeholder" ref="placeholder" class="vuestro-text-field-placeholder"
          :class="{ active: raisedPlaceholder }">
       {{ placeholder }}
     </div>
-    <!--hint-->
+    <!--HINT-->
     <div v-if="hint && raisedPlaceholder && value.length === 0" class="vuestro-text-field-hint">
       {{ hint }}
     </div>
@@ -97,7 +82,6 @@ export default {
     value: { type: null, required: true },
     placeholder: { type: String, default: null },
     variant: { type: String, default: 'regular' }, // { 'regular', 'outline', 'shaded' }
-    radius: { type: String, default: 'var(--vuestro-control-border-radius)' },
     type: { type: String, default: 'text' },
     hint: { type: String, default: null },
     center: { type: Boolean, default: false },
@@ -117,6 +101,7 @@ export default {
       focused: false,
       raisedPlaceholder: false,
       showPassword: false,
+      showDropdown: false,
       editingButtonsBuffer: this.value,
       style: {},
       beginValidation: false,
@@ -170,7 +155,6 @@ export default {
       if (this.variant === 'regular') {
         this.style = {};
       }
-      this.$set(this.style, 'border-radius', this.radius);
       setTimeout(() => {
         if (this.placeholder && this.raisedPlaceholder) {
           let placeholderWidth = window.getComputedStyle(this.$refs.placeholder, null).getPropertyValue('width');
@@ -193,30 +177,39 @@ export default {
         });
       }
     },
-    updateValue() {
+    updateValue(e) {
       // fine-grained, called with every keystroke so parent
       // can update value prop according to v-model convention
-      if ( this.$refs.inputEl) {
-        this.$emit('input', this.$refs.inputEl.value);
-        this.editingButtonsBuffer = this.$refs.inputEl.value;
-      }
+      this.$emit('input', e.target.value);
+      this.editingButtonsBuffer = e.target.value;
     },
     onKeyUp(e) { // passthrough for 'keyup.enter'-type binding
       this.beginValidation = true; // begin validation
       this.$emit('keyup', e);
     },
     onFocus() {
+      if (this.$slots.dropdown) {
+        this.showDropdown = true;
+      }
       this.focused = true;
       this.raisedPlaceholder = true;
       this.$forceUpdate();
       this.updateStyle();
     },
     onFocusOut() {
+      if (!this.$slots.dropdown) {
+        this.focused = false;
+      }
       this.updateStyle();
-      this.focused = false;
       // only lower placeholder if no text in value
       if (!this.value || this.value.length == 0) {
         this.raisedPlaceholder = false;
+      }
+    },
+    closeDropdown() {
+      if (this.$slots.dropdown) {
+        this.showDropdown = false;
+        this.focused = false;
       }
     },
     onSaveButton() {
@@ -372,6 +365,7 @@ export default {
   padding-left: 0.4em;
   padding-right: 0.4em;
   transition: all 0.15s;
+  border-radius: var(--vuestro-control-border-radius);
 }
 
 .vuestro-text-field-input-el {
@@ -454,9 +448,20 @@ export default {
 	border-bottom: var(--vuestro-text-field-invalid-msg-px) solid transparent;
 }
 
-.vuestro-text-field-preset-dropdown-wrapper {
-  display: flex;
-  align-items: center;
+.vuestro-text-field-dropdown {
+  background: var(--vuestro-dropdown-content-bg);
+  color: var(--vuestro-dropdown-content-fg);
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
+  position: absolute;
+  top: calc(100% + 0.4em);
+  left: 0;
+  right: 0;
+  overflow: auto;
+  max-height: 90vh;
+  border: var(--vuestro-control-border-width) solid var(--vuestro-dropdown-outline);
+  border-radius: var(--vuestro-control-border-radius);
+  z-index: 999;
+  padding: 0.4em;
 }
 
 .vuestro-text-field-unit-slot {

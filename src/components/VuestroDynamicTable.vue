@@ -26,12 +26,10 @@
               </vuestro-pill>
               <template v-if="showFilters">
                 <vuestro-multi-select placeholder="Include"
-                                      stretch
                                       @add="addFilter(item.field, ...arguments, 'include')"
                                       @remove="removeFilter(item.field, ...arguments, 'include')">
                 </vuestro-multi-select>
                 <vuestro-multi-select placeholder="Exclude"
-                                      stretch
                                       @add="addFilter(item.field, ...arguments, 'exclude')"
                                       @remove="removeFilter(item.field, ...arguments, 'exclude')">
                 </vuestro-multi-select>
@@ -207,6 +205,12 @@ export default {
 .vuestro-table thead > .sortable-ghost >>> .vuestro-pill-value {
   display: none;
 }
+/* mod the multi-select to fit in the column header */
+.vuestro-table >>> .vuestro-multi-draggable {
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
 
 .vuestro-table-header-sort {
   opacity: 0;
@@ -238,10 +242,12 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  --vuestro-control-margin-v: 0.1em;
 }
 .vuestro-dynamic-table-filter-button {
   transition: all 0.2s;
-  margin-right: 2px;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
   height: 100%;
 }
 .vuestro-dynamic-table-filter-button >>> .vuestro-button-inner {

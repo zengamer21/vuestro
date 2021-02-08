@@ -26,22 +26,23 @@ export default {
 
 <style scoped>
 
+.vuestro-tray.sm {
+  --vuestro-tray-min-height: var(--vuestro-control-sm-height);
+}
+.vuestro-tray.md {
+  --vuestro-tray-min-height: var(--vuestro-control-md-height);
+}
+.vuestro-tray.lg {
+  --vuestro-tray-min-height: var(--vuestro-control-lg-height);
+}
+.vuestro-tray.xl {
+ --vuestro-tray-min-height: var(--vuestro-control-xl-height);
+}
 .vuestro-tray {
   display: flex;
   position: relative;
+  min-height: var(--vuestro-tray-min-height);
   margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
-}
-.vuestro-tray.sm {
-  min-height: var(--vuestro-control-sm-height);
-}
-.vuestro-tray.md {
-  min-height: var(--vuestro-control-md-height);
-}
-.vuestro-tray.lg {
-  min-height: var(--vuestro-control-lg-height);
-}
-.vuestro-tray.xl {
-  min-height: var(--vuestro-control-xl-height);
 }
 
 .vuestro-tray-outline {
@@ -61,7 +62,7 @@ export default {
   text-transform: uppercase;
   font-size: 0.7em;
   font-weight: 500;
-  margin-left: 0.4em;
+  margin-left: calc(var(--vuestro-tray-min-height) / 4);
   margin-right: 0.5em;
   align-self: center;
 }

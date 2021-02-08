@@ -56,7 +56,6 @@
       </div>
     </vuestro-card>
 
-
   </vuestro-container>
 </template>
 

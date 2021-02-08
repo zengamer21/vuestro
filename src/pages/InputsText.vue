@@ -44,23 +44,17 @@
 
     <vuestro-card>
       <template #subheading>
-        Text Field with array of presets
+        Text Field providing dropdown template for additional controls, such as search matches
       </template>
       <div class="example-flexbox">
-        <vuestro-text-field placeholder="With Presets Dropdown" :presets="examplePresets" v-model="exampleText"></vuestro-text-field>
-        <vuestro-text-field variant="outline" placeholder="With Presets Dropdown" :presets="examplePresets" v-model="exampleText"></vuestro-text-field>
-        <vuestro-text-field variant="shaded" placeholder="With Presets Dropdown" :presets="examplePresets" v-model="exampleText"></vuestro-text-field>
-      </div>
-    </vuestro-card>
-
-    <vuestro-card>
-      <template #subheading>
-        Text Field providing dropdown template for options, useful for handling values by id
-      </template>
-      <div class="example-flexbox">
-        <vuestro-text-field placeholder="With Templated Dropdown" :value="vuestroGetValueById({data: exampleDatasetWithIds, idField: 'id', idValue: selectedId, field: 'val', backupText: 'Select...'})">
+        <vuestro-text-field ref="dropdownField"
+                            size="lg"
+                            clearable
+                            variant="outline"
+                            placeholder="With Templated Dropdown"
+                            v-model="selectedText">
           <template #dropdown>
-            <vuestro-list-button v-for="d in exampleDatasetWithIds" :key="d.id" @click="selectedId = d.id">{{ d.val }}</vuestro-list-button>
+            <vuestro-list-button v-for="d in filteredDatasetWithIds" :key="d.id" @click="onSelect(d)">{{ d.val }}</vuestro-list-button>
           </template>
         </vuestro-text-field>
       </div>
@@ -97,19 +91,8 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template #description>
-        Set the dark property for a dark-theme compatible text field.
-      </template>
-      <div class="example-container dark">
-        <vuestro-text-field dark placeholder="Regular Text Field" v-model="exampleText" clearable></vuestro-text-field>
-        <vuestro-text-field dark variant="outline" placeholder="Outline Text Field" hint="with hint" v-model="exampleText" clearable></vuestro-text-field>
-        <vuestro-text-field dark variant="shaded" placeholder="Shaded Text Field" hint="with hint" v-model="exampleText" clearable></vuestro-text-field>
-      </div>
-    </vuestro-card>
-
-    <vuestro-card>
       <template #subheading>
-        Autocompletes
+        Autocompletes (e.g. by the browser)
       </template>
       <div class="example-flexbox">
         <form>
@@ -145,30 +128,48 @@ export default {
       exampleDate: (new Date()).toISOString(),
       exampleBoolean: 'true',
 			delayedText: '',
-      examplePresets: [
-        'preset1',
-        'preset2',
-        'preset3',
-        'preset4',
-      ],
       selectedId: null,
+      selectedText: '',
       exampleDatasetWithIds: [
         {
           id: 'id0',
-          val: 'Value for id0',
+          val: 'Bigtax',
         },
         {
           id: 'id1',
-          val: 'Value for id1',
+          val: 'Daltfresh',
         },
         {
           id: 'id2',
-          val: 'Value for id2',
+          val: 'Pannier',
+        },
+        {
+          id: 'id3',
+          val: 'Asoka',
+        },
+        {
+          id: 'id4',
+          val: 'Bytecard',
+        },
+        {
+          id: 'id5',
+          val: 'Matsoft',
         },
       ],
       validateNumber: '',
       validateEmail: '',
     };
+  },
+  computed: {
+    filteredDatasetWithIds() {
+      if (this.selectedText.length > 0) {
+        let regex = new RegExp(this.selectedText, 'i');
+        return _.filter(this.exampleDatasetWithIds, (o) => {
+          return regex.test(o.val);
+        });
+      }
+      return this.exampleDatasetWithIds;
+    },
   },
 	mounted() {
 		this.exampleEditableText = 'edit me';
@@ -192,6 +193,11 @@ export default {
     isEmail(str) {
       return str.match(/\w+@\w+.\w+/) || 'should be valid email';
     },
+    onSelect(d) {
+      this.selectedId = d.id;
+      this.selectedText = d.val;
+      this.$refs.dropdownField.closeDropdown();
+    }
   }
 };
 
