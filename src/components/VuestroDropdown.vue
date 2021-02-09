@@ -38,7 +38,7 @@ export default {
     closeOnContentClick: { type: Boolean, default: false },
     stretch: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
-    fitWithinParent: { type: Boolean, default: false },
+    fitWithinPanel: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -91,10 +91,13 @@ export default {
         // set max height based on available vertical space
         let bcr = this.$refs.dropdown.getBoundingClientRect();
         if (!this.noScroll) {
-          if (this.fitWithinParent) {
+          if (this.fitWithinPanel) {
             // get parents bottom edge and fit within
-            let parent = this.$el.parentElement.getBoundingClientRect();
-            this.maxHeight = `${parent.bottom - bcr.top}px`;
+            let parent = this.$el.closest('.vuestro-panel-contents');
+            if (parent) {
+              let pbcr = parent.getBoundingClientRect();
+              this.maxHeight = `${pbcr.bottom - bcr.top}px`;
+            }
           } else {
             // use window
             this.maxHeight = `${window.innerHeight - bcr.top}px`;

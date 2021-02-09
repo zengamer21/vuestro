@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-panel"
-       :class="[ gutter, { stretch, noBorder, hasTitlebar }]">
+       :class="[ gutter, { scroll, stretch, noBorder, hasTitlebar }]">
     <!--TOOLBAR-->
     <div v-if="hasTitlebar" class="vuestro-panel-title-toolbar">
       <vuestro-caret v-if="collapsible"
