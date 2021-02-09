@@ -15,7 +15,10 @@
           <template #title>Dropdown</template>
           <vuestro-list-button>Option 1</vuestro-list-button>
           <vuestro-list-button>Option 2</vuestro-list-button>
-        </vuestro-dropdown></p>
+          <vuestro-list-button>Option 3</vuestro-list-button>
+        </vuestro-dropdown>
+        It likes being down here. It even adjusted it's vertical<br>height to fit within this scrolling panel in response to its <em>fit-within-parent</em> prop. Otherwise, it's overflow would push this scrolling panel further down, or be hidden.
+        </p>
 
       </vuestro-panel>
     </vuestro-card>
@@ -29,3 +32,11 @@ export default {
 };
 
 </script>
+
+<style scoped>
+
+p {
+  margin-bottom: 0;
+}
+
+</style>

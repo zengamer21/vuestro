@@ -113,7 +113,7 @@ export default {
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
-  padding: 0.2em 0em;
+  padding: 0.2em;
 }
 .vuestro-multi-draggable > .vuestro-pill {
   margin: 0.15em 0.15em;

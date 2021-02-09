@@ -38,6 +38,7 @@ export default {
     closeOnContentClick: { type: Boolean, default: false },
     stretch: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
+    fitWithinParent: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -90,7 +91,14 @@ export default {
         // set max height based on available vertical space
         let bcr = this.$refs.dropdown.getBoundingClientRect();
         if (!this.noScroll) {
-          this.maxHeight = `${window.innerHeight - bcr.top}px`;
+          if (this.fitWithinParent) {
+            // get parents bottom edge and fit within
+            let parent = this.$el.parentElement.getBoundingClientRect();
+            this.maxHeight = `${parent.bottom - bcr.top}px`;
+          } else {
+            // use window
+            this.maxHeight = `${window.innerHeight - bcr.top}px`;
+          }
         }
         // see if menu would go offscreen so we can flip it horizontally
         if (window.innerWidth - bcr.left < bcr.width*1.5) {
