@@ -20,15 +20,15 @@
           </vuestro-pill>
         </slot>
       </template>
-      <template #footer>
+      <template #footer v-if="!single || this.value.length < 1">
         <div class="vuestro-multi-input-el-wrapper">
           <input class="input-el"
                  :placeholder="placeholder"
-                 :value="searchTerm"
+                 v-model="searchTerm"
                  @focus="onFocus"
                  @keyup="onKeyup">
           </input>
-          <vuestro-button round size="sm" no-border no-margin @click="onClear">
+          <vuestro-button v-if="!single" round size="sm" no-border no-margin @click="onClear">
             <vuestro-icon name="times"></vuestro-icon>
           </vuestro-button>
         </div>
@@ -53,7 +53,7 @@ export default {
   },
   props: {
     value: { type: Array, default: () => []},
-    searchTerm: { type: String, default: '' },
+    single: { type: Boolean, default: false }, // only allow single selection
     size: { type: String, default: 'md' },
     variant: { type: String, default: 'outline' },
     placeholder: { type: String, default: 'Search...' },
@@ -65,6 +65,7 @@ export default {
     return {
       showDropdown: false,
       contents: this.value,
+      searchTerm: '',
     };
   },
   watch: {
@@ -92,9 +93,6 @@ export default {
     },
     onClear() {
       this.$emit('clear');
-    },
-    clearSearchTerm() {
-      this.searchTerm = '';
     },
   },
 };

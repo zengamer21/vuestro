@@ -86,7 +86,6 @@ export default {
     hint: { type: String, default: null },
     center: { type: Boolean, default: false },
     noMargin: { type: Boolean, default: false },
-    presets: { type: Array, default: () => [] },
     clearable: { type: Boolean, default: false },
     size: { type: String, default: 'md' },
     editingButtons: { type: Boolean, default: false },
@@ -231,10 +230,6 @@ export default {
     onClear() {
       this.$emit('input', '');
       this.focus();
-    },
-    onPreset(p) {
-      this.$emit('input', p);
-      this.$emit('preset', p);
     },
   },
 };

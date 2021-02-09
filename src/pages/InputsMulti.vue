@@ -33,6 +33,29 @@
         </template>
       </vuestro-multi-select>
     </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>Single Selection</template>
+      <vuestro-multi-select size="xl" single :value="exampleValue" @keyup="onSearch" @clear="onClear">
+        <template #title>Just one</template>
+        <!--<template #item="{ item }">{{ item }}</template>-->
+        <template #dropdown>
+          <vuestro-container gutter="none">
+            <template v-if="filtered.length > 0">
+              <vuestro-pill v-for="e in filtered" :key="e.id"
+                            clickable @click="onSelect(e)">
+                <template #value>{{ e.value }}</template>
+              </vuestro-pill>
+            </template>
+            <template v-else>
+              <vuestro-button variant="info" value @click="onAddNew">
+                Add {{ searchTerm }} as new value
+              </vuestro-button>
+            </template>
+          </vuestro-container>
+        </template>
+      </vuestro-multi-select>
+    </vuestro-card>
   </vuestro-container>
 </template>
 
