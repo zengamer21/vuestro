@@ -86,6 +86,7 @@ export default {
     hint: { type: String, default: null },
     center: { type: Boolean, default: false },
     noMargin: { type: Boolean, default: false },
+    presets: { type: Array, default: () => [] },
     clearable: { type: Boolean, default: false },
     size: { type: String, default: 'md' },
     editingButtons: { type: Boolean, default: false },
