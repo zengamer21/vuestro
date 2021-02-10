@@ -160,6 +160,7 @@
       <vuestro-hr margin="1em"></vuestro-hr>
 
       <vuestro-container>
+        <vuestro-multi-select size="lg"></vuestro-multi-select>
         <vuestro-text-field variant="outline" size="lg" placeholder="outline box"></vuestro-text-field>
         <vuestro-button size="lg" variant="primary" value @click="onClick">lg button</vuestro-button>
         <vuestro-dropdown>
@@ -176,8 +177,6 @@
 </template>
 
 <script>
-
-import Buttons from './Buttons';
 
 export default {
   name: 'ExampleJuxtapositions',

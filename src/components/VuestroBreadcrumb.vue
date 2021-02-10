@@ -2,12 +2,12 @@
   <vuestro-container class="vuestro-breadcrumb">
     <div class="vuestro-breadcrumb-trail">
       <template v-for="(p, idx) in stack">
-        <div v-if="idx !== 0" class="vuestro-breadcrumb-separator">
-          <vuestro-icon name="angle-right"></vuestro-icon>
+        <div v-if="idx !== 0" class="vuestro-breadcrumb-delimiter">
+          <vuestro-icon :name="delimiter"></vuestro-icon>
         </div>
         <div class="vuestro-breadcrumb-item" @click="onClickTrail(idx)">
           <vuestro-icon v-if="p.icon" :name="p.icon"></vuestro-icon>
-          <div class="vuestro-breadcrumb-title">{{ getComponentTitle(p.component) }}</div>
+          <div class="vuestro-breadcrumb-title">{{ p.title }}</div>
         </div>
       </template>
     </div>
@@ -20,10 +20,13 @@
 
 <script>
 
+/* global _ */
+
 export default {
   name: 'VuestroBreadcrumb',
   props: {
     pages: { type: Array, required: true },
+    delimiter: { type: String, default: 'angle-right' },
   },
   data() {
     return {
@@ -36,19 +39,22 @@ export default {
     },
   },
   mounted() {
-    // initialize stack with root
-    this.stack = [];
-    this.stack.push(this.pages[0]);
+    // initialize stack with either query param or the pages param
+    if (Object.keys(this.$route.query).length > 0) {
+      try {
+        this.stack = JSON.parse(this.$route.query.p);
+      } catch (e) {
+        console.error('error parsing breadcrumb query param', e);
+        this.stack = this.pages;
+      }
+    } else {
+      this.stack = this.pages;
+    }
   },
   methods: {
-    getComponentTitle(c) {
-      let d = Vue.component(c);
-      console.log(d)
-    },
     onDescend(pageObj) {
       // add to stack if it has the required fields
-      if (pageObj.title &&
-          pageObj.component) {
+      if (pageObj.title && pageObj.component) {
         this.stack.push(pageObj);
         this.updateUrl();
       } else {
@@ -77,7 +83,6 @@ export default {
       this.updateUrl();
     },
     updateUrl() {
-      let d = _.map(this.stack, _.partialRight(_.omit, ['instance']))
       this.$router.push({ query: { p: JSON.stringify(this.stack) }}).catch(()=>{});
     },
   },
@@ -113,13 +118,14 @@ export default {
   background-color: var(--vuestro-selection);
 }
 .vuestro-breadcrumb-title {
+  padding-left: 0.2em;
   font-size: 0.9em;
 }
 .vuestro-breadcrumb-title:not(:only-child) {
   margin-left: 0.2em;
 }
 
-.vuestro-breadcrumb-separator {
+.vuestro-breadcrumb-delimiter {
   padding: 0 0.3em;
 }
 

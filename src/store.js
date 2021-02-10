@@ -34,18 +34,50 @@ export default new Vuex.Store({
         unread: false,
       },
     ],
-    fileTree: [
-      {
-        name: 'Documents',
-        path: '/Documents',
-        children: [
-          {
-            name: ''
-          }
-        ]
-      }
-      
-    ],
+    fileTree: {
+      name: '/',
+      directories: [
+        {
+          name: 'Documents',
+          directories: [
+            {
+              name: 'Work',
+              files: [
+                {
+                  name: 'inventory.xlsx',
+                  size: 323432,
+                },
+              ],
+            },
+          ],
+          files: [
+            {
+              name: 'wordDoc.docx',
+              size: 97323,
+            },
+          ],
+        },
+        {
+          name: 'Pictures',
+          files: [
+            {
+              name: 'image1.jpg',
+              size: 323432,
+            },
+            {
+              name: 'image2.jpg',
+              size: 323432,
+            },
+          ],
+        },
+      ],
+      files: [
+        {
+          name: 'config.cfg',
+          size: 232,
+        }
+      ]
+    },
   },
   getters: {
     isDarkUI(state) {
@@ -56,6 +88,29 @@ export default new Vuex.Store({
     },
     notifications(state) {
       return state.notifications;
+    },
+    fileTree(state) {
+      return state.fileTree;
+    },
+    getFileTreePath: (state) => (path) => {
+      if (path === '/') {
+        return state.fileTree;
+      }
+      let getDir = function(o, p) {
+        if (o.directories) {
+          for (let d of o.directories) {
+            if (d.name === p[0]) {
+              if (p.length > 1) {
+                return getDir(d, p.slice(1));
+              } else {
+                return d;
+              }
+            }
+          }
+        }
+      };
+
+      return getDir(state.fileTree, path.split('/').slice(1));
     },
   },
   actions: {

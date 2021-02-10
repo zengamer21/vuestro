@@ -61,6 +61,8 @@
 
 <script>
 
+/* global _ */
+
 export default {
   name: 'InputsSpinner',
   data() {
@@ -108,7 +110,7 @@ export default {
   },
   methods: {
     onSelect(e) {
-      this.exampleValue.push(e)
+      this.exampleValue.push(e);
     },
     onSearch(e) {
       this.searchTerm = e.target.value;

@@ -22,7 +22,7 @@
       </template>
       <template #footer v-if="!single || this.value.length < 1">
         <div class="vuestro-multi-input-el-wrapper">
-          <input class="input-el"
+          <input class="vuestro-multi-input-el"
                  :placeholder="placeholder"
                  v-model="searchTerm"
                  @focus="onFocus"
@@ -92,6 +92,7 @@ export default {
       this.$emit('keyup', e);
     },
     onClear() {
+      this.searchTerm = '';
       this.$emit('clear');
     },
   },
@@ -101,7 +102,20 @@ export default {
 
 <style scoped>
 
+.vuestro-multi-select.sm {
+  font-size: calc(var(--vuestro-control-sm-height) * 0.5);
+}
+.vuestro-multi-select.md {
+  font-size: calc(var(--vuestro-control-md-height) * 0.5);
+}
+.vuestro-multi-select.lg {
+  font-size: calc(var(--vuestro-control-lg-height) * 0.5);
+}
+.vuestro-multi-select.xl {
+  font-size: calc(var(--vuestro-control-xl-height) * 0.5);
+}
 .vuestro-multi-select {
+  position: relative;
 }
 
 .vuestro-multi-select.stretch {
@@ -110,6 +124,8 @@ export default {
 }
 
 .vuestro-multi-draggable {
+  align-self: center;
+  align-items: center;
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap;
@@ -133,13 +149,18 @@ export default {
   margin-left: 0.2em;
   margin-right: 0.4em;
 }
-.input-el {
+.vuestro-multi-input-el {
+  font-size: inherit;
+  font-weight: var(--vuestro-text-field-font-weight);
   margin: 0.2em;
   width: 100%;
   background-color: transparent;
   border: none;
   outline: none;
-  color: var(--vuestro-text-color);
+  color: var(--vuestro-text-field-fg);
+}
+.vuestro-multi-input-el::placeholder {
+  font-weight: var(--vuestro-text-field-font-weight);
 }
 
 .vuestro-multi-select-dropdown {

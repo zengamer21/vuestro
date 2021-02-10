@@ -384,4 +384,8 @@ export default {
   overflow: auto;
 }
 
+.vuestro-app >>> input {
+  font-family: 'Quicksand';
+}
+
 </style>
