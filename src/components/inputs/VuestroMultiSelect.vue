@@ -95,6 +95,9 @@ export default {
       this.searchTerm = '';
       this.$emit('clear');
     },
+    clearSearchTerm() {
+      this.searchTerm = '';
+    },
   },
 };
 
