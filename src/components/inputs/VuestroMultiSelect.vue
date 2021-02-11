@@ -152,7 +152,7 @@ export default {
 .vuestro-multi-input-el {
   font-size: inherit;
   font-weight: var(--vuestro-text-field-font-weight);
-  margin: 0.2em;
+  margin: 0 0.2em;
   width: 100%;
   background-color: transparent;
   border: none;
