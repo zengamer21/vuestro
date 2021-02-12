@@ -249,7 +249,7 @@ export default {
   --vuestro-royal: #101c5a;
   --vuestro-blue: #27538a;
   --vuestro-cobalt: #2163C9;
-  --vuestro-cyan: #108bb7;
+  --vuestro-cyan: #1787b0;
   --vuestro-teal: #136f6a;
 
   --vuestro-green: #137139;
@@ -257,7 +257,7 @@ export default {
   --vuestro-yellow: #c1a529;
   --vuestro-gold: #b38c05;
 
-  --vuestro-orange: #c14703;
+  --vuestro-orange: #ed6b26;
   --vuestro-salmon: #e25058;
   --vuestro-brick: #8a270c;
   --vuestro-red: #de1f31;
