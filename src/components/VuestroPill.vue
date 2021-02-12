@@ -24,7 +24,7 @@
       <slot name="value"></slot>
     </div>
     <div v-if="closable">
-      <vuestro-button no-margin :size="size" round no-border @click="onClose">
+      <vuestro-button no-margin :size="size" round no-border @click.stop="onClose">
         <vuestro-icon name="times"></vuestro-icon>
       </vuestro-button>
     </div>
