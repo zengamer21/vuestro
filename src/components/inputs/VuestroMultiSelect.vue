@@ -35,8 +35,10 @@
       </template>
     </draggable>
     <div v-if="$slots.dropdown"
+         ref="dropdown"
          class="vuestro-multi-select-dropdown"
-         :style="{ visibility: showDropdown ? 'visible':'hidden'}">
+         :style="{ visibility: showDropdown ? 'visible':'hidden', 'max-height': maxHeight }"
+         @scroll="checkHeight">
         <slot name="dropdown"></slot>
     </div>
   </vuestro-tray>
@@ -60,12 +62,14 @@ export default {
     stretch: { type: Boolean, default: false },
     keyField: { type: String, default: 'key' },
     valueField: { type: String, default: 'value' },
+    fitWithinPanel: { type: Boolean, default: false },
   },
   data() {
     return {
       showDropdown: false,
       contents: this.value,
       searchTerm: '',
+      maxHeight: '100vh', // default to full screen height
     };
   },
   watch: {
@@ -73,7 +77,27 @@ export default {
       this.contents = newVal;
     },
   },
+  mounted() {
+    this.checkHeight();
+  },
   methods: {
+    checkHeight() {
+      // set max height based on available vertical space
+      let bcr = this.$refs.dropdown.getBoundingClientRect();
+      if (!this.noScroll) {
+        if (this.fitWithinPanel) {
+          // get parents bottom edge and fit within
+          let parent = this.$el.closest('.vuestro-panel-contents');
+          if (parent) {
+            let pbcr = parent.getBoundingClientRect();
+            this.maxHeight = `${pbcr.bottom - bcr.top}px`;
+          }
+        } else {
+          // use window
+          this.maxHeight = `${window.innerHeight - bcr.top}px`;
+        }
+      }
+    },
     onFocus() {
       this.showDropdown = true;
     },

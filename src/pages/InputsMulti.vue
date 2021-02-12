@@ -56,6 +56,26 @@
         </template>
       </vuestro-multi-select>
     </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>Super long list</template>
+      <vuestro-multi-select size="xl"
+                            :value="exampleValue2"
+                            valueField="first_name"
+                            @keyup="onSearch2" @clear="onClear2">
+        <template #title>It's Long</template>
+        <template #dropdown>
+          <vuestro-container gutter="none" column>
+            <template v-if="filteredLong.length > 0">
+              <vuestro-pill v-for="e in filteredLong" :key="e.id"
+                            clickable @click="onSelect2(e)">
+                <template #value>{{ e.first_name }}</template>
+              </vuestro-pill>
+            </template>
+          </vuestro-container>
+        </template>
+      </vuestro-multi-select>
+    </vuestro-card>
   </vuestro-container>
 </template>
 
@@ -68,6 +88,7 @@ export default {
   data() {
     return {
       searchTerm: '',
+      searchTerm2: '',
       exampleDatasetWithIds: [
         {
           id: 'id0',
@@ -94,7 +115,77 @@ export default {
           value: 'Matsoft',
         },
       ],
+      superLongList: [
+        {"first_name":"Jeremias"},
+        {"first_name":"Dorelia"},
+        {"first_name":"Austen"},
+        {"first_name":"Emmanuel"},
+        {"first_name":"Rodina"},
+        {"first_name":"Burke"},
+        {"first_name":"Gasparo"},
+        {"first_name":"Reynold"},
+        {"first_name":"Dulciana"},
+        {"first_name":"Kathie"},
+        {"first_name":"Hillery"},
+        {"first_name":"Christoph"},
+        {"first_name":"Alethea"},
+        {"first_name":"Ronnica"},
+        {"first_name":"Zondra"},
+        {"first_name":"Pacorro"},
+        {"first_name":"Philippine"},
+        {"first_name":"Lucky"},
+        {"first_name":"Becca"},
+        {"first_name":"Hirsch"},
+        {"first_name":"Herculie"},
+        {"first_name":"Ryan"},
+        {"first_name":"Quill"},
+        {"first_name":"Miguel"},
+        {"first_name":"Mellisent"},
+        {"first_name":"Lorine"},
+        {"first_name":"Brian"},
+        {"first_name":"Johny"},
+        {"first_name":"Lib"},
+        {"first_name":"Sindee"},
+        {"first_name":"Urban"},
+        {"first_name":"Harland"},
+        {"first_name":"Ancell"},
+        {"first_name":"Chickie"},
+        {"first_name":"Feodora"},
+        {"first_name":"Lotty"},
+        {"first_name":"Tally"},
+        {"first_name":"Kinnie"},
+        {"first_name":"Nady"},
+        {"first_name":"Shaylyn"},
+        {"first_name":"Padget"},
+        {"first_name":"Sheba"},
+        {"first_name":"Jayson"},
+        {"first_name":"Linoel"},
+        {"first_name":"Harris"},
+        {"first_name":"Gregor"},
+        {"first_name":"Arv"},
+        {"first_name":"Margalit"},
+        {"first_name":"Milena"},
+        {"first_name":"Roarke"},
+        {"first_name":"Lin"},
+        {"first_name":"Rustie"},
+        {"first_name":"Christean"},
+        {"first_name":"Orsa"},
+        {"first_name":"Dion"},
+        {"first_name":"Brittan"},
+        {"first_name":"Tomasine"},
+        {"first_name":"Gwen"},
+        {"first_name":"Bendicty"},
+        {"first_name":"Stevy"},
+        {"first_name":"Tawnya"},
+        {"first_name":"Ronni"},
+        {"first_name":"Francois"},
+        {"first_name":"Alexa"},
+        {"first_name":"Trenna"},
+        {"first_name":"Leonanie"},
+        {"first_name":"Jenine"},
+      ],
       exampleValue: [],
+      exampleValue2: [],
     };
   },
   computed: {
@@ -107,6 +198,15 @@ export default {
       }
       return this.exampleDatasetWithIds;
     },
+    filteredLong() {
+      if (this.searchTerm2.length > 0) {
+        let regex = new RegExp(this.searchTerm2, 'i');
+        return _.filter(this.superLongList, (o) => {
+          return regex.test(o.first_name);
+        });
+      }
+      return this.superLongList;
+    },
   },
   methods: {
     onSelect(e) {
@@ -117,6 +217,15 @@ export default {
     },
     onClear() {
       this.exampleValue = [];
+    },
+    onSelect2(e) {
+      this.exampleValue2.push(e);
+    },
+    onSearch2(e) {
+      this.searchTerm2 = e.target.value;
+    },
+    onClear2() {
+      this.exampleValue2 = [];
     },
     onAddNew(d) {
       let newObj = {
