@@ -199,6 +199,18 @@ export default {
     },
     redraw() {
       let scale;
+      if (this.timeSeries) {
+        // use d3 time scale
+        scale = d3.scaleTime();
+        // make sure category data is a native Date
+        for (let d of this.localData) {
+          if (!_.isDate(d[this.categoryKey])) {
+            d[this.categoryKey] = new Date(d[this.categoryKey]);
+          }
+        }
+      } else {
+        scale = d3.scalePoint();
+      }
 
       if (this.timeSeries && this.granularity) {
         // nest data based on granularity
@@ -216,28 +228,18 @@ export default {
           return ret;
         }).entries(this.resolvedData);
         // promote aggregated values in .value out to top level
-        this.localData = nested.map(function(d) {
-          return {
+        this.localData = nested.map((d) => {
+          let ret = {
             ...d,
             ...d.value,
           };
+          ret[this.categoryKey] = new Date(d.key); // alias key back categoryKey as date
+          return ret;
         });
       } else { // clone data
         this.localData = _.cloneDeep(this.resolvedData);
       }
 
-      if (this.timeSeries) {
-        // use d3 time scale
-        scale = d3.scaleTime();
-        // make sure category data is a native Date
-        for (let d of this.localData) {
-          if (!_.isDate(d[this.categoryKey])) {
-            d[this.categoryKey] = new Date(d[this.categoryKey]);
-          }
-        }
-      } else {
-        scale = d3.scalePoint();
-      }
       // get scale based on svg element size
       let scaleX = scale.range([0, this.width]);
       let scaleY = d3.scaleLinear().range([this.height, 0]);
