@@ -1,7 +1,8 @@
 <template>
   <div class="vuestro-container"
        :class="[ gutter ]"
-       :style="style">
+       :style="style"
+       @click="onClick">
     <div v-if="inner"
          class="vuestro-container-inner"
          :style="style">
@@ -46,6 +47,12 @@ export default {
         'align-items': this.align,
         'align-content': this.content,
       };
+    },
+  },
+  methods: {
+    // proxy the click event
+    onClick(e) {
+      this.$emit('click', e);
     },
   },
 };
