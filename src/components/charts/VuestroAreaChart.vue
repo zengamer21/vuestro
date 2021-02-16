@@ -128,10 +128,20 @@ export default {
       };
     },
     resolvedData() {
+      let ret = [];
       if (_.isFunction(this.data)) {
-        return this.data();
+        ret = this.data();
       }
-      return this.data;
+      ret = this.data;
+      // make sure category data is a native Date
+      if (this.timeSeries) {
+        for (let d of ret) {
+          if (!_.isDate(d[this.categoryKey])) {
+            d[this.categoryKey] = new Date(d[this.categoryKey]);
+          }
+        }
+      }
+      return ret;
     }
   },
   watch: {
@@ -200,14 +210,7 @@ export default {
     redraw() {
       let scale;
       if (this.timeSeries) {
-        // use d3 time scale
         scale = d3.scaleTime();
-        // make sure category data is a native Date
-        for (let d of this.localData) {
-          if (!_.isDate(d[this.categoryKey])) {
-            d[this.categoryKey] = new Date(d[this.categoryKey]);
-          }
-        }
       } else {
         scale = d3.scalePoint();
       }

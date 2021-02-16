@@ -2,7 +2,7 @@
   <vuestro-container>
     <vuestro-card color="var(--vuestro-purple)" overflow-hidden>
       <template #heading><span class="drag">Area Chart</span></template>
-      <template #description><span>The Vuestro Line Chart is flexible enough to be used with a categorical x axis as well as a time scale. Since time series are so common, that is the default behavior and can be disabled with the <em>timeSeries: false</em> option.</span></template>
+      <template #description><span>The VuestroAreaChart component is flexible enough to be used with a categorical x axis as well as a time scale. Since time series are so common for area charts, that is the default behavior and can be disabled with the <em>timeSeries: false</em> option.</span></template>
       <div class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options1"></vuestro-area-chart>
       </div>
