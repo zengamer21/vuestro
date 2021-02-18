@@ -1,6 +1,6 @@
 <template>
   <vuestro-container>
-    <vuestro-card color="var(--vuestro-purple)" overflow-hidden>
+    <vuestro-card color="var(--vuestro-purple)">
       <template #heading><span class="drag">Pie Chart</span></template>
       <template #description>The Vuestro Pie Chart</template>
       <div class="chart-wrapper">
@@ -14,41 +14,44 @@
 
 <script>
 
-/* global Vue */
 export default {
   name: 'PieChart',
   data() {
     return {
       data: [
         {
-          key: 'California',
-          value: 50.0,
+          state: 'California',
+          pop: 23.1,
         },
         {
-          key: 'New York',
-          value: 30.0,
+          state: 'New York',
+          pop: 13.3,
         },
         {
-          key: 'Texas',
-          value: 20.0,
+          state: 'Texas',
+          pop: 22.2,
+        },
+        {
+          state: 'Nebraska',
+          pop: 83.3,
+        },
+        {
+          state: 'Alabama',
+          pop: 3.3,
         },
       ],
       options: {
-        enableLegend: true,
+        categoryField: 'state',
+        valueField: 'pop',
+        valueTitle: 'Population',
+        // enableLegend: true,
         enableToolTip: true,
-        enableLabels: true,
-        enableDonut: true,
+        // enableLabels: true,
+        // enableDonut: true,
         donutTextRender() {
-            return "Center Call";
-        },        
-        //donutCenterRender: "Center",
-        donutRadius: 30,
-        series: [
-          {
-            title: 'Value',
-            field: 'value',
-          },
-        ],
+          return "13M";
+        },
+        donutRadius: 70,
       },
     };
   },
@@ -62,13 +65,12 @@ export default {
 <style scoped>
 
 .chart-wrapper {
-  flex-grow: 1;
+  background-color: var(--vuestro-gray-dark);
   border-radius: 4px;
-  background-color: white;
   box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
   display: flex;
-  flex-direction: column;
   height: 300px;
+  width: 300px;
 }
 
 .vuestro-dark .frame {

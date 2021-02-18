@@ -1,5 +1,5 @@
 <template>
-  <vuestro-grid :layout="layout" local-storage-key="dashboard">
+  <vuestro-grid :layout="layout">
     <template #default="{ item }">
       <component :is="item.component" :data="item.data" :options="item.options"></component>
     </template>
@@ -115,7 +115,7 @@ export default {
             x: 0,
             y: 1,
             w: 6,
-            h: 3,
+            h: 2,
           }
         },
         {
@@ -149,7 +149,47 @@ export default {
             w: 6,
             h: 3,
           }
-        }
+        },
+        {
+          id: 'w7',
+          component: 'vuestro-chart-panel',
+          data: [
+            {
+              state: 'California',
+              pop: 23.1,
+            },
+            {
+              state: 'New York',
+              pop: 13.3,
+            },
+            {
+              state: 'Texas',
+              pop: 22.2,
+            },
+            {
+              state: 'Nebraska',
+              pop: 83.3,
+            },
+            {
+              state: 'Alabama',
+              pop: 3.3,
+            },
+          ],
+          options: {
+            title: 'Donut Chart',
+            component: 'vuestro-pie-chart',
+            categoryField: 'state',
+            valueField: 'pop',
+            valueTitle: 'Population',
+            donutRadius: 70,
+          },
+          position: {
+            x: 0,
+            y: 4,
+            w: 6,
+            h: 3,
+          }
+        },
       ];
     },
     getAreaChart() {

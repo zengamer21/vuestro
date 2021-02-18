@@ -338,16 +338,13 @@ export default {
 <style scoped>
 
 .chart-wrapper {
+  background-color: var(--vuestro-gray-dark);
   flex-grow: 1;
   border-radius: 4px;
-  background-color: white;
   box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   height: 300px;
-}
-.vuestro-dark .chart-wrapper {
-  background-color: var(--vuestro-gray-dark);
 }
 
 .vuestro-dark .frame {
