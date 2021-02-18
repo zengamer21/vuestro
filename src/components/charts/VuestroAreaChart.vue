@@ -32,7 +32,7 @@
           </template>
         </g>
         <!--AXES-->
-        <template v-if="showAxes">
+        <template v-if="showAxes || showXLabels || showYLabels">
           <g v-axis:x="scale" class="vuestro-area-chart-x-axis" :class="{ showAxes, showXLabels }"></g>
           <g v-axis:y="scale" class="vuestro-area-chart-y-axis" :class="{ showAxes, showYLabels }"></g>
         </template>
@@ -264,7 +264,7 @@ export default {
           return '';
         });
       }
-      
+
       // use category axis render function if provided
       if (this.categoryRender && typeof(this.categoryRender) === 'function') {
         this.scale.x.tickFormat((d) => {
