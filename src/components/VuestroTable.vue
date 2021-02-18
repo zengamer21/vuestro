@@ -274,7 +274,7 @@ export default {
 
 .vuestro-table-header {
   text-align: left;
-  padding: 10px;
+  padding: 0.4em 0.6em;
   color: var(--vuestro-table-header-fg);
   font-weight: 500;
   border-bottom: 1px solid var(--vuestro-table-border-color);
@@ -310,7 +310,7 @@ export default {
   transform: rotate(180deg);
 }
 .vuestro-table-header-spacer {
-  width: 10px;
+  width: 0.8em;
 }
 
 .vuestro-table-row {
@@ -332,7 +332,7 @@ export default {
 }
 
 .vuestro-table-cell {
-  padding: 5px 10px;
+  padding: 0.4em 0.6em;
 }
 .vuestro-table-cell.vuestro-table-align-right {
   text-align: right;
@@ -344,7 +344,7 @@ export default {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-end;
-  padding-right: 10px;
+  padding-right: 0.6em;
 }
 .vuestro-table-header-buttons {
   display: flex;

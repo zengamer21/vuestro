@@ -33,8 +33,8 @@
         </g>
         <!--AXES-->
         <template v-if="showAxes">
-          <g v-axis:x="scale" class="vuestro-area-chart-x-axis" :class="{ showAxes }"></g>
-          <g v-axis:y="scale" class="vuestro-area-chart-y-axis" :class="{ showAxes }"></g>
+          <g v-axis:x="scale" class="vuestro-area-chart-x-axis" :class="{ showAxes, showXLabels }"></g>
+          <g v-axis:y="scale" class="vuestro-area-chart-y-axis" :class="{ showAxes, showYLabels }"></g>
         </template>
         <!--TOOLTIP-->
         <template v-if="!hideTooltip && cursorLine.length > 0">
@@ -81,12 +81,15 @@ export default {
         bottom: 0,
       },
       categoryKey: 'key',
+      categoryRender: null,
       colors: d3.schemeCategory10,
       valueAxis: {
         // render() {}
       },
       series: [], // series object
       showAxes: false, // show the axes
+      showXLabels: false, // separate enable for x axis (showAxes has priority)
+      showYLabels: false, // seperate enable for y axis (showAxes has priority)
       showGrid: false, // show the grid
       transition: 1000, // animation transition period
       hideTooltip: false, // disable tooltip
@@ -257,6 +260,16 @@ export default {
         this.scale.y.tickFormat((d) => {
           if (d) {
             return this.valueAxis.render(d);
+          }
+          return '';
+        });
+      }
+      
+      // use category axis render function if provided
+      if (this.categoryRender && typeof(this.categoryRender) === 'function') {
+        this.scale.x.tickFormat((d) => {
+          if (d) {
+            return this.categoryRender(d);
           }
           return '';
         });
@@ -434,6 +447,7 @@ export default {
   text-anchor: start;
   alignment-baseline: baseline;
 }
+.vuestro-area-chart-x-axis.showXLabels >>> text,
 .vuestro-area-chart-x-axis.showAxes >>> text {
   display: inline;
 }
@@ -452,6 +466,7 @@ export default {
   transform: translate(10px, -6px);
   text-anchor: start;
 }
+.vuestro-area-chart-y-axis.showYLabels >>> text,
 .vuestro-area-chart-y-axis.showAxes >>> text {
   display: inline;
 }
