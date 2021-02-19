@@ -6,7 +6,7 @@ import Charts from './pages/Charts';
 import ChartsAreaChart from './pages/ChartsAreaChart';
 import ChartsBarChart from './pages/ChartsBarChart';
 import ChartsMap from './pages/ChartsMap';
-import ChartsPieChart from './pages/ChartsPieChart.vue';
+import ChartsDonutChart from './pages/ChartsDonutChart';
 import ChartsSankey from './pages/ChartsSankey';
 import ChartsForceGraph from './pages/ChartsForceGraph';
 import Buttons from './pages/Buttons';
@@ -178,12 +178,12 @@ export default new Router({
         },
         {
           meta: {
-            title: 'Pie Chart',
+            title: 'Donut Chart',
             sidebar: true,
           },
-          name: 'pie-chart',
-          path: 'pie-chart',
-          component: ChartsPieChart,
+          name: 'donut-chart',
+          path: 'donut-chart',
+          component: ChartsDonutChart,
         },
         {
           meta: {

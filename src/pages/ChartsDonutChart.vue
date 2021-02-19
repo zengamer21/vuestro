@@ -1,10 +1,10 @@
 <template>
   <vuestro-container>
     <vuestro-card color="var(--vuestro-purple)">
-      <template #heading><span class="drag">Pie Chart</span></template>
-      <template #description>The Vuestro Pie Chart</template>
+      <template #heading><span class="drag">Donut Chart</span></template>
+      <template #description>The Vuestro Donut Chart</template>
       <div class="chart-wrapper">
-        <vuestro-pie-chart :data="data" :options="options"></vuestro-pie-chart>
+        <vuestro-donut-chart :data="data" :options="options"></vuestro-donut-chart>
       </div>
     </vuestro-card>
 
@@ -15,7 +15,7 @@
 <script>
 
 export default {
-  name: 'PieChart',
+  name: 'DonutChart',
   data() {
     return {
       data: [

@@ -156,7 +156,7 @@ export default {
         this.style = {};
       }
       setTimeout(() => {
-        if (this.placeholder && this.raisedPlaceholder) {
+        if (this.placeholder && this.raisedPlaceholder && this.$refs.placeholder) {
           let placeholderWidth = window.getComputedStyle(this.$refs.placeholder, null).getPropertyValue('width');
           this.$set(this.style, 'clip-path', `polygon(0 -10%, 0px 110%, 110% 110%, 110% -10%, calc(${placeholderWidth} - var(--vuestro-control-border-radius)*2) -10%, calc(${placeholderWidth} - var(--vuestro-control-border-radius)*2) 4px, calc(var(--vuestro-control-border-radius)*2) 4px, calc(var(--vuestro-control-border-radius)*2) -10%)`);
         } else {

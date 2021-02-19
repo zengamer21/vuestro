@@ -14,18 +14,11 @@
 
 <script>
 
-/* global Vue */
 export default {
   name: 'BarChart',
   data() {
     return {
       data: [
-        {
-          key: 'Zoom Brush',
-          value1: 12,
-          value2: 12,
-          value3: 8,
-        },
         {
           key: '2019-10-01T01:00:00Z',
           value1: 2,
@@ -83,15 +76,18 @@ export default {
         },
       ],
       options: {
-        gridPadding: 35,
-        enableStacked: true,
-        enableToolTip: true,
-        enableYGridLabel: true,
-        enableXGridLabel: true,
-        enableLabels: true,
-        enableLegend: true,
-        enableGrid: true,
-        enableZoom: true,
+        // showAxes: true,
+        showYLabels: true,
+        // showXLabels: true,
+        showGrid: true,
+        // stacked: true,
+        axisYPadding: 30,
+        axisXPadding: 20,
+        valueAxis: {
+          render(d) {
+            return d.toFixed(2);
+          }
+        },
         series: [
           {
             title: 'Series 1',
@@ -122,9 +118,9 @@ export default {
 <style scoped>
 
 .chart-wrapper {
+  background-color: var(--vuestro-gray-dark);
   flex-grow: 1;
   border-radius: 4px;
-  background-color: white;
   box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;

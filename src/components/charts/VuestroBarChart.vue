@@ -1,794 +1,387 @@
 <template>
-  <!-- DIVISION BAR CHART -->
-  <div class="vuestro-bar-chart" style="background-color:#3F3F3F;" >
-    <!-- BUTTONS -->
-    <div>
-      <!-- BRUSH -->
-      <template v-if="enableZoom">
-        <div id="zoom-brush">
-          <vuestro-button 
-            :checkbox="true" 
-            :value="zoomBrush"
-            v-on:click="checkZoomBrush">Zoom Brush</vuestro-button>
-        </div>
-      </template>
-      <!-- ZOOM OUT -->      
-      <template v-if="enableZoom && zoomed">
-        <div id="reset-zoom">
-          <vuestro-button
-            v-on:click="resetZoom">Reset
-          </vuestro-button>
-        </div>
-      </template>
-    </div>
-    <div>
-      <!-- BAR CHART -->
-      <svg 
-        :width="svgWidth"
-        :height="svgHeight"
-        @mousedown="onZoomPress"
-        @mouseup="onZoomRelease"
-        @mousemove="onZoomDrag"
-      >
-        <!-- GRID -->
-        <template v-if="enableGrid">
-          <g 
-            stroke="black"
-            stroke-opacity="0.2">
-            <!-- X LINES -->
-            <line v-for="x in xGrid"
-              :key="x.id"
-              :x1="x"
-              :x2="x"
-              :y1="chartHeight + chartMargin.top"
-              :y2="chartMargin.top" /> 
-            <!-- Y LINES -->       
-            <line v-for="y in yGrid"
-              :key="y.id"
-              :x1="chartMargin.left"
-              :x2="chartWidth + chartMargin.left"
-              :y1="y"
-              :y2="y"/>
-          </g> 
-        </template>       
-        <!-- X Labels --> 
-        <template v-if="enableXGridLabel">   
-          <g 
-            text-anchor="middle"
-            font-size="10px"
-            fill="white">          
-            <text v-for="label in xLabels" 
-              :key="label.id"
-              :x="label.x"
-              :y="chartMargin.top + chartHeight + 10">
-              {{label.value}}
-            </text>
-          </g>
-        </template> 
-        <!-- Y Labels --> 
-        <template v-if="enableYGridLabel">   
-          <g 
-            text-anchor="end"
-            font-size="10px"
-            fill="white">          
-            <text v-for="label in yLabels" 
-              :key="label.id"
-              :x="chartMargin.left-4"
-              :y="label.y+3">
-              {{label.value}}
-            </text>
-          </g>
-        </template>    
-        <!-- ZOOM -->
-        <g>
-          <rect v-if="enableZoom && showZoom && zoomBrush"
-            :x="xZoom"
-            :y="yZoom"
-            :width="zoomWidth"
-            :height="zoomHeight"
-            fill="red"
-            opacity="0.75" />         
-        </g>
-        <!--BARS -->
-        <g>
-          <g v-for="barSet in barsData" 
-            :key="barSet.id">
-            <rect v-for="bar in barSet.data"
-              :key="bar.id"
-              class="vuestro-bar-chart-bar"
-              :x="bar.x"
-              :y="bar.y"
-              :width="bar.width"
-              :height="bar.height"
-              :fill="bar.color"
-              fill-opacity="0.7"
-              :stroke="bar.color"
-              :barKey="bar.key"
-              :barTitle="bar.title"
-              :barValue="bar.value"
-              @mousemove="onMouseover"
-              @mouseleave="onMouseexit"
-              @mouseenter="onMouseenter">
-            </rect>
-            <template v-if="enableLabels && !zoomed">
-              <text v-for="barLabel in barSet.data" 
-                :key="barLabel.id"
-                :x="barLabel.x+barLabel.width/2"
-                :y="barLabel.y-5"
-                text-anchor="middle"
-                font-size="10px"
-                fill="white">
-                {{barLabel.value}}
-              </text>
-            </template>     
-          </g>
-        </g>
-        <!-- LEGEND -->
-        <template v-if="enableLegend">
-          <text font-size="10px" :x="chartMargin.left" :y="svgHeight - 5">
-            <tspan v-for="element in legendData"
-                :key="element.id"            
-                dx="1.2em"
-                :fill="element.color" 
-                :stroke="element.color"
-                stroke-width="2">|
-                <tspan fill="white" stroke="black" stroke-width="0">{{element.title}}</tspan>
-            </tspan>
-          </text> 
+  <div class="vuestro-bar-chart" @mouseleave="onMouseleave" :style="style">
+    <div class="vuestro-bar-chart-inner">
+      <svg :width="width"
+           :height="height"
+           :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }"
+           @mousemove="onMouseover">
+        <!--GRID-->
+        <template v-if="showGrid">
+          <g v-axis:x="scale" class="vuestro-bar-chart-x-axis" :class="{ showGrid }"></g>
+          <g v-axis:y="scale" class="vuestro-bar-chart-y-axis" :class="{ showGrid }"></g>
         </template>
-        <!-- TOOLTIP -->
-        <template v-if="enableToolTip && showToolTip">
-          <vuestro-bar-svg-tooltip 
-            :x="toolX"
-            :x-max="svgWidth"
-            :y="toolY"
-            :y-max="svgHeight"
-            :toolData="toolTipData">
-          </vuestro-bar-svg-tooltip>
+        <!--BARS-->
+        <g v-for="d in localData">
+          <rect v-for="s in processedSeries" :key="`${s.field}_1`"
+                class="vuestro-bar-chart-bar"
+                :x="d[`${s.field}_x`]"
+                v-animate:y="d[`${s.field}_y`]"
+                :width="d.width"
+                v-animate:height="d[`${s.field}_height`]"
+                :fill="s.color"
+                :fill-opacity="fillOpacity"
+                :stroke="s.color">
+          </rect>
+          <rect v-for="s in processedSeries" :key="`${s.field}_2`"
+                class="vuestro-bar-chart-bar"
+                :x="d[`${s.field}_x`]"
+                v-animate:y="d[`${s.field}_y`]"
+                :width="d.width"
+                :height="strokeWidth"
+                :fill="s.color"
+                :stroke="s.color">
+          </rect>
+          <!--BAR LABEL-->
+          <text v-if="showBarLabels"
+                v-for="s in processedSeries" :key="`${s.field}_3`"
+                class="vuestro-bar-chart-bar-label"
+                :x="stacked ? d.center:d[`${s.field}_x`]+d.width/2"
+                v-animate:y="d[`${s.field}_y`] - barLabelOffset"
+                text-anchor="middle">
+            {{ d[s.field] }}
+          </text>
+        </g>
+
+        <!--AXES-->
+        <template v-if="showAxes || showXLabels || showYLabels">
+          <g v-axis:x="scale" class="vuestro-bar-chart-x-axis" :class="{ showAxes, showXLabels }"></g>
+          <g v-axis:y="scale" class="vuestro-bar-chart-y-axis" :class="{ showAxes, showYLabels }"></g>
+        </template>
+        <!--TOOLTIP-->
+        <template v-if="!hideTooltip && cursorLine.length > 0">
+          <path class="vuestro-bar-chart-cursor" :d="cursorLine" />
+          <vuestro-svg-tooltip :x="lastHoverPoint.x"
+                               :x-max="width"
+                               :categoryKey="categoryField"
+                               :utc="utc"
+                               :series="processedSeries"
+                               :values="localData[lastHoverPoint.index]">
+          </vuestro-svg-tooltip>
         </template>
       </svg>
+      <vuestro-title>
+        <slot name="title"></slot>
+      </vuestro-title>
     </div>
   </div>
 </template>
 
 <script>
-  /* global _ */
-  import * as d3 from 'd3';
-import VuestroButton from '../VuestroButton.vue';
-  export default {
-  components: { VuestroButton },
-    name: 'VuestroBarChart',
-    props: {
-      data: { type: Array, default: () => [] },
-      options: { type: Object, default: () => {} },
+
+/* global _ */
+import * as d3 from 'd3';
+
+export default {
+  name: 'VuestroBarChart',
+  props: {
+    data: { type: Array, default: () => [] },
+    options: { type: Object, default: () => {} },
+  },
+  data() {
+    return {
+      width: 0,
+      height: 0,
+      localData: [],
+      lastHoverPoint: {},
+      cursorLine: '',
+      colors: d3.schemeCategory10,
+      margin: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+      },
+      valueAxis: {
+        // render() {}
+      },
+      categoryField: 'key',
+      series: [{
+        field: 'value'
+      }],
+      stacked: false,
+      padding: 0.1,
+      axisXPadding: 20, // padding for X axes labels
+      axisYPadding: 20, // padding for Y axes labels
+      hideTooltip: false,
+      utc: false,
+      transition: 800, // animation transition period
+      fillOpacity: 0.7, // opacity for filled bars
+      gridDashArray: 1, // svg grid dash array
+      strokeWidth: '2px', // svg stroke width
+      scale: {}, // d3 axes renderers
+      showAxes: false,
+      showXLabels: false,
+      showYLabels: false,
+      showBarLabels: true,
+      barLabelOffset: 2,
+    };
+  },
+  computed: {
+    color() {
+      return d3.scaleOrdinal(this.colors);
     },
-    data() {
+    style() {
       return {
-        //default settings
-        colors: d3.schemeCategory10,
-        padding: 0.1,
-        //svg dimensions
-        svgWidth: 0,
-        svgHeight: 0,
-        //chart dimensions
-        chartWidth: 0,
-        chartHeight: 0,
-        chartMargin: {
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0,
-        },
-        //input data
-        localData: [],        
-        categoryKey: 'key',
-        series: [{
-          field: 'value'
-        }],
-        //bars data
-        barsData: [],
-        //legend data
-        legendData: [],
-        legendShift: 0,
-        //grid data
-        xGrid: [],
-        yGrid: [],
-        gridPadding: 0,
-        //labels data
-        xLabels: [],
-        yLabels: [],
-        //tool tip data
-        toolX: 0,
-        toolY: 0,
-        toolTipData: {},
-        showToolTip: false,
-        //zoom box data
-        zoomBrush: false,
-        showZoom: false,
-        xZoom: 0,
-        yZoom: 0,
-        xZoomScale: 0,
-        yZoomScale: 0,
-        zoomWidth: 0,
-        zoomHeight: 0,
-        zoomed: false,
-        //options
-        enableStacked: false,
-        enableLegend: false,
-        enableLabels: false,
-        enableToolTip: false,
-        enableGrid: false,
-        enableZoom: false,
-        enableYGridLabel: false,
-        enableXGridLabel: false,
+        '--vuestro-bar-chart-grid-dasharray': this.gridDashArray,
+        '--vuestro-bar-chart-stroke-width': this.strokeWidth,
       };
     },
-    //computed methods reactively change to data changes, 
-    //think of it as a dynamic data property 
-    computed: {
-      color() {
-        //returns a function that has a range of this.colors
-        return d3.scaleOrdinal(this.colors);
-      },
+    // process series prop by adding default colors
+    processedSeries() {
+      return this.series.map((s) => {
+        if (s.field && !s.color) {
+          s.color = this.color(s.field);
+        }
+        return s;
+      });
     },
-    //Loads options into reactive data 
-    beforeMount() {
-      _.merge(this, this.options);
+    getCursor() {
+      return d3.area().x(d => d.center).y0(this.height - this.axisXPadding).y1(0);
     },
-    //Called after previous lifecycle functions called
-    mounted() {
-      //on resize event call function this.resize
-      window.addEventListener('resize', this.resize);
-      this.resize();
-      //this.updateYAxis();
+  },
+  watch: {
+    data(newVal) {
+      this.redraw();
     },
-    //before removal call these functions
-    beforeDestroy() {
-      //removes event listener
-      window.removeEventListener('resize', this.resize);
-    },
-    //support methods
-    methods: {
-      //view box is resized
-      resize() {
-        //view box doesn't exist
-        if (this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
-          //set legend shift if legend is enabled
-          if(this.enableLegend) {
-            this.legendShift = 20;
-          }
-          //SVG
-          this.svgWidth = this.$el.clientWidth;
-          this.svgHeight = this.$el.clientHeight;
-          //chart padding          
-          this.chartMargin.left = this.gridPadding;
-          this.chartMargin.right = this.gridPadding;
-          this.chartMargin.bottom = this.legendShift + this.gridPadding;
-          this.chartMargin.top = this.gridPadding;
-          //chart dimensions
-          this.chartWidth = this.svgWidth - this.chartMargin.left - this.chartMargin.right;
-          this.chartHeight = this.svgHeight - this.chartMargin.top - this.chartMargin.bottom;
-          //redraw svg
-          this.redraw();
-        }
-      },
-      //redraw svg
-      redraw() {
-        this.localData = _.cloneDeep(this.data);        
-        //function to scale x
-        let xScale = this.generateXScale();
-        //d3.extent is a function that returns min and max of an array
-        let extents = this.series.map((series) => {
-          return d3.extent(this.localData, function(d) { return d[series.field]; });
-        });       
-        //set y max (increase max a little so bar does not reach top of graph)
-        let yMax = Math.trunc((d3.max(extents, function(d) { return d[1] * 1.1 ; })));        
-        //function to scale y
-        let yScale = this.generateYScale(
-          0, yMax, 
-          this.chartHeight+this.chartMargin.top, this.chartMargin.top);  
-        //generate bar data
-        this.generateBarData(xScale, yScale);
-        //generate grid        
-        if(this.enableGrid) {
-          this.generateXGrid(xScale);
-          this.generateYGrid(0, yMax, yScale);
-        }
-        //generate legend
-        if(this.enableLegend) {
-          this.generateLegend();
-        }
-        //generate x labels
-        if(this.enableXGridLabel) {
-          this.generateXLabels(xScale);
-        }
-        //generate y labels
-        if(this.enableYGridLabel) {
-          this.generateYLabels(yMax, yScale);
-        }
-      },
-      //generate legend data
-      generateLegend() {
-        this.legendData = [];
-        for(let i=0; i<this.series.length; i++) {
-          let legendKey = {}
-          legendKey.title = this.series[i].title;
-          legendKey.color = this.color(this.series[i].field);
-          this.legendData.push(legendKey);
-        }
-      },
-      //generate scale for x
-      generateXScale() {
-        let xScale = d3.scaleBand()
-          .domain(this.data.map((d) => { return d[this.categoryKey]; }))
-          .rangeRound([this.chartMargin.left, this.chartMargin.left + this.chartWidth])
-          .padding(this.padding);
-        return xScale;
-      },
-      //generate scale for y
-      generateYScale(min, max, yMin, yMax) {
-        //function to scale y, add range (pixel range)
-        let yScale = d3.scaleLinear().range([yMin, yMax]);        
-        //add domain to function scale Y
-        yScale.domain([min, max]);
-        //return scale
-        return yScale;
-      },      
-      //generate x grid
-      generateXGrid(xScale) {
-        //generate x coordinates
-        let x = [];
-        //stacked
-        let width;
-        if(this.enableStacked) {
-          //bars are stacked
-          width = xScale.bandwidth();
-        } else {
-          //width of bar set is divided by number of bars
-          width = xScale.bandwidth()/this.series.length;
-        }         
-        //pretty shift
-        let barCenter = width/2;
-        //for every set of bars
-        for(let i=0; i<this.localData.length; i++) {
-          //stacked
-          if(this.enableStacked) {
-            //calculate x coordinate            
-            x.push(xScale(this.localData[i]["key"]) + barCenter);
-          } 
-          //unstacked
-          else {
-            //for ever bar
-            for(let j=0; j<this.series.length; j++) {
-              //calculate x coordinate            
-              x.push(xScale(this.localData[i]["key"]) + j*(width) + barCenter);
-            } 
-          }
-        }        
-        //first x
-        x.push(this.chartMargin.left);
-        //last x
-        x.push(this.chartWidth+this.chartMargin.left);
-        this.xGrid = x;
-      },      
-      //generate y grid
-      generateYGrid(min, max, yScale) {
-        //create y grid lines
-        let y = [];
-        //get ticks from scale
-        let ticks = yScale.ticks();
-        //get coordinates from tick values
-        for(let i=0; i<ticks.length; i++) {
-          y.push(yScale(ticks[i]));
-        }
-        //last line
-        y.push(yScale(max));
-        //save grid values
-        this.yGrid = y;
-      }, 
-      //generate x labels
-      generateXLabels(xScale) {
-        //generate x coordinates
-        let labels = [];
-        //set width
-        let barCenter = xScale.bandwidth()/2;
-        //for every set of bars
-        for(let i=0; i<this.localData.length; i++) {
-          //generate label
-          let label = {};
-          //set x coordinate 
-          label.x = xScale(this.localData[i]["key"]) + barCenter;          
-          //set value 
-          label.value = this.localData[i]["key"];
-          //push label
-          labels.push(label);
-        }        
-        //save labels
-        this.xLabels = labels;
-      },      
-      //generate y grid labels
-      generateYLabels(max, yScale) {
-        //generate y labels
-        let labels = [];
-        //get ticks from scale
-        let ticks = yScale.ticks();
-        //get coordinates from tick values
-        for(let i=0; i<ticks.length; i++) {
-          //generate label
-          let label = {};
-          //set y coordinate
-          label.y = yScale(ticks[i]);
-          //set value
-          label.value = ticks[i];
-          //push label
-          labels.push(label);
-        }
-        //last label
-        labels.push({y: this.chartMargin.top, value: max});
-        //save label values
-        this.yLabels = labels;
-      },
-      //generate bar data
-      generateBarData(scaleX, scaleY) {
-        //reset bars data
-        this.barsData = [];
-        // set the bar descriptions
-        for(let i=0; i<this.localData.length; i++) {
-          //set key (date)
-          let bars = {"key": this.localData[i].key}
-          let barsData = [];
-          //add bars data field
-          bars.data = barsData;
-          let first = true;
-          let firstValue;
-          for(let j=0; j<this.series.length; j++) {
-            let bar = {};
-            //append value
-            bar.value = this.localData[i][this.series[j].field];
-            //call scaleX function on date key + index * width of bar
-            //if stacks are enabled do not change x
-            if(this.enableStacked) {
-              if(first) {
-                firstValue = scaleX(this.localData[i]["key"]);
-                first = false;
-              } 
-              //set width
-              bar.width = scaleX.bandwidth();
-              bar.x = firstValue;
-            } else {
-              //set width
-              bar.width = scaleX.bandwidth()/this.series.length;
-              bar.x = scaleX(this.localData[i]["key"]) + j*(bar.width);
-            }
-            //call scaleY function on 'data'['value1-3'] - 10
-            bar.y = scaleY(this.localData[i][this.series[j].field]);            
-            //calculate height of bar
-            bar.height = this.chartHeight + this.chartMargin.top - scaleY(this.localData[i][this.series[j].field]);
-            //set title
-            bar.title = this.series[j].title;
-            //set color
-            bar.color = this.color(this.series[j].field);
-            //set key
-            bar.key = this.localData[i]["key"];
-            //append bar to bars data
-            barsData.push(bar);
-          }
-          //if stacks are enabled sort heights
-          if(this.enableStacked) {
-            //sort lowest to highest
-            barsData.sort(function(a,b){return a.height-b.height});
-            //reverse sort so highest is drawn first
-            barsData = barsData.reverse()
-          }
-          //put bars data into dynamic data
-          this.barsData.push(bars)          
-        } 
-      },
-      //click for zoom
-      onZoomPress() {
-        //check if zoom is enabled
-        if(this.enableZoom && this.zoomBrush) {
-          //enable draw box
-          this.showZoom = true;
-          //save coordinates of click
-          this.xZoomClick = event.offsetX;
-          this.yZoomClick = event.offsetY;
-          //set initial value of box
-          this.xZoom = event.offsetX;
-          this.yZoom = event.offsetY;
-        }        
-      },
-      //bounding box of zoom
-      onZoomDrag() {
-        if(this.enableZoom && this.showZoom && this.zoomBrush) {          
-          //calculate x coordinate of box
-          let xDelta = event.offsetX;
-          //calculate width
-          let xDiff = this.xZoomClick - xDelta;
-          //drags right
-          if(xDiff < 0) {
-            this.xZoom = this.xZoomClick;
-          } 
-          //drags left
-          else {
-            this.xZoom = this.xZoomClick - xDiff;
-          }
-          //update width of zoom box
-          this.zoomWidth = Math.abs(xDiff);
-          //calculate y coordinate of box
-          let yDelta = event.offsetY;
-          //calculate y offset difference
-          let yDiff = this.yZoomClick - yDelta;
-          //calculate height aspect ratio and update height of zoom box
-          this.zoomHeight = (this.chartHeight/this.chartWidth)*this.zoomWidth;
-          //drags up
-          if(yDiff > 0) {
-            this.yZoom = this.yZoomClick-this.zoomHeight;
-          }
-          //drags down
-          else {
-            this.yZoom = this.yZoomClick;
-          }           
-        }
-      },
-      //check/uncheck
-      checkZoomBrush() {
-        //untick or tick checkbox
-        if(this.zoomBrush) {
-          this.zoomBrush = false;
-        } else {
-          this.zoomBrush = true;
-        }        
-      },
-      //reset chart
-      resetZoom() {
+  },
+  beforeMount() {
+    _.merge(this, this.options);
+  },
+  mounted() {
+    window.addEventListener('resize', this.resize);
+    this.resize();
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resize);
+  },
+  methods: {
+    resize() {
+      if (this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
+        this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
+        this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
         this.redraw();
-        this.zoomed = false;
-      },
-      //disable zoom
-      onZoomRelease() {
-        if(this.enableZoom && this.zoomBrush) { 
-          //calculate y min and y max pixel
-          let yMin, yMax;
-          if(this.yZoomClick > event.offsetY) {
-            yMin = this.yZoomClick;
-            yMax = this.yZoomClick-this.zoomHeight;
-          } else {
-            yMin = this.yZoomClick+this.zoomHeight;
-            yMax = this.yZoomClick;
-          }
-          //calculate x min and x max pixel
-          let xMin = this.xZoom;
-          let xMax = this.xZoom + this.zoomWidth;      
-          //generate zoom scales
-          this.calculateZoom();
-          //update x grid and labels
-          this.updateXZoom(xMin, xMax);
-          //update y grid and labels 
-          this.updateYZoom(yMin, yMax);    
-          //update bars
-          this.updateZoomBars(xMin, xMax, yMin, yMax);
-          //turn off zoom box
-          this.showZoom = false;
-          //zoomed
-          this.zoomed = true;
-        }; 
-      },
-      //update x grid and labels
-      updateXZoom(xStart, xEnd) {        
-        //update x labels
-        this.updateXZoomLabels(xStart, xEnd);
-        //update x grid
-        this.updateXZoomGrid(xStart, xEnd);
-      },
-      //update y grid and labels
-      updateYZoom(yStart, yEnd) {          
-        //set y max
-        let yMax = this.yLabels[this.yLabels.length-1].value;
-        //set y min
-        let yMin = this.yLabels[0].value;
-        //function to scale y        
-        let yScale = this.generateYScale(this.chartMargin.top+this.chartHeight, this.chartMargin.top, yMin, yMax);
-        //calculate new min and new max
-        let newMin = Math.trunc(yScale(yStart));
-        let newMax = Math.trunc(yScale(yEnd));
-        //generate new scale with new min/max
-        this.yZoomScale = this.generateYScale(newMin, newMax,this.chartMargin.top+this.chartHeight, this.chartMargin.top);
-        //generate new y labels
-        this.generateYLabels(newMax, this.yZoomScale);
-        //generate new y grid
-        this.generateYGrid(newMin, newMax, this.yZoomScale);
-      },
-      //calculate x scale and y scale
-      calculateZoom() {
-        this.xZoomScale = this.chartWidth/this.zoomWidth;
-      },
-      //update x labels
-      updateXZoomLabels(xStart, xEnd) {
-        //generate new label values
-        let updateXLabels = [];
-        //only include labels within range
-        for(let i=0; i<this.xLabels.length; i++) {
-          if(this.xLabels[i].x >= xStart && this.xLabels[i].x <= xEnd) {
-            //generate new label
-            let label = {}
-            //set x
-            label.x = (this.xLabels[i].x-xStart)*this.xZoomScale;
-            //set value
-            label.value = this.xLabels[i].value;
-            //add label
-            updateXLabels.push(label);
-          }
-        }
-        //update labels        
-        this.xLabels = updateXLabels;
-      },
-      //update x grid
-      updateXZoomGrid(xStart, xEnd) {
-        //generate new grid values
-        let updateXGrid = [];
-        //only include grid lines within range
-        for(let i=0; i<this.xGrid.length; i++) {
-          //update grid values
-          if(this.xGrid[i] >= xStart && this.xGrid[i] <= xEnd) {
-            //update x coordinate
-            updateXGrid.push((this.xGrid[i]-xStart)*this.xZoomScale);
-          }
-        }
-        //first x
-        updateXGrid.push(this.chartMargin.left);
-        //last x
-        updateXGrid.push(this.chartWidth+this.chartMargin.left);
-        //update grid values
-        this.xGrid = updateXGrid;
-      },
-      //update bar data
-      updateZoomBars(xStart, xEnd, yStart, yEnd) {
-        //generate updated bars data
-        let updateBars = [];
-        //iterate bars data
-        for(let i=0; i<this.barsData.length; i++) {
-          //generate bar set
-          let barSet = {};
-          //set key
-          barSet.key = this.barsData[i].key;  
-          //generate data
-          barSet.data = [];        
-          //decide if bar set is to be included
-          let include = false;
-          //iterate bar set
-          for(let j=0; j<this.barsData[i].data.length; j++) {
-            //set bar
-            let bar = this.barsData[i].data[j]
-            //left side of bar
-            let barLeft = bar.x;
-            //right side of bar
-            let barRight = bar.x + bar.width;
-            //top side of bar
-            let barTop = bar.y;
-            //bottom side of bar
-            let barBottom = bar.y + bar.height;
-            //check if bar is within range of zoom selection  
-            if(barRight >= xStart && barLeft <= xEnd) {
-              //check if bar height is within range of selection
-              if(barTop <= yStart && barBottom >= yEnd) {
-                //include this bar set
-                include = true;
-                //scale width
-                bar.width = bar.width * this.xZoomScale;
-                //scale x
-                bar.x = (bar.x - xStart) * this.xZoomScale;
-                //clip x if bar is clipped from left side
-                if(bar.x < this.chartMargin.left) {
-                  //keep difference
-                  let clip = this.chartMargin.left - bar.x;
-                  //set new x
-                  bar.x = this.chartMargin.left;
-                  //adjust width
-                  bar.width = bar.width - clip;
-                }
-                //clip x if bar is clipped from right side
-                if((bar.x + bar.width) > (this.chartMargin.left + this.chartWidth)) {
-                  //keep difference
-                  let clip = (bar.x + bar.width) - (this.chartMargin.left + this.chartWidth)
-                  //adjust width
-                  bar.width = bar.width - clip;
-                }
-                //scale y
-                bar.y = this.yZoomScale(bar.value);
-                //clip y if bar is out of view
-                if(bar.y < this.chartMargin.top) {
-                  //set y to top of chart                  
-                  bar.y = this.chartMargin.top;
-                  //set height to height of chart
-                  bar.height = this.chartHeight;
-                } else {
-                  //scale height
-                  bar.height = this.chartHeight - bar.y + this.chartMargin.top;
-                }                
-                //include bar into barset
-                barSet.data.push(bar);
-              }
-            }
-          }
-          //include this barset
-          if(include){
-            updateBars.push(barSet);
-          }
-        }
-        //update bars data
-        this.barsData = updateBars;
-      },
-      //enable tooltip
-      onMouseenter({ offsetX }) {
-        this.showToolTip = true;
-      },
-      //disable tooltip
-      onMouseexit({ offsetX }) {
-        this.showToolTip = false;
-      },
-      //Tool tip data passed through event
-      onMouseover({ offsetX }) {
-        //track mouse
-        this.toolX = event.offsetX + 20;
-        this.toolY = event.offsetY - 20;
-        //generate tool data
-        let toolData = {};
-        //stacked
-        if(this.enableStacked) {
-          //event data is passed through attributes of html
-          toolData.key = event.target.attributes.barKey.value;
-          //find data through bars data
-          for(let i=0; i<this.barsData.length; i++) {
-            //find set of stacked data
-            if(toolData.key === this.barsData[i].key) {
-              let barData = this.barsData[i].data;
-              //create tooltip data
-              toolData.data = [];
-              for(let j=0; j<barData.length; j++) {
-                toolData.data.push({
-                  title: barData[j].title,
-                  color: barData[j].color,
-                  value: barData[j].value,
-                })
-              }
-            }
-          }
-        } 
-        //bars are not stacked
-        else {
-          //event data is passed through attributes of html
-          toolData.key = event.target.attributes.barKey.value;
-          toolData.data = [];
-          toolData.data.push({
-            title: event.target.attributes.barTitle.value,
-            color: event.target.attributes.fill.value,
-            value: event.target.attributes.barValue.value,
-          });
-        }
+      }
+    },
+    getBar(v) {
+    },
+    redraw() {
+      this.localData = _.cloneDeep(this.data);
 
-        //allow tooltip to be shown
-        this.toolTipData = toolData;
+      let scaleX = d3.scaleBand()
+                     .domain(this.data.map((d) => { return d[this.categoryField]; }))
+                     .padding(this.padding);
+      // factor in padding for opposite axis
+      if (this.showAxes || this.showYLabels) {
+        scaleX.rangeRound([this.margin.left + this.axisYPadding, this.width - this.margin.right]);
+      } else {
+        scaleX.rangeRound([this.margin.left, this.width - this.margin.right]);
+      }
+
+      let scaleY;
+      // factor in padding for opposite axis
+      if (this.showAxes || this.showXLabels) {
+        scaleY = d3.scaleLinear().range([this.height - this.axisXPadding, 0]);
+      } else {
+        scaleY = d3.scaleLinear().range([this.height, 0]);
+      }
+
+      this.scale = {
+        x: d3.axisBottom(scaleX).tickSize(this.height),
+        y: d3.axisLeft(scaleY).tickSize(-this.width),
+      };
+
+      // use value axis render function if provided
+      if (this.valueAxis.render && typeof(this.valueAxis.render) === 'function') {
+        this.scale.y.tickFormat((d) => {
+          if (d) {
+            return this.valueAxis.render(d);
+          }
+          return '';
+        });
+      }
+
+      let stackedData;
+      let extents;
+      if (this.stacked) {
+        let keys = _.flatMap(this.series, 'field');
+        stackedData = d3.stack().keys(keys)(this.localData);
+        extents = this.series.map((series, idx) => {
+          return d3.extent(_.flatten(stackedData[idx]));
+        });
+      } else {
+        extents = this.series.map((series) => {
+          return d3.extent(this.localData, function(d) { return d[series.field]; });
+        });
+      }
+      scaleY.domain([0, d3.max(extents, function(d) { return d[1] * 1.1; })]);
+
+      // set the bar dimensions
+      for (let [di, d] of this.localData.entries()) {
+        for (const [si, s] of this.series.entries()) {
+          if (stackedData) {
+            d.width = scaleX.bandwidth();
+            d[`${s.field}_x`] = scaleX(d[this.categoryField]);
+            d[`${s.field}_y`] = scaleY(stackedData[si][di][1]);
+            d[`${s.field}_height`] = scaleY(stackedData[si][di][0]) - d[`${s.field}_y`];
+            d.center = scaleX(d[this.categoryField]) + scaleX.bandwidth() / 2;
+          } else {
+            d.width = scaleX.bandwidth() / this.series.length;
+            d[`${s.field}_x`] = scaleX(d[this.categoryField]) + si*(d.width + 1);
+            d[`${s.field}_y`] = scaleY(d[s.field]) - 1;
+            d[`${s.field}_height`] = scaleY(0) - scaleY(d[s.field]);
+            d.center = scaleX(d[this.categoryField]) + scaleX.bandwidth() / 2;
+          }
+        }
+      }
+    },
+    onMouseover({ offsetX }) {
+      if (this.localData.length > 0) {
+        const x = offsetX;
+        const closestPoint = this.getClosestPoint(x);
+        if (this.lastHoverPoint.index !== closestPoint.index) {
+          const point = this.localData[closestPoint.index];
+          this.cursorLine = this.getCursor([point]);
+          this.$emit('select', this.data[closestPoint.index]);
+          this.lastHoverPoint = closestPoint;
+        }
+      }
+    },
+    getClosestPoint(x) {
+      return this.localData
+        .map((point, index) => ({
+          x: point[`${this.series[this.series.length-1].field}_x`],
+          diff: Math.abs(point[`${this.series[this.series.length-1].field}_x`] - x),
+          index,
+        }))
+        .reduce((memo, val) => (memo.diff < val.diff ? memo : val));
+    },
+    onMouseleave() {
+      this.cursorLine = '';
+    },
+  },
+  directives: {
+    axis: {
+      update(el, binding, vnode) {
+        d3.select(el).transition().duration(vnode.context.transition).ease(d3.easeLinear).call(binding.value[binding.arg]);
+      }
+    },
+    animate: {
+      bind(el, binding, vnode) {
+        let initialValue = 0;
+        if (binding.arg === 'y') {
+          let scale = vnode.context.scale.y.scale();
+          initialValue = scale(0);
+        }
+        d3.select(el)
+          .attr(binding.arg, initialValue)
+          .transition(binding.arg).duration(vnode.context.transition)
+          .attr(binding.arg, binding.value);
+      },
+      update(el, binding, vnode) {
+        d3.select(el)
+          .attr(binding.arg, binding.oldValue)
+          .transition().duration(vnode.context.transition)
+          .attr(binding.arg, binding.value);
       },
     },
-  };
+  },
+};
+
 </script>
 
+<style>
+.vuestro-app {
+  --vuestro-bar-chart-font-size: 0.8em;
+}
+</style>
+
 <style scoped>
-#zoom-brush{
-  position: absolute;
-  padding-left: 40px;
-}
-#reset-zoom{
-  position: absolute;
-  padding-left: 150px;
-}
+
 .vuestro-bar-chart {
+  position: relative;
   width: 100%;
   height: 100%;
+  flex-grow: 1;
   overflow: hidden;
 }
-.vuestro-bar-chart-bar {
-  transition: all 0.4s ease-in-out;
+
+.vuestro-bar-chart-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
+
+.vuestro-bar-chart-cursor {
+  stroke: var(--vuestro-outline);
+  stroke-width: 2px;
+  fill: none;
+}
+
+.vuestro-bar-chart-tooltip rect {
+	fill: var(--vuestro-light);
+}
+
+/* always hide axes lines */
+.vuestro-bar-chart-x-axis >>> path {
+  display: none;
+}
+.vuestro-bar-chart-y-axis >>> path {
+  display: none;
+}
+
+/* toggle x grid */
+.vuestro-bar-chart-x-axis >>> line {
+  display: none;
+  stroke: var(--vuestro-outline);
+  stroke-dasharray: var(--vuestro-bar-chart-grid-dasharray);
+}
+.vuestro-bar-chart-x-axis.showGrid >>> line {
+  display: inline;
+}
+/* toggle x axes labels */
+.vuestro-bar-chart-x-axis >>> text {
+  display: none;
+  transform: translateY(-15px);
+  text-anchor: middle;
+  alignment-baseline: baseline;
+}
+.vuestro-bar-chart-x-axis.showXLabels >>> text,
+.vuestro-bar-chart-x-axis.showAxes >>> text {
+  display: inline;
+}
+/* toggle y grid */
+.vuestro-bar-chart-y-axis >>> line {
+  display: none;
+  stroke: var(--vuestro-outline);
+  stroke-dasharray: var(--vuestro-bar-chart-grid-dasharray);
+}
+.vuestro-bar-chart-y-axis.showGrid >>> line {
+  display: inline;
+}
+/* toggle y axes labels */
+.vuestro-bar-chart-y-axis >>> text {
+  display: none;
+  transform: translate(10px, -6px);
+  text-anchor: start;
+}
+.vuestro-bar-chart-y-axis.showYLabels >>> text,
+.vuestro-bar-chart-y-axis.showAxes >>> text {
+  display: inline;
+}
+
+.vuestro-bar-chart-bar-label {
+  fill: var(--vuestro-text-color);
+  font-size: var(--vuestro-bar-chart-font-size);
+}
+
+
+.vuestro-title {
+  margin: 0.5em;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 </style>

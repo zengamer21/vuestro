@@ -93,7 +93,7 @@ export default {
           data: [{ stat: 'running'}],
           options: {
             title: 'Status',
-            color: 'var(--vuestro-danger)',
+            color: 'var(--vuestro-success)',
             icon: 'exclamation'
           },
           position: {
@@ -125,6 +125,7 @@ export default {
           options: {
             title: 'Area Chart',
             component: 'vuestro-area-chart',
+            showGrid: true,
             series: [
               {
                 title: 'Series 1',
@@ -177,11 +178,11 @@ export default {
           ],
           options: {
             title: 'Donut Chart',
-            component: 'vuestro-pie-chart',
+            component: 'vuestro-donut-chart',
             categoryField: 'state',
             valueField: 'pop',
             valueTitle: 'Population',
-            donutRadius: 70,
+            donutTextValue: '14M',
           },
           position: {
             x: 0,
@@ -190,6 +191,104 @@ export default {
             h: 3,
           }
         },
+        {
+          id: 'wbar',
+          component: 'vuestro-chart-panel',
+          data: [
+            {
+              key: '2019-10-01T01:00:00Z',
+              value1: 2,
+              value2: 6,
+              value3: 19,
+            },
+            {
+              key: '2019-10-01T02:00:00Z',
+              value1: 3,
+              value2: 33,
+              value3: 8,
+            },
+            {
+              key: '2019-10-01T03:00:00Z',
+              value1: 6,
+              value2: 13,
+              value3: 2,
+            },
+            {
+              key: '2019-10-01T04:00:00Z',
+              value1: 1,
+              value2: 13,
+              value3: 2,
+            },
+            {
+              key: '2019-10-01T05:00:00Z',
+              value1: 1,
+              value2: 13,
+              value3: 3,
+            },
+            {
+              key: '2019-10-01T06:00:00Z',
+              value1: 22,
+              value2: 13,
+              value3: 2,
+            },
+            {
+              key: '2019-10-01T07:00:00Z',
+              value1: 8,
+              value2: 13,
+              value3: 2,
+            },
+            {
+              key: '2019-10-01T08:00:00Z',
+              value1: 15,
+              value2: 12,
+              value3: 2,
+            },
+            {
+              key: '2019-10-01T09:00:00Z',
+              value1: 23,
+              value2: 13,
+              value3: 2,
+              value4: 35,
+            },
+          ],
+          options: {
+            title: 'Bar Chart',
+            component: 'vuestro-bar-chart',
+            showYLabels: true,
+            // showXLabels: true,
+            showGrid: true,
+            // stacked: true,
+            axisYPadding: 30,
+            valueAxis: {
+              render(d) {
+                return d.toFixed(2);
+              }
+            },
+            series: [
+              {
+                title: 'Series 1',
+                field: 'value1',
+              },
+              {
+                title: 'Series 2',
+                field: 'value2',
+                render(d) {
+                  return d.toFixed(2);
+                },
+              },
+              {
+                title: 'Series 3',
+                field: 'value3',
+              },
+            ],
+          },
+          position: {
+            x: 6,
+            y: 3,
+            w: 6,
+            h: 2,
+          },
+        }
       ];
     },
     getAreaChart() {

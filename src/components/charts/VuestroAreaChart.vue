@@ -106,6 +106,7 @@ export default {
       lastHoverPoint: {}, // tooltip last hover data point
       cursorLine: '', // svg path for cursor line
       scale: {}, // d3 axes renderers
+      inTransition: false,
     };
   },
   computed: {
@@ -321,7 +322,7 @@ export default {
       }
     },
     onMouseover({ offsetX }) {
-      if (this.localData.length > 0) {
+      if (!this.inTransition && this.localData.length > 0) {
         const x = offsetX;
         const closestPoint = this.getClosestPoint(x);
         if (this.lastHoverPoint.index !== closestPoint.index) {
@@ -360,7 +361,9 @@ export default {
         let newD = vnode.context[binding.arg](binding.value);
 
         let data = vnode.context.localData;
-        if (vnode.context.slide && data[data.length-1] && data[data.length-2]) {
+        if (vnode.context.slide &&
+            data[data.length-1] &&
+            data[data.length-2]) {
           let scale = vnode.context.scale.x.scale();
           let catKey = vnode.context.categoryKey;
           el.dataset.shift = scale(data[data.length-1][catKey]) - scale(data[data.length-2][catKey]);
@@ -374,13 +377,17 @@ export default {
             .attr('transform', null);
         } else {
           if (el.dataset.oldD == '') {
+            vnode.context.inTransition = true;
             d3.select(el)
               .attr('d', vnode.context[binding.arg](binding.value, true))
               .transition().duration(vnode.context.transition)
-              .attr('d', newD);
+              .attr('d', newD)
+              .on("end", () => { vnode.context.inTransition = false; });
           } else {
-            // standard path update
-            d3.select(el).transition().duration(vnode.context.transition).attr('d', newD);
+            // standard path update, triggered by tooltip
+            d3.select(el)
+            .transition().duration(vnode.context.transition)
+            .attr('d', newD);
           }
           el.dataset.oldD = newD;
         }

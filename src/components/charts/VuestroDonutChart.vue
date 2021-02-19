@@ -1,17 +1,21 @@
 <template>
-  <div class="vuestro-pie-chart" @mouseleave="onMouseleave">
-    <div class="vuestro-pie-chart-inner">
-      <svg id="Pie"
-           :width="width"
+  <div class="vuestro-donut-chart" @mouseleave="onMouseleave">
+    <div class="vuestro-donut-chart-inner">
+      <svg :width="width"
            :height="height"
            :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }">
-        <!--PIE WEDGES (all centered on pie center)-->
+        <!--THE ARCS (all centered)-->
         <g v-for="d in localData"
            :key="d.id"
-           :transform="`translate(${pieX},${pieY})`">
+           :transform="`translate(${centerX},${centerY})`">
           <path :d="d.arc"
                 :fill="d.color"
+                :opacity="fillOpacity"
                 @mouseenter="onMouseenter"/>
+          <path :d="d.arc"
+                fill="none"
+                :stroke-width="strokeWidth"
+                :stroke="d.color"/>
           <text v-if="showLabels"
                 :x="d.label[0]"
                 :y="d.label[1]"
@@ -22,11 +26,11 @@
         </g>
         <!--DONUT CENTER LABEL-->
         <g>
-          <text v-if="donutRadius > 0"
-                :x="pieX"
-                :y="pieY"
+          <text class="donut-text"
+                :x="centerX"
+                :y="centerY"
                 text-anchor="middle"
-                fill="white">
+                alignment-baseline="middle">
             {{ donutTextValue }}
           </text>
         </g>
@@ -42,7 +46,7 @@
                                :series="[localData[hoverIdx]]"
                                :values="localData[hoverIdx]"/>
         </template>
-        <!--PIE LEGEND-->
+        <!--LEGEND-->
         <template v-for="(pieSection, index) in localData">
           <vuestro-svg-legend v-if="showLegend"
                               :pieSection="pieSection"
@@ -62,7 +66,7 @@
 import * as d3 from 'd3';
 
 export default {
-  name: 'VuestroPieChart',
+  name: 'VuestroDonutChart',
 
   //essentially static data
   props: {
@@ -75,8 +79,8 @@ export default {
     return {
       width: 0, // derived width
       height: 0, // derived height
-      pieX: 0, // derived center X
-      pieY: 0, // derived center Y
+      centerX: 0, // derived center X
+      centerY: 0, // derived center Y
       localData: [], // local copy of data
       colors: d3.schemeCategory10,
       margin: {
@@ -85,7 +89,7 @@ export default {
         top: 0,
         bottom: 0,
       },
-      paddingPercent
+      padding: 15, // percentage padding around the donut
       categoryField: 'key',
       valueField: 'value',
       valueTitle: 'Value',
@@ -97,10 +101,11 @@ export default {
       toolTipLocationY: 0,
       showLegend: false,
       showLabels: false,
-      enableToolTip: false,
+      fillOpacity: 0.6, // opacity for filled area
+      strokeWidth: '2px', // svg stroke width
       donutTextRender: null,
       donutTextValue: null,
-      donutRadius: 0,
+      donutRadius: 70, // percentage for donut hole (0 = pie chart)
     };
   },
   computed: {
@@ -138,30 +143,45 @@ export default {
     resize() {
       if (this.$el.clientWidth > 0 && this.$el.clientHeight > 0) {
         this.width = this.$el.clientWidth - this.margin.left - this.margin.right;
-        this.pieX = this.width/2;
+        this.centerX = this.width/2;
         this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
-        this.pieY = this.height/2;
-        this.maxRadius = Math.min(this.pieX, this.pieY);
-
+        this.centerY = this.height/2;
+        this.maxRadius = Math.min(this.centerX, this.centerY) * (100 - this.padding) / 100.0;
         this.redraw();
       }
     },
-    // redraw componenet
     redraw() {
       this.localData = _.cloneDeep(this.data);
-      // generate pie
-      this.pieGenerate();
+      // refresh donut center text
+      this.donutValueRender();
+      // get pie wedge angles from d3
+      let arcGen = d3.pie().value((d) => { return d[this.valueField]; });
+      let arcData = arcGen(this.localData);
+      // Update values of pie chart
+      for (let [di, d] of this.localData.entries()) {
+        d.field = this.valueField; // alias for tooltip to pick up color too
+        d.title = this.valueTitle; // alias for tooltip to pick up color too
+        // generate svg path data (pie sections)
+        d.arc = d3.arc()({
+          startAngle: arcData[di]["startAngle"],
+          endAngle: arcData[di]["endAngle"],
+          innerRadius: this.maxRadius * this.donutRadius / 100.0,
+          outerRadius: this.maxRadius,
+        });
+        d.color = this.color(d[this.valueField]);
+        if (this.showLabels) {
+          this.arcLabels(arcData, di, this.maxRadius * this.donutRadius / 100.0, d3.arc());
+        }
+      }
     },
     onMouseenter({ offsetX }) {
-      //console.log(event.target);
-      //console.log(event.target.attributes.d.nodeValue);
       this.toolTipLocationX = event.offsetX;
       this.toolTipLocationY = event.offsetY;
-      // grab selected pie section
-      let pieSection = event.target.attributes.d.nodeValue;
-      // find the data item for the wedge under cursor
+      // target arc
+      let arc = event.target.attributes.d.nodeValue;
+      // match target arc to localData item
       for (let [di, d] of this.localData.entries()) {
-        if(d.arc === pieSection) {
+        if(d.arc === arc) {
           this.hoverIdx = di;
         }
       }
@@ -169,7 +189,7 @@ export default {
     onMouseleave() {
       this.hoverIdx = -1;
     },
-    pieLabels(data, index, innerRadius, arcGenerator) {
+    arcLabels(data, index, innerRadius, arcGenerator) {
       // create label coordinates
       let labelData = arcGenerator.centroid({
         startAngle: data[index]["startAngle"],
@@ -177,40 +197,13 @@ export default {
         innerRadius: innerRadius,
         outerRadius: this.maxRadius,
       });
-
       // set label coordinates into local data
       this.localData[index]["label"] = labelData;
     },
-    pieGenerate() {
-      // see if donut is enabled
-      if(this.donutRadius > 0) {
-        this.donutValueRender();
-      }
-      // get pie wedge angles from d3
-      let pieGen = d3.pie().value((d) => { return d[this.valueField]; });
-      let pieData = pieGen(this.localData);
-      // Update values of pie chart
-      for (let [di, d] of this.localData.entries()) {
-        d.field = this.valueField; // alias for tooltip to pick up color too
-        d.title = this.valueTitle; // alias for tooltip to pick up color too
-        // generate svg path data (pie sections)
-        d.arc = d3.arc()({
-          startAngle: pieData[di]["startAngle"],
-          endAngle: pieData[di]["endAngle"],
-          innerRadius: this.maxRadius * this.donutRadius / 100.0,
-          outerRadius: this.maxRadius,
-        });
-        d.color = this.color(d[this.valueField]);
-        if (this.showLabels) {
-          this.pieLabels(pieData, di, this.maxRadius * this.donutRadius / 100.0, d3.arc());
-        }
-      }
-    },
+    // try to execute render function, otherwise leave donutTextValue alone
     donutValueRender() {
-      if (typeof(this.donutTextRender) === 'function') {
+      if (this.donutTextRender && typeof(this.donutTextRender) === 'function') {
         this.donutTextValue = this.donutTextRender();
-      } else {
-        this.donutTextValue = this.donutTextRender;
       }
     },
   },
@@ -218,9 +211,17 @@ export default {
 
 </script>
 
+<style>
+
+.vuestro-app {
+  --vuestro-donut-text-font-size: 2em;
+}
+
+</style>
+
 <style scoped>
 
-.vuestro-pie-chart {
+.vuestro-donut-chart {
   position: relative;
   width: 100%;
   height: 100%;
@@ -228,7 +229,7 @@ export default {
   overflow: hidden;
 }
 
-.vuestro-pie-chart-inner {
+.vuestro-donut-chart-inner {
   position: absolute;
   top: 0;
   left: 0;
@@ -236,14 +237,10 @@ export default {
   bottom: 0;
 }
 
-.vuestro-pie-chart-pie {
-  transition: all 0.4s ease-in-out;
+.donut-text {
+  fill: var(--vuestro-text-color);
+  font-size: var(--vuestro-donut-text-font-size);
 }
 
-.vuestro-pie-chart-cursor {
-  stroke: var(--vuestro-outline);
-  stroke-width: 1px;
-  fill: none;
-}
 
 </style>
