@@ -23,6 +23,9 @@
     <div v-if="$slots.value" class="vuestro-pill-value">
       <slot name="value"></slot>
     </div>
+    <div v-if="$slots['value-buttons']" class="vuestro-pill-button-slot">
+      <slot name="value-buttons"></slot>
+    </div>
     <div v-if="closable">
       <vuestro-button no-margin :size="size" round no-border @click.stop="onClose">
         <vuestro-icon name="times"></vuestro-icon>

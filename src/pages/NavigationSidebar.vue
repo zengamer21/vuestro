@@ -53,13 +53,8 @@
 </template>
 
 <script>
-import VuestroContainer from '../components/VuestroContainer.vue';
-import VuestroPanel from '../components/VuestroPanel.vue';
+
 export default {
-  components: {
-    VuestroPanel,
-    VuestroContainer
-  },
   name: 'NavigationSidebar',
   data() {
     return {
@@ -75,4 +70,5 @@ export default {
     console.log(this.$router.options.routes.find(r => r.name === 'sidebar'));
   },
 }
+
 </script>

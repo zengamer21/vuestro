@@ -5,7 +5,7 @@
       <vuestro-panel stretch overflow-hidden>
         <vuestro-sankey-chart :data="layout[0].data" :options="layout[0].options">
           <template #default="{ node }">
-            <vuestro-button variant="link" no-border no-padding @click="onClickNode(node)">
+            <vuestro-button size="sm" no-margin no-border round @click="onClickNode(node)">
               <vuestro-icon name="external-link-alt"></vuestro-icon>
             </vuestro-button>
           </template>

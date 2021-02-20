@@ -2,7 +2,7 @@
   <div class="vuestro-search-box">
     <!--HISTORY-->
     <div v-if="history" class="history-dropdown">
-      <vuestro-dropdown left rounded no-spacing>
+      <vuestro-dropdown left>
         <template #title>
           <vuestro-icon name="search"></vuestro-icon>
           <vuestro-icon class="down-caret" name="caret-down"></vuestro-icon>
@@ -35,8 +35,8 @@
 <script>
 
 /* global _ */
-import VuestroDropdown from './VuestroDropdown.vue';
-import VuestroListButton from './list/VuestroListButton.vue';
+import VuestroDropdown from '../VuestroDropdown.vue';
+import VuestroListButton from '../list/VuestroListButton.vue';
 
 import 'vue-awesome/icons/search.js';
 import 'vue-awesome/icons/caret-down.js';

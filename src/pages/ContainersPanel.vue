@@ -3,7 +3,7 @@
     <vuestro-button size="lg" v-model="outlines">Toggle Outlines</vuestro-button>
     <vuestro-container :class="{ outlines }">
       <vuestro-card cols="6">
-        <vuestro-panel>VuestroPanel - adds themeable background color and a pleasant drop shadow for dimension</vuestro-panel>
+        <vuestro-panel>VuestroPanel - a versatile container which provides a background and border for dimension</vuestro-panel>
       </vuestro-card>
 
       <vuestro-card cols="6">

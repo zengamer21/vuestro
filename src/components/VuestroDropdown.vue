@@ -4,7 +4,7 @@
        v-vuestro-blur="onBlur"
        :style="{ 'z-index': active ? 200:100 }">
     <div class="vuestro-dropdown-inner"
-         :class="{ active, noSpacing, noScroll, bottom, stretch, button: !!$slots.button }">
+         :class="{ active, noScroll, bottom, stretch, button: !!$slots.button }">
       <div v-if="$slots.title" class="vuestro-dropdown-title" @click="onClick">
         &#8203;<slot name="title"></slot>&#8203;
       </div>
@@ -16,7 +16,10 @@
            :style="{ visibility: active ? 'visible':'hidden', 'max-height': maxHeight }"
            :class="{ left, bottom }"
            @scroll="checkDimensions">
-        <div v-if="active" class="vuestro-dropdown-menu-content" @click="onContentClick">
+        <div v-if="active"
+             class="vuestro-dropdown-menu-content"
+             :class="{ noPadding }"
+             @click="onContentClick">
           <slot></slot>
         </div>
         <div class="vuestro-dropdown-menu-buttons" v-if="$slots.buttons">
@@ -32,13 +35,13 @@
 export default {
   name: 'VuestroDropdown',
   props: {
-    right: { type: Boolean, default: false }, // force right justification
-    noSpacing: { type: Boolean, default: false },
-    noScroll: { type: Boolean, default: false },
-    closeOnContentClick: { type: Boolean, default: false },
-    stretch: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
-    fitWithinPanel: { type: Boolean, default: false },
+    right: { type: Boolean, default: false },      // force right justification
+    noPadding: { type: Boolean, default: false },  // no padding on content
+    noScroll: { type: Boolean, default: false },   // no scroll on content
+    closeOnContentClick: { type: Boolean, default: false }, // automatically close when content is clicked
+    stretch: { type: Boolean, default: false },    // flexbox stretch
+    disabled: { type: Boolean, default: false },   // disable dropdown
+    fitWithinPanel: { type: Boolean, default: false }, // adjust size by finding parent panel and fitting within it
   },
   data() {
     return {
@@ -288,6 +291,9 @@ export default {
 .vuestro-dropdown-menu-content {
   padding: 0.4em;
   position: relative;
+}
+.vuestro-dropdown-menu-content.noPadding {
+  padding: 0;
 }
 
 .vuestro-dropdown-menu-buttons {

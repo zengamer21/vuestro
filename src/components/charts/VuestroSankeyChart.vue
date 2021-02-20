@@ -17,7 +17,7 @@
         </linearGradient>
       </defs>
       <g>
-        <g stroke="#000">
+        <g>
           <rect class="vuestro-sankey-node"
                 v-for="(n, idx) in graph.nodes"
                 :class="{ focused: n.name === focusedNode.name }"
@@ -27,6 +27,8 @@
                 :height="n.y1 - n.y0"
                 :width="n.x1 - n.x0"
                 :fill="color(n.name)"
+                :fill-opacity="nodeOpacity"
+                :stroke="color(n.name)"
                 @click="focusNode(n)">
           </rect>
         </g>
@@ -78,7 +80,11 @@
           <span class="sankey-toolbar-selected-node-title">{{ selectedNodeLabel }}</span>
         </template>
         <template #value>
-          <span class="sankey-toolbar-selected-node-value">{{ focusedNode.name }}</span>
+          <div class="sankey-toolbar-selected-node-value">
+            {{ focusedNode.name }}
+          </div>
+        </template>
+        <template #value-buttons>
           <slot :node="focusedNode"></slot>
         </template>
       </vuestro-pill>
@@ -106,6 +112,7 @@ export default {
       height: 0,
       nodeWidth: 10,
       nodePadding: 5,
+      nodeOpacity: 0.7,
       graph: {},
       margin: {
         top: 10,
@@ -298,15 +305,15 @@ export default {
 }
 
 .sankey-toolbar-selected-node-title {
-  color: var(--vuestro-dark);
   font-weight: 300;
 }
 
 .sankey-toolbar-selected-node-value {
-  margin-right: 5px;
+  height: 100%;
   font-weight: 500;
+  display: flex;
+  align-items: center;
 }
-
 .vuestro-sankey-text {
   fill: var(--vuestro-text-color);
 }

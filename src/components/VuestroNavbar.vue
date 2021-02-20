@@ -40,16 +40,14 @@
 
 <script>
 
-import VuestroSearchBox from './VuestroSearchBox.vue';
+import VuestroSearchBox from './input/VuestroSearchBox.vue';
 import VuestroButton from './VuestroButton.vue';
-import Icon from 'vue-awesome/components/Icon';
 
 export default {
   name: 'VuestroNavbar',
   components: {
     VuestroSearchBox,
     VuestroButton,
-    Icon,
   },
   props: {
     title: { type: String, default: '' }, // app title
