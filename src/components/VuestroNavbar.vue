@@ -27,11 +27,28 @@
     <!--SLOT FOR USER WIDGETS-->
     <div class="vuestro-navbar-slot">
       <slot>
-        <!--DEFAULT WIDGET-->
-        <vuestro-search-box placeholder="Search"
-                            v-model="search"
-                            history>
-        </vuestro-search-box>
+        <!--DEMO WIDGET-->
+        <vuestro-text-field variant="search"
+                            stretch
+                            size="lg"
+                            v-model="search">
+          <template #dropdown>
+            <vuestro-container no-wrap gutter="none">
+              <vuestro-card cols="4" color='var(--vuestro-purple)'>
+                <template #heading>Search Tools</template>
+                <vuestro-list-button>Lots</vuestro-list-button>
+                <vuestro-list-button>of</vuestro-list-button>
+                <vuestro-list-button>Tools</vuestro-list-button>
+              </vuestro-card>
+              <vuestro-card cols="8">
+                <template #heading>You can put anything in here to help users search...</template>
+                <vuestro-container gutter="none">
+                  <vuestro-button v-for="b in 10" :key="b" @click="exampleText = `Button ${b}`">Button {{ b }}</vuestro-button>
+                </vuestro-container>
+              </vuestro-card>
+            </vuestro-container>
+          </template>
+        </vuestro-text-field>
         <vuestro-notifications></vuestro-notifications>
       </slot>
     </div>
@@ -40,13 +57,11 @@
 
 <script>
 
-import VuestroSearchBox from './input/VuestroSearchBox.vue';
 import VuestroButton from './VuestroButton.vue';
 
 export default {
   name: 'VuestroNavbar',
   components: {
-    VuestroSearchBox,
     VuestroButton,
   },
   props: {
@@ -120,6 +135,7 @@ export default {
   display: flex;
   flex-grow: 1;
   align-self: stretch;
+  align-items: center;
 }
 
 .vuestro-hamburger {

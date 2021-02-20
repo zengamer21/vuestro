@@ -5,7 +5,7 @@
         @keyup="onKeyUp"
         @keypress.enter="onEnterKey"
         @focus="onFocus">
-    {{ value }}
+    {{ resolvedValue }}
   </span>
 </template>
 
@@ -14,22 +14,32 @@
 export default {
   name: 'VuestroEditableText',
   props: {
-    value: { type: String, default: '' },
+    value: { type: null, default: '' },
     enabled: { type: Boolean, default: true },
     validator: { type: Function, default: () => true },
+    render: { type: Function, default: (d) => d },
   },
   data() {
     return {
-      invalid: false,  
+      invalid: false,
+      focused: false,
     };
+  },
+  computed: {
+    resolvedValue() {
+      if (this.focused) {
+        return this.value;
+      }
+      return this.render(this.value);
+    },
   },
   watch: {
     enabled(newVal) {
       this.updateEnable();
       this.$el.focus();
     },
-    value(newVal) {
-      this.$el.innerHTML = newVal;
+    value() {
+      this.$el.innerHTML = this.resolvedValue;
     },
   },
   mounted() {
@@ -51,18 +61,23 @@ export default {
       }
     },
     onFocusOut(e) {
+      this.focused = false;
       this.change(e);
       this.$nextTick(() => {
-        this.$el.innerHTML = this.value;
+        this.$el.innerHTML = this.resolvedValue;
       });
     },
     onEnterKey(e) {
+      this.focused = false;
       this.$el.blur();
       // prevent enter key from adding /n
       e.preventDefault();
       e.stopPropagation();
     },
     onFocus() {
+      this.focused = true;
+      this.$el.innerHTML = this.resolvedValue;
+      this.$emit('focus');
       var selection = window.getSelection();
       var range = document.createRange();
       range.selectNodeContents(this.$el);

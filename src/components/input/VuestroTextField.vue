@@ -13,11 +13,21 @@
        v-vuestro-blur="closeDropdown">
     <!--the main input, input-el-wrapper provides border for outline variant-->
     <div class="vuestro-text-field-input-el-wrapper" :style="style">
+      <div ref="iconSlot"
+           class="vuestro-text-field-icon-slot"
+           :class="{ active: $slots.icon || variant === 'search' }">
+        <slot name="icon">
+          <div @click="showDropdown = true">
+            <vuestro-icon v-if="variant === 'search'" name="search" scale="0.8"></vuestro-icon>
+          </div>
+        </slot>
+      </div>
       <input ref="inputEl"
              class="vuestro-text-field-input-el"
              :value="value"
              :type="showPassword ? 'text':type"
              :autocomplete="autocomplete"
+             :placeholder="variant === 'search' ? 'Search':null"
              @focus="onFocus"
              @focusout="onFocusOut"
              @input="updateValue"
@@ -28,10 +38,11 @@
         <slot name="unit"></slot>
       </div>
       <!--CLEAR BUTTON-->
-      <vuestro-button v-if="!invalid && clearable && value" size="sm" round no-border @click.stop="onClear">
+      <vuestro-button v-if="(!invalid && clearable && value) || variant === 'search'"
+                      size="sm" round no-border @click.stop="onClear">
         <vuestro-icon name="times"></vuestro-icon>
       </vuestro-button>
-      <!--validation-->
+      <!--VALIDATION-->
       <div v-if="invalid" class="vuestro-text-field-invalid-msg">{{ invalid }}</div>
       <!--EDITING BUTTONS-->
       <div v-else-if="editingButtons" class="vuestro-text-field-editing-buttons">
@@ -57,8 +68,11 @@
         <slot name="dropdown"></slot>
     </div>
     <!--PLACEHOLDER-->
-    <div v-if="placeholder" ref="placeholder" class="vuestro-text-field-placeholder"
-         :class="{ active: raisedPlaceholder }">
+    <div v-if="placeholder"
+         ref="placeholder"
+         class="vuestro-text-field-placeholder"
+         :class="{ active: raisedPlaceholder }"
+         :style="placeholderStyle">
       {{ placeholder }}
     </div>
     <!--HINT-->
@@ -71,17 +85,13 @@
 <script>
 
 /* global _ */
-import draggable from 'vuedraggable';
 
 export default {
   name: 'VuestroTextField',
-  components: {
-    draggable,
-  },
   props: {
     value: { type: null, required: true },
     placeholder: { type: String, default: null },
-    variant: { type: String, default: 'regular' }, // { 'regular', 'outline', 'shaded' }
+    variant: { type: String, default: 'regular' }, // { 'regular', 'outline', 'shaded', 'search' }
     type: { type: String, default: 'text' },
     hint: { type: String, default: null },
     center: { type: Boolean, default: false },
@@ -104,6 +114,7 @@ export default {
       showDropdown: false,
       editingButtonsBuffer: this.value,
       style: {},
+      placeholderStyle: {},
       beginValidation: false,
     };
   },
@@ -136,6 +147,7 @@ export default {
     }
     // special sauce to see if browser autofilled in this text field, if so,
     // move the placeholder out of the way
+    this.checkPlaceholder();
     setTimeout(this.checkPlaceholder, 300);
     setTimeout(this.checkPlaceholder, 600);
     setTimeout(this.checkPlaceholder, 900);
@@ -167,6 +179,9 @@ export default {
     checkPlaceholder() {
       if (this.$refs.inputEl && window.getComputedStyle(this.$refs.inputEl).content === `"${String.fromCharCode(0xFEFF)}"`) {
         this.raisedPlaceholder = true;
+      }
+      if (!this.center) {
+        this.placeholderStyle = { left: `${this.$refs.iconSlot.getBoundingClientRect().width*1.5}px` };
       }
       this.updateStyle();
     },
@@ -312,7 +327,13 @@ export default {
   border: none;
   background-color: var(--vuestro-light-med);
 }
-.vuestro-dark .vuestro-text-field-shaded {
+.vuestro-text-field-search {
+  border: none;
+  border-radius: 999px;
+  background-color: var(--vuestro-light-med);
+}
+.vuestro-dark .vuestro-text-field-shaded,
+.vuestro-dark .vuestro-text-field-search {
   background-color: var(--vuestro-darker);
 }
 
@@ -323,7 +344,6 @@ export default {
   font-size: 1em;
   font-weight: var(--vuestro-text-field-placeholder-font-weight);
   top: 50%;
-  left: 0px;
   max-width: 100%;
   transform: translate(0, -50%);
   transition: all 0.15s;
@@ -332,11 +352,12 @@ export default {
   pointer-events: none;
 }
 .vuestro-text-field.center .vuestro-text-field-placeholder {
-  left: 50%;
+  left: 50% !important;
   transform: translate(-50%, -50%);
 }
 .vuestro-text-field-placeholder.active {
   top: -1px;
+  left: 0 !important;
   font-size: 0.8em;
   padding-left: 3px;
   padding-right: 3px;
@@ -467,4 +488,14 @@ export default {
   display: flex;
   align-items: center;
 }
+
+.vuestro-text-field-icon-slot {
+  display: flex;
+  align-items: center;
+}
+.vuestro-text-field-icon-slot.active {
+  margin-left: 0.2em;
+  margin-right: 0.6em;
+}
+
 </style>

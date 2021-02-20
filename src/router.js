@@ -15,7 +15,6 @@ import Pills from './pages/Pills';
 import Inputs from './pages/Inputs';
 import InputsSpinner from './pages/InputsSpinner';
 import InputsText from './pages/InputsText';
-import InputsSearch from './pages/InputsSearch';
 import InputsMulti from './pages/InputsMulti';
 import Containers from './pages/Containers';
 import ContainersBreadcrumb from './pages/ContainersBreadcrumb';
@@ -372,15 +371,6 @@ export default new Router({
           name: 'inputs-spinner',
           path: 'inputs-spinner',
           component: InputsSpinner,
-        },
-        {
-          meta: {
-            title: 'Search',
-            sidebar: true,
-          },
-          name: 'inputs-search',
-          path: 'inputs-search',
-          component: InputsSearch,
         },
         {
           meta: {

@@ -17,8 +17,13 @@
       </template>
       <vuestro-text-field placeholder="Regular Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field variant="outline" size="sm" placeholder="sm Outline Text Field" v-model="exampleText"></vuestro-text-field>
-      <vuestro-text-field variant="outline" size="md" placeholder="md Outline Text Field" v-model="exampleText"></vuestro-text-field>
-      <vuestro-text-field variant="outline" size="lg" placeholder="lg Outline Text Field" v-model="exampleText"></vuestro-text-field>
+      <vuestro-text-field variant="outline" size="md" placeholder="md Outline Text Field" v-model="exampleText">
+      </vuestro-text-field>
+      <vuestro-text-field variant="outline" size="lg" placeholder="lg Outline Text Field with icon slot" v-model="exampleText">
+        <template #icon>
+          <vuestro-icon name="user"></vuestro-icon>
+        </template>
+      </vuestro-text-field>
       <vuestro-text-field variant="outline" size="xl" placeholder="xl Outline Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field variant="shaded" placeholder="Shaded Text Field" v-model="exampleText"></vuestro-text-field>
       <vuestro-text-field placeholder="Existing Value" v-model="exampleEditableText"></vuestro-text-field>
@@ -104,14 +109,38 @@
 
     <vuestro-card>
       <template #subheading>
+        Search Variant
+      </template>
+      <vuestro-container>
+        <vuestro-text-field v-model="exampleText" variant="search" stretch>
+          <template #dropdown>
+            <vuestro-container no-wrap gutter="none">
+              <vuestro-card cols="3" color='var(--vuestro-purple)'>
+                <template #heading>Search Tools</template>
+                <vuestro-list-button>Lots</vuestro-list-button>
+                <vuestro-list-button>of</vuestro-list-button>
+                <vuestro-list-button>Tools</vuestro-list-button>
+              </vuestro-card>
+              <vuestro-card cols="9">
+                <template #heading>You can put anything in here to help users search</template>
+                <vuestro-container gutter="none">
+                  <vuestro-button v-for="b in 10" :key="b" @click="exampleText = `Button ${b}`">Button {{ b }}</vuestro-button>
+                </vuestro-container>
+              </vuestro-card>
+            </vuestro-container>
+          </template>
+        </vuestro-text-field>
+      </vuestro-container>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>
         Editable Text
       </template>
       <div class="example-flexbox">
         <vuestro-editable-text v-model="exampleEditableText"></vuestro-editable-text>
       </div>
     </vuestro-card>
-
-
 
   </vuestro-container>
 </template>
