@@ -3,10 +3,10 @@
 		<rect :width="tooltipWidth" :height="tooltipHeight" :rx="radius"></rect>
     <text :x="padding/2" :y="padding" ref="text">
       <tspan dy=".6em">{{ renderCategory(values[categoryField]) }}</tspan>
-      <template v-for="s in series">
-        <tspan :key="s.field" :x="padding/2" dy="1.2em" :fill="s.color" :stroke="s.color" stroke-width="2">|</tspan>
-        <tspan :key="s.field">{{ s.title || s.field }}</tspan>
-        <tspan :key="s.field" :x="tooltipWidth - padding/2" text-anchor="end">{{ values[s.field] | filterProxy(s.render, values) }}</tspan>
+      <template v-for="(s, idx) in series">
+        <tspan :key="idx" :x="padding/2" dy="1.2em" :fill="s.color" :stroke="s.color" stroke-width="2">|</tspan>
+        <tspan :key="idx">{{ s.title || s.field }}</tspan>
+        <tspan :key="idx" :x="tooltipWidth - padding/2" text-anchor="end">{{ values[s.field] | filterProxy(s.render, values) }}</tspan>
       </template>
     </text>
   </g>
