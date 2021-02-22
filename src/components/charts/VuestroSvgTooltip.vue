@@ -4,9 +4,9 @@
     <text :x="padding/2" :y="padding" ref="text">
       <tspan dy=".6em">{{ renderCategory(values[categoryField]) }}</tspan>
       <template v-for="(s, idx) in series">
-        <tspan :key="idx" :x="padding/2" dy="1.2em" :fill="s.color" :stroke="s.color" stroke-width="2">|</tspan>
-        <tspan :key="idx">{{ s.title || s.field }}</tspan>
-        <tspan :key="idx" :x="tooltipWidth - padding/2" text-anchor="end">{{ values[s.field] | filterProxy(s.render, values) }}</tspan>
+        <tspan :key="`${idx}_1`" :x="padding/2" dy="1.2em" :fill="s.color" :stroke="s.color" stroke-width="2">|</tspan>
+        <tspan :key="`${idx}_2`">{{ s.title || s.field }}</tspan>
+        <tspan :key="`${idx}_3`" :x="tooltipWidth - padding/2" text-anchor="end">{{ values[s.field] | filterProxy(s.render, values) }}</tspan>
       </template>
     </text>
   </g>
