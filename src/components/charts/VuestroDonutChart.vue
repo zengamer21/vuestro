@@ -41,7 +41,7 @@
                                :x-max="width"
                                :y="toolTipLocationY"
                                :y-max="height"
-                               :categoryKey="categoryField"
+                               :categoryField="categoryField"
                                :utc="utc"
                                :series="[localData[hoverIdx]]"
                                :values="localData[hoverIdx]"/>

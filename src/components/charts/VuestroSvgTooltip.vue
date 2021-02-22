@@ -2,7 +2,7 @@
   <g class="vuestro-svg-tooltip">
 		<rect :width="tooltipWidth" :height="tooltipHeight" :rx="radius"></rect>
     <text :x="padding/2" :y="padding" ref="text">
-      <tspan dy=".6em">{{ renderCategory(values[categoryKey]) }}</tspan>
+      <tspan dy=".6em">{{ renderCategory(values[categoryField]) }}</tspan>
       <template v-for="s in series">
         <tspan :key="s.id" :x="padding/2" dy="1.2em" :fill="s.color" :stroke="s.color" stroke-width="2">|</tspan>
         <tspan :key="s.id">{{ s.title || s.field }}</tspan>
@@ -23,7 +23,7 @@ export default {
     xMax: { type: Number },
     y: { type: Number, default: 0 },
     yMax: { type: Number },
-    categoryKey: { type: String, required: true },
+    categoryField: { type: String, required: true },
     series: { type: Array, required: true },
     values: { type: null },
     padding: { type: Number, default: 10 },

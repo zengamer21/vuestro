@@ -123,7 +123,8 @@ export default {
       this.layers.push({
         title: 'OpenStreetMap',
         type: 'TileLayer',
-        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        // url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
       });
     }
 
@@ -334,6 +335,7 @@ export default {
   height: 100%;
   flex-grow: 1;
   overflow: hidden;
+  border-radius: var(--vuestro-control-border-radius);
 }
 
 .vuestro-map-inner {
@@ -353,8 +355,10 @@ export default {
 }
 .vuestro-map >>> .leaflet-bar > a,
 .vuestro-map >>> .leaflet-buttons-control-button {
-  border-radius: 0;
-  border: var(--vuestro-control-border-width) solid var(--vuestro-outline);
+  color: var(--vuestro-gray);
+  background-color: var(--vuestro-dark);
+  border-color: var(--vuestro-outline);
+  filter: brightness(180%);
 }
 
 .vuestro-map-popup-title {

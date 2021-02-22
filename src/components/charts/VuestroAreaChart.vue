@@ -41,7 +41,7 @@
           <path class="vuestro-area-chart-cursor" :d="cursorLine" />
           <vuestro-svg-tooltip :x="lastHoverPoint.x"
                                :x-max="width"
-                               :categoryKey="categoryKey"
+                               :categoryField="categoryField"
                                :utc="utc"
                                :series="processedSeries"
                                :values="localData[lastHoverPoint.index]">
@@ -80,7 +80,7 @@ export default {
         top: 0,
         bottom: 0,
       },
-      categoryKey: 'key',
+      categoryField: 'key',
       categoryRender: null,
       colors: d3.schemeCategory10,
       valueAxis: {
@@ -140,8 +140,8 @@ export default {
       // make sure category data is a native Date
       if (this.timeSeries) {
         for (let d of ret) {
-          if (!_.isDate(d[this.categoryKey])) {
-            d[this.categoryKey] = new Date(d[this.categoryKey]);
+          if (!_.isDate(d[this.categoryField])) {
+            d[this.categoryField] = new Date(d[this.categoryField]);
           }
         }
       }
@@ -222,7 +222,7 @@ export default {
       if (this.timeSeries && this.granularity) {
         // nest data based on granularity
         let nested = d3.nest().key((d) => {
-          return moment(d[this.categoryKey]).startOf(this.granularity).toDate();
+          return moment(d[this.categoryField]).startOf(this.granularity).toDate();
         }).rollup((d) => {
           let ret = {};
           for (let s of this.series) {
@@ -240,7 +240,7 @@ export default {
             ...d,
             ...d.value,
           };
-          ret[this.categoryKey] = new Date(d.key); // alias key back categoryKey as date
+          ret[this.categoryField] = new Date(d.key); // alias key back categoryField as date
           return ret;
         });
       } else { // clone data
@@ -277,9 +277,9 @@ export default {
       }
 
       if (this.timeSeries) {
-        scaleX.domain(d3.extent(this.localData, (d) => d[this.categoryKey]));
+        scaleX.domain(d3.extent(this.localData, (d) => d[this.categoryField]));
       } else {
-        scaleX.domain(this.localData.map((d) => d[this.categoryKey]));
+        scaleX.domain(this.localData.map((d) => d[this.categoryField]));
       }
 
       let stackedData;
@@ -309,7 +309,7 @@ export default {
 
       // map the points the data
       for (let [di, d] of this.localData.entries()) {
-        d.x = scaleX(d[this.categoryKey]);
+        d.x = scaleX(d[this.categoryField]);
         for (const [si, s] of this.series.entries()) {
           if (stackedData) {
             d[`${s.field}_y0`] = scaleY(stackedData[si][di][0] || 0);
@@ -365,13 +365,13 @@ export default {
             data[data.length-1] &&
             data[data.length-2]) {
           let scale = vnode.context.scale.x.scale();
-          let catKey = vnode.context.categoryKey;
+          let catKey = vnode.context.categoryField;
           el.dataset.shift = scale(data[data.length-1][catKey]) - scale(data[data.length-2][catKey]);
           // animated path update
           d3.select(el)
             .attr('d', newD)
             .transition().duration(vnode.context.transition).ease(d3.easeLinear)
-            .attr("transform", "translate(" + -el.dataset.shift + ")");
+            .attr('transform', 'translate(' + -el.dataset.shift + ')');
           d3.select(el)
             .transition().delay(vnode.context.transition)
             .attr('transform', null);
@@ -382,12 +382,13 @@ export default {
               .attr('d', vnode.context[binding.arg](binding.value, true))
               .transition().duration(vnode.context.transition)
               .attr('d', newD)
-              .on("end", () => { vnode.context.inTransition = false; });
+              .on('end', () => { vnode.context.inTransition = false; });
           } else {
             // standard path update, triggered by tooltip
             d3.select(el)
             .transition().duration(vnode.context.transition)
-            .attr('d', newD);
+            .attr('d', newD)
+            .on('end', () => { vnode.context.inTransition = false; });
           }
           el.dataset.oldD = newD;
         }

@@ -52,7 +52,7 @@
           <path class="vuestro-bar-chart-cursor" :d="cursorLine" />
           <vuestro-svg-tooltip :x="lastHoverPoint.x"
                                :x-max="width"
-                               :categoryKey="categoryField"
+                               :categoryField="categoryField"
                                :utc="utc"
                                :series="processedSeries"
                                :values="localData[lastHoverPoint.index]">
