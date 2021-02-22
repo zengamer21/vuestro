@@ -10,7 +10,7 @@
           <path v-animate:d="d"
                 :fill="d.color"
                 :opacity="fillOpacity"
-                @mouseenter="onMouseenter"/>
+                @mouseenter="onMouseenter(idx, ...arguments)"/>
           <path v-animate:d="d"
                 fill="none"
                 :stroke-width="strokeWidth"
@@ -76,14 +76,10 @@ import * as d3 from 'd3';
 
 export default {
   name: 'VuestroDonutChart',
-
-  //essentially static data
   props: {
     data: { type: Array, default: () => [] },
     options: { type: Object, default: () => {} },
   },
-
-  //essentially dynamic data
   data() {
     return {
       width: 0, // derived width
@@ -171,42 +167,33 @@ export default {
       this.localData = _.cloneDeep(this.data);
       // refresh donut center text
       this.donutValueRender();
-      // get pie wedge angles from d3
+      // get arc angles from d3 pie generator
       let arcGen = d3.pie().value((d) => { return d[this.valueField]; });
+      // restrict angles for gauge mode
       if (this.gaugeMode) {
         arcGen
         .startAngle(-0.7 * Math.PI)
         .endAngle(0.7 * Math.PI);
       }
       let arcData = arcGen(this.localData);
-      // Update values of pie chart
+      // save all relevant data for generating chart
       for (let [di, d] of this.localData.entries()) {
         d.field = this.valueField; // alias for tooltip to pick up color too
         d.title = this.valueTitle; // alias for tooltip to pick up color too
-        // generate svg path data (pie sections)
-        // d.arc = d3.arc()({
-          d.startAngle = arcData[di]["startAngle"],
-          d.endAngle = arcData[di]["endAngle"],
-          d.innerRadius = this.maxRadius * this.donutRadius / 100.0,
-          d.outerRadius = this.maxRadius,
-        // });
+        d.startAngle = arcData[di]["startAngle"],
+        d.endAngle = arcData[di]["endAngle"],
+        d.innerRadius = this.maxRadius * this.donutRadius / 100.0,
+        d.outerRadius = this.maxRadius,
         d.color = this.color(d[this.valueField]);
         if (this.showLabels) {
           this.arcLabels(arcData, di, this.maxRadius * this.donutRadius / 100.0, d3.arc());
         }
       }
     },
-    onMouseenter({ offsetX }) {
-      this.toolTipLocationX = event.offsetX;
-      this.toolTipLocationY = event.offsetY;
-      // target arc
-      let arc = event.target.attributes.d.nodeValue;
-      // match target arc to localData item
-      for (let [di, d] of this.localData.entries()) {
-        if(d.arc === arc) {
-          this.hoverIdx = di;
-        }
-      }
+    onMouseenter(idx, e) {
+      this.toolTipLocationX = e.offsetX;
+      this.toolTipLocationY = e.offsetY;
+      this.hoverIdx = idx;
     },
     onMouseleave() {
       this.hoverIdx = -1;
