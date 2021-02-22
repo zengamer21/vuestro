@@ -5,8 +5,7 @@
            :height="height"
            :style="{ transform: `translate(${margin.left}px, ${margin.top}px)` }">
         <!--THE ARCS (all centered)-->
-        <g v-for="d in localData"
-           :key="d.id"
+        <g v-for="(d, idx) in localData" :key="idx"
            :transform="`translate(${centerX},${centerY})`">
           <path :d="d.arc"
                 :fill="d.color"
