@@ -2,18 +2,70 @@
   <vuestro-container>
     <vuestro-card color="var(--vuestro-purple)">
       <template #heading><span class="drag">Donut Chart</span></template>
-      <template #description>The Vuestro Donut Chart</template>
-      <div class="chart-wrapper">
-        <vuestro-donut-chart :data="data" :options="options"></vuestro-donut-chart>
-      </div>
+      <template #description>
+        <span>The VuestroDonutChart component can render one series. The data item to use as the categore is specified by <em>categoryField</em> and the value is pulled from <em>valueField</em>. An optional <em>valueTitle</em> key can be used to render a title field for each piece. 
+        </span>
+      </template>
+      <vuestro-container gutter="none">
+        <vuestro-card cols="4">
+          <template #subheading>Basic</template>
+          <div class="chart-wrapper">
+            <vuestro-donut-chart :data="data" :options="options">
+            </vuestro-donut-chart>
+          </div>
+        </vuestro-card>
+        <vuestro-card  cols="4">
+          <template #subheading><span>With <em>text</em> slot for the center value</span></template>
+          <div class="chart-wrapper">
+            <vuestro-donut-chart :data="data" :options="options">
+              <template #text>{{ total | vuestroHumanNum }}</template>
+            </vuestro-donut-chart>
+          </div>
+        </vuestro-card>
+        <vuestro-card  cols="4">
+          <template #subheading><span>With <em>gaugeMode: true</em> option</span></template>
+          <div class="chart-wrapper" style="height: 200px">
+            <vuestro-donut-chart :data="data" :options="{ ...options, gaugeMode: true }">
+              <template #text>{{ total | vuestroHumanNum }}</template>
+            </vuestro-donut-chart>
+          </div>
+        </vuestro-card>
+      </vuestro-container>
     </vuestro-card>
 
+    <vuestro-card>
+      <vuestro-container gutter="none">
+        <vuestro-card cols="4">
+          <template #subheading>
+            <span>With <em>title</em> slot</span>
+          </template>
+          <div class="chart-wrapper">
+            <vuestro-donut-chart :data="data" :options="options">
+              <template #text>{{ total | vuestroHumanNum }}</template>
+              <template #title>Population</template>
+            </vuestro-donut-chart>
+          </div>
+        </vuestro-card>
+        <vuestro-card  cols="4">
+          <template #subheading>
+            <span>With <em>showLabels: true</em></span>
+          </template>
+          <div class="chart-wrapper">
+            <vuestro-donut-chart :data="data" :options="{ ...options, showLabels: true }">
+              <template #text>{{ total | vuestroHumanNum }}</template>
+              <template #title>Population</template>
+            </vuestro-donut-chart>
+          </div>
+        </vuestro-card>
+      </vuestro-container>
+    </vuestro-card>
 
   </vuestro-container>
 </template>
 
 <script>
 
+/* global _ */
 export default {
   name: 'DonutChart',
   data() {
@@ -44,16 +96,13 @@ export default {
         categoryField: 'state',
         valueField: 'pop',
         valueTitle: 'Population',
-        // enableLegend: true,
-        enableToolTip: true,
-        // enableLabels: true,
-        // enableDonut: true,
-        donutTextRender() {
-          return "13M";
-        },
-        donutRadius: 70,
       },
     };
+  },
+  computed: {
+    total() {
+      return _.sumBy(this.data, 'pop');
+    },
   },
   mounted() {
   }

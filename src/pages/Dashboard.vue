@@ -183,6 +183,7 @@ export default {
             valueField: 'pop',
             valueTitle: 'Population',
             donutTextValue: '14M',
+            donutTitle: 'Population',
           },
           position: {
             x: 0,

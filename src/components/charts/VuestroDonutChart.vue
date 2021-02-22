@@ -7,30 +7,40 @@
         <!--THE ARCS (all centered)-->
         <g v-for="(d, idx) in localData" :key="idx"
            :transform="`translate(${centerX},${centerY})`">
-          <path :d="d.arc"
+          <path v-animate:d="d"
                 :fill="d.color"
                 :opacity="fillOpacity"
                 @mouseenter="onMouseenter"/>
-          <path :d="d.arc"
+          <path v-animate:d="d"
                 fill="none"
                 :stroke-width="strokeWidth"
                 :stroke="d.color"/>
           <text v-if="showLabels"
+                class="vuestro-donut-labels"
                 :x="d.label[0]"
                 :y="d.label[1]"
                 text-anchor="middle"
-                fill="white">
+                alignment-baseline="middle">
             {{ d[categoryField] }}
           </text>
         </g>
         <!--DONUT CENTER LABEL-->
         <g>
-          <text class="donut-text"
+          <text class="vuestro-donut-text"
                 :x="centerX"
                 :y="centerY"
                 text-anchor="middle"
                 alignment-baseline="middle">
             {{ donutTextValue }}
+            <slot name="text"></slot>
+          </text>
+          <text class="vuestro-donut-title"
+                :x="centerX"
+                :y="centerY + titleOffset"
+                text-anchor="middle"
+                alignment-baseline="middle">
+            {{ donutTitle }}
+            <slot name="title"></slot>
           </text>
         </g>
 
@@ -89,10 +99,12 @@ export default {
         bottom: 0,
       },
       padding: 15, // percentage padding around the donut
+      titleOffset: 30, // pixel offset for title from center
       categoryField: 'key',
       valueField: 'value',
       valueTitle: 'Value',
       utc: false,
+      transition: 1000, // animation transition period
       hideTooltip: false,
       hoverIdx: -1,
       maxRadius: 0, // max radius without overflow
@@ -100,11 +112,13 @@ export default {
       toolTipLocationY: 0,
       showLegend: false,
       showLabels: false,
+      gaugeMode: false,
       fillOpacity: 0.6, // opacity for filled area
       strokeWidth: '2px', // svg stroke width
-      donutTextRender: null,
-      donutTextValue: null,
       donutRadius: 70, // percentage for donut hole (0 = pie chart)
+      donutTextValue: '',
+      donutTextRender: null,
+      donutTitle: '',
     };
   },
   computed: {
@@ -146,6 +160,10 @@ export default {
         this.height = this.$el.clientHeight - this.margin.top - this.margin.bottom;
         this.centerY = this.height/2;
         this.maxRadius = Math.min(this.centerX, this.centerY) * (100 - this.padding) / 100.0;
+        if (this.gaugeMode && this.width > this.height*1.2) {
+          this.maxRadius *= 1.2;
+          this.centerY *= 1.2;
+        }
         this.redraw();
       }
     },
@@ -155,18 +173,23 @@ export default {
       this.donutValueRender();
       // get pie wedge angles from d3
       let arcGen = d3.pie().value((d) => { return d[this.valueField]; });
+      if (this.gaugeMode) {
+        arcGen
+        .startAngle(-0.7 * Math.PI)
+        .endAngle(0.7 * Math.PI);
+      }
       let arcData = arcGen(this.localData);
       // Update values of pie chart
       for (let [di, d] of this.localData.entries()) {
         d.field = this.valueField; // alias for tooltip to pick up color too
         d.title = this.valueTitle; // alias for tooltip to pick up color too
         // generate svg path data (pie sections)
-        d.arc = d3.arc()({
-          startAngle: arcData[di]["startAngle"],
-          endAngle: arcData[di]["endAngle"],
-          innerRadius: this.maxRadius * this.donutRadius / 100.0,
-          outerRadius: this.maxRadius,
-        });
+        // d.arc = d3.arc()({
+          d.startAngle = arcData[di]["startAngle"],
+          d.endAngle = arcData[di]["endAngle"],
+          d.innerRadius = this.maxRadius * this.donutRadius / 100.0,
+          d.outerRadius = this.maxRadius,
+        // });
         d.color = this.color(d[this.valueField]);
         if (this.showLabels) {
           this.arcLabels(arcData, di, this.maxRadius * this.donutRadius / 100.0, d3.arc());
@@ -206,6 +229,28 @@ export default {
       }
     },
   },
+  directives: {
+    animate: {
+      bind(el, binding, vnode) {
+        let initialD = d3.arc()({
+          startAngle: binding.value.startAngle,
+          endAngle: binding.value.endAngle,
+          innerRadius: binding.value.innerRadius*0.5,
+          outerRadius: binding.value.outerRadius*0.5,
+        });
+        let finalD = d3.arc()({
+          startAngle: binding.value.startAngle,
+          endAngle: binding.value.endAngle,
+          innerRadius: binding.value.innerRadius,
+          outerRadius: binding.value.outerRadius,
+        });
+        d3.select(el)
+          .attr(binding.arg, initialD)
+          .transition().duration(vnode.context.transition).ease(d3.easeElasticOut)
+          .attr(binding.arg, finalD);
+      },
+    }
+  }
 };
 
 </script>
@@ -213,6 +258,8 @@ export default {
 <style>
 
 .vuestro-app {
+  --vuestro-donut-label-font-size: 0.8em;
+  --vuestro-donut-title-font-size: 1em;
   --vuestro-donut-text-font-size: 2em;
 }
 
@@ -236,9 +283,18 @@ export default {
   bottom: 0;
 }
 
-.donut-text {
+.vuestro-donut-labels {
+  fill: var(--vuestro-text-color);
+  font-size: var(--vuestro-donut-label-font-size);
+}
+
+.vuestro-donut-text {
   fill: var(--vuestro-text-color);
   font-size: var(--vuestro-donut-text-font-size);
+}
+.vuestro-donut-title {
+  fill: var(--vuestro-text-color);
+  font-size: var(--vuestro-donut-title-font-size);
 }
 
 

@@ -16,7 +16,6 @@ import VuestroConfirmDelete from '../components/VuestroConfirmDelete';
 import VuestroDatePicker from '../components/pickers/VuestroDatePicker';
 import VuestroDropdown from '../components/VuestroDropdown';
 import VuestroDonutChart from '../components/charts/VuestroDonutChart';
-import VuestroDonutGauge from '../components/charts/VuestroDonutGauge';
 import VuestroDynamicTable from '../components/VuestroDynamicTable';
 import VuestroEditableText from '../components/text/VuestroEditableText';
 import VuestroEditor from '../components/input/VuestroEditor';
@@ -75,7 +74,6 @@ export default {
     Vue.component(VuestroDatePicker.name, VuestroDatePicker);
     Vue.component(VuestroDropdown.name, VuestroDropdown);
     Vue.component(VuestroDonutChart.name, VuestroDonutChart);
-    Vue.component(VuestroDonutGauge.name, VuestroDonutGauge);
     Vue.component(VuestroDynamicTable.name, VuestroDynamicTable);
     Vue.component(VuestroEditableText.name, VuestroEditableText);
     Vue.component(VuestroEditor.name, VuestroEditor);
@@ -206,7 +204,7 @@ export default {
       }
       const suffixes = ['k', 'M', 'B', 'T', 'Qd', 'Qn', 'Sx', 'Sp', 'O', 'N', 'D', 'G', 'Gp'];
       if (intNum < 1000) {
-        return intNum;
+        return intNum.toFixed(1);
       }
       let i = parseInt(Math.floor(Math.log(intNum) / Math.log(1000)), 10) - 1;
       return (intNum / Math.pow(1000, i+1)).toFixed(1) + suffixes[i];
