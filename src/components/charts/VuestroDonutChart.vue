@@ -1,5 +1,6 @@
 <template>
   <div class="vuestro-donut-chart" @mouseleave="onMouseleave">
+    <slot></slot>
     <div class="vuestro-donut-chart-inner">
       <svg :width="width"
            :height="height"

@@ -1,5 +1,6 @@
 <template>
   <div class="vuestro-bar-chart" @mouseleave="onMouseleave" :style="style">
+    <slot></slot>
     <div class="vuestro-bar-chart-inner">
       <svg :width="width"
            :height="height"

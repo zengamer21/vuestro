@@ -40,6 +40,7 @@
       <vuestro-button round size="sm" @click="increaseDistance" value>
         <vuestro-icon name="plus"></vuestro-icon>
       </vuestro-button>
+      <slot></slot>
       <vuestro-button pill size="sm" @click="onReset">Reset</vuestro-button>
       <vuestro-button pill size="sm" v-model="labels">Labels</vuestro-button>
     </div>
