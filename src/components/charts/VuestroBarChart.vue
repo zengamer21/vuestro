@@ -112,6 +112,7 @@ export default {
       showAxes: false,
       showXLabels: false,
       showYLabels: false,
+      showGrid: false,
       showBarLabels: true,
       barLabelOffset: 2,
     };
