@@ -2,6 +2,7 @@
   <div class="vuestro-tooltip"
        :class="[ position, { active }]"
        @mouseover="onMouseOver"
+       @click="onClick"
        @mouseleave="onMouseLeave">
     <slot></slot>
     <div ref="content"
@@ -23,6 +24,7 @@ export default {
     noWrap: { type: Boolean, default: false },
     noPadding: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
+    clickToOpen: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -35,7 +37,12 @@ export default {
   },
   methods: {
     onMouseOver() {
-      if (!this.disabled) {
+      if (!this.disabled && !this.clickToOpen) {
+        this.open();
+      }
+    },
+    onClick() {
+      if (this.clickToOpen) {
         this.open();
       }
     },

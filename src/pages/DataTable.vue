@@ -120,9 +120,7 @@
             <vuestro-button round no-border>
               <vuestro-icon name="edit"></vuestro-icon>
             </vuestro-button>
-            <vuestro-button round no-border @click="onDelete(index)">
-              <vuestro-icon name="trash"></vuestro-icon>
-            </vuestro-button>
+            <vuestro-confirm-delete></vuestro-confirm-delete>
           </template>
         </vuestro-table>
       </vuestro-panel>

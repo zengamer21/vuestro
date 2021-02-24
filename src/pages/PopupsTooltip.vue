@@ -126,6 +126,18 @@
       </vuestro-container>
     </vuestro-card>
 
+    <vuestro-card cols="12">
+      <template #subheading>Open on click</template>
+      <div class="example-container">
+        <vuestro-tooltip position="bottom" no-wrap click-to-open>
+          <template #content>I was clicked to open</template>
+          <vuestro-button round no-border>
+            <vuestro-icon name="download"></vuestro-icon>
+          </vuestro-button>
+        </vuestro-tooltip>
+      </div>
+    </vuestro-card>
+
 
   </vuestro-container>
 </template>
