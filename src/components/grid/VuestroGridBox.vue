@@ -20,6 +20,11 @@ export default {
     dragSelector: { type: String, default: '.drag' },
     locked: { type: Boolean, default: false },
   },
+  provide() { // provide a widgetId for user's code, this facilitates removing/updating
+    return {  // based on the id in the layout array
+      widgetId: this.boxId,
+    };
+  },
   data() {
     return {
       dragging: false,
