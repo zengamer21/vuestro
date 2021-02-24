@@ -14,6 +14,11 @@
       </template>
       <vuestro-container>
         <vuestro-color-picker v-model="color" size="lg"></vuestro-color-picker>
+        <vuestro-color-picker v-model="color" size="md"></vuestro-color-picker>
+        <vuestro-color-picker v-model="color" size="sm"></vuestro-color-picker>
+        <vuestro-color-picker v-model="color" size="lg" pill></vuestro-color-picker>
+        <vuestro-color-picker v-model="color" size="md" pill></vuestro-color-picker>
+        <vuestro-color-picker v-model="color" size="sm" pill right></vuestro-color-picker>
       </vuestro-container>
     </vuestro-card>
 

@@ -1,7 +1,8 @@
 <template>
-	<vuestro-dropdown :disabled="disabled" close-on-content-click no-padding>
+	<vuestro-dropdown :disabled="disabled" :right="right" close-on-content-click no-padding>
 		<template #button>
 			<vuestro-button :size="size"
+							:pill="pill"
 			                variant="none"
 			                value
 			                :style="{ '--variant-color': value }">
@@ -24,7 +25,9 @@
 export default {
 	name: 'VuestroColorPicker',
 	props: {
-	  size: { type: String, required: true },
+	  size: { type: String, default: 'md' },
+	  right: { type: Boolean },
+	  pill: { type: Boolean },
 	  value: { type: String, required: true },
 	  disabled: { type: Boolean, default: false },
 	},
