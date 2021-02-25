@@ -27,7 +27,11 @@
       <!--VUEX CHILDREN-->
       <template v-if="route.meta.vuex">
         <vuestro-sub-routes :route="vuexRoute" to-path></vuestro-sub-routes>
-        <div v-if="route.meta.vuexMessage" class="vuestro-mini-sidebar-vuex-message">
+        <div v-if="route.meta.vuexMessage && 
+                   vuexRoute && 
+                   vuexRoute.children &&
+                   vuexRoute.children.length === 0" 
+             class="vuestro-mini-sidebar-vuex-message">
           {{ route.meta.vuexMessage }}
         </div>
       </template>
