@@ -114,6 +114,7 @@ export default {
 }
 
 .vuestro-svg-tooltip > text {
+  font-size: 0.8em;
   fill: var(--vuestro-popup-fg);
   pointer-events: none;
 }
