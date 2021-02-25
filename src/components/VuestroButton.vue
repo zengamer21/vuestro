@@ -31,9 +31,9 @@
           <span v-if="$slots.placeholder" class="vuestro-button-placeholder">
             <slot name="placeholder"></slot>
           </span>
-          <span v-if="$slots.icon" class="vuestro-button-icon"><slot name="icon"></slot></span>
+          <span v-if="$slots.icon" class="vuestro-button-icon" :class="{ showSlotOnHover }"><slot name="icon"></slot></span>
           <transition name="vuestro-button" mode="out-in">
-            <div v-if="!showSlotOnHover || hovered" class="vuestro-button-default-slot">
+            <div v-if="!showSlotOnHover || hovered" class="vuestro-button-default-slot" :class="{ showSlotOnHover }">
               <slot></slot>
             </div>
           </transition>
@@ -378,6 +378,14 @@ export default {
 .vuestro-button-icon {
   margin-right: 0.25em;
   align-self: center;
+}
+
+/* for showSlotOnHover, make margin part of default slot */
+.vuestro-button-icon.showSlotOnHover {
+  margin-right: 0;
+}
+.vuestro-button-default-slot.showSlotOnHover {
+  margin-left: 0.25em;
 }
 
 /* transitions */
