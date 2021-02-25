@@ -27,6 +27,9 @@
       <!--VUEX CHILDREN-->
       <template v-if="route.meta.vuex">
         <vuestro-sub-routes :route="vuexRoute" to-path></vuestro-sub-routes>
+        <div v-if="route.meta.vuexMessage" class="vuestro-mini-sidebar-vuex-message">
+          {{ route.meta.vuexMessage }}
+        </div>
       </template>
     </div>
   </div>
@@ -156,6 +159,13 @@ export default {
 
 .vuestro-mini-sidebar-popup > .sidebar-subnav {
   margin-bottom: 10px;
+}
+
+.vuestro-mini-sidebar-vuex-message {
+  padding: 0.4em;
+  font-size: 0.8em;
+  width: 100%;
+  text-align: center;
 }
 
 </style>

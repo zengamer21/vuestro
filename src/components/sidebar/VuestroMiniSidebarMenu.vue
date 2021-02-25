@@ -1,15 +1,13 @@
 <template>
   <div class="vuestro-mini-sidebar-menu" @click.self="$emit('click')">
-    <!--<div class="vuestro-mini-sidebar-menu-inner">-->
-      <vuestro-mini-sidebar-item v-for="(route, ridx) in routes"
-                          :key="route.path"
-                          v-if="route.meta &&
-                                (route.meta.sidebar || route.meta.sidebarBottom) &&
-                                (route.meta.role ? (route.meta.role === role || role.indexOf(route.meta.role) > -1):true) &&
-                                (!route.meta.showFunc || route.meta.showFunc())"
-                          :route="route">
-      </vuestro-mini-sidebar-item>
-    <!--</div>-->
+    <vuestro-mini-sidebar-item v-for="(route, ridx) in routes"
+                        :key="route.path"
+                        v-if="route.meta &&
+                              (route.meta.sidebar || route.meta.sidebarBottom) &&
+                              (route.meta.role ? (route.meta.role === role || role.indexOf(route.meta.role) > -1):true) &&
+                              (!route.meta.showFunc || route.meta.showFunc())"
+                        :route="route">
+    </vuestro-mini-sidebar-item>
   </div>
 </template>
 
