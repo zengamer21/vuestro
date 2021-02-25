@@ -27,10 +27,7 @@
       <!--VUEX CHILDREN-->
       <template v-if="route.meta.vuex">
         <vuestro-sub-routes :route="vuexRoute" to-path></vuestro-sub-routes>
-        <div v-if="route.meta.vuexMessage && 
-                   vuexRoute && 
-                   vuexRoute.children &&
-                   vuexRoute.children.length === 0" 
+        <div v-if="route.meta.vuexMessage && noVuexSubRoutes"
              class="vuestro-mini-sidebar-vuex-message">
           {{ route.meta.vuexMessage }}
         </div>
@@ -41,6 +38,7 @@
 
 <script>
 
+/* global _ */
 import VuestroSubRoutes from './VuestroSubRoutes.vue';
 
 export default {
@@ -70,6 +68,10 @@ export default {
         children: this.$store.getters[this.route.meta.vuex],
       };
     },
+    noVuexSubRoutes() {
+      if (this.vuexRoute)
+      return _.filter(this.vuexRoute.children, function(o) { return o.meta.sidebar; }).length === 0;
+    },
   },
   mounted() {
     if (this.$refs.popup.getBoundingClientRect().bottom > window.innerHeight) {
@@ -85,7 +87,7 @@ export default {
     },
     tryPush() {
       if (!this.route.children) {
-        this.$router.push(this.route).catch(err => {});
+        this.$router.push(this.route).catch(err => {err;});
       }
     },
   },
