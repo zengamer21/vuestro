@@ -180,7 +180,7 @@ export default {
       if (this.$refs.inputEl && window.getComputedStyle(this.$refs.inputEl).content === `"${String.fromCharCode(0xFEFF)}"`) {
         this.raisedPlaceholder = true;
       }
-      if (!this.center) {
+      if (!this.center && this.$refs.iconSlot) {
         this.placeholderStyle = { left: `${this.$refs.iconSlot.getBoundingClientRect().width*1.5}px` };
       }
       this.updateStyle();

@@ -19,7 +19,12 @@
             <vuestro-icon name="hand-pointer"></vuestro-icon>
             <span>Click-to-Open</span>
           </template>
-          <vuestro-list-button>Menu Item 1</vuestro-list-button>
+          <vuestro-list-button>
+            <template #icon>
+              <vuestro-icon name="tractor"></vuestro-icon>    
+            </template>
+            <template #default>Menu Item 1</template>
+          </vuestro-list-button>
           <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
         <vuestro-dropdown>
@@ -78,7 +83,7 @@
             </vuestro-button>
           </template>
           <template #default>
-            <vuestro-text-field placeholder="Name" variant="outline" size="lg"></vuestro-text-field>
+            <vuestro-text-field placeholder="Name" variant="outline" size="lg" value="test"></vuestro-text-field>
             <vuestro-list-button>Menu Item 1</vuestro-list-button>
             <vuestro-list-button>Menu Item 2</vuestro-list-button>
             <vuestro-pill>

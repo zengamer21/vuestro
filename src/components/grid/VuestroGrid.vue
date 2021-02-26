@@ -9,7 +9,6 @@
         <slot :item="item"></slot>
       </vuestro-grid-box>
       <vuestro-grid-box class="vuestro-grid-placeholder" boxId="::placeholder::"></vuestro-grid-box>
-      <!--default slot for any extras-->
     </div>
     <slot name="footer"></slot>
   </div>

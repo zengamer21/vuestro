@@ -1,5 +1,8 @@
 <template>
   <div class="vuestro-list-button" :class="{ alt }" @click="onClick">
+    <div class="vuestro-list-button-icon">
+      <slot name="icon"></slot>
+    </div>
     <slot></slot>
   </div>
 </template>
@@ -34,6 +37,11 @@ export default {
   padding: 5px;
   position: relative;
   border-radius: var(--vuestro-selection-border-radius);
+  display: flex;
+  align-items: center;
+}
+.vuestro-list-button-icon {
+  margin-right: 0.25em;
 }
 
 .vuestro-list-button:hover {
