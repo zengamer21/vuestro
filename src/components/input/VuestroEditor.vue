@@ -100,6 +100,7 @@ export default {
       if (sess) {
         sess.setMode('ace/mode/' + newLang);
         sess.setTabSize(2);
+        sess.setUseSoftTabs(true);
       }
     },
     options(newOptions) {
@@ -112,6 +113,8 @@ export default {
 
     let sess = vm.editor.getSession();
     sess.setMode('ace/mode/' + vm.lang);
+    sess.setTabSize(2);
+    sess.setUseSoftTabs(true);
 
     this.setColorTheme();
 
