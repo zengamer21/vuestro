@@ -1,5 +1,5 @@
 <template>
-  <vuestro-tooltip class="vuestro-confirm-delete" :position="position">
+  <vuestro-tooltip class="vuestro-confirm-delete" :position="position" click-to-open>
     <template #default>
       <vuestro-button :size="size" no-margin round no-border variant="danger">
         <vuestro-icon :name="icon"></vuestro-icon>
