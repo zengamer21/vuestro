@@ -22,7 +22,8 @@
       </template>
       <template #footer v-if="!single || this.value.length < 1">
         <div class="vuestro-multi-input-el-wrapper">
-          <input class="vuestro-multi-input-el"
+          <input ref="inputEl"
+                 class="vuestro-multi-input-el"
                  :placeholder="placeholder"
                  v-model="searchTerm"
                  @focus="onFocus"
@@ -54,15 +55,16 @@ export default {
     draggable,
   },
   props: {
-    value: { type: Array, default: () => []},
-    single: { type: Boolean, default: false }, // only allow single selection
-    size: { type: String, default: 'md' },
-    variant: { type: String, default: 'outline' },
-    placeholder: { type: String, default: 'Search...' },
-    stretch: { type: Boolean, default: false },
-    keyField: { type: String, default: 'key' },
-    valueField: { type: String, default: 'value' },
-    fitWithinPanel: { type: Boolean, default: false },
+    value: { type: Array, default: () => []},         // value, should be array even for single mode
+    single: { type: Boolean, default: false },        // only allow single selection
+    size: { type: String, default: 'md' },            // standard vuestro size
+    variant: { type: String, default: 'outline' },    // variant for VuestroTray container
+    placeholder: { type: String, default: 'Search...' }, // input placeholder
+    stretch: { type: Boolean, default: false },       // stretch to fill space
+    keyField: { type: String, default: 'key' },       // the field name for the keys
+    valueField: { type: String, default: 'value' },   // the field name for the values
+    fitWithinPanel: { type: Boolean, default: false }, // make dropdown fit within the first parent VuestroPanel
+    readonly: { type: Boolean, default: false },      // true for readonly
   },
   data() {
     return {
@@ -123,6 +125,13 @@ export default {
     },
     clearSearchTerm() {
       this.searchTerm = '';
+    },
+    focus() { // proxy the focus() call
+      if (!this.readonly) {
+        this.$nextTick(() => {
+          this.$refs.inputEl.focus();
+        });
+      }
     },
   },
 };
