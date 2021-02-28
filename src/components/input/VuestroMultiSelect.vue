@@ -129,6 +129,7 @@ export default {
     focus() { // proxy the focus() call
       if (!this.readonly) {
         this.$nextTick(() => {
+          this.showDropdown = true;
           this.$refs.inputEl.focus();
         });
       }
