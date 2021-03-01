@@ -15,12 +15,14 @@
 
 <script>
 
+/* global Vue */
+
 export default {
   name: 'Dashboard',
   data() {
     return {
       exampleData: [{
-        stat: 0,
+        stat: 23,
       }],
       layout: [],
     };
@@ -30,9 +32,12 @@ export default {
   },
   mounted() {
     setInterval(() => {
-      this.exampleData.push({
-        stat: this.exampleData[this.exampleData.length-1].stat++
-      });
+      this.exampleData = [{
+        stat: 210,
+      }];
+      // this.exampleData.push({
+      //   stat: this.exampleData[this.exampleData.length-1].stat++
+      // });
     }, 1000);
   },
   methods: {
@@ -63,6 +68,7 @@ export default {
             title: 'Sales',
             color: 'var(--vuestro-purple)',
             icon: 'cash-register',
+            render: Vue.filter('vuestroHumanNum'),
           },
           position: {
             x: 3,

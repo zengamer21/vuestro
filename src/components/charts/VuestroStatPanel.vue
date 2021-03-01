@@ -6,7 +6,10 @@
                        @click="onClick">
       <vuestro-icon class="vuestro-stat-panel-icon" v-if="icon" :name="icon"></vuestro-icon>
       <div class="vuestro-stat-panel-value">
-        {{ data[data.length-1].stat | vuestroCommas }}
+        <template v-if="data.length > 0">
+          {{ data[data.length-1][valuefield] | filterProxy(render) }}
+        </template>
+        <vuestro-icon v-else name="spinner" pulse scale="2"></vuestro-icon>
       </div>
     </vuestro-container>
   </vuestro-panel>
@@ -14,7 +17,7 @@
 
 <script>
 
-/* globals _ */
+/* globals _, Vue */
 
 export default {
   name: 'VuestroStatPanel',
@@ -27,6 +30,9 @@ export default {
       title: 'Default Title',
       color: 'var(--vuestro-primary)',
       icon: null,
+      render: Vue.filter('vuestroCommas'),
+      showLoading: true,
+      valuefield: 'stat',
     };
   },
   computed: {
@@ -46,6 +52,15 @@ export default {
       }
     },
   },
+  filters: {
+    filterProxy(value, renderer) {
+      if (renderer) {
+        return renderer(value);
+      } else {
+        return value;
+      }
+    }
+  },
 };
 
 </script>
@@ -53,6 +68,7 @@ export default {
 <style>
 
 .vuestro-app {
+  --vuestro-stat-panel-fg: white;
   --vuestro-stat-panel-font-size: 24px;
   --vuestro-stat-panel-font-weight: 300;
   --vuestro-stat-panel-value-font-size: 36px;
@@ -68,10 +84,10 @@ export default {
   overflow: hidden;
 }
 .vuestro-stat-panel-title {
-  color: var(--vuestro-white);
+  color: var(--vuestro-stat-panel-fg);
   font-size: var(--vuestro-stat-panel-font-size);
-  padding-top: 5px;
-  padding-left: 8px;
+  padding-top: 0.3em;
+  padding-left: 0.4em;
   font-weight: var(--vuestro-stat-panel-font-weight);
   text-overflow: ellipsis;
   overflow: hidden;
@@ -80,6 +96,7 @@ export default {
   cursor: default;
 }
 .vuestro-stat-panel-value {
+  color: var(--vuestro-stat-panel-fg);
   margin-left: auto;
   font-size: var(--vuestro-stat-panel-value-font-size);
   text-overflow: ellipsis;
@@ -92,11 +109,12 @@ export default {
 }
 
 .vuestro-stat-panel-icon {
+  color: var(--vuestro-stat-panel-fg);
   margin-left: 0.4em;
 }
 .vuestro-stat-panel-icon >>> svg {
-  width: 36px;
-  height: 36px;
+  width: 2em;
+  height: 2em;
 }
 
 </style>
