@@ -72,6 +72,7 @@ export default {
       contents: this.value,
       searchTerm: '',
       maxHeight: '100vh', // default to full screen height
+      focusDebounce: false,
     };
   },
   watch: {
@@ -113,7 +114,9 @@ export default {
       this.contents.splice(idx, 1);
     },
     closeDropdown() {
-      this.showDropdown = false;
+      if (!this.focusDebounce) {
+        this.showDropdown = false;
+      }
     },
     // keyup passthrough, so you can use @keyup.enter
     onKeyup(e) {
@@ -128,8 +131,14 @@ export default {
     },
     focus() { // proxy the focus() call
       if (!this.readonly) {
+        // set up a debounce to prevent v-vuestro-blur="closeDropdown"
+        // from closing the dropdown
+        this.focusDebounce = true;
+        setTimeout(() => {
+          this.focusDebounce = false;
+        }, 500);
+        this.showDropdown = true;
         this.$nextTick(() => {
-          this.showDropdown = true;
           this.$refs.inputEl.focus();
         });
       }
