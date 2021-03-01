@@ -1,5 +1,6 @@
 <template>
-  <div class="vuestro-area-chart" @mouseleave="onMouseleave" :style="style">
+  <div class="vuestro-area-chart" :class="{ showGrid }"
+       @mouseleave="onMouseleave" :style="style">
     <slot></slot>
     <div class="vuestro-area-chart-inner">
       <svg :width="width"
