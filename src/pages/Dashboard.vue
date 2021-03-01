@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       exampleData: [{
-        stat: 23,
+        stat: 83,
       }],
       layout: [],
     };
@@ -52,6 +52,7 @@ export default {
             color: 'var(--vuestro-primary)',
             icon: 'users',
             clickRoute: 'buttons',
+            render: Vue.filter('vuestroHumanNum'),
           },
           position: {
             x: 0,

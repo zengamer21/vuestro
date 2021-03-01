@@ -204,7 +204,7 @@ export default {
       }
       const suffixes = ['k', 'M', 'B', 'T', 'Qd', 'Qn', 'Sx', 'Sp', 'O', 'N', 'D', 'G', 'Gp'];
       if (intNum < 1000) {
-        return intNum.toFixed(1);
+        return intNum % 1 > 0 ? intNum.toFixed(1):intNum;
       }
       let i = parseInt(Math.floor(Math.log(intNum) / Math.log(1000)), 10) - 1;
       return (intNum / Math.pow(1000, i+1)).toFixed(1) + suffixes[i];
