@@ -113,6 +113,7 @@ export default {
 
 .vuestro-time-picker {
   display: flex;
+  align-items: center;
 }
 
 .vuestro-time-picker-column {

@@ -1,6 +1,11 @@
 <template>
   <vuestro-panel class="vuestro-stat-panel" :style="style" frame>
-    <div class="vuestro-stat-panel-title drag">{{ title }}</div>
+    <vuestro-container gutter="none">
+      <div class="vuestro-stat-panel-title drag">{{ title }}</div>
+      <div class="vuestro-stat-panel-buttons">
+        <slot name="buttons"></slot>
+      </div>
+    </vuestro-container>
     <vuestro-container content="flex-end"
                        :class="{ 'vuestro-stat-panel-clickable': options.clickRoute }"
                        @click="onClick">
@@ -115,6 +120,12 @@ export default {
 .vuestro-stat-panel-icon >>> svg {
   width: 2em;
   height: 2em;
+}
+
+.vuestro-stat-panel-buttons {
+  margin-left: auto;
+  display: flex;
+  align-items: flex-start;
 }
 
 </style>

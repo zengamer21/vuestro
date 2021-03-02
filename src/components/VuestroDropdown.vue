@@ -177,7 +177,6 @@ export default {
   position: relative;
   cursor: default;
   display: flex;
-  align-self: center;
 }
 .vuestro-dropdown.stretch {
   flex-grow: 1;
