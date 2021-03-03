@@ -40,7 +40,7 @@
                 :x="stacked ? d.center:d[`${s.field}_x`]+d.width/2"
                 v-animate:y="d[`${s.field}_y`] - barLabelOffset"
                 text-anchor="middle">
-            {{ d[s.field] }}
+            {{ d[s.field] | valueFilterProxy(valueAxis) }}
           </text>
         </g>
 
@@ -287,6 +287,15 @@ export default {
           .attr(binding.arg, binding.value);
       },
     },
+  },
+  filters: {
+    valueFilterProxy(value, valueAxis) {
+      if (valueAxis && valueAxis.render) {
+        return valueAxis.render(value);
+      } else {
+        return value;
+      }
+    }
   },
 };
 
