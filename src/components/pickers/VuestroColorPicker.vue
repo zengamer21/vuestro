@@ -1,5 +1,8 @@
 <template>
-  <vuestro-dropdown :disabled="disabled" :right="right" close-on-content-click no-padding>
+  <vuestro-dropdown :disabled="disabled"
+                    :right="right"
+                    :close-on-leave="closeOnLeave"
+                    close-on-content-click no-padding>
     <template #button>
       <vuestro-button :size="size"
                       :pill="pill"
@@ -36,6 +39,7 @@ export default {
     value: { type: String, required: true },
     disabled: { type: Boolean, default: false },
     palette: { type: Array },
+    closeOnLeave: { type: Boolean, default: false }, // automatically close on mouseleave
   },
   data() {
     return {
