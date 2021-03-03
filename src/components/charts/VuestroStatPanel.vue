@@ -85,9 +85,6 @@ export default {
 </style>
 <style scoped>
 
-.vuestro-stat-panel {
-  overflow: hidden;
-}
 .vuestro-stat-panel-title {
   color: var(--vuestro-stat-panel-fg);
   font-size: var(--vuestro-stat-panel-font-size);

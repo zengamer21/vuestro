@@ -21,7 +21,7 @@
           </template>
           <vuestro-list-button>
             <template #icon>
-              <vuestro-icon name="tractor"></vuestro-icon>    
+              <vuestro-icon name="tractor"></vuestro-icon>
             </template>
             <template #default>Menu Item 1</template>
           </vuestro-list-button>
@@ -160,6 +160,19 @@
               Delete
             </vuestro-button>
           </template>
+        </vuestro-dropdown>
+      </div>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #description>
+        <span>Close automatically on leave by setting the <em>closeOnLeave</em> property</span>
+      </template>
+      <div class="example-container">
+        <vuestro-dropdown close-on-leave>
+          <template #title>Close on Leave</template>
+          <vuestro-list-button>Menu Item 1</vuestro-list-button>
+          <vuestro-list-button>Menu Item 2</vuestro-list-button>
         </vuestro-dropdown>
       </div>
     </vuestro-card>

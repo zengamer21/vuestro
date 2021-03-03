@@ -4,7 +4,8 @@
        v-vuestro-blur="onBlur"
        :style="{ 'z-index': active ? 200:100 }">
     <div class="vuestro-dropdown-inner"
-         :class="{ active, noScroll, bottom, stretch, button: !!$slots.button }">
+         :class="{ active, noScroll, bottom, stretch, button: !!$slots.button }"
+         @mouseleave="onLeave">
       <div v-if="$slots.title" class="vuestro-dropdown-title" @click="onClick">
         &#8203;<slot name="title"></slot>&#8203;
       </div>
@@ -39,6 +40,7 @@ export default {
     noPadding: { type: Boolean, default: false },  // no padding on content
     noScroll: { type: Boolean, default: false },   // no scroll on content
     closeOnContentClick: { type: Boolean, default: false }, // automatically close when content is clicked
+    closeOnLeave: { type: Boolean, default: false }, // automatically close on mouseleave
     stretch: { type: Boolean, default: false },    // flexbox stretch
     disabled: { type: Boolean, default: false },   // disable dropdown
     fitWithinPanel: { type: Boolean, default: false }, // adjust size by finding parent panel and fitting within it
@@ -134,6 +136,11 @@ export default {
     },
     onBlur() {
       if (!this.holdOpen) {
+        this.deactivate();
+      }
+    },
+    onLeave() {
+      if (this.closeOnLeave) {
         this.deactivate();
       }
     },
