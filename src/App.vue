@@ -57,6 +57,7 @@ body {
 }
 
 .default-footer {
+  height: 30px;
   text-align: center;
 }
 

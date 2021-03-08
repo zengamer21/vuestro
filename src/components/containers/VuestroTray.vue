@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-tray"
-       :class="[`vuestro-tray-${variant}`, size, { noBorder }]">
+       :class="[`vuestro-tray-${variant}`, size]">
     <div v-if="$slots.title" class="vuestro-tray-title flex-align-self-center">
       <slot name="title"></slot>
     </div>
@@ -16,7 +16,6 @@ export default {
   name: 'VuestroTray',
   props: {
     title: { type: String, required: false },
-    noBorder: { type: Boolean, default: false },
     variant: { type: String, default: 'regular' },
     size: { type: String, default: 'md' },
   },

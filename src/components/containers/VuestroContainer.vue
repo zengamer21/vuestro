@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-container"
-       :class="[ gutter ]"
+       :class="[ gutter, { overflowHidden }]"
        :style="style"
        @click="onClick">
     <div v-if="inner"
@@ -27,12 +27,14 @@ export default {
 
     grow: { type: String, default: '1' },       // flexbox grow value
     shrink: { type: String, default: '1' },     // flexbox shrink value
-    basis: { type: String, default: 'auto' }, // flexbox basis value
-    self: { type: String, default: 'auto' },  // use standard flexbox values for align-self
+    basis: { type: String, default: 'auto' },   // flexbox basis value
+    self: { type: String, default: 'auto' },    // use standard flexbox values for align-self
 
     justify: { type: String, default: 'flex-start' }, // use standard flexbox values for justify-content
-    align: { type: String, default: 'stretch' }, // use standard flexbox values for align-items
+    align: { type: String, default: 'stretch' },      // use standard flexbox values for align-items
     content: { type: String, default: 'flex-start' }, // use standard flexbox values for align-content
+
+    overflowHidden: { type: Boolean, default: null }, // adds overflow:hidden css
   },
   computed: {
     style() {
@@ -75,6 +77,9 @@ export default {
 .vuestro-container {
   display: flex;
   position: relative;
+}
+.vuestro-container.overflowHidden {
+  overflow: hidden;
 }
 .vuestro-container.xl {
   --vuestro-gutter: var(--vuestro-gutter-xl);

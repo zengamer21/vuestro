@@ -15,6 +15,7 @@ import Pills from './pages/Pills';
 import Inputs from './pages/Inputs';
 import InputsSpinner from './pages/InputsSpinner';
 import InputsText from './pages/InputsText';
+import InputsUpload from './pages/InputsUpload';
 import InputsMulti from './pages/InputsMulti';
 import Containers from './pages/Containers';
 import ContainersBreadcrumb from './pages/ContainersBreadcrumb';
@@ -389,6 +390,15 @@ export default new Router({
           name: 'inputs-editor',
           path: 'inputs-editor',
           component: InputsEditor,
+        },
+        {
+          meta: {
+            title: 'Upload',
+            sidebar: true,
+          },
+          name: 'upload',
+          path: 'upload',
+          component: InputsUpload,
         },
       ]
     },

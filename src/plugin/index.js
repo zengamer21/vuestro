@@ -9,6 +9,7 @@ import VuestroCaret from '../components/VuestroCaret';
 import VuestroCard from '../components/containers/VuestroCard';
 import VuestroChartPanel from '../components/charts/VuestroChartPanel';
 import VuestroCheckOrX from '../components/VuestroCheckOrX';
+import VuestroCode from '../components/text/VuestroCode';
 import VuestroContainer from '../components/containers/VuestroContainer';
 import VuestroCleanKvp from '../components/text/VuestroCleanKvp';
 import VuestroColorPicker from '../components/pickers/VuestroColorPicker';
@@ -20,6 +21,7 @@ import VuestroDynamicTable from '../components/VuestroDynamicTable';
 import VuestroEditableText from '../components/text/VuestroEditableText';
 import VuestroEditor from '../components/input/VuestroEditor';
 import VuestroEllipsisText from '../components/text/VuestroEllipsisText';
+import VuestroUpload from '../components/input/VuestroUpload';
 import VuestroForceGraph from '../components/charts/VuestroForceGraph';
 import VuestroGeoPattern from '../components/VuestroGeoPattern';
 import VuestroGrid from '../components/grid/VuestroGrid';
@@ -70,6 +72,7 @@ export default {
     Vue.component(VuestroConfirmDelete.name, VuestroConfirmDelete);
     Vue.component(VuestroContainer.name, VuestroContainer);
     Vue.component(VuestroCleanKvp.name, VuestroCleanKvp);
+    Vue.component(VuestroCode.name, VuestroCode);
     Vue.component(VuestroColorPicker.name, VuestroColorPicker);
     Vue.component(VuestroDatePicker.name, VuestroDatePicker);
     Vue.component(VuestroDropdown.name, VuestroDropdown);
@@ -109,6 +112,7 @@ export default {
     Vue.component(VuestroTitle.name, VuestroTitle);
     Vue.component(VuestroTooltip.name, VuestroTooltip);
     Vue.component(VuestroTray.name, VuestroTray);
+    Vue.component(VuestroUpload.name, VuestroUpload);
 
     Vue.filter('vuestroCommas', (d) => {
       if (d === null || d === undefined) {
