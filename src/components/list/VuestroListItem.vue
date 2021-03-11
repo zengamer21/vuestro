@@ -47,7 +47,7 @@ export default {
     onClick(e) {
       if (!this.readonly) {
         // if a vuestro-button is part of the path, ignore click
-        for (let p of e.path) {
+        for (let p of e.composedPath()) {
           if (p.classList && p.classList.contains('vuestro-button')) {
             return e.stopPropagation();
           }
