@@ -50,8 +50,10 @@ import Settings from './pages/Settings';
 
 Vue.use(Router);
 
+/* global ROUTER_BASE */
+
 export default new Router({
-  base: '/',
+  base: typeof ROUTER_BASE === 'undefined' ? '/' : ROUTER_BASE,
   mode: 'history',
   routes: [
     {

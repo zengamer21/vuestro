@@ -9,7 +9,8 @@
   "main": "./src/plugin/index.js",
   "scripts": {
     "dev": "webpack-dev-server -d --hot --port 8088 --config ./build/webpack.dev.config.js",
-    "build": "webpack --config ./build/webpack.prod.config.js"
+    "build": "webpack --config ./build/webpack.prod.config.js",
+    "build-pages": "webpack --config ./build/webpack.pages.config.js"
   },
   "dependencies": {
     "@geoman-io/leaflet-geoman-free": "^2.7.0",
