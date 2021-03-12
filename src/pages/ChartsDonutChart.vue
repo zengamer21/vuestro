@@ -114,7 +114,7 @@ export default {
 <style scoped>
 
 .chart-wrapper {
-  background-color: var(--vuestro-gray-dark);
+  background-color: var(--vuestro-panel-bg);
   border-radius: 4px;
   box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
   display: flex;

@@ -203,12 +203,12 @@ export default {
   --vuestro-danger: var(--vuestro-red);
 
   /* colors responsible for change to dark */
-  --vuestro-content-bg: #f7f9fa;
+  --vuestro-content-bg: #eeeeee;
 
   --vuestro-widget-light-bg: #e8e9ec;
   --vuestro-widget-dark-bg: #2f353f;
 
-  --vuestro-field-bg: #e8e9ec;
+  --vuestro-field-bg: #dcdcdc;
 
   --vuestro-popup-bg: #464748;
   --vuestro-popup-fg: #eee;
@@ -217,8 +217,8 @@ export default {
 
   --vuestro-selection: var(--vuestro-cobalt);
   --vuestro-outline: #aaa;
-  --vuestro-active: #e9eff7;
-  --vuestro-hover: #e4e7ea;
+  --vuestro-active: #cfdaee;
+  --vuestro-hover: #d4d7da;
 
   --vuestro-notifications-bg: var(--vuestro-salmon);
 

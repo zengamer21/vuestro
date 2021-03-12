@@ -123,8 +123,8 @@ export default {
       this.layers.push({
         title: 'OpenStreetMap',
         type: 'TileLayer',
-        // url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
+        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        // url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
       });
     }
 
@@ -350,11 +350,11 @@ export default {
   color: var(--vuestro-text-color-inverse);
 }
 
-.vuestro-map >>> .leaflet-bar {
+.vuestro-dark .vuestro-map >>> .leaflet-bar {
   border: none;
 }
-.vuestro-map >>> .leaflet-bar > a,
-.vuestro-map >>> .leaflet-buttons-control-button {
+.vuestro-dark .vuestro-map >>> .leaflet-bar > a,
+.vuestro-dark .vuestro-map >>> .leaflet-buttons-control-button {
   color: var(--vuestro-gray);
   background-color: var(--vuestro-dark);
   border-color: var(--vuestro-outline);

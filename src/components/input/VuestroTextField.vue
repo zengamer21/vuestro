@@ -325,12 +325,12 @@ export default {
 
 .vuestro-text-field-shaded {
   border: none;
-  background-color: var(--vuestro-light-med);
+  background-color: var(--vuestro-field-bg);
 }
 .vuestro-text-field-search {
   border: none;
   border-radius: 999px;
-  background-color: var(--vuestro-light-med);
+  background-color: var(--vuestro-field-bg);
 }
 .vuestro-dark .vuestro-text-field-shaded,
 .vuestro-dark .vuestro-text-field-search {

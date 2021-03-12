@@ -353,32 +353,6 @@
 
     <vuestro-card>
       <template #description>
-        <span>Get dark mode by setting the <em>dark</em> property</span>
-      </template>
-      <div class="example-flexbox dark">
-        <vuestro-button dark>
-          <vuestro-icon name="tractor"></vuestro-icon>
-        </vuestro-button>
-        <vuestro-button dark>Dark with Border</vuestro-button>
-        <vuestro-button dark>
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>Dark with Border</span>
-        </vuestro-button>
-        <vuestro-button dark no-border pill variant="secondary">
-          <vuestro-icon name="tractor"></vuestro-icon>
-        </vuestro-button>
-        <vuestro-button dark no-border pill variant="secondary">Dark Pill w/o Border</vuestro-button>
-        <vuestro-button dark no-border pill variant="secondary">
-          <vuestro-icon name="tractor"></vuestro-icon>
-          <span>Dark Pill w/o Border</span>
-        </vuestro-button>
-
-        <vuestro-button dark checkbox v-model="exampleCheckbox"></vuestro-button>
-      </div>
-    </vuestro-card>
-
-    <vuestro-card>
-      <template #description>
         <span>Get a tall icon + text button by setting <em>size="tall"</em></span>
       </template>
       <div class="example-tall-button-container">
