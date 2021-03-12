@@ -3,32 +3,31 @@
     <vuestro-card color="var(--vuestro-purple)">
       <template #heading><span class="drag">Donut Chart</span></template>
       <template #description>
-        <span>The VuestroDonutChart component can render one series. The data item to use as the categore is specified by <em>categoryField</em> and the value is pulled from <em>valueField</em>. An optional <em>valueTitle</em> key can be used to render a title field for each piece. 
+        <span>The VuestroDonutChart component can render one series. The data item to use as the categore is specified by <em>categoryField</em> and the value is pulled from <em>valueField</em>. An optional <em>valueTitle</em> key can be used to render a title field for each piece.
         </span>
       </template>
       <vuestro-container gutter="none">
         <vuestro-card cols="4">
           <template #subheading>Basic</template>
-          <div class="chart-wrapper">
-            <vuestro-donut-chart :data="data" :options="options">
-            </vuestro-donut-chart>
-          </div>
+          <vuestro-panel class="chart-wrapper">
+            <vuestro-donut-chart :data="data" :options="options"></vuestro-donut-chart>
+          </vuestro-panel>
         </vuestro-card>
         <vuestro-card  cols="4">
           <template #subheading><span>With <em>text</em> slot for the center value</span></template>
-          <div class="chart-wrapper">
+          <vuestro-panel class="chart-wrapper">
             <vuestro-donut-chart :data="data" :options="options">
               <template #text>{{ total | vuestroHumanNum }}</template>
             </vuestro-donut-chart>
-          </div>
+          </vuestro-panel>
         </vuestro-card>
         <vuestro-card  cols="4">
           <template #subheading><span>With <em>gaugeMode: true</em> option</span></template>
-          <div class="chart-wrapper" style="height: 200px">
+          <vuestro-panel class="chart-wrapper" style="height: 200px">
             <vuestro-donut-chart :data="data" :options="{ ...options, gaugeMode: true }">
               <template #text>{{ total | vuestroHumanNum }}</template>
             </vuestro-donut-chart>
-          </div>
+          </vuestro-panel>
         </vuestro-card>
       </vuestro-container>
     </vuestro-card>
@@ -39,27 +38,26 @@
           <template #subheading>
             <span>With <em>title</em> slot</span>
           </template>
-          <div class="chart-wrapper">
+          <vuestro-panel class="chart-wrapper">
             <vuestro-donut-chart :data="data" :options="options">
               <template #text>{{ total | vuestroHumanNum }}</template>
               <template #title>Population</template>
             </vuestro-donut-chart>
-          </div>
+          </vuestro-panel>
         </vuestro-card>
         <vuestro-card  cols="4">
           <template #subheading>
             <span>With <em>showLabels: true</em></span>
           </template>
-          <div class="chart-wrapper">
+          <vuestro-panel class="chart-wrapper">
             <vuestro-donut-chart :data="data" :options="{ ...options, showLabels: true }">
               <template #text>{{ total | vuestroHumanNum }}</template>
               <template #title>Population</template>
             </vuestro-donut-chart>
-          </div>
+          </vuestro-panel>
         </vuestro-card>
       </vuestro-container>
     </vuestro-card>
-
   </vuestro-container>
 </template>
 
@@ -114,16 +112,8 @@ export default {
 <style scoped>
 
 .chart-wrapper {
-  background-color: var(--vuestro-panel-bg);
-  border-radius: 4px;
-  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
-  display: flex;
-  height: 300px;
+  height: 250px;
   width: 300px;
-}
-
-.vuestro-dark .frame {
-  border: 1px solid var(--vuestro-outline);
 }
 
 </style>

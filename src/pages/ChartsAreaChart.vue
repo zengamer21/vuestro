@@ -3,53 +3,53 @@
     <vuestro-card color="var(--vuestro-purple)" overflow-hidden>
       <template #heading><span class="drag">Area Chart</span></template>
       <template #description><span>The VuestroAreaChart component is flexible enough to be used with a categorical x axis as well as a time scale. Since time series are so common for area charts, that is the default behavior and can be disabled with the <em>timeSeries: false</em> option.</span></template>
-      <div class="chart-wrapper">
+      <vuestro-panel class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options1"></vuestro-area-chart>
-      </div>
+      </vuestro-panel>
     </vuestro-card>
 
     <vuestro-card overflow-hidden>
       <template #subheading><span>Set the <em>notFilled: true</em> option for a line chart</span></template>
-      <div class="chart-wrapper">
+      <vuestro-panel class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options2"></vuestro-area-chart>
-      </div>
+      </vuestro-panel>
     </vuestro-card>
 
     <vuestro-card overflow-hidden>
       <template #subheading><span>Set the <em>stacked: true</em> option to render as stacked areas</span></template>
-      <div class="chart-wrapper">
+      <vuestro-panel class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options5"></vuestro-area-chart>
-      </div>
+      </vuestro-panel>
     </vuestro-card>
 
     <vuestro-card overflow-hidden>
       <template #subheading><span>Set the <em>granularity</em> option to apply aggregation by date units. Usable values are <em>{ 'year' 'month', 'quarter', 'week', 'isoWeek', 'day', 'date', 'hour', 'minute', 'second' }</em></span></template>
-      <div class="chart-wrapper">
+      <vuestro-panel class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options6"></vuestro-area-chart>
-      </div>
+      </vuestro-panel>
     </vuestro-card>
 
     <vuestro-card overflow-hidden>
       <template #subheading>Set the showAxes: true option to show axes and use a render function to manipulate value scale labels</template>
-      <div class="chart-wrapper">
+      <vuestro-panel class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options3"></vuestro-area-chart>
-      </div>
+      </vuestro-panel>
     </vuestro-card>
 
     <vuestro-card overflow-hidden>
       <template #subheading><span>Set the <em>title</em> slot to add a title</span></template>
-      <div class="chart-wrapper">
+      <vuestro-panel class="chart-wrapper">
         <vuestro-area-chart :data="data" :options="options3">
           <template #title>The Title</template>
         </vuestro-area-chart>
-      </div>
+      </vuestro-panel>
     </vuestro-card>
 
     <vuestro-card overflow-hidden>
       <template #subheading>Change the data property and the chart will update</template>
-      <div class="chart-wrapper">
+      <vuestro-panel class="chart-wrapper">
         <vuestro-area-chart :data="dynamicData" :options="options4"></vuestro-area-chart>
-      </div>
+      </vuestro-panel>
     </vuestro-card>
 
     <vuestro-card overflow-hidden>
@@ -104,10 +104,8 @@
         <template #title>Options Object</template>
         <vuestro-object-browser :data="dynamicOptions" :options="{ editable: true }"></vuestro-object-browser>
       </vuestro-panel>
-      <vuestro-panel>
-        <div class="chart-wrapper">
-          <vuestro-area-chart :data="data" :options="dynamicOptions"></vuestro-area-chart>
-        </div>
+      <vuestro-panel class="chart-wrapper">
+        <vuestro-area-chart :data="data" :options="dynamicOptions"></vuestro-area-chart>
       </vuestro-panel>
     </vuestro-card>
 
@@ -338,17 +336,7 @@ export default {
 <style scoped>
 
 .chart-wrapper {
-  background-color: var(--vuestro-panel-bg);
-  flex-grow: 1;
-  border-radius: 4px;
-  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
   height: 300px;
-}
-
-.vuestro-dark .frame {
-  border: 1px solid var(--vuestro-outline);
 }
 
 </style>

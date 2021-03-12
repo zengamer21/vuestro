@@ -123,8 +123,8 @@ export default {
       this.layers.push({
         title: 'OpenStreetMap',
         type: 'TileLayer',
-        url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-        // url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
+        // url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        url: 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png'
       });
     }
 

@@ -3,12 +3,10 @@
     <vuestro-card color="var(--vuestro-purple)" overflow-hidden>
       <template #heading><span class="drag">Bar Chart</span></template>
       <template #description>The Vuestro Bar Chart</template>
-      <div class="chart-wrapper">
+      <vuestro-panel class="chart-wrapper">
         <vuestro-bar-chart :data="data" :options="options"></vuestro-bar-chart>
-      </div>
+      </vuestro-panel>
     </vuestro-card>
-
-
   </vuestro-container>
 </template>
 
@@ -118,17 +116,7 @@ export default {
 <style scoped>
 
 .chart-wrapper {
-  background-color: var(--vuestro-panel-bg);
-  flex-grow: 1;
-  border-radius: 4px;
-  box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
   height: 300px;
-}
-
-.vuestro-dark .frame {
-  border: 1px solid var(--vuestro-outline);
 }
 
 </style>
