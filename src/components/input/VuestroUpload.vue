@@ -10,11 +10,14 @@
       <div class="vuestro-upload-files">
         <div class="vuestro-upload-file"
              v-for="(f, idx) in files" :key="f.name">
+          <vuestro-button round no-border size="sm" @click="onRemoveItem(idx)">
+            <vuestro-icon name="times"></vuestro-icon>
+          </vuestro-button>
+          <div class="vuestro-upload-file-name">{{ f.name }}</div>
           <template v-if="previews && f.type.startsWith('image/')">
             <img v-if="fileData[idx]" :src="fileData[idx]"/>
             <vuestro-icon v-else name="spinner" pulse></vuestro-icon>
           </template>
-          <div class="vuestro-upload-file-name">{{ f.name }}</div>
         </div>
       </div>
       <label :for="id">
@@ -49,17 +52,18 @@ export default {
   data() {
     return {
       id: this.vuestroGenerateId(8),
-      fileInput: true,
       files: [],
       fileData: [],
     };
   },
   methods: {
     onFileSelect(e) {
-      this.files = e.target.files;
+      this.files = [];
+      for (let f of e.target.files) {
+        this.files.push(f);
+      }
       this.fileData = [];
 
-      // for single file
       for (let f of this.files) {
         let fd = new FormData();
         fd.append('vuestroUpload', f);
@@ -74,12 +78,12 @@ export default {
       }
       this.$emit('files', this.files);
     },
-    reset() {
-      this.fileInput = false;
-      this.$nextTick(() => {
-        this.fileInput = true;
-      });
-    }
+    onRemoveItem(idx) {
+      this.files.splice(idx, 1);
+      if (this.fileData[idx]) {
+        this.fileData.splice(idx, 1);
+      }
+    },
   },
 };
 
