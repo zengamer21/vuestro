@@ -91,6 +91,7 @@ export default {
       this.showInput = false;
       this.$nextTick(() => {
         this.showInput = true;
+        this.$emit('files', null);
       });
     },
   },
