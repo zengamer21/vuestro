@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-card" :class="[`basis-${cols}`, gutter, { overflowHidden, stretch, shrink, row, noPadding }]">
+  <div class="vuestro-card" :class="[`basis-${cols}`, gutter, { overflowHidden, stretch, shrink, row }]">
     <!--SLOT FOR HEADER TEXT (only show if "heading" slot was provided)-->
     <div v-if="$slots.heading"
          class="vuestro-card-heading"
