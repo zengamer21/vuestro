@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-card" :class="[`basis-${cols}`, { overflowHidden, stretch, shrink, row }]">
+  <div class="vuestro-card" :class="[`basis-${cols}`, gutter, { overflowHidden, stretch, shrink, row, noPadding }]">
     <!--SLOT FOR HEADER TEXT (only show if "heading" slot was provided)-->
     <div v-if="$slots.heading"
          class="vuestro-card-heading"
@@ -31,6 +31,7 @@ export default {
     stretch: { type: Boolean, default: false },
     shrink: { type: Boolean, default: false },
     row: { type: Boolean, default: false },
+    gutter: { type: String, default: '' },
   },
   computed: {
     colorBarStyle() {
@@ -68,6 +69,24 @@ export default {
 
 <style scoped>
 
+/* these gutter sizes are usually inherited from vuestro-container */
+/* they are only set when a gutter prop is manually set on a card */
+.vuestro-card.xl {
+  --vuestro-gutter: var(--vuestro-gutter-xl);
+}
+.vuestro-card.lg {
+  --vuestro-gutter: var(--vuestro-gutter-lg);
+}
+.vuestro-card.md {
+  --vuestro-gutter: var(--vuestro-gutter-md);
+}
+.vuestro-card.sm {
+  --vuestro-gutter: var(--vuestro-gutter-sm);
+}
+.vuestro-card.none {
+  --vuestro-gutter: 0px;
+}
+
 .vuestro-card {
   display: flex;
   flex-grow: 0;
@@ -88,7 +107,6 @@ export default {
 .vuestro-card.overflowHidden {
   overflow: hidden;
 }
-
 .vuestro-card-heading {
   font-size: var(--vuestro-card-heading-font-size);
   font-weight: var(--vuestro-card-heading-font-weight);
