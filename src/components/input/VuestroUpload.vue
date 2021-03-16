@@ -1,6 +1,6 @@
 <template>
   <vuestro-tray class="vuestro-upload"
-                :class="{ stretch }"
+                :stretch="stretch"
                 :variant="variant"
                 :size="size">
     <template #title>
@@ -10,9 +10,6 @@
       <div class="vuestro-upload-files">
         <div class="vuestro-upload-file"
              v-for="(f, idx) in files" :key="f.name">
-          <vuestro-button round no-border size="sm" @click="onRemoveItem(idx)">
-            <vuestro-icon name="times"></vuestro-icon>
-          </vuestro-button>
           <div class="vuestro-upload-file-name">{{ f.name }}</div>
           <template v-if="previews && f.type.startsWith('image/')">
             <img v-if="fileData[idx]" :src="fileData[idx]"/>
@@ -26,13 +23,22 @@
           <vuestro-icon name="folder-open"></vuestro-icon>
         </vuestro-button>
       </label>
-      <input :id="id"
+      <input v-if="showInput"
+             :id="id"
              ref="theInput"
              class="vuestro-upload-input"
              type="file"
              :multiple="multiple"
              :accept="accept"
              @change="onFileSelect"/>
+      <vuestro-button v-if="files.length > 0"
+                      round
+                      no-border
+                      variant="danger"
+                      size="sm"
+                      @click="reset">
+        <vuestro-icon name="trash"></vuestro-icon>
+      </vuestro-button>
      </vuestro-container>
   </vuestro-tray>
 </template>
@@ -51,7 +57,8 @@ export default {
   },
   data() {
     return {
-      id: this.vuestroGenerateId(8),
+      id: this.vuestroGenerateId(8), // random id to link the input[file] to the label
+      showInput: true,
       files: [],
       fileData: [],
     };
@@ -78,11 +85,13 @@ export default {
       }
       this.$emit('files', this.files);
     },
-    onRemoveItem(idx) {
-      this.files.splice(idx, 1);
-      if (this.fileData[idx]) {
-        this.fileData.splice(idx, 1);
-      }
+    reset() {
+      this.files = [];
+      this.fileData = [];
+      this.showInput = false;
+      this.$nextTick(() => {
+        this.showInput = true;
+      });
     },
   },
 };

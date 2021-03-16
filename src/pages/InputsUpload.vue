@@ -5,7 +5,7 @@
       <template #description>The VuestroFileUpload component builds upon the standard browser html element to provide a reliable upload mechanism which still looks at home in a Vuestro app.</template>
     </vuestro-card>
 
-    <vuestro-card>
+    <vuestro-card cols="6">
       <template #subheading>
         Default Properties
       </template>
@@ -17,13 +17,20 @@
       </vuestro-container>
     </vuestro-card>
 
-    <vuestro-card>
+    <vuestro-card cols="6">
       <template #description>
         Multiple files
       </template>
-      <vuestro-container>
-        <vuestro-upload ref="theUpload" multiple accept="image/jpeg" @files="onFiles"></vuestro-upload>
-      </vuestro-container>
+      <vuestro-panel>
+        <vuestro-container>
+          <vuestro-upload ref="theUpload"
+                          multiple
+                          stretch
+                          accept="image/jpeg"
+                          @files="onFiles">
+          </vuestro-upload>
+        </vuestro-container>
+      </vuestro-panel>
     </vuestro-card>
   </vuestro-container>
 </template>

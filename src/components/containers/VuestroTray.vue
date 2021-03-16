@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-tray"
-       :class="[`vuestro-tray-${variant}`, size]">
+       :class="[`vuestro-tray-${variant}`, size, { stretch }]">
     <div v-if="$slots.title" class="vuestro-tray-title flex-align-self-center">
       <slot name="title"></slot>
     </div>
@@ -18,6 +18,7 @@ export default {
     title: { type: String, required: false },
     variant: { type: String, default: 'regular' },
     size: { type: String, default: 'md' },
+    stretch: { type: Boolean, default: false },
   },
 };
 
@@ -42,6 +43,9 @@ export default {
   position: relative;
   min-height: var(--vuestro-tray-min-height);
   margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
+}
+.vuestro-tray.stretch {
+  flex-grow: 1;
 }
 
 .vuestro-tray-outline {

@@ -196,6 +196,7 @@ export default {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  min-width: 100%;
 }
 .vuestro-panel-contents-wrapper.row > .vuestro-panel-contents {
   flex-direction: row;
