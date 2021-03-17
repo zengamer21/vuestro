@@ -234,6 +234,7 @@ export default {
 .vuestro-user-block img {
   align-self: center;
   width: var(--vuestro-sidebar-user-image-width);
+  height: var(--vuestro-sidebar-user-image-width);
   border-radius: 50%;
 }
 
