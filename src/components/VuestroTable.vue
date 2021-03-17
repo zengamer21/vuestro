@@ -249,6 +249,7 @@ export default {
 }
 .vuestro-dark {
   --vuestro-table-border-color: #222324;
+  --vuestro-table-alternate-bg: rgba(10,9,8,0.15);
 }
 
 </style>
