@@ -184,6 +184,7 @@ export default {
   position: relative;
   cursor: default;
   display: flex;
+  min-width: 0;
 }
 .vuestro-dropdown.stretch {
   flex-grow: 1;

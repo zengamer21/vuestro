@@ -42,6 +42,7 @@ export default {
   display: flex;
   position: relative;
   min-height: var(--vuestro-tray-min-height);
+  min-width: 0;
   margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
 }
 .vuestro-tray.stretch {

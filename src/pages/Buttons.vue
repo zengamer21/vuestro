@@ -13,6 +13,7 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button @click="onClick">Button</vuestro-button>
+        <vuestro-button @click="onClick"></vuestro-button>
       </div>
     </vuestro-card>
 

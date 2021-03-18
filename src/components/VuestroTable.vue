@@ -258,6 +258,7 @@ export default {
 
 .vuestro-table {
   flex-grow: 1;
+  min-width: 0;
 }
 
 .vuestro-table-table {

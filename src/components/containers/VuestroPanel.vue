@@ -142,6 +142,7 @@ export default {
   flex-direction: column;
   position: relative;
   border: var(--vuestro-panel-border);
+  min-width: 0;
 }
 .vuestro-panel.stretch {
   flex-grow: 1;
