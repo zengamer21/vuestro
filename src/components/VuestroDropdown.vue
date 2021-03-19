@@ -36,6 +36,7 @@
 export default {
   name: 'VuestroDropdown',
   props: {
+    top: { type: Boolean, default: false },        // force drop-up behavior
     right: { type: Boolean, default: false },      // force right justification
     noPadding: { type: Boolean, default: false },  // no padding on content
     noScroll: { type: Boolean, default: false },   // no scroll on content
@@ -117,6 +118,9 @@ export default {
           this.left = false;
         }
       });
+      if (this.top) {
+        this.bottom = false;
+      }
     },
     // this is the internal activation method
     activate() {
@@ -203,8 +207,8 @@ export default {
 
 .vuestro-dropdown-title {
   border: var(--vuestro-control-border-width) solid transparent;
-  border-top-left-radius: var(--vuestro-control-border-radius);
-  border-top-right-radius: var(--vuestro-control-border-radius);
+  border-bottom-left-radius: var(--vuestro-control-border-radius);
+  border-bottom-right-radius: var(--vuestro-control-border-radius);
   border-top: none;
   position: relative;
   padding: 2px 6px;
@@ -218,6 +222,10 @@ export default {
   user-select: none;
 }
 .vuestro-dropdown-inner.bottom .vuestro-dropdown-title {
+  border-top-left-radius: var(--vuestro-control-border-radius);
+  border-top-right-radius: var(--vuestro-control-border-radius);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   border-top: var(--vuestro-control-border-width) solid transparent;
   border-bottom: none;
 }
@@ -263,9 +271,9 @@ export default {
   overflow: auto;
   max-height: 90vh;
   border: var(--vuestro-control-border-width) solid var(--vuestro-dropdown-outline);
-  border-bottom-left-radius: var(--vuestro-control-border-radius);
-  border-bottom-right-radius: var(--vuestro-control-border-radius);
   border-top-left-radius: var(--vuestro-control-border-radius);
+  border-top-right-radius: var(--vuestro-control-border-radius);
+  border-bottom-left-radius: var(--vuestro-control-border-radius);
   z-index: -1;
   /* redefine style vars for vuestro components */
   --vuestro-text-field-fg: var(--vuestro-dropdown-content-fg);
@@ -287,12 +295,19 @@ export default {
 .vuestro-dropdown-menu.left {
   left: 0px;
   right: initial;
-  border-top-left-radius: 0;
-  border-top-right-radius: var(--vuestro-control-border-radius);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: var(--vuestro-control-border-radius);
 }
 .vuestro-dropdown-menu.bottom {
   bottom: initial;
   top: calc(100% - var(--vuestro-control-border-width));
+  border-top-right-radius: 0;
+  border-bottom-left-radius: var(--vuestro-control-border-radius);
+  border-bottom-right-radius: var(--vuestro-control-border-radius);
+}
+.vuestro-dropdown-menu.left.bottom {
+  border-top-left-radius: 0;
+  border-top-right-radius: var(--vuestro-control-border-radius);
 }
 
 .vuestro-dropdown-menu-content {

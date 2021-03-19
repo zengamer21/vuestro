@@ -188,6 +188,28 @@
       </div>
     </vuestro-card>
 
+    <vuestro-card>
+      <template #description>
+        <span>Adding the <vuestro-code>up</vuestro-code> property switches to a drop-up</span>
+      </template>
+      <vuestro-container justify="space-between">
+        <vuestro-dropdown top>
+          <template #title>DropUp</template>
+          <vuestro-list-button>Menu Item 1</vuestro-list-button>
+          <vuestro-list-button>Menu Item 2</vuestro-list-button>
+          <vuestro-list-button>Menu Item 3</vuestro-list-button>
+          <vuestro-list-button>Menu Item 4</vuestro-list-button>
+        </vuestro-dropdown>
+        <vuestro-dropdown top right>
+          <template #title>DropUp</template>
+          <vuestro-list-button>Menu Item 1</vuestro-list-button>
+          <vuestro-list-button>Menu Item 2</vuestro-list-button>
+          <vuestro-list-button>Menu Item 3</vuestro-list-button>
+          <vuestro-list-button>Menu Item 4</vuestro-list-button>
+        </vuestro-dropdown>
+      </vuestro-container>
+    </vuestro-card>
+
   </vuestro-container>
 </template>
 

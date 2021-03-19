@@ -258,6 +258,25 @@
     </vuestro-card>
 
 
+    <vuestro-card>
+      <vuestro-container align="flex-start">
+        <vuestro-pill color="#00A1FF">
+          <template #title>&nbsp;</template>
+        </vuestro-pill>
+        <vuestro-pill color="#FF42A1">
+          <template #title>&nbsp;</template>
+        </vuestro-pill>
+        <vuestro-pill color="#1DB100">
+          <template #title>&nbsp;</template>
+        </vuestro-pill>
+        <vuestro-pill color="#00AB8E">
+          <template #title>&nbsp;</template>
+        </vuestro-pill>
+        <vuestro-pill color="#F27200">
+          <template #title>&nbsp;</template>
+        </vuestro-pill>
+      </vuestro-container>
+    </vuestro-card>
   </vuestro-container>
 </template>
 
