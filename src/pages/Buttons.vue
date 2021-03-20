@@ -13,7 +13,6 @@
       </template>
       <div class="example-flexbox">
         <vuestro-button @click="onClick">Button</vuestro-button>
-        <vuestro-button @click="onClick"></vuestro-button>
       </div>
     </vuestro-card>
 
@@ -30,7 +29,9 @@
 
     <vuestro-card>
       <template #description>
-        <span>Set <em>show-slot-on-hover</em> property to only show default slot when button is hovered</span>
+        <span>
+          Set <vuestro-code>show-slot-on-hover</vuestro-code> property to only show default slot when button is hovered
+        </span>
       </template>
       <div class="example-flexbox">
         <vuestro-button @click="onClick" show-slot-on-hover>
@@ -46,7 +47,9 @@
 
     <vuestro-card>
       <template #description>
-        <span>Basic button with VuestroIcon in <em>#icon</em> template to add proper spacing</span>
+        <span>
+          Basic button with VuestroIcon in <vuestro-code>#icon</vuestro-code> template to add proper spacing
+        </span>
       </template>
       <div class="example-flexbox">
         <vuestro-button @click="onClick">
@@ -80,7 +83,9 @@
 
     <vuestro-card>
       <template #description>
-        ...make pills by setting the pill property
+        <span>
+          ...make pills by setting the <vuestro-code>pill</vuestro-code> property
+        </span>
       </template>
       <div class="example-flexbox">
         <vuestro-button pill @click="onClick">
@@ -98,7 +103,7 @@
 
     <vuestro-card>
       <template #description>
-        <span>Add shadow by setting the <em>shadow</em> property</span>
+        <span>Add shadow by setting the <vuestro-code>shadow</vuestro-code> property</span>
       </template>
       <div class="example-flexbox">
         <vuestro-button rounded shadow>
@@ -141,7 +146,7 @@
 
     <vuestro-card>
       <template #description>
-        <span>Set the <em>size</em> property {'sm', 'md', 'lg', 'xl'} to affect the size of the button</span>
+        <span>Set the <vuestro-code>size</vuestro-code> property {'sm', 'md', 'lg', 'xl'} to affect the size of the button</span>
       </template>
       <div class="example-flexbox">
         <vuestro-button size="sm"><vuestro-icon name="tractor"></vuestro-icon></vuestro-button>
@@ -207,7 +212,9 @@
 
     <vuestro-card>
       <template #description>
-        Button variant can be changed by setting the variant property
+        <span>
+          Button variant can be changed by setting the <vuestro-code>variant</vuestro-code> property
+        </span>
       </template>
       <div class="example-flexbox">
         <vuestro-button variant="primary">primary</vuestro-button>
@@ -237,7 +244,9 @@
 
     <vuestro-card>
       <template #description>
-        Go buttons without borders by setting the no-border property
+        <span>
+          Go buttons without borders by setting the <vuestro-code>no-border</vuestro-code> property
+        </span>
       </template>
       <div class="example-flexbox">
         <vuestro-button no-border variant="primary">primary</vuestro-button>
@@ -268,7 +277,7 @@
 
     <vuestro-card>
       <template #description>
-        <span>Enable checkbox mode by setting the <em>checkbox</em> property</span>
+        <span>Enable checkbox mode by setting the <vuestro-code>checkbox</vuestro-code> property</span>
       </template>
       <div>
         <vuestro-button variant="info" size="sm" checkbox v-model="exampleCheckbox">Slot content automatically renders beside it!</vuestro-button>
@@ -302,7 +311,9 @@
 
     <vuestro-card>
       <template #description>
-        Buttons will stretch to available space by setting the stretch property
+        <span>
+          Buttons will stretch to available space by setting the <vuestro-code>stretch</vuestro-code> property
+        </span>
       </template>
       <vuestro-button stretch>Button</vuestro-button>
       <vuestro-button pill stretch>Button</vuestro-button>
@@ -316,7 +327,7 @@
 
     <vuestro-card>
       <template #description>
-        <span>Disable the button by setting the <em>disabled</em> propery</span>
+        <span>Disable the button by setting the <vuestro-code>disabled</vuestro-code> propery</span>
       </template>
       <div class="example-flexbox">
         <vuestro-button disabled @click="onClick">Disabled Button</vuestro-button>
@@ -334,7 +345,7 @@
 
     <vuestro-card>
       <template #description>
-        <span>Enable dense arrangements by setting the <em>no-margin</em> property</span>
+        <span>Enable dense arrangements by setting the <vuestro-code>no-margin</vuestro-code> property</span>
       </template>
       <div class="example-calculator">
         <vuestro-button no-margin stretch variant="primary">7</vuestro-button>
@@ -354,7 +365,7 @@
 
     <vuestro-card>
       <template #description>
-        <span>Get a tall icon + text button by setting <em>size="tall"</em></span>
+        <span>Get a tall icon + text button by setting <vuestro-code>size="tall"</vuestro-code></span>
       </template>
       <div class="example-tall-button-container">
         <vuestro-button size="tall">
