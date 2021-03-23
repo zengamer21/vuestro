@@ -73,6 +73,7 @@
       <vuestro-panel>
         <vuestro-table :options="exampleOptions2" :data="[]">
           <template #no-data>
+            <vuestro-icon name="ghost"></vuestro-icon>
             No data to show
           </template>
         </vuestro-table>

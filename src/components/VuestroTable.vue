@@ -38,7 +38,9 @@
       <tbody>
         <tr v-if="sortedFilteredData.length === 0" class="vuestro-table-row">
           <td :colspan="headers.length + 1" align="center"><!-- plus one in case there are header buttons -->
-            <slot name="no-data"></slot>
+            <div class="vuestro-table-no-data-slot">
+              <slot name="no-data"></slot>
+            </div>
           </td>
         </tr>
         <template v-for="(row, idx) in sortedFilteredData">
@@ -351,6 +353,10 @@ export default {
   display: flex;
   flex-wrap: nowrap;
   justify-content: flex-end;
+}
+
+.vuestro-table-no-data-slot {
+  margin: 1em 0;
 }
 
 </style>
