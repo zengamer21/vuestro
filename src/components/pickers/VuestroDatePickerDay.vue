@@ -13,6 +13,7 @@
 
 <script>
 
+/* global _ */
 import moment from 'moment';
 
 export default {
@@ -24,14 +25,20 @@ export default {
     },
     isSelected() {
       if (this.value) {
-        if (this.value.length === 1) {
-          if (moment(this.date).isSame(moment(this.value[0]).startOf('day'))) {
-            return true;
+        if (_.isArray(this.value)) {
+          if (this.value.length === 1) {
+            if (moment(this.date).isSame(moment(this.value[0]).startOf('day'))) {
+              return true;
+            }
+          } else {
+            if (moment(this.date).isSameOrAfter(this.value[0]) &&
+                moment(this.date).isSameOrBefore(this.value[1])) {
+                  return true;
+            }
           }
         } else {
-          if (moment(this.date).isSameOrAfter(this.value[0]) &&
-              moment(this.date).isSameOrBefore(this.value[1])) {
-                return true;
+          if (moment(this.date).isSame(moment(this.value).startOf('day'))) {
+            return true;
           }
         }
       }
