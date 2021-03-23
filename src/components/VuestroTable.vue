@@ -10,11 +10,11 @@
         <slot v-if="$scopedSlots['header-row']" name="header-row" :headers="headers"></slot>
         <th v-else v-for="column in headers"
             class="vuestro-table-header"
-            :class="[ column.align && `vuestro-table-align-${column.align}` ]"
             :style="column.padding !== undefined && `padding: ${column.padding}px`">
           <slot v-if="$scopedSlots['header-cell']" name="header-cell" :item="column"></slot>
           <template v-else>
-            <div class="vuestro-table-header-cell">
+            <div class="vuestro-table-header-cell"
+                 :class="[ column.align && `vuestro-table-align-${column.align}` ]">
               <span>{{ column.title }}</span>
               <vuestro-button v-if="column.sortable"
                     no-border
@@ -275,7 +275,6 @@ export default {
 }
 
 .vuestro-table-header {
-  text-align: left;
   padding: 0.4em 0.6em;
   color: var(--vuestro-table-header-fg);
   font-weight: 500;
@@ -284,15 +283,15 @@ export default {
 .vuestro-table-header:hover {
   color: var(--vuestro-table-header-fg-active);
 }
-.vuestro-table-header.vuestro-table-align-right {
-  text-align: right;
-}
-.vuestro-table-header.vuestro-table-align-center {
-  text-align: center;
-}
 .vuestro-table-header-cell {
+  justify-content: flex-start;
   display: flex;
-  align-items: center;
+}
+.vuestro-table-header-cell.vuestro-table-align-right {
+  justify-content: flex-end;
+}
+.vuestro-table-header-cell.vuestro-table-align-center {
+  justify-content: center;
 }
 .vuestro-table-header-sort {
   opacity: 0;
