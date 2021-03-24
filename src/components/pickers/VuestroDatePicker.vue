@@ -76,6 +76,7 @@
                   <td v-for="d in 7">
                     <vuestro-date-picker-day :date="getDate(m, w, d)"
                                              :value="value"
+                                             :utc="utc"
                                              @click="onClickDay">
                     </vuestro-date-picker-day>
                   </td>

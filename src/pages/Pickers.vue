@@ -60,7 +60,7 @@
         <div>value: {{ exampleDate }}</div>
       </vuestro-container>
       <vuestro-container justify="space-between">
-        <vuestro-date-picker v-model="exampleDateString"></vuestro-date-picker>
+        <vuestro-date-picker v-model="exampleDateString" utc></vuestro-date-picker>
         <div>value: {{ exampleDateString }}</div>
       </vuestro-container>
     </vuestro-card>

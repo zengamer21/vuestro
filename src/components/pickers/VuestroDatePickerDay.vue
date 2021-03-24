@@ -18,7 +18,7 @@ import moment from 'moment';
 
 export default {
   name: 'VuestroDatePickerDay',
-  props: ['date', 'value'],
+  props: ['date', 'value', 'utc'],
   computed: {
     isToday() {
       return this.date && moment(this.date).isSame(moment(), 'day');
@@ -37,8 +37,14 @@ export default {
             }
           }
         } else {
-          if (moment(this.date).isSame(moment(this.value).startOf('day'))) {
-            return true;
+          if (this.utc) {
+            if (moment.utc(this.date).isSame(moment.utc(this.value).startOf('day'))) {
+              return true;
+            }
+          } else {
+            if (moment(this.date).isSame(moment(this.value).startOf('day'))) {
+              return true;
+            }
           }
         }
       }
