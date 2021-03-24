@@ -286,8 +286,9 @@ export default {
   color: var(--vuestro-table-header-fg-active);
 }
 .vuestro-table-header-cell {
-  justify-content: flex-start;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 .vuestro-table-header-cell.vuestro-table-align-right {
   justify-content: flex-end;
