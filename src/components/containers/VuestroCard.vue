@@ -16,7 +16,14 @@
       <slot name="description"></slot>
     </div>
     <!--DEFAULT SLOT-->
-    <slot></slot>
+    <div v-if="scroll" class="vuestro-card-scroll-outer">
+      <div class="vuestro-card-scroll-inner">
+        <slot></slot>
+      </div>
+    </div>
+    <template v-else>
+      <slot></slot>
+    </template>
   </div>
 </template>
 
@@ -32,6 +39,7 @@ export default {
     shrink: { type: Boolean, default: false },
     row: { type: Boolean, default: false },
     gutter: { type: String, default: '' },
+    scroll: { type: Boolean, default: false },
   },
   computed: {
     colorBarStyle() {
@@ -180,5 +188,17 @@ export default {
   flex-basis: 100%;
 }
 
+.vuestro-card-scroll-outer {
+  flex: 1 1 auto;
+  overflow: auto;
+  position: relative;
+}
+.vuestro-card-scroll-inner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 
 </style>

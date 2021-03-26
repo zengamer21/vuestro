@@ -1,6 +1,6 @@
 <template>
   <vuestro-container no-wrap>
-    <vuestro-card cols=4 color="var(--vuestro-orange)">
+    <vuestro-card cols=4 color="var(--vuestro-orange)" scroll>
       <template #heading>
         <span>List</span>
         <vuestro-container grow=0 gutter="none">
