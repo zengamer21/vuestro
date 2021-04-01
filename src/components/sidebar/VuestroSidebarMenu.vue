@@ -6,6 +6,7 @@
                                 (route.meta.sidebar || route.meta.sidebarBottom) &&
                                 (route.meta.role ? (route.meta.role === role || role.indexOf(route.meta.role) > -1):true) &&
                                 (!route.meta.showFunc || route.meta.showFunc())"
+                          :role="role"
                           :route="route">
     </vuestro-sidebar-item>
   </div>
