@@ -15,7 +15,7 @@
           </template>
         </div>
       </a>
-      <vuestro-sub-routes :show="active" :route="route"></vuestro-sub-routes>
+      <vuestro-sub-routes :show="active" :role="role" :route="route"></vuestro-sub-routes>
     </template>
     <!--NO CHILDREN-->
     <router-link v-else
@@ -49,6 +49,7 @@ export default {
     VuestroSubRoutes,
   },
   props: {
+    role: { type: [String, Array], default: () => [] }, // user role
     route: { type: Object, required: true },
   },
   data() {

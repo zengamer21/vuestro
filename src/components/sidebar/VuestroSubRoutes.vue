@@ -2,7 +2,10 @@
   <transition name="vuestro-sub-routes" mode="out-in">
     <ul v-if="show" class="vuestro-sub-routes">
       <template v-for="subroute in route.children">
-        <li v-if="subroute.meta.sidebar" class="vuestro-sub-routes-item" :key="subroute.path">
+        <li v-if="subroute.meta.sidebar && 
+                  (subroute.meta.role ? (subroute.meta.role === role || role.indexOf(subroute.meta.role) > -1):true)" 
+            class="vuestro-sub-routes-item" 
+            :key="subroute.path">
           <router-link v-if="toPath"
                        :to="{ path: route.path + '/' + subroute.path }"
                        exact-active-class="vuestro-router-link-exact-active"
@@ -26,6 +29,7 @@
 export default {
   name: 'VuestroSubRoutes',
   props: {
+    role: { type: [String, Array], default: () => [] }, // user role
     route: { type: Object, required: true },
     show: { type: Boolean, default: true },
     toPath: { type: Boolean, default: false }, // build a path manually
