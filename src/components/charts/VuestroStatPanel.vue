@@ -1,6 +1,6 @@
 <template>
   <vuestro-panel class="vuestro-stat-panel" :style="style" frame>
-    <vuestro-container gutter="none">
+    <vuestro-container gutter="none" no-wrap>
       <div class="vuestro-stat-panel-title drag">{{ title }}</div>
       <div class="vuestro-stat-panel-buttons">
         <slot name="buttons"></slot>
