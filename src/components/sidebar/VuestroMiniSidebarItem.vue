@@ -23,11 +23,11 @@
           <component :is="route.meta.badgeComponent"></component>
         </template>
       </div>
-      <vuestro-sub-routes v-if="route.children" :route="route"></vuestro-sub-routes>
+      <vuestro-sub-routes v-if="route.children" :role="role" :route="route"></vuestro-sub-routes>
       <!--VUEX CHILDREN-->
       <template v-if="route.meta.vuex">
         <vuestro-sub-routes :route="vuexRoute" to-path></vuestro-sub-routes>
-        <div v-if="route.meta.vuexMessage && noVuexSubRoutes"
+        <div v-if="route.meta.vuexMessage && vuexSubRoutes"
              class="vuestro-mini-sidebar-vuex-message">
           {{ route.meta.vuexMessage }}
         </div>
@@ -38,7 +38,6 @@
 
 <script>
 
-/* global _ */
 import VuestroSubRoutes from './VuestroSubRoutes.vue';
 
 export default {
@@ -47,6 +46,7 @@ export default {
     VuestroSubRoutes,
   },
   props: {
+    role: { type: [String, Array], default: () => [] }, // user role
     route: { type: Object, required: true },
   },
   data() {
@@ -68,7 +68,7 @@ export default {
         children: this.$store.getters[this.route.meta.vuex],
       };
     },
-    noVuexSubRoutes() {
+    vuexSubRoutes() {
       if (this.vuexRoute)
       return _.filter(this.vuexRoute.children, function(o) { return o.meta.sidebar; }).length === 0;
     },
@@ -86,8 +86,12 @@ export default {
       this.active = false;
     },
     tryPush() {
-      if (!this.route.children) {
-        this.$router.push(this.route).catch(err => {err;});
+      if (this.route.children && this.route.children.length > 0) {
+        // go to first child
+        this.$router.push(this.route.children[0]).catch(err => {});
+      } else {
+        // go to self if no children
+        this.$router.push(this.route).catch(err => {});
       }
     },
   },
