@@ -9,8 +9,7 @@
     <vuestro-card>
       <template #subheading>
         <span>VuestroMultiSelect provides a templatized multi-select which allows a lot of control over the contents.
-        <p>The templates are <em>title</em>, <em>item</em>, and <em>dropdown</em>
-        </p>
+          <p>The templates are <em>title</em>, <em>item</em>, and <em>dropdown</em></p>
         </span>
       </template>
       <vuestro-multi-select size="xl" :value="exampleValue" @keyup="onSearch" @clear="onClear">
@@ -76,6 +75,14 @@
         </template>
       </vuestro-multi-select>
     </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading><span><vuestro-code>no-margin</vuestro-code> prop</span></template>
+      <vuestro-multi-select size="xl" placeholder="" no-margin>
+        <template #title>No margin</template>
+      </vuestro-multi-select>
+    </vuestro-card>
+
   </vuestro-container>
 </template>
 

@@ -2,6 +2,7 @@
   <vuestro-tray class="vuestro-multi-select"
                 :class="{ stretch }"
                 :variant="variant"
+                :no-margin="noMargin"
                 :size="size"
                 v-vuestro-blur="closeDropdown">
     <template #title>
@@ -59,6 +60,7 @@ export default {
     single: { type: Boolean, default: false },        // only allow single selection
     size: { type: String, default: 'md' },            // standard vuestro size
     variant: { type: String, default: 'outline' },    // variant for VuestroTray container
+    noMargin: { type: Boolean, default: false },      // no margins (for fitting in a card or panel)
     placeholder: { type: String, default: 'Search...' }, // input placeholder
     stretch: { type: Boolean, default: false },       // stretch to fill space
     keyField: { type: String, default: 'key' },       // the field name for the keys
