@@ -77,16 +77,16 @@
 
     <vuestro-card>
       <template #subheading>
-        <span>Set the <em>readonly</em> property for a text field which ignores pointer events</span>
+        <span>Set the <vuestro-code>readonly</vuestro-code> property for a text field which ignores pointer events</span>
       </template>
       <div class="example-flexbox"  >
-        <vuestro-text-field variant="outline" v-model="exampleEditableText" readonly></vuestro-text-field>
+        <vuestro-text-field variant="outline" v-model="exampleEditableText" readonly clearable></vuestro-text-field>
       </div>
     </vuestro-card>
 
     <vuestro-card>
       <template #subheading>
-        <span>Set the <em>invalid</em> property to true or a string to provide validation feedback.</span>
+        <span>Set the <vuestro-code>invalid</vuestro-code> property to true or a string to provide validation feedback.</span>
       </template>
       <div class="example-flexbox">
         <vuestro-text-field variant="outline" v-model="exampleBoolean" editing-buttons clearable :validate="isBooleanString"></vuestro-text-field>

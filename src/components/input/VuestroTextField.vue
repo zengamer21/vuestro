@@ -39,7 +39,7 @@
         <slot name="unit"></slot>
       </div>
       <!--CLEAR BUTTON-->
-      <vuestro-button v-if="(!invalid && clearable && value) || variant === 'search'"
+      <vuestro-button v-if="(!invalid && clearable && value && !readonly) || variant === 'search'"
                       size="sm" round no-border @click.stop="onClear">
         <vuestro-icon name="times"></vuestro-icon>
       </vuestro-button>
