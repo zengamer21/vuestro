@@ -3,12 +3,15 @@
     <vuestro-card cols="0" color="#f47633">
       <template #heading>Editor</template>
       <template #description>
+        <span>
+          The VuestroEditor wraps Ace Editor (ace.c9.io) for a mature and feature-rich editor capable of being used for development.
+        </span>
       </template>
     </vuestro-card>
 
     <vuestro-card cols="0" stretch>
       <template #description>
-        <span>Simple default configuration with the buffer set as the <em>value</em> attribute</span>
+        <span>Simple default configuration with the buffer set as the <vuestro-code>value</vuestro-code> attribute</span>
       </template>
       <vuestro-panel stretch>
         <vuestro-editor :value="testValue"></vuestro-editor>
@@ -17,12 +20,23 @@
 
     <vuestro-card cols="0" stretch>
       <template #description>
-        <span>Set the <em>lang</em> attribute to set the editor mode</span>
+        <span>Set the <vuestro-code>lang</vuestro-code> attribute to set the editor mode</span>
       </template>
       <vuestro-panel stretch>
         <vuestro-editor :value="JSON.stringify(testJson,null,2)" lang="json" :options="editorOptions"></vuestro-editor>
       </vuestro-panel>
     </vuestro-card>
+
+    <vuestro-card cols="0" stretch>
+      <template #description>
+        <span>Various options (documented <a href="https://github.com/ajaxorg/ace/wiki/Configuring-Ace">here</a>) may be set through the <vuestro-code>options</vuestro-code> attribute</span>
+      </template>
+      <vuestro-panel stretch>
+        <vuestro-editor :value="JSON.stringify(testJson,null,2)" lang="json" :options="editorOptionsExample"></vuestro-editor>
+      </vuestro-panel>
+    </vuestro-card>
+
+
 
   </vuestro-container>
 </template>
@@ -40,6 +54,18 @@ export default {
       editorOptions: {
         useSoftTabs: true,
         tabSize: 2,
+      },
+      editorOptionsExample: {
+        selectionStyle: 'line',
+        highlightActiveLine: false,
+        cursorStyle: 'wide',
+        autoScrollEditorIntoView: true,
+        maxLines: 100,
+        highlightGutterLine: false,
+        showInvisibles: true,
+        showPrintMargin: false,
+        showGutter: false,
+        fontSize: 22,
       },
     };
   },

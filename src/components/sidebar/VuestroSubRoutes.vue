@@ -2,9 +2,9 @@
   <transition name="vuestro-sub-routes" mode="out-in">
     <ul v-if="show" class="vuestro-sub-routes">
       <template v-for="subroute in route.children">
-        <li v-if="subroute.meta.sidebar && 
-                  (subroute.meta.role ? (subroute.meta.role === role || role.indexOf(subroute.meta.role) > -1):true)" 
-            class="vuestro-sub-routes-item" 
+        <li v-if="subroute.meta.sidebar &&
+                  (subroute.meta.role ? (subroute.meta.role === role || role.indexOf(subroute.meta.role) > -1):true)"
+            class="vuestro-sub-routes-item"
             :key="subroute.path">
           <router-link v-if="toPath"
                        :to="{ path: route.path + '/' + subroute.path }"
@@ -59,7 +59,7 @@ export default {
   font-size: var(--vuestro-sidebar-sub-item-font-size);
   display: block;
   transition: all 0.4s;
-  color: var(--vuestro-sidebar-fg);
+  color: var(--vuestro-sidebar-fg) !important; /* override gloabl <a> color */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

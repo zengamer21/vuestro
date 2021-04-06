@@ -98,7 +98,7 @@ export default {
   display: flex;
   padding-left: 5px;
   align-items: center;
-  color: var(--vuestro-sidebar-fg);
+  color: var(--vuestro-sidebar-fg) !important; /* override gloabl <a> color */
   font-size: var(--vuestro-sidebar-item-font-size);
   text-decoration: none;
   cursor: pointer;

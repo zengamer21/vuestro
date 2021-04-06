@@ -27,6 +27,7 @@
              :value="value"
              :type="showPassword ? 'text':type"
              :autocomplete="autocomplete"
+             :spellcheck="spellcheck"
              :placeholder="variant === 'search' ? 'Search':null"
              @focus="onFocus"
              @focusout="onFocusOut"
@@ -104,6 +105,7 @@ export default {
     readonly: { type: Boolean, default: false },      // true for readonly
     validate: { type: Function, default: () => { return false; } }, // return true or string to set invalid state
     autocomplete: { type: String, default: null },
+    spellcheck: { type: String, default: null },
     stretch: { type: Boolean, default: false },
   },
   data() {

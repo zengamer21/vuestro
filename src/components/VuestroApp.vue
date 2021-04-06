@@ -388,4 +388,11 @@ export default {
   font-family: 'Quicksand';
 }
 
+.vuestro-app >>> a {
+  color: var(--vuestro-primary);
+}
+.vuestro-app >>> a:visited {
+  color: var(--vuestro-purple);
+}
+
 </style>
