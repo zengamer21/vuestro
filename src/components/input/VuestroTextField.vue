@@ -327,6 +327,7 @@ export default {
 
 .vuestro-text-field-shaded {
   border: none;
+  border-radius: var(--vuestro-control-border-radius);
   background-color: var(--vuestro-field-bg);
 }
 .vuestro-text-field-search {

@@ -181,8 +181,9 @@ export default {
   flex-wrap: wrap;
   padding: 0.2em;
 }
+/* margin override for vuestro-pills in the multi (common) */
 .vuestro-multi-draggable > .vuestro-pill {
-  margin: 0.15em 0.15em;
+  margin: 0 0.15em;
 }
 
 .vuestro-multi-select >>> span.sortable-ghost {

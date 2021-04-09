@@ -45,6 +45,7 @@ export default {
   min-height: var(--vuestro-tray-min-height);
   min-width: 0;
   margin: var(--vuestro-control-margin-v) var(--vuestro-control-margin-h);
+  border-radius: var(--vuestro-control-border-radius);
 }
 .vuestro-tray.stretch {
   flex-grow: 1;
@@ -53,7 +54,6 @@ export default {
   margin: 0;
 }
 .vuestro-tray-outline {
-  border-radius: var(--vuestro-control-border-radius);
   border: var(--vuestro-control-border-width) solid var(--vuestro-outline);
 }
 .vuestro-tray-regular {
@@ -62,7 +62,10 @@ export default {
 
 .vuestro-tray-shaded {
   border: none;
-  background-color: var(--vuestro-light-med);
+  background-color: var(--vuestro-field-bg);
+}
+.vuestro-dark .vuestro-tray-shaded {
+  background-color: var(--vuestro-darker);
 }
 
 .vuestro-tray-title {
