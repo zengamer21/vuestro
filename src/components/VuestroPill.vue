@@ -1,6 +1,8 @@
 <template>
   <div class="vuestro-pill"
-       :class="[ size, { clickable, closable, shadow, draggable, geopattern, noMargin }]"
+       :class="[ size, { clickable: $listeners.click,
+                         closable: $listeners.close,
+                         shadow, draggable, geopattern, noMargin }]"
        @click="onClick">
     <div v-if="!$slots.title && !$slots.icon" class="vuestro-pill-title" :class="{ autoCapital }"
          :style="titleStyle">
@@ -26,7 +28,7 @@
     <div v-if="$slots['value-buttons']" class="vuestro-pill-button-slot">
       <slot name="value-buttons"></slot>
     </div>
-    <div v-if="closable">
+    <div v-if="$listeners.close">
       <vuestro-button no-margin :size="size" round no-border @click.stop="onClose">
         <vuestro-icon name="times"></vuestro-icon>
       </vuestro-button>
@@ -44,8 +46,6 @@ export default {
   props: {
     size: { type: String, default: 'md' },
     color: { type: String, default: null },
-    closable: { type: Boolean, default: false },
-    clickable: { type: Boolean, default: false },
     draggable: { type: Boolean, default: false },
     shadow: { type: Boolean, default: false },
     geopattern: { type: null, default: null },
@@ -94,7 +94,7 @@ export default {
       this.$emit('close', e);
     },
     onClick(e) {
-      if (this.clickable) { // only if set
+      if (this.$listeners.click) { // only if set
         this.$emit('click', e);
       }
     },
