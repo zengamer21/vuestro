@@ -1,5 +1,5 @@
 <template>
-  <div class="vuestro-table">
+  <div class="vuestro-table" :class="{ scroll }">
     <table class="vuestro-table-table">
       <slot v-if="$scopedSlots.thead" name="thead" :headers="headers"></slot>
       <thead v-else-if="!noHeader"
@@ -98,6 +98,7 @@ export default {
       sort: [],
       filter: [],
       noHeader: false,
+      scroll: false,
       expandedRows: [],
       transparentHeader: false,
     };
@@ -261,6 +262,9 @@ export default {
 .vuestro-table {
   flex-grow: 1;
   min-width: 0;
+}
+.vuestro-table.scroll {
+  overflow: hidden;
 }
 
 .vuestro-table-table {

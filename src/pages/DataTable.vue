@@ -27,7 +27,7 @@
 
     <vuestro-card>
       <template #subheading>
-        <span>Provide a template for cells and headers through the cell/header slot. The slot scope object <em>item</em> contains a column specifier for headers and both the column specifier and row data item for cells.</span>
+        <span>Provide a template for cells and headers through the cell/header slot. The slot scope object <vuestro-code>item</vuestro-code> contains a column specifier for headers and both the column specifier and row data item for cells.</span>
       </template>
       <vuestro-panel>
         <vuestro-table :options="exampleOptions" :data="exampleData">
@@ -43,7 +43,7 @@
 
     <vuestro-card>
       <template #subheading>
-        <span>Provide a template for the entire row through the <em>row</em> slot. The slot must contain enough <em>td</em> elements to fill the row. Also, some of the column options such as align won't work unless implemented manually.</span>
+        <span>Provide a template for the entire row through the <vuestro-code>row</vuestro-code> slot. The slot must contain enough <vuestro-code>td</vuestro-code> elements to fill the row. Also, some of the column options such as align won't work unless implemented manually.</span>
       </template>
       <vuestro-panel>
         <vuestro-table :options="exampleOptions" :data="exampleData">
@@ -59,7 +59,7 @@
 
     <vuestro-card>
       <template #subheading>
-        <span>Specify <em>component</em> header property to use a Vue component to render a particular column</span>
+        <span>Specify <vuestro-code>component</vuestro-code> header property to use a Vue component to render a particular column</span>
       </template>
       <vuestro-panel>
         <vuestro-table :options="exampleOptions2" :data="exampleData"></vuestro-table>
@@ -73,7 +73,7 @@
       <vuestro-panel>
         <vuestro-table :options="exampleOptions2" :data="[]">
           <template #no-data>
-            <vuestro-icon name="ghost"></vuestro-icon>
+            <vuestro-icon name="ghost" scale=2></vuestro-icon>
             No data to show
           </template>
         </vuestro-table>
@@ -82,30 +82,35 @@
 
     <vuestro-card>
       <template #subheading>
-        <span>Set the <em>noHeader: true</em> option to skip the header row</span>
+        <span>Set the <vuestro-code>noHeader: true</vuestro-code> option to skip the header row</span>
       </template>
       <vuestro-panel>
-        <vuestro-table :options="exampleOptions3" :data="exampleData">
-          <template #no-data>
-            No data to show
-          </template>
+        <vuestro-table :options="exampleOptions3" :data="exampleData"></vuestro-table>
+      </vuestro-panel>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>
+        <span>Set the <vuestro-code>scroll: true</vuestro-code> option to let the table scroll horizontally</span>
+      </template>
+      <vuestro-panel>
+        <vuestro-table :options="{ ...exampleOptions4, scroll: true }" :data="exampleData">
         </vuestro-table>
       </vuestro-panel>
     </vuestro-card>
 
     <vuestro-card>
       <template #subheading>
-        <span>Set the <em>async: true</em> column option to render a spinner while the value is null</span>
+        <span>Set the <vuestro-code>async: true</vuestro-code> column option to render a spinner while the value is null</span>
       </template>
       <vuestro-panel>
         <vuestro-table :options="exampleOptions4" :data="exampleData">
         </vuestro-table>
       </vuestro-panel>
     </vuestro-card>
-
     <vuestro-card>
       <template #subheading>
-        <span>Set the <em>header-buttons</em> or <em>row-buttons</em> slot to provide buttons at the end of the header or row</span>
+        <span>Set the <vuestro-code>header-buttons</vuestro-code> or <vuestro-code>row-buttons</vuestro-code> slot to provide buttons at the end of the header or row</span>
       </template>
       <vuestro-panel>
         <vuestro-table :options="exampleOptions2" :data="exampleData">
