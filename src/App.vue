@@ -5,7 +5,8 @@
                        :user-img="userImg"
                        :role="role"
                        :mini="isSidebarMini"
-                       @update:mini="onSetSidebar">
+                       @update:mini="onSetSidebar"
+                       @profile="onUserImgClick">
       </vuestro-sidebar>
     </template>
     <template #sidebar-footer></template>
@@ -37,6 +38,9 @@ export default {
   methods: {
     onSetSidebar(d) {
       this.$store.dispatch('setSidebarMini', d);
+    },
+    onUserImgClick() {
+      console.log('user img clicked');
     },
   }
 };

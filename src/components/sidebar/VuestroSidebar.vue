@@ -23,7 +23,10 @@
     <!--USER BLOCK-->
     <template v-if="user">
       <vuestro-geo-pattern class="vuestro-user-block" :seed="user" @color="(c) => {this.geoColor = c}">
-        <img v-if="userImg" :src="userImg"/>
+        <img v-if="userImg"
+             :src="userImg"
+             :class="{ clickable: $listeners.profile }"
+             @click="onUserImgClick"/>
         <transition name="vuestro-user-block" mode="out-in">
           <div v-if="!localMini" class="vuestro-user-block-text">
             <span class="vuestro-sidebar-username">{{ user }}</span>
@@ -139,6 +142,11 @@ export default {
         });
       });
     },
+    onUserImgClick() {
+      if (this.$listeners.profile) {
+        this.$emit('profile');
+      }
+    },
   },
 };
 </script>
@@ -237,6 +245,9 @@ export default {
   height: var(--vuestro-sidebar-user-image-width);
   border-radius: 50%;
 }
+.vuestro-user-block img.clickable {
+  cursor: pointer;
+}
 
 .vuestro-user-block-text {
   align-self: center;
@@ -244,6 +255,7 @@ export default {
   flex-direction: column;
   margin-left: 0.7em;
   overflow: hidden;
+  cursor: default;
 }
 .vuestro-user-block-text > span {
   text-overflow: ellipsis;

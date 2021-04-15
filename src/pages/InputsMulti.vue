@@ -84,7 +84,7 @@
     </vuestro-card>
 
     <vuestro-card>
-      <template #subheading><span><vuestro-code>variant = 'shaded'</vuestro-code> prop</span></template>
+      <template #subheading><span><vuestro-code>variant="shaded"</vuestro-code> prop</span></template>
       <vuestro-multi-select size="xl" variant="shaded">
         <template #title>Shaded</template>
       </vuestro-multi-select>
