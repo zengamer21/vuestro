@@ -264,7 +264,7 @@ export default {
   min-width: 0;
 }
 .vuestro-table.scroll {
-  overflow: hidden;
+  overflow: auto;
 }
 
 .vuestro-table-table {
