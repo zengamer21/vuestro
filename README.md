@@ -2,3 +2,4 @@
 
 A sensible, keep-it-simple Vue component library.
 
+[DEMO](https://msmiley.github.io/vuestro)
