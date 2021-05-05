@@ -169,6 +169,7 @@ export default {
   --vuestro-magenta: #ed23a9;
   --vuestro-pink: #f13c6e;
 
+  --vuestro-prussian: #1f2233;
   --vuestro-royal: #101c5a;
   --vuestro-blue: #217ada;
   --vuestro-cobalt: #2163C9;
@@ -246,6 +247,7 @@ export default {
   --vuestro-magenta: #bd2c70;
   --vuestro-pink: #e04aad;
 
+  --vuestro-prussian: #1f2233;
   --vuestro-royal: #101c5a;
   --vuestro-blue: #27538a;
   --vuestro-cobalt: #2163C9;

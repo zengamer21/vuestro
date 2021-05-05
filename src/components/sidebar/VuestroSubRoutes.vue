@@ -2,8 +2,7 @@
   <transition name="vuestro-sub-routes" mode="out-in">
     <ul v-if="show" class="vuestro-sub-routes">
       <template v-for="subroute in route.children">
-        <li v-if="subroute.meta.sidebar &&
-                  (subroute.meta.role ? (subroute.meta.role === role || role.indexOf(subroute.meta.role) > -1):true)"
+        <li v-if="isShown(role, subroute)"
             class="vuestro-sub-routes-item"
             :key="subroute.path">
           <router-link v-if="toPath"
@@ -26,8 +25,13 @@
 
 <script>
 
+import VuestroSidebarMixin from './VuestroSidebarMixin';
+
 export default {
   name: 'VuestroSubRoutes',
+  mixins: [
+    VuestroSidebarMixin,
+  ],
   props: {
     role: { type: [String, Array], default: () => [] }, // user role
     route: { type: Object, required: true },

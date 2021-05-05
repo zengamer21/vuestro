@@ -72,6 +72,7 @@ export default {
         '--vuestro-magenta',
         '--vuestro-pink',
 
+        '--vuestro-prussian',
         '--vuestro-royal',
         '--vuestro-blue',
         '--vuestro-cobalt',

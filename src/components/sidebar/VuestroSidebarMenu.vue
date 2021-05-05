@@ -2,10 +2,7 @@
   <div class="vuestro-sidebar-menu" @click.self="$emit('click')">
     <vuestro-sidebar-item v-for="(route, ridx) in routes"
                           :key="route.path"
-                          v-if="route.meta &&
-                                (route.meta.sidebar || route.meta.sidebarBottom) &&
-                                (route.meta.role ? (route.meta.role === role || role.indexOf(route.meta.role) > -1):true) &&
-                                (!route.meta.showFunc || route.meta.showFunc())"
+                          v-if="isShown(role, route)"
                           :role="role"
                           :route="route">
     </vuestro-sidebar-item>
@@ -14,13 +11,17 @@
 
 <script>
 
-import VuestroSidebarItem from './VuestroSidebarItem.vue';
+import VuestroSidebarItem from './VuestroSidebarItem';
+import VuestroSidebarMixin from './VuestroSidebarMixin';
 
 export default {
   name: 'VuestroSideBarMenu',
   components: {
     VuestroSidebarItem,
   },
+  mixins: [
+    VuestroSidebarMixin,
+  ],
   props: {
     role: { type: [String, Array], default: () => [] }, // user role
     routes: { type: Array, required: true },
