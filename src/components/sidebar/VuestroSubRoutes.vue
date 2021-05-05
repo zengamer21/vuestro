@@ -25,12 +25,12 @@
 
 <script>
 
-import VuestroSidebarMixin from './VuestroSidebarMixin';
+import VuestroSidebarMixins from './VuestroSidebarMixins';
 
 export default {
   name: 'VuestroSubRoutes',
   mixins: [
-    VuestroSidebarMixin,
+    VuestroSidebarMixins,
   ],
   props: {
     role: { type: [String, Array], default: () => [] }, // user role

@@ -12,7 +12,7 @@
 <script>
 
 import VuestroMiniSidebarItem from './VuestroMiniSidebarItem.vue';
-import VuestroSidebarMixin from './VuestroSidebarMixin';
+import VuestroSidebarMixins from './VuestroSidebarMixins';
 
 export default {
   name: 'VuestroMiniSidebarMenu',
@@ -20,7 +20,7 @@ export default {
     VuestroMiniSidebarItem,
   },
   mixins: [
-    VuestroSidebarMixin,
+    VuestroSidebarMixins,
   ],
   props: {
     role: { type: [String, Array], default: () => [] }, // user role

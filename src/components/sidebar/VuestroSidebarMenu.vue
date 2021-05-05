@@ -12,7 +12,7 @@
 <script>
 
 import VuestroSidebarItem from './VuestroSidebarItem';
-import VuestroSidebarMixin from './VuestroSidebarMixin';
+import VuestroSidebarMixins from './VuestroSidebarMixins';
 
 export default {
   name: 'VuestroSideBarMenu',
@@ -20,7 +20,7 @@ export default {
     VuestroSidebarItem,
   },
   mixins: [
-    VuestroSidebarMixin,
+    VuestroSidebarMixins,
   ],
   props: {
     role: { type: [String, Array], default: () => [] }, // user role
