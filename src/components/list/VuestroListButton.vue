@@ -41,7 +41,7 @@ export default {
   align-items: center;
 }
 .vuestro-list-button-icon {
-  margin-right: 0.25em;
+  margin-right: 0.3em;
 }
 
 .vuestro-list-button:hover {
