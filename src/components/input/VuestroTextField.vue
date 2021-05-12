@@ -24,7 +24,7 @@
       </div>
       <input ref="inputEl"
              class="vuestro-text-field-input-el"
-             :value="value"
+             :value="inputBuffer"
              :type="showPassword ? 'text':type"
              :autocomplete="autocomplete"
              :spellcheck="spellcheck"
@@ -110,14 +110,14 @@ export default {
   },
   data() {
     return {
-      focused: false,
-      raisedPlaceholder: false,
-      showPassword: false,
-      showDropdown: false,
-      editingButtonsBuffer: this.value,
-      style: {},
-      placeholderStyle: {},
-      beginValidation: false,
+      focused: false,           // true when the input is focused
+      raisedPlaceholder: false, // flag for when the placeholder is raised out of the way
+      showPassword: false,      // flag to show password in the clear
+      showDropdown: false,      // flag to show dropdown template
+      inputBuffer: this.value,  // the local buffer for the input element
+      style: {},                // style object
+      placeholderStyle: {},     // placeholder style object
+      beginValidation: false,   // flag to delay validation until user has typed something
     };
   },
   computed: {
@@ -138,6 +138,7 @@ export default {
       } else {
         this.raisedPlaceholder = false;
       }
+      this.inputBuffer = newVal;
       this.updateStyle();
     }
   },
@@ -198,7 +199,8 @@ export default {
       // fine-grained, called with every keystroke so parent
       // can update value prop according to v-model convention
       this.$emit('input', e.target.value);
-      this.editingButtonsBuffer = e.target.value;
+      // always update local input buffer
+      this.inputBuffer = e.target.value;
     },
     onKeyUp(e) { // passthrough for 'keyup.enter'-type binding
       this.beginValidation = true; // begin validation
@@ -232,13 +234,13 @@ export default {
     onSaveButton() {
       let retVal = null;
       if (_.isBoolean(this.value)) {
-        retVal = this.editingButtonsBuffer === 'true';
+        retVal = this.inputBuffer === 'true';
       } else if (_.isNumber(this.value)) {
-        retVal = parseFloat(this.editingButtonsBuffer);
+        retVal = parseFloat(this.inputBuffer);
       } else if (_.isDate(this.value)) {
-        retVal = new Date(this.editingButtonsBuffer);
+        retVal = new Date(this.inputBuffer);
       } else {
-        retVal = this.editingButtonsBuffer;
+        retVal = this.inputBuffer;
       }
       this.$emit('save', retVal);
     },

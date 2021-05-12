@@ -184,6 +184,8 @@ export default {
     isEditable(key, value) {
       if (_.isFunction(this.editable)) {
         return this.editable(this.getFullPath(key), value);
+      } else if (this.isObject(value) || this.isArray(value)) {
+        return false;
       }
       return this.editable;
     },
