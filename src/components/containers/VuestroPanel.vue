@@ -185,7 +185,6 @@ export default {
   margin-left: auto;
   justify-content: flex-end;
   color: var(--vuestro-panel-toolbar-fg);
-  flex-wrap: wrap;
 }
 
 .vuestro-panel-contents-wrapper {

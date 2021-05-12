@@ -99,6 +99,7 @@ export default {
   padding: 3px;
   overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .vuestro-editable-text:focus {

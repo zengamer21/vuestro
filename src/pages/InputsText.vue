@@ -140,6 +140,9 @@
       <div class="example-flexbox">
         <vuestro-editable-text v-model="exampleEditableText"></vuestro-editable-text>
       </div>
+      <div class="example-flexbox-fixed">
+        <vuestro-editable-text v-model="exampleEditableText2"></vuestro-editable-text>
+      </div>
     </vuestro-card>
 
   </vuestro-container>
@@ -152,6 +155,7 @@ export default {
   data() {
     return {
       exampleEditableText: '',
+      exampleEditableText2: '',
       exampleText: '',
       exampleNumber: '32.23',
       exampleDate: (new Date()).toISOString(),
@@ -202,6 +206,7 @@ export default {
   },
 	mounted() {
 		this.exampleEditableText = 'edit me';
+		this.exampleEditableText2 = 'reallllllly long editable text should fit in width';
 		setTimeout(() => {
 			this.delayedText = 'delayed  value';
 		}, 1000);
@@ -247,6 +252,10 @@ export default {
 
 .example-flexbox > div {
   margin-top: 10px;
+}
+.example-flexbox-fixed {
+  margin-top: 10px;
+  width: 80px !important;
 }
 
 </style>

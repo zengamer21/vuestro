@@ -1,11 +1,13 @@
 <template>
-  <span class="vuestro-title"
+  <div class="vuestro-title"
         :class="{ 'vuestro-title-clickable': clickable,
                   'vuestro-title-draggable': draggable }"
         @click="onClick">
-    <slot></slot>
+    <span class="vuestro-title-title">
+      <slot></slot>
+    </span>
     <vuestro-icon scale="0.7" name="spinner" pulse v-if="spinner"></vuestro-icon>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -49,6 +51,13 @@ export default {
   display: flex;
   align-items: center;
   text-transform: var(--vuestro-title-text-transform);
+  min-width: 1px;
+}
+.vuestro-title-title {
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .vuestro-title-clickable {
   pointer-events: initial;

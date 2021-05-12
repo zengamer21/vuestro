@@ -617,7 +617,7 @@ export default {
 
 .vuestro-grid {
   position: relative;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
   flex-grow: 1;
 }
 

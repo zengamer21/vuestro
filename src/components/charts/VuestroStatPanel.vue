@@ -7,6 +7,7 @@
       </div>
     </vuestro-container>
     <vuestro-container content="flex-end"
+                       no-wrap
                        :class="{ 'vuestro-stat-panel-clickable': options.clickRoute }"
                        @click="onClick">
       <vuestro-icon class="vuestro-stat-panel-icon" v-if="icon" :name="icon"></vuestro-icon>

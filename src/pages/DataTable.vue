@@ -30,7 +30,7 @@
         <span>Provide a template for cells and headers through the cell/header slot. The slot scope object <vuestro-code>item</vuestro-code> contains a column specifier for headers and both the column specifier and row data item for cells.</span>
       </template>
       <vuestro-panel>
-        <vuestro-table :options="exampleOptions" :data="exampleData">
+        <vuestro-table :options="{ ...exampleOptions, scroll: true }" :data="exampleData">
           <template #header="{ item }">
             {{ item }}
           </template>
@@ -46,8 +46,9 @@
         <span>Provide a template for the entire row through the <vuestro-code>row</vuestro-code> slot. The slot must contain enough <vuestro-code>td</vuestro-code> elements to fill the row. Also, some of the column options such as align won't work unless implemented manually.</span>
       </template>
       <vuestro-panel>
-        <vuestro-table :options="exampleOptions" :data="exampleData">
+        <vuestro-table :options="{ ...exampleOptions, scroll: true }" :data="exampleData">
           <template #row="{ item }">
+            <td>{{ item }}</td>
             <td>{{ item }}</td>
             <td>{{ item }}</td>
             <td>{{ item }}</td>
