@@ -1,6 +1,6 @@
 <template>
   <vuestro-panel class="vuestro-chart-panel" frame draggable>
-    <template #title><span class="drag">{{ options.title }}</span></template>
+    <template #title>{{ options.title }}</template>
     <component :is="options.component" :data="data" :options="options"></component>
   </vuestro-panel>
 </template>

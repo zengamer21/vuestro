@@ -75,6 +75,7 @@ export default {
   margin-left: calc(var(--vuestro-tray-min-height) / 4);
   margin-right: 0.5em;
   align-self: center;
+  pointer-events: none;
 }
 
 </style>
