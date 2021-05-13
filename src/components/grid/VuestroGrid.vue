@@ -99,17 +99,18 @@ export default {
 
     this.isMounted = true;
     this.calculateCellSizeWidth();
-    let boxIds = this.$children.map(box => box.$props.boxId);
-    this.createBoxLayout(...boxIds);
+    this.createBoxLayout(...this.getBoxIds());
   },
   methods: {
-    refresh() {
-      let boxIds = this.$children.map((box) => {
+    getBoxIds() {
+      return this.$children.map((box) => {
         if (box.$props && box.$props.boxId) {
           return box.$props.boxId;
         }
       });
-      this.createBoxLayout(...boxIds);
+    },
+    refresh() {
+      this.createBoxLayout(...this.getBoxIds());
       if (this.layoutHasCollisions(this.localLayout)) {
         this.updateLayout(this.fixLayout(this.localLayout));
       }
