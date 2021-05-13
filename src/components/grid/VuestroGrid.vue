@@ -104,7 +104,11 @@ export default {
   },
   methods: {
     refresh() {
-      let boxIds = this.$children.map(box => box.$props.boxId);
+      let boxIds = this.$children.map((box) => {
+        if (box.$props.boxId) {
+          return box.$props.boxId;
+        }
+      });
       this.createBoxLayout(...boxIds);
       if (this.layoutHasCollisions(this.localLayout)) {
         this.updateLayout(this.fixLayout(this.localLayout));
