@@ -105,7 +105,7 @@ export default {
   methods: {
     refresh() {
       let boxIds = this.$children.map((box) => {
-        if (box.$props.boxId) {
+        if (box.$props && box.$props.boxId) {
           return box.$props.boxId;
         }
       });
