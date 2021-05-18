@@ -14,14 +14,14 @@
                @add="onDragAdd">
       <template v-for="(c, idx) in contents">
         <slot name="item" :item="c">
-          <vuestro-pill :key="idx" closable @close="removeVal(idx)">
+          <vuestro-pill :key="idx" @[pillEvent]="removeVal(idx)">
             <template v-if="c[keyField]" #title>{{ c[keyField] }}</template>
             <template v-if="c[valueField]" #value>{{ c[valueField] }}</template>
             <template v-else #value>{{ c }}</template>
           </vuestro-pill>
         </slot>
       </template>
-      <template #footer v-if="!single || this.value.length < 1">
+      <template #footer v-if="!readonly && (!single || this.value.length < 1)">
         <div class="vuestro-multi-input-el-wrapper">
           <input ref="inputEl"
                  class="vuestro-multi-input-el"
@@ -76,6 +76,11 @@ export default {
       maxHeight: '100vh', // default to full screen height
       focusDebounce: false,
     };
+  },
+  computed: {
+    pillEvent() {
+      return this.readonly ? 'noop':'close';
+    },
   },
   watch: {
     value(newVal) {
