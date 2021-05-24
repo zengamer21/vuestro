@@ -65,15 +65,17 @@
                 </template>
               </template>
             </td>
+            <!--ROW BUTTONS-->
             <td v-if="$scopedSlots['row-buttons']">
               <div class="vuestro-table-row-buttons">
                 <slot name="row-buttons" :item="row" :index="idx"></slot>
               </div>
             </td>
           </tr>
+          <!--DETAIL ROW-->
           <tr v-if="$scopedSlots.detail && isExpanded(idx)" class="vuestro-table-detail-row">
             <td v-if="$scopedSlots.detail"><!-- spacer --></td>
-            <td :colspan="headers.length">
+            <td :colspan="headers.length + ($scopedSlots['row-buttons'] ? 1:0)">
               <slot name="detail" :item="row"></slot>
             </td>
           </tr>
@@ -203,6 +205,12 @@ export default {
       } else {
         this.expandedRows.push(idx);
       }
+    },
+    expandAll() {
+      this.expandedRows = [...Array(this.data.length).keys()];
+    },
+    collapseAll() {
+      this.expandedRows = [];
     },
     addFilter(field, value, op='include') {
       if (!_.find(this.filter, { field, value })) {

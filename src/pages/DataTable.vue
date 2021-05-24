@@ -109,6 +109,7 @@
         </vuestro-table>
       </vuestro-panel>
     </vuestro-card>
+
     <vuestro-card>
       <template #subheading>
         <span>Set the <vuestro-code>header-buttons</vuestro-code> or <vuestro-code>row-buttons</vuestro-code> slot to provide buttons at the end of the header or row</span>
@@ -128,6 +129,49 @@
               <vuestro-icon name="edit"></vuestro-icon>
             </vuestro-button>
             <vuestro-confirm-delete></vuestro-confirm-delete>
+          </template>
+        </vuestro-table>
+      </vuestro-panel>
+    </vuestro-card>
+
+    <vuestro-card>
+      <template #subheading>
+        <span>Set the <vuestro-code>detail</vuestro-code> slot to provide an expandable detail row</span>
+      </template>
+      <vuestro-panel>
+        <vuestro-table ref="tableWithDetail"
+                       :options="exampleOptions2"
+                       :data="exampleData">
+          <template #header-buttons>
+            <vuestro-button pill no-border @click="$refs.tableWithDetail.expandAll()">
+              <template #icon>
+                <vuestro-icon name="expand-alt"></vuestro-icon>
+              </template>
+              Expand All
+            </vuestro-button>
+            <vuestro-button pill no-border @click="$refs.tableWithDetail.collapseAll()">
+              <template #icon>
+                <vuestro-icon name="compress-alt"></vuestro-icon>
+              </template>
+              Collapse All
+            </vuestro-button>
+          </template>
+          <template #row-buttons="{ index }">
+            <vuestro-button round no-border>
+              <vuestro-icon name="eye"></vuestro-icon>
+            </vuestro-button>
+            <vuestro-button round no-border>
+              <vuestro-icon name="edit"></vuestro-icon>
+            </vuestro-button>
+            <vuestro-confirm-delete></vuestro-confirm-delete>
+          </template>
+          <template #detail="{ item }">
+            <vuestro-container>
+              Detail row with access to data as &nbsp;<vuestro-code>item</vuestro-code>:
+              <vuestro-card>
+                <vuestro-object-browser :data="item"></vuestro-object-browser>
+              </vuestro-card>
+            </vuestro-container>
           </template>
         </vuestro-table>
       </vuestro-panel>
