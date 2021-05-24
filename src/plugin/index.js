@@ -268,6 +268,14 @@ export default {
           downloadAnchorNode.click();
           downloadAnchorNode.remove();
         },
+        vuestroDownloadWithIframe(url) {
+          let hiddenIFrameID = `vuestroDownloadWithIframe-${Date.now()}`;
+          let iframe = document.createElement('iframe');
+          iframe.id = hiddenIFrameID;
+          iframe.style.display = 'none';
+          document.body.appendChild(iframe);
+          iframe.src = url;
+        },
         vuestroGet(object, path, defaultVal) {
           return _.get(object, path, defaultVal);
         },

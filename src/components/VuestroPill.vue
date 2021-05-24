@@ -238,10 +238,6 @@ export default {
   width: var(--vuestro-control-xl-height);
 }
 
-.vuestro-pill-value.vuestro-pill-slot {
-  flex-grow: 1;
-}
-
 .vuestro-pill.geopattern .vuestro-pill-title {
   background-repeat: repeat;
 }
