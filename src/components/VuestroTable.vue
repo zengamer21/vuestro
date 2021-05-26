@@ -49,11 +49,13 @@
             <td v-if="$scopedSlots.detail" style="width:1px">
               <vuestro-caret :collapsed="!isExpanded(idx)" @click="toggleDetail(idx)"></vuestro-caret>
             </td>
-            <slot v-if="$scopedSlots.row" name="row" :item="row"></slot>
+            <!--ROW SLOT-->
+            <slot v-if="$scopedSlots.row" name="row" :item="row" :index="idx"></slot>
             <td v-else v-for="column in headers"
                 class="vuestro-table-cell"
                 :class="[ `vuestro-table-align-${column.align}`, getClasses(column.classes, column.field, row)]"
                 :style="`padding: ${column.padding}px`">
+              <!--CELL SLOT-->
               <slot v-if="$scopedSlots.cell" name="cell" :item="{ column, row }"></slot>
               <component v-else-if="column.component" :is="column.component" v-model="row[column.field]"></component>
               <template v-else>
@@ -74,9 +76,9 @@
           </tr>
           <!--DETAIL ROW-->
           <tr v-if="$scopedSlots.detail && isExpanded(idx)" class="vuestro-table-detail-row">
-            <td v-if="$scopedSlots.detail"><!-- spacer --></td>
+            <td v-if="$scopedSlots.detail"><!-- gutter/spacer --></td>
             <td :colspan="headers.length + ($scopedSlots['row-buttons'] ? 1:0)">
-              <slot name="detail" :item="row"></slot>
+              <slot name="detail" :item="row" :index="idx"></slot>
             </td>
           </tr>
         </template>

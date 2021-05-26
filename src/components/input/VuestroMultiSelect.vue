@@ -36,12 +36,16 @@
         </div>
       </template>
     </draggable>
-    <div v-if="$slots.dropdown"
+    <div v-if="$scopedSlots.dropdown"
          ref="dropdown"
          class="vuestro-multi-select-dropdown"
          :style="{ visibility: showDropdown ? 'visible':'hidden', 'max-height': maxHeight }"
          @scroll="checkHeight">
-        <slot name="dropdown"></slot>
+        <slot name="dropdown"
+              :searchTerm="searchTerm" 
+              :closeDropdown="closeDropdown"
+              :clearSearchTerm="clearSearchTerm">
+        </slot>
     </div>
   </vuestro-tray>
 </template>
