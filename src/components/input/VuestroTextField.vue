@@ -123,7 +123,8 @@ export default {
   computed: {
     invalid() {
       if (this.beginValidation) {
-        let validation = this.validate(this.value);
+        // send inputBuffer to validation function
+        let validation = this.validate(this.inputBuffer);
         if (_.isString(validation)) {
           return validation;
         }

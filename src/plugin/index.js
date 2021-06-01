@@ -38,6 +38,7 @@ import VuestroMultiSelect from '../components/input/VuestroMultiSelect';
 import VuestroNotifications from '../components/VuestroNotifications';
 import VuestroObjectBrowser from '../components/VuestroObjectBrowser';
 import VuestroPanel from '../components/containers/VuestroPanel';
+import VuestroParameterList from '../components/input/VuestroParameterList';
 import VuestroPill from '../components/VuestroPill';
 import VuestroSankeyChart from '../components/charts/VuestroSankeyChart';
 import VuestroSidebar from '../components/sidebar/VuestroSidebar';
@@ -97,6 +98,7 @@ export default {
     Vue.component(VuestroNotifications.name, VuestroNotifications);
     Vue.component(VuestroObjectBrowser.name, VuestroObjectBrowser);
     Vue.component(VuestroPanel.name, VuestroPanel);
+    Vue.component(VuestroParameterList.name, VuestroParameterList);
     Vue.component(VuestroPill.name, VuestroPill);
     Vue.component(VuestroSankeyChart.name, VuestroSankeyChart);
     Vue.component(VuestroSidebar.name, VuestroSidebar);

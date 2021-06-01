@@ -17,6 +17,7 @@ import InputsSpinner from './pages/InputsSpinner';
 import InputsText from './pages/InputsText';
 import InputsUpload from './pages/InputsUpload';
 import InputsMulti from './pages/InputsMulti';
+import InputsParameterList from './pages/InputsParameterList';
 import Containers from './pages/Containers';
 import ContainersBreadcrumb from './pages/ContainersBreadcrumb';
 import ContainersContainer from './pages/ContainersContainer';
@@ -401,6 +402,15 @@ export default new Router({
           name: 'upload',
           path: 'upload',
           component: InputsUpload,
+        },
+        {
+          meta: {
+            title: 'Parameter List',
+            sidebar: true,
+          },
+          name: 'parameter-list',
+          path: 'parameter-list',
+          component: InputsParameterList,
         },
       ]
     },

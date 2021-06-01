@@ -13,6 +13,7 @@
                group="vuestro-multi-select"
                @add="onDragAdd">
       <template v-for="(c, idx) in contents">
+        <!--ITEM - SLOT PER ITEM-->
         <slot name="item" :item="c">
           <vuestro-pill :key="idx" @[pillEvent]="removeVal(idx)">
             <template v-if="c[keyField]" #title>{{ c[keyField] }}</template>
@@ -21,6 +22,7 @@
           </vuestro-pill>
         </slot>
       </template>
+      <!--FOOTER (DEFAULT INPUT FIELD)-->
       <template #footer v-if="!readonly && (!single || this.value.length < 1)">
         <div class="vuestro-multi-input-el-wrapper">
           <input ref="inputEl"
@@ -36,6 +38,7 @@
         </div>
       </template>
     </draggable>
+    <!--DROPDOWN-->
     <div v-if="$scopedSlots.dropdown"
          ref="dropdown"
          class="vuestro-multi-select-dropdown"
