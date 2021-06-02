@@ -35,8 +35,6 @@
 
 <script>
 
-/* global _ */
-
 export default {
   name: 'InputsParameterList',
   data() {
@@ -48,6 +46,7 @@ export default {
           description: 'The hostname of the server',
           field: 'host',
           type: 'string',
+          icon: 'server',
         },
         {
           title: 'Port',
@@ -67,6 +66,51 @@ export default {
           description: 'Example of boolean',
           field: 'enabled',
           type: 'boolean',
+          icon: 'check',
+        },
+        {
+          title: 'Names',
+          description: 'Example of array of strings',
+          field: 'names',
+          type: 'array',
+          items: 'string',
+        },
+        {
+          title: 'Start Date',
+          description: 'Example of single date selection',
+          field: 'date',
+          type: 'date',
+          icon: 'calendar',
+        },
+        {
+          title: 'Sub-Object',
+          description: 'Example of sub-object, groups fully-specified sub-parameter lists',
+          field: 'subObject1',
+          type: 'object',
+          icon: 'cubes',
+          items: [
+            {
+              title: 'Hosts',
+              description: 'All the hosts',
+              field: 'hosts',
+              type: 'array',
+              items: 'string',
+            },
+            {
+              title: 'TLS',
+              description: 'Use TLS for connections',
+              field: 'tls',
+              type: 'boolean',
+              icon: 'certificate',
+            }
+          ],
+        },
+        {
+          title: 'Notes',
+          description: 'Example of free-form text',
+          field: 'notes',
+          type: 'text',
+          icon: 'file-alt',
         },
       ],
       editorOptions: {

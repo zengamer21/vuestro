@@ -21,7 +21,7 @@
              class="vuestro-dropdown-menu-content"
              :class="{ noPadding }"
              @click="onContentClick">
-          <slot></slot>
+          <slot :close="close"></slot>
         </div>
         <div class="vuestro-dropdown-menu-buttons" v-if="$slots.buttons">
           <slot name="buttons"></slot>

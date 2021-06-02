@@ -18,6 +18,7 @@ export default {
     enabled: { type: Boolean, default: true },
     validator: { type: Function, default: () => true },
     render: { type: Function, default: (d) => d },
+    autoFocus: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -44,6 +45,11 @@ export default {
   },
   mounted() {
     this.updateEnable();
+    if (this.autoFocus) {
+      this.$nextTick(() => {
+        this.onFocus();
+      });
+    }
   },
   methods: {
     updateEnable() {
@@ -93,13 +99,22 @@ export default {
 
 </script>
 
+<style>
+
+.vuestro-app {
+  --vuestro-editable-text-padding: 0.2em;
+}
+
+</style>
+
 <style scoped>
 
 .vuestro-editable-text {
-  padding: 3px;
+  padding: var(--vuestro-editable-text-padding);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  min-width: 1px;
 }
 
 .vuestro-editable-text:focus {

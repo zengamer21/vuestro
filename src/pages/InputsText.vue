@@ -256,6 +256,7 @@ export default {
 .example-flexbox-fixed {
   margin-top: 10px;
   width: 80px !important;
+  overflow: hidden;
 }
 
 </style>

@@ -107,6 +107,7 @@ export default {
     autocomplete: { type: String, default: null },
     spellcheck: { type: String, default: null },
     stretch: { type: Boolean, default: false },
+    autoFocus: { type: Boolean, default: false },
   },
   data() {
     return {
@@ -162,6 +163,11 @@ export default {
         this.$refs.inputEl.setSelectionRange(0, 999);
       });
     }
+    if (this.autoFocus) {
+      this.$nextTick(() => {
+        this.focus();
+      });
+    }
     this.$nextTick(() => {
       this.updateStyle();
     });
@@ -207,7 +213,7 @@ export default {
       this.beginValidation = true; // begin validation
       this.$emit('keyup', e);
     },
-    onFocus() {
+    onFocus(e) {
       if (this.$slots.dropdown) {
         this.showDropdown = true;
       }
