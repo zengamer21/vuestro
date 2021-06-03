@@ -41,19 +41,19 @@
 export default {
   name: 'VuestroPanel',
   props: {
-    gutter: { type: String, default: 'md' },
-    spinner: { type: Boolean, default: false },
-    collapsible: { type: Boolean, default: false },
-    deferContent: { type: Boolean, default: false },   // defer loading/rendering of content until expanded
-    collapsed: { type: Boolean, default: false },
-    contentPadding: { type: String, default: '' },
-    scroll: { type: Boolean, default: false },
-    frame: { type: Boolean, default: false },
-    noBorder: { type: Boolean, default: false },
-    stretch: { type: Boolean, default: true },
-    overflowHidden: { type: Boolean, default: false },
-    draggable: { type: Boolean, default: false },
-    row: { type: Boolean, default: false },
+    gutter: { type: String, default: 'md' },         // gutter size override, usually inherited
+    spinner: { type: Boolean, default: false },      // true if spinner should be shown next to title
+    collapsible: { type: Boolean, default: false },  // true if collapsible
+    collapsed: { type: Boolean, default: false },    // true if set collapsed mode
+    deferContent: { type: Boolean, default: false }, // defer loading/rendering of content until expanded
+    contentPadding: { type: String, default: '' },   // content padding size, default is no padding, options are sm,md,lg
+    scroll: { type: Boolean, default: false },       // true for scrolling content
+    frame: { type: Boolean, default: false },        // true for absolutely positioned content ("frame-mode")
+    noBorder: { type: Boolean, default: false },     // true for no border
+    stretch: { type: Boolean, default: true },       // true for flexbox-stretch  
+    overflowHidden: { type: Boolean, default: false }, // true for overflow hidden on content
+    draggable: { type: Boolean, default: false },    // true for .drag class and move cursor on title
+    row: { type: Boolean, default: false },          // true for flexbox row mode instead of column
   },
   computed: {
     hasTitlebar() {

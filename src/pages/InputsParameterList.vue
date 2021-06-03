@@ -74,6 +74,8 @@ export default {
           field: 'names',
           type: 'array',
           items: 'string',
+          collapsible: true,
+          collapsed: true,
         },
         {
           title: 'Start Date',
@@ -88,6 +90,7 @@ export default {
           field: 'subObject1',
           type: 'object',
           icon: 'cubes',
+          collapsible: true,
           items: [
             {
               title: 'Hosts',

@@ -2,12 +2,16 @@
   <vuestro-container gutter="none" column content="stretch">
     <!--PARAMETER ITEMs-->
     <vuestro-geo-pattern class="vuestro-parameter-list-item"
-                         v-for="(p, idx) in parameters"
-                         :key="p.field"
+                         v-for="(p, idx) in parameters" :key="p.field"
                          :seed="`${p.type}_type`">
       <!--TITLE BAR-->
       <vuestro-container justify="space-between" gutter="none" align="center">
         <div class="vuestro-parameter-list-name">
+          <vuestro-caret v-if="p.collapsible"
+                         :collapsed="isCollapsed(p)"
+                         @click="toggleCollapse(p)">
+          </vuestro-caret>
+
           <vuestro-icon v-if="p.icon" :name="p.icon"></vuestro-icon>
           {{ p.title }}
         </div>
@@ -16,7 +20,8 @@
         </div>
       </vuestro-container>
       <!--BODY/CONTENT-->
-      <vuestro-container class="vuestro-parameter-list-body"
+      <vuestro-container v-if="!isCollapsed(p)"
+                         class="vuestro-parameter-list-body"
                          column
                          gutter="sm"
                          content="stretch">
@@ -145,6 +150,7 @@ export default {
   },
   data() {
     return {
+      collapsed: {},
       editorOptions: {
         wrap: true,
         minLines: 10,
@@ -199,6 +205,19 @@ export default {
         }
       }
     },
+    isCollapsed(param) {
+      if (this.collapsed[param.field] === undefined) {
+        if (param.collapsed === undefined) {
+          this.$set(this.collapsed, param.field, false);
+        } else {
+          this.$set(this.collapsed, param.field, !!this.collapsed);
+        }
+      }
+      return this.collapsed[param.field];
+    },
+    toggleCollapse(param) {
+      this.$set(this.collapsed, param.field, !this.collapsed[param.field]);
+    },
   },
 };
 
@@ -215,6 +234,7 @@ export default {
   display: flex;
 }
 .vuestro-parameter-list-name > .vuestro-icon {
+  margin-left: 0.1em;
   margin-right: 0.3em;
 }
 
