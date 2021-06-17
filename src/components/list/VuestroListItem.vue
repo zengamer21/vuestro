@@ -69,6 +69,12 @@ export default {
 <style>
 
 .vuestro-app {
+  --vuestro-list-item-title-font-size: 0.9em;
+  --vuestro-list-item-title-font-weight: 600;
+  --vuestro-list-item-description-font-size: 0.85em;
+  --vuestro-list-item-content-font-size: 0.8em;
+  --vuestro-list-item-icon-margin: 0.8em 0 0 0;
+  --vuestro-list-item-inner-margin: 0.4em 0.2em 0.4em 0.8em;
   --vuestro-list-item-selected-bg: var(--vuestro-selection);
   --vuestro-list-item-alt-bg: var(--vuestro-light);
   --vuestro-list-item-padding: 0.3em 0.4em;
@@ -114,13 +120,13 @@ export default {
 	z-index: -2;
 }
 .vuestro-list-item-icon {
-  margin-left: 0.8em;
+  margin: var(--vuestro-list-item-icon-margin);
   display: flex;
   align-items: center;
 }
 .vuestro-list-item-inner {
   min-width: 0;
-  margin: 0.4em 0.2em 0.4em 0.8em;
+  margin: var(--vuestro-list-item-inner-margin);
   display: flex;
 }
 .vuestro-list-item-text {
@@ -128,21 +134,21 @@ export default {
   min-width: 0;
 }
 .vuestro-list-item-title {
-  font-size: 0.9em;
-  font-weight: 600;
+  font-size: var(--vuestro-list-item-title-font-size);
+  font-weight: var(----vuestro-list-item-title-font-weight);
 	text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 .vuestro-list-item-description {
-  font-size: 0.9em;
+  font-size: var(--vuestro-list-item-description-font-size);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
 }
 .vuestro-list-item-content {
   color: var(--vuestro-text-color-muted);
-  font-size: 0.8em;
+  font-size: var(--vuestro-list-item-content-font-size);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
