@@ -73,7 +73,7 @@ export default {
   --vuestro-list-item-title-font-weight: 600;
   --vuestro-list-item-description-font-size: 0.85em;
   --vuestro-list-item-content-font-size: 0.8em;
-  --vuestro-list-item-icon-margin: 0.8em 0 0 0;
+  --vuestro-list-item-icon-margin: 0 0 0 0.8em;
   --vuestro-list-item-inner-margin: 0.4em 0.2em 0.4em 0.8em;
   --vuestro-list-item-selected-bg: var(--vuestro-selection);
   --vuestro-list-item-alt-bg: var(--vuestro-light);
