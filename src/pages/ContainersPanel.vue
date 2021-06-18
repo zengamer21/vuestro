@@ -42,7 +42,7 @@
       </vuestro-card>
 
       <vuestro-card cols="6">
-        <vuestro-panel content-padding="lg" style="--vuestro-panel-bg: var(--vuestro-purple); --vuestro-panel-fg: var(--vuestro-text-color-inverse)">
+        <vuestro-panel content-padding="lg" style="--vuestro-panel-bg: var(--vuestro-purple)">
           <template #title>Colorized Vuestro Panel Titlebar</template>
           <template #toolbar>
             <vuestro-button size="sm" no-border pill variant="white">
@@ -58,7 +58,7 @@
               <vuestro-icon name="times"></vuestro-icon>
             </vuestro-button>
           </template>
-          <p>Colorize the panel background by setting the color property. If you choose a dark color, add the dark property as well for contrasting text.</p>
+          <p>Colorize the panel background by setting CSS vars</p>
           <p>Set the stretch property to false to prevent the panel from stretching to available vertical space.</p>
         </vuestro-panel>
       </vuestro-card>

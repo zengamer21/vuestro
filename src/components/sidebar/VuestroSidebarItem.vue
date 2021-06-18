@@ -4,7 +4,7 @@
     <!--CHILDREN-->
     <template v-if="route.children">
       <a :class="{ 'vuestro-router-link-active': isParentRoute }"
-         :style="{ 'background-color': route.meta.bgColor, color: route.meta.fgColor }"
+         :style="{ 'background-color': route.meta.bgColor, '--vuestro-sidebar-fg': route.meta.fgColor }"
          @click="toggle">
         <vuestro-icon v-if="route.meta.icon" :name="route.meta.icon"></vuestro-icon>
         <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
@@ -22,7 +22,7 @@
                  :to="route"
                  active-class="vuestro-router-link-active"
                  exact-active-class="vuestro-router-link-exact-active"
-                 :style="{ 'background-color': route.meta.bgColor, color: route.meta.fgColor }">
+                 :style="{ 'background-color': route.meta.bgColor, '--vuestro-sidebar-fg': route.meta.fgColor }">
       <vuestro-icon v-if="route.meta.icon" :name="route.meta.icon"></vuestro-icon>
       <span v-if="route.meta.svg" v-html="route.meta.svg"></span>
       <div class="vuestro-sidebar-item-title">

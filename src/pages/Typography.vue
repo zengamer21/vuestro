@@ -34,6 +34,23 @@
     </vuestro-card>
 
     <vuestro-card>
+      <template #subheading>Search Term Highlighting</template>
+      <template #description>
+        <span>VuestroSearchHighlight handles rendering a string with a search term highlight</span>
+      </template>
+      <vuestro-container>
+        <vuestro-search-highlight searchTerm="consect">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, laborum fuga nihil eligendi exercitationem suscipit aliquid deleniti eveniet aspernatur accusantium quasi ullam et iusto quis sunt odit voluptas! Maxime, recusandae? Lorem ipsum dolor sit amet, Consectetur adipisicing elit.
+        </vuestro-search-highlight>
+      </vuestro-container>
+    </vuestro-card>
+    <vuestro-card>
+      <vuestro-container>
+        <vuestro-search-highlight searchTerm="wontfindthis">String with no matches!</vuestro-search-highlight>
+      </vuestro-container>
+    </vuestro-card>
+
+    <vuestro-card>
       <template #subheading>Icons</template>
       <template #description>
         Vuestro currently contains all the free FontAwesome icons. They are abstracted through the VuestroIcon component, but the names and most of the prop options are passed through.

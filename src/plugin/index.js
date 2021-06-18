@@ -41,6 +41,7 @@ import VuestroPanel from '../components/containers/VuestroPanel';
 import VuestroParameterList from '../components/input/VuestroParameterList';
 import VuestroPill from '../components/VuestroPill';
 import VuestroSankeyChart from '../components/charts/VuestroSankeyChart';
+import VuestroSearchHighlight from '../components/text/VuestroSearchHighlight';
 import VuestroSidebar from '../components/sidebar/VuestroSidebar';
 import VuestroSpinner from '../components/input/VuestroSpinner';
 import VuestroStatPanel from '../components/charts/VuestroStatPanel';
@@ -106,6 +107,7 @@ export default {
     Vue.component(VuestroStatPanel.name, VuestroStatPanel);
     Vue.component(VuestroSvgTooltip.name, VuestroSvgTooltip);
     Vue.component(VuestroBarSvgTooltip.name, VuestroBarSvgTooltip);
+    Vue.component(VuestroSearchHighlight.name, VuestroSearchHighlight);
     Vue.component(VuestroSvgButton.name, VuestroSvgButton);
     Vue.component(VuestroSvgLegend.name, VuestroSvgLegend);
     Vue.component(VuestroTable.name, VuestroTable);

@@ -111,7 +111,7 @@ export default {
 
 .vuestro-dark.vuestro-app {
   --vuestro-panel-bg: #2e2f34;
-  --vuestro-panel-fg: var(--vuestro-text-color-inverse);
+  --vuestro-panel-fg: var(--vuestro-text-color);
   --vuestro-panel-border: var(--vuestro-control-border-width) solid var(--vuestro-outline);
 }
 
