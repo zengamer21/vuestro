@@ -107,10 +107,12 @@ export default {
 
 .vuestro-app {
   --vuestro-pill-radius: 999px;
+  --vuestro-pill-title-fg: var(--vuestro-text-color-inverse);
   --vuestro-pill-value-fg: var(--vuestro-text-color);
   --vuestro-pill-value-bg: var(--vuestro-widget-light-bg);
 }
 .vuestro-dark {
+  --vuestro-pill-title-fg: var(--vuestro-text-color);
   --vuestro-pill-value-fg: var(--vuestro-text-color);
   --vuestro-pill-value-bg: var(--vuestro-gray-med);
 }
@@ -177,7 +179,7 @@ export default {
   align-items: center;
   justify-content: center;
   background-color: var(--vuestro-primary);
-  color: var(--vuestro-text-color-inverse);
+  color: var(--vuestro-pill-title-fg);
   border-radius: var(--vuestro-pill-radius);
 }
 .vuestro-pill-title-slot {

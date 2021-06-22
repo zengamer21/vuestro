@@ -204,12 +204,12 @@ export default {
   --vuestro-danger: var(--vuestro-red);
 
   /* colors responsible for change to dark */
-  --vuestro-content-bg: #eeeeee;
+  --vuestro-content-bg: #dfdfdf;
 
   --vuestro-widget-light-bg: #e8e9ec;
   --vuestro-widget-dark-bg: #2f353f;
 
-  --vuestro-field-bg: #dcdcdc;
+  --vuestro-field-bg: #c7c5c5;
 
   --vuestro-popup-bg: #464748;
   --vuestro-popup-fg: #eee;
