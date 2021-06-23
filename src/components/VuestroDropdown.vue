@@ -124,6 +124,7 @@ export default {
     },
     // this is the internal activation method
     activate() {
+      this.$emit('enter');
       this.active = true;
       this.checkDimensions();
     },
