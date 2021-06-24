@@ -45,7 +45,7 @@
          :style="{ visibility: showDropdown ? 'visible':'hidden', 'max-height': maxHeight }"
          @scroll="checkHeight">
         <slot name="dropdown"
-              :searchTerm="searchTerm" 
+              :searchTerm="searchTerm"
               :closeDropdown="closeDropdown"
               :clearSearchTerm="clearSearchTerm">
         </slot>
@@ -192,6 +192,7 @@ export default {
   flex-grow: 1;
   flex-wrap: wrap;
   padding: 0.2em;
+  max-width: 100%;
 }
 /* margin override for vuestro-pills in the multi (common) */
 .vuestro-multi-draggable > .vuestro-pill {

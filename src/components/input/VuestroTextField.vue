@@ -369,7 +369,6 @@ export default {
 }
 .vuestro-text-field-placeholder.active {
   top: -1px;
-  left: 0 !important;
   font-size: 0.8em;
   padding-left: 3px;
   padding-right: 3px;
@@ -378,6 +377,7 @@ export default {
   padding: 0 calc(var(--vuestro-control-border-radius)*2);
 }
 .vuestro-text-field-outline .vuestro-text-field-placeholder.active {
+  left: 0 !important;
   padding: 0 calc(var(--vuestro-control-border-radius)*3);
 }
 
@@ -431,7 +431,7 @@ export default {
   left: 1em;
   transform: translate(0, -50%);
   pointer-events: none;
-  filter: invert(50%);
+  color: var(--vuestro-text-color-muted);
 }
 .vuestro-text-field.center .vuestro-text-field-hint {
   left: 50%;

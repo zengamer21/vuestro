@@ -42,7 +42,7 @@
       <template #subheading>...and text colors</template>
     </vuestro-card>
     <vuestro-card cols="3" v-for="c in textColors" :key="c">
-      <div class="color-chip" :style="{color: 'black', 'background-color': `var(${c})`}">
+      <div class="color-chip" :style="{color: 'white', 'background-color': `var(${c})`}">
         {{ c }}
       </div>
     </vuestro-card>

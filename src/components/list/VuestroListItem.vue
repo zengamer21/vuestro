@@ -128,6 +128,7 @@ export default {
   min-width: 0;
   margin: var(--vuestro-list-item-inner-margin);
   display: flex;
+  flex-grow: 1;
 }
 .vuestro-list-item-text {
   flex: 1;

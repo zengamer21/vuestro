@@ -25,12 +25,19 @@
         </template>
       </vuestro-text-field>
       <vuestro-text-field variant="outline" size="xl" placeholder="xl Outline Text Field" v-model="exampleText"></vuestro-text-field>
-      <vuestro-text-field variant="shaded" placeholder="Shaded Text Field" v-model="exampleText"></vuestro-text-field>
-      <vuestro-text-field placeholder="Existing Value" v-model="exampleEditableText"></vuestro-text-field>
-			<vuestro-text-field placeholder="Responsive Value" v-model="delayedText"></vuestro-text-field>
-      <vuestro-text-field placeholder="With Hint" hint="go on, type something..." v-model="exampleText"></vuestro-text-field>
-      <vuestro-text-field placeholder="With Clear Button" hint="type something and the clear button will appear!" v-model="exampleText" clearable></vuestro-text-field>
-      <vuestro-text-field placeholder="Centered Cursor" hint="centered hint, too!" center v-model="exampleText"></vuestro-text-field>
+      
+      <vuestro-text-field size="lg" variant="shaded" placeholder="Shaded Text Field" v-model="exampleText"></vuestro-text-field>
+      <vuestro-text-field size="lg" variant="shaded" placeholder="Shaded Text Field w/ Icon" v-model="exampleText">
+        <template #icon>
+          <vuestro-icon name="tractor"></vuestro-icon>
+        </template>
+      </vuestro-text-field>
+      
+      <vuestro-text-field size="lg" placeholder="Existing Value" v-model="exampleEditableText"></vuestro-text-field>
+			<vuestro-text-field size="lg" placeholder="Responsive Value" v-model="delayedText"></vuestro-text-field>
+      <vuestro-text-field size="lg" placeholder="With Hint" hint="go on, type something..." v-model="exampleText"></vuestro-text-field>
+      <vuestro-text-field size="lg" placeholder="With Clear Button" hint="type something and the clear button will appear!" v-model="exampleText" clearable></vuestro-text-field>
+      <vuestro-text-field size="lg" placeholder="Centered Cursor" hint="centered hint, too!" center v-model="exampleText"></vuestro-text-field>
     </vuestro-card>
 
     <vuestro-card>

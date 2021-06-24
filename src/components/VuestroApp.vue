@@ -1,3 +1,6 @@
+//
+// This is the main entry point to Vuestro, your app should have this at the outermost layer
+//
 <template>
   <div class="vuestro-app" :class="{ mobile: $root.mobile, 'vuestro-dark': isDark }">
     <transition name="vuestro-app-modes" mode="out-in">
@@ -149,7 +152,7 @@ export default {
 
 /* GLOBAL STYLE VARIABLES */
 .vuestro-app {
-  /* dimensions */
+  /* global dimensions */
   --vuestro-font-size: 14px;
   --vuestro-selection-border-radius: 8px;
   --vuestro-control-border-width: 1px;
@@ -196,6 +199,7 @@ export default {
   --vuestro-darker: #131313;
   --vuestro-black: #000;
 
+  /* semantic colors */
   --vuestro-primary: var(--vuestro-cobalt);
   --vuestro-secondary: #757575;
   --vuestro-success: var(--vuestro-green);
@@ -223,10 +227,13 @@ export default {
 
   --vuestro-notifications-bg: var(--vuestro-salmon);
 
+  /* text colors */
   --vuestro-text-color: #323334;
   --vuestro-text-color-secondary: #696969;
   --vuestro-text-color-muted: #888;
-  --vuestro-text-color-inverse: #eee;
+  --vuestro-text-color-inverse: #eee; /* inverse text, changes with theme */
+  --vuestro-text-color-dark: #323334; /* meant for always dark text */
+  --vuestro-text-color-light: #ccc; /* meant for always light text */
 }
 
 /* DARK UI OVERRIDES */
@@ -281,7 +288,7 @@ export default {
   --vuestro-text-color: #ccc;
   --vuestro-text-color-secondary: #696969;
   --vuestro-text-color-muted: #aaa;
-  --vuestro-text-color-inverse: #323334;
+  --vuestro-text-color-inverse: #323334; /* inverse text, changes with theme */
 }
 
 .vuestro-app.mobile {

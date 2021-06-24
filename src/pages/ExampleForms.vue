@@ -27,7 +27,7 @@
           <template #description>50/50 split between dropdown and button</template>
         </vuestro-card>
         <vuestro-card cols="6">
-          <vuestro-dropdown stretch>
+          <vuestro-dropdown>
             <template #button>
               <vuestro-button size="md" rounded justify="flex-start">Dropdown with md button</vuestro-button>
             </template>
@@ -36,7 +36,7 @@
           </vuestro-dropdown>
         </vuestro-card>
         <vuestro-card cols="6">
-          <vuestro-button size="md" stretch rounded>md button</vuestro-button>
+          <vuestro-button size="md" rounded>md button</vuestro-button>
         </vuestro-card>
       </vuestro-container>
 
