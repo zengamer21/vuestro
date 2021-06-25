@@ -1,6 +1,6 @@
 <template>
   <div class="vuestro-panel"
-       :class="[ gutter, { scroll, stretch, noBorder, hasTitlebar }]">
+       :class="[ gutter, { scroll, noStretch, noBorder, hasTitlebar }]">
     <!--TOOLBAR-->
     <div v-if="hasTitlebar" class="vuestro-panel-title-toolbar">
       <vuestro-caret v-if="collapsible"
@@ -50,7 +50,7 @@ export default {
     scroll: { type: Boolean, default: false },       // true for scrolling content
     frame: { type: Boolean, default: false },        // true for absolutely positioned content ("frame-mode")
     noBorder: { type: Boolean, default: false },     // true for no border
-    stretch: { type: Boolean, default: true },       // true for flexbox-stretch  
+    noStretch: { type: Boolean, default: false },     // true for disable flexbox-stretch  
     overflowHidden: { type: Boolean, default: false }, // true for overflow hidden on content
     draggable: { type: Boolean, default: false },    // true for .drag class and move cursor on title
     row: { type: Boolean, default: false },          // true for flexbox row mode instead of column
@@ -143,9 +143,10 @@ export default {
   position: relative;
   border: var(--vuestro-panel-border);
   min-width: 0;
-}
-.vuestro-panel.stretch {
   flex-grow: 1;
+}
+.vuestro-panel.noStretch {
+  flex-grow: 0;
 }
 .vuestro-panel:not(:first-child) {
   margin-top: var(--gutter-size);
