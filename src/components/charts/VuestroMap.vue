@@ -89,6 +89,7 @@ export default {
   props: {
     data: { type: Array, default: () => [] },
     options: { type: Object, default: () => ({}) },
+    markers: { type: Object, default: () => ({}), required: false},
   },
   data() {
     return {
@@ -225,7 +226,7 @@ export default {
                 kvps[k] = d[k];
               }
             }
-            markers.addLayer(L.marker(d[this.dataCoordinateKey]).bindPopup(this.$refs.popupContent).on('popupopen', () => {
+            markers.addLayer(L.marker(d[this.dataCoordinateKey], (this.markers.data ? {icon: this.markers.data.icon} : undefined)).bindPopup(this.$refs.popupContent).on('popupopen', () => {
               this.currentItem = {
                 title: d[this.dataTitleKey],
                 shape: 'Marker',
@@ -269,6 +270,13 @@ export default {
         drawCircleMarker: false,
         cutPolygon: false,
       });
+      if (this.markers.draw) {
+        this.map.pm.setGlobalOptions({
+          markerStyle: {
+            icon: this.markers.draw.icon,
+          }
+        })
+      }
       this.map.on('pm:create', (e) => {
         e.layer.bindPopup(this.$refs.popupContent).on('popupopen', () => {
           this.currentItem = this.handleShapeClick(e);
